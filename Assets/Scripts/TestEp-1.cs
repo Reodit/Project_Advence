@@ -15,6 +15,7 @@ public static class Consts
     public const string DataSheetSymbolALLKEY = "ALL; KEY";
     public const string DataSheetSymbolALL = "ALL";
     public const string DataSheetSymbolDESIGN = "DESIGN";
+    public const string UI_PREFAB_PATH = "";
 }
 
 public static class DataUtility_EX
