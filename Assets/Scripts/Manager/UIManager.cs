@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utility;
 
 public class UIManager :MonoBehaviour
 {
-    public const string UI_PREFAB_PATH = "";
     private static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
 
@@ -32,12 +32,12 @@ public class UIManager :MonoBehaviour
         GameObject go;
         var name = typeof(T).ToString();
 
-        // ÀÌ¹Ì ºÒ·¯¿Â UIÀÏ °æ¿ì
+        // ì´ë¯¸ ë¶ˆëŸ¬ì˜¨ UIì¼ ê²½ìš°
         if (_UIDict.ContainsKey(name))
         {
             go = _UIDict[name];
         }
-        // »õ·Î ºÒ·¯¿Ã UIÀÏ °æ¿ì
+        // ìƒˆë¡œ ë¶ˆëŸ¬ì˜¬ UIì¼ ê²½ìš°
         else
         {
             go = Resources.Load(Consts.UI_PREFAB_PATH + name) as GameObject;
@@ -62,7 +62,7 @@ public class UIManager :MonoBehaviour
         T ui = go.GetComponent<T>();
 
         go.SetActive(true);
-        // ÀÌÀü UI ºñÈ°¼ºÈ­
+        // ì´ì „ UI ë¹„í™œì„±í™”
 
         if (go.layer == 7)
             _uiPopUpStack.Push(ui);
