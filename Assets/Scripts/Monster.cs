@@ -14,7 +14,7 @@ public class Monster : MonoBehaviour
     public int monsterMaxHp;
     public int currentHp;
     public float dieDelay;
-
+    public int rewardExp;
     public Image Hpbar;
     void Start()
     {
@@ -36,13 +36,18 @@ public class Monster : MonoBehaviour
         Destroy(this.gameObject ,dieDelay);
     }
 
+    public void OnDestroy()
+    {
+        GameManager.Instance.PlayerMove.currentExp += rewardExp;
+    }
+
     void OnTriggerStay(Collider other)
     {
         // 현재 시간이 마지막 트리거 호출 시간 + 쿨다운 시간보다 큰 경우에만 로직 실행
         if (Time.time > lastTriggerTime + triggerCooldown && other.gameObject.tag == "Player")
         {
             var player = other.GetComponent<PlayerMove>();
-            player.Hit();
+            player.isHit = true;
             player.currentHp -= 3;
             player.Hpbar.fillAmount = (float) player.currentHp / player.playerMaxHp;
             lastTriggerTime = Time.time;

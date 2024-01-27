@@ -11,9 +11,52 @@ public class PlayerMove : MonoBehaviour
     public int currentHp;
     public int playerMaxHp;
     public Image Hpbar;
+    public Dictionary<int, int> needExpNextLvl;
+    public int currentExp;
+    public int currentLvl;
+    public int maxLvl;
+    public bool isHit = false;
+    private Coroutine flashCoroutine = null; // 코루틴의 참조를 저장할 변수
+
     void Update()
     {
         Move();
+        LevelUp();
+        if (isHit)
+        {
+            Hit();
+        }
+    }
+
+    public void LevelUp()
+    {
+        if (currentLvl >= maxLvl)
+        {
+            currentExp = needExpNextLvl[maxLvl];
+            currentLvl = maxLvl;
+            return;
+        }
+        
+        if (needExpNextLvl[currentLvl] <= currentExp)
+        {
+            currentExp -= needExpNextLvl[currentLvl];
+            currentLvl++;
+        }
+
+    }
+    
+    private void Awake()
+    {
+        GameManager.Instance.PlayerMove = this;
+        needExpNextLvl = new Dictionary<int, int>();
+        needExpNextLvl.Add(0, 0);
+        needExpNextLvl.Add(1, 30);
+        needExpNextLvl.Add(2, 60);
+        needExpNextLvl.Add(3, 90);
+        needExpNextLvl.Add(4, 120);
+        currentLvl = 0;
+        currentExp = 0;
+        maxLvl = needExpNextLvl.Count - 1;
     }
 
     void Move()
@@ -43,7 +86,11 @@ public class PlayerMove : MonoBehaviour
     // 피격 함수
     public void Hit()
     {
-        StartCoroutine(FlashHitColor());
+        isHit = false;
+        if (flashCoroutine == null) // 코루틴이 실행 중이 아니라면 코루틴 실행
+        {
+            flashCoroutine = StartCoroutine(FlashHitColor());
+        }    
     }
 
     // 피격 시 색상 변경 코루틴
@@ -67,5 +114,7 @@ public class PlayerMove : MonoBehaviour
         {
             spriteRenderers[i].color = originalColors[i];
         }
+        
+        flashCoroutine = null; // 코루틴이 끝났음을 표시
     }
 }
