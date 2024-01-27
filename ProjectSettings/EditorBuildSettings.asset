@@ -8,25 +8,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/demoblank.unity
     guid: 7dcc867c1b819c34187d7cf1bed88cd5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/14.unity
     guid: 118d930062f23b8498d29e7bb0416eff
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/9.unity
     guid: 01566bca8f8ec5a4c81c94fff6ee951e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/demo_missiles.unity
     guid: 53a44cb1d2dc3214d97af5682ef40c8b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/demo_beams.unity
     guid: f06f0f67fdd8a234994258f42c4beddb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/10.unity
     guid: 20d1c37152ca7334a9fe8e637a975dd5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/13.unity
     guid: d6f35fdcd7a91c54aa36d1657e5ae6ac
   - enabled: 1
