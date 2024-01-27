@@ -24,11 +24,16 @@ public class SPUM_Prefabs : MonoBehaviour
     private AnimationClip[] _animationClips;
     public AnimationClip[] AnimationClips => _animationClips;
     private Dictionary<string, int> _nameToHashPair = new Dictionary<string, int>();
+
+   
+    public List<string> animationStatesNames;
+    public string selectedAnimationName;
     private void InitAnimPair(){
         _nameToHashPair.Clear();
         _animationClips = _anim.runtimeAnimatorController.animationClips;
         foreach (var clip in _animationClips)
         {
+            
             int hash = Animator.StringToHash(clip.name);
             _nameToHashPair.Add(clip.name, hash);
         }
@@ -38,8 +43,33 @@ public class SPUM_Prefabs : MonoBehaviour
     }
     private void Start() {
         UnitTypeChanged.AddListener(InitAnimPair);
+        animationStatesNames = new List<string>() { "RunState", "AttackState", "MagicAttack", "RangedAttack", "Idle" };
+        transform.GetChild(0).gameObject.AddComponent<AnimationFunction>();
     }
-    // 이름으로 애니메이션 실행
+    
+    [ContextMenu("TestScript")]
+    public void PlayTestAnimation()
+    {
+        if (animationCoroutine != null)
+        {
+            StopCoroutine(animationCoroutine);
+        }
+        
+        StartCoroutine(PlayAnimationLoop(selectedAnimationName));
+    }
+
+    private Coroutine animationCoroutine;
+    IEnumerator PlayAnimationLoop(string animationStateName)
+    {
+        // 무한 루프
+        while (true)
+        {
+            _anim.Play(animationStateName);
+
+            // 애니메이션의 길이를 기다린다. 여기서 transitionTime은 애니메이션 사이의 전환 시간을 고려합니다.
+            yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length + 0.01f);
+        }
+    }
     public void PlayAnimation(string name){
 
         Debug.Log(name);
