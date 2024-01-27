@@ -29,28 +29,28 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/13.unity
     guid: d6f35fdcd7a91c54aa36d1657e5ae6ac
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/11.unity
     guid: d96c2260e3b7ecb4bac74d8b6805109d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/3.unity
     guid: 639003f7fb1b41a4c846c78ddbc36276
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/4.unity
     guid: 806adebcce1629741b94047cdf4ca61a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/7.unity
     guid: 8f611dac4dd550a4aaa07f0c02fa271a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/5.unity
     guid: e75dd64d5ff63d444a037a65353b2f35
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/8.unity
     guid: db87ab2f2773c3a4484799fac0b798b0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/6.unity
     guid: 9d5ce22cd55c8c94ebe3804829b185e4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scripts/Pixel Arsenal/Demo/Scenes/12.unity
     guid: 01303b7d8ae92344f92cb6132722ea09
   m_configObjects: {}
