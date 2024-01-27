@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -8,12 +11,31 @@ public class Monster : MonoBehaviour
     [SerializeField] private float lastTriggerTime = -0.5f; // 마지막으로 트리거 함수가 호출된 시간
 
     private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+    public int monsterMaxHp;
+    public int currentHp;
+    public float dieDelay;
 
+    public Image Hpbar;
     void Start()
     {
+        currentHp = monsterMaxHp;
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
     }
+
+    private void Update()
+    {
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
     
+    public void Die()
+    {
+        Destroy(this.gameObject ,dieDelay);
+    }
+
     void OnTriggerStay(Collider other)
     {
         // 현재 시간이 마지막 트리거 호출 시간 + 쿨다운 시간보다 큰 경우에만 로직 실행
@@ -22,6 +44,7 @@ public class Monster : MonoBehaviour
             var player = other.GetComponent<PlayerMove>();
             player.Hit();
             player.currentHp -= 3;
+            player.Hpbar.fillAmount = (float) player.currentHp / player.playerMaxHp;
             lastTriggerTime = Time.time;
         }
     }

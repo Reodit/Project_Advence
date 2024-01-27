@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed = 5f; // 플레이어의 이동 속도
     public MoveArea moveArea; // MoveArea 컴포넌트를 에디터에서 할당
-    public int currentHp = 100;
+    public int currentHp;
+    public int playerMaxHp;
+    public Image Hpbar;
     void Update()
     {
         Move();
@@ -30,6 +33,7 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
+        currentHp = playerMaxHp;
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
     }
     

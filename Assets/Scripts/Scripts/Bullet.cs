@@ -7,16 +7,21 @@ public class Bullet : MonoBehaviour
 {
     public Transform spawnPoint;
     public float speed = 5f; // 총알의 속도
-    private float maxDistance = 10f;
+    public float maxDistance = 10f;
     private PixelArsenalProjectileScript _pixelArsenalProjectileScript;
     private bool _isTriggered;
     private float destroyDelay;
+    public int bulletDamage;
+    private Vector3 initPosition;
+    
     public void Start()
     {
         _isTriggered = false;
         destroyDelay = 0.5f;
+        initPosition = transform.position;
         _pixelArsenalProjectileScript = transform.GetChild(0).GetComponent<PixelArsenalProjectileScript>();
     }
+    
 
     public void TriggerDestruction()
     {
@@ -38,23 +43,26 @@ public class Bullet : MonoBehaviour
     
     public void Update()
     {
-        if (_isTriggered)
-        {
-            
-        }
         Vector3 currentPosition = transform.position;
         Vector3 newPosition = new Vector3(currentPosition.x + speed * Time.deltaTime, currentPosition.y, 0f);
         transform.position = newPosition;
+        
+        if (Vector3.Distance(initPosition, transform.position) >= maxDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
-            return;
+            _pixelArsenalProjectileScript.OnCol();
+            var monster = other.GetComponent<Monster>();
+            monster.Hit();
+            monster.currentHp -= bulletDamage;
+            monster.Hpbar.fillAmount = (float) monster.currentHp / monster.monsterMaxHp;
+            TriggerDestruction();
         }
-        _pixelArsenalProjectileScript.OnCol();
-        other.GetComponent<Monster>().Hit();
-        TriggerDestruction();
     }
 }
