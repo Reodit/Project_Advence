@@ -1,36 +1,29 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Monster : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 플레이어의 이동 속도
-    public MoveArea moveArea; // MoveArea 컴포넌트를 에디터에서 할당
-    public int currentHp = 100;
-    void Update()
-    {
-        Move();
-    }
+    [SerializeField] private float triggerCooldown = 0.5f; // 트리거 호출 간의 쿨다운 시간 (0.5초)
+    [SerializeField] private float lastTriggerTime = -0.5f; // 마지막으로 트리거 함수가 호출된 시간
 
-    void Move()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-
-        Vector3 newPosition = transform.position + new Vector3(moveX, moveY, 0f) * moveSpeed * Time.deltaTime;
-
-        // MoveArea 컴포넌트를 사용하여 새 위치가 이동 영역 내에 있는지 확인
-        newPosition = moveArea.ConstrainPosition(newPosition);
-
-        transform.position = newPosition;
-    }
-    
     private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
     void Start()
     {
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
+    }
+    
+    void OnTriggerStay(Collider other)
+    {
+        // 현재 시간이 마지막 트리거 호출 시간 + 쿨다운 시간보다 큰 경우에만 로직 실행
+        if (Time.time > lastTriggerTime + triggerCooldown && other.gameObject.tag == "Player")
+        {
+            var player = other.GetComponent<PlayerMove>();
+            player.Hit();
+            player.currentHp -= 3;
+            lastTriggerTime = Time.time;
+        }
     }
     
     public Color hitColor = Color.red; // 피격 시 적용할 색상
