@@ -39,7 +39,7 @@ public class SPUM_Prefabs : MonoBehaviour
         }
     }
     private void Awake() {
-        InitAnimPair();
+        //InitAnimPair();
     }
     private void Start() {
         UnitTypeChanged.AddListener(InitAnimPair);
