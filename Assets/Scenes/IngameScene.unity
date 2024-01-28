@@ -584,8 +584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2414dfe58b27e46b990bd97b181928a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterSpawnPoint: {fileID: 1184318182}
+  MoveArea: {fileID: 1924272024}
   IngameUI: {fileID: 8831447331651222881}
-  PlayerMove: {fileID: 9210216005194481664}
   MonsterSpawner: {fileID: 1056201335}
   phaseCount: 3
   currentPhase: 0
@@ -1258,6 +1259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 553444068008694147, guid: 075ff932bbe75422ba7c660eb3ab66d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4256302522621452090, guid: 075ff932bbe75422ba7c660eb3ab66d5,
         type: 3}
       propertyPath: moveArea
@@ -1751,6 +1757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelUpPopUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2569895664349444214, guid: 00780a084b2a345b1ad24d6534ec4c07,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8782425931383028292, guid: 00780a084b2a345b1ad24d6534ec4c07,
         type: 3}
@@ -3337,18 +3348,6 @@ RectTransform:
   m_AnchoredPosition: {x: -610, y: 330}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9210216005194481664 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4256302522621452090, guid: 075ff932bbe75422ba7c660eb3ab66d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 236659913649886349}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ccf8d02c0574ee6b3430caa26f962e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

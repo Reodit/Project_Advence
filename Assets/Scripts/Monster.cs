@@ -53,7 +53,7 @@ public class Monster : MonoBehaviour
             var player = other.GetComponent<PlayerMove>();
             player.isHit = true;
             player.currentHp -= 3;
-            player.Hpbar.fillAmount = (float) player.currentHp / player.playerMaxHp;
+            player.Hpbar.fillAmount = (float) player.currentHp / player.characterData.maxHp;
             lastTriggerTime = Time.time;
         }
     }

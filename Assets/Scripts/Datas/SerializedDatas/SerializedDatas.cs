@@ -1,12 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Enums;
 using UnityEngine;
+
+namespace Enums
+{
+    [Serializable]
+    public enum UpgradeName
+    {
+        AttackDamage = 0,
+        AttackSpeed,
+        MoveSpeed,
+        Defence,
+        CriticalChance
+    }
+}
 
 [Serializable]
 public class CharacterTableScriptableObject : ScriptableObject
 {
-    public List<CharacterTable> CharacterTableList;
+    public List<CharacterTable> characterTableList;
 }
 
 [Serializable]
@@ -37,5 +51,50 @@ public class CharacterTable : IBaseData
         this.maxHp = Convert.ToInt32(row["HP"]);
         this.maxLv = Convert.ToInt32(row["MaxLV"]);
         this.prefabPath = row["Prefab"].ToString();
+    }
+}
+
+[Serializable]
+public class CharacterLevelTableScriptableObject : ScriptableObject
+{
+    public List<CharacterLevelTable> characterLevelTableList;
+}
+
+[Serializable]
+public class CharacterLevelTable : IBaseData
+{
+    public int index;
+    public int level;
+    public int reqExp; 
+    
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.level = Convert.ToInt32(row["Level"]);
+        this.reqExp = Convert.ToInt32(row["ReqExp"]);
+    }
+}
+
+[Serializable]
+public class StatLevelTableScriptableObject : ScriptableObject
+{
+    public List<StatLevelTable> characterLevelTableList;
+}
+
+[Serializable]
+public class StatLevelTable : IBaseData
+{
+    public int index;
+    public int addStatValue;
+    public int statLevel;
+    public UpgradeName upgradeName;
+    public int requireGoldValue;
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.statLevel = Convert.ToInt32(row["Level"]);
+        this.addStatValue = Convert.ToInt32(row["AddStat"]);
+        this.requireGoldValue = Convert.ToInt32(row["Gold"]);
+        this.upgradeName = (UpgradeName)Enum.Parse(typeof(UpgradeName), row["UpgradeName"].ToString());
     }
 }

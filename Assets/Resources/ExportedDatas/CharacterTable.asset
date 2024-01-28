@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8508fa10d0f241a0bc8b2fd9aa228a0, type: 3}
   m_Name: CharacterTable
   m_EditorClassIdentifier: 
-  CharacterTableList:
+  characterTableList:
   - characterName: "\uB8E8\uBE44"
     id: 1
     attackDamage: 50
@@ -23,4 +23,4 @@ MonoBehaviour:
     criticalDamage: 1500
     maxHp: 1000
     maxLv: 30
-    prefabPath: Spum>Spum_Units>Character_Main_Hero1
+    prefabPath: PlayerbleCharacter/Ruby

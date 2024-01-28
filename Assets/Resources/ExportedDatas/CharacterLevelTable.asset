@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: CharacterLevelTable
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterLevelTableScriptableObject
+  characterLevelTableList:
+  - index: 10
+    level: 0
+    reqExp: 0
+  - index: 11
+    level: 1
+    reqExp: 10
+  - index: 12
+    level: 2
+    reqExp: 20
+  - index: 13
+    level: 3
+    reqExp: 50
+  - index: 14
+    level: 4
+    reqExp: 200
+  - index: 15
+    level: 5
+    reqExp: 350
+  - index: 16
+    level: 6
+    reqExp: 508
+  - index: 17
+    level: 7
+    reqExp: 626
+  - index: 18
+    level: 8
+    reqExp: 744
+  - index: 19
+    level: 9
+    reqExp: 862
+  - index: 20
+    level: 10
+    reqExp: 980
+  - index: 21
+    level: 11
+    reqExp: 1098
+  - index: 22
+    level: 12
+    reqExp: 1216
+  - index: 23
+    level: 13
+    reqExp: 1334
+  - index: 24
+    level: 14
+    reqExp: 1452
+  - index: 25
+    level: 15
+    reqExp: 1570
+  - index: 26
+    level: 16
+    reqExp: 1688
+  - index: 27
+    level: 17
+    reqExp: 1806
+  - index: 28
+    level: 18
+    reqExp: 1924
+  - index: 29
+    level: 19
+    reqExp: 2042
+  - index: 30
+    level: 20
+    reqExp: 2160
+  - index: 31
+    level: 21
+    reqExp: 2278
+  - index: 32
+    level: 22
+    reqExp: 2396
+  - index: 33
+    level: 23
+    reqExp: 2514
+  - index: 34
+    level: 24
+    reqExp: 2632
+  - index: 35
+    level: 25
+    reqExp: 2750
+  - index: 36
+    level: 26
+    reqExp: 2868
+  - index: 37
+    level: 27
+    reqExp: 2986
+  - index: 38
+    level: 28
+    reqExp: 3104
+  - index: 39
+    level: 29
+    reqExp: 3222
+  - index: 40
+    level: 30
+    reqExp: 3340
