@@ -39,10 +39,10 @@ public class IngameUI : MonoBehaviour
 
     public void UpdateUIs()
     {
-        levelText.text = GameManager.Instance.PlayerMove.currentLvl == GameManager.Instance.PlayerMove.maxLvl ? 
+        levelText.text = GameManager.Instance.PlayerMove.currentLvl == GameManager.Instance.PlayerMove.characterData.maxLv ? 
             "Max Lv" : $"Lv.{GameManager.Instance.PlayerMove.currentLvl}";
         expText.text = $"{GameManager.Instance.PlayerMove.currentExp} / " +
-                       $"{GameManager.Instance.PlayerMove.needExpNextLvl[GameManager.Instance.PlayerMove.currentLvl]}";
+                       $"{Datas.GameData.DTCharacterLevelData[GameManager.Instance.PlayerMove.currentLvl].reqExp}";
         // 진척도 = 진행 초 / 360
         var progress= 1 - GameManager.Instance.MonsterSpawner.currentPhase.remainTime /
                       GameManager.Instance.MonsterSpawner.currentPhase.PhaseTime;

@@ -1,22 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 플레이어의 이동 속도
-    public MoveArea moveArea; // MoveArea 컴포넌트를 에디터에서 할당
     public int currentHp;
-    public int playerMaxHp;
     public Image Hpbar;
-    public Dictionary<int, int> needExpNextLvl;
+    
     public int currentExp;
     public int currentLvl;
-    public int maxLvl;
     public bool isHit = false;
+    
     private Coroutine flashCoroutine = null; // 코루틴의 참조를 저장할 변수
-
+    public CharacterTable characterData;
     void Update()
     {
         Move();
@@ -29,38 +27,26 @@ public class PlayerMove : MonoBehaviour
 
     public void LevelUp()
     {
-        if (currentLvl >= maxLvl)
+        if (currentLvl >= characterData.maxLv)
         {
-            currentExp = needExpNextLvl[maxLvl];
-            currentLvl = maxLvl;
+            currentExp = Datas.GameData.DTCharacterLevelData[characterData.maxLv].reqExp;
+            currentLvl = characterData.maxLv;
             return;
         }
         
-        if (needExpNextLvl[currentLvl] <= currentExp)
+        if (Datas.GameData.DTCharacterLevelData[currentLvl].reqExp <= currentExp)
         {
-            currentExp -= needExpNextLvl[currentLvl];
+            currentExp -= Datas.GameData.DTCharacterLevelData[currentLvl].reqExp;
             currentLvl++;
         }
-
-    }
-    
-    public void Awake()
-    {
 
     }
 
     public void Init()
     {
-        GameManager.Instance.PlayerMove = this;
-        needExpNextLvl = new Dictionary<int, int>();
-        needExpNextLvl.Add(0, 0);
-        needExpNextLvl.Add(1, 30);
-        needExpNextLvl.Add(2, 60);
-        needExpNextLvl.Add(3, 90);
-        needExpNextLvl.Add(4, 120);
         currentLvl = 0;
         currentExp = 0;
-        maxLvl = needExpNextLvl.Count - 1;
+        currentHp = characterData.maxHp;
     }
     
     void Move()
@@ -68,10 +54,10 @@ public class PlayerMove : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        Vector3 newPosition = transform.position + new Vector3(moveX, moveY, 0f) * moveSpeed * Time.deltaTime;
+        Vector3 newPosition = transform.position + new Vector3(moveX, moveY, 0f) * (characterData.moveSpeed * Time.deltaTime);
 
         // MoveArea 컴포넌트를 사용하여 새 위치가 이동 영역 내에 있는지 확인
-        newPosition = moveArea.ConstrainPosition(newPosition);
+        newPosition = GameManager.Instance.MoveArea.ConstrainPosition(newPosition);
 
         transform.position = newPosition;
     }
@@ -80,7 +66,6 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
-        currentHp = playerMaxHp;
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
     }
     

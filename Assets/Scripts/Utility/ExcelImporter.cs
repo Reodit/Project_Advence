@@ -36,7 +36,7 @@ namespace Utility
     {
         public static void ReadAllExcelFiles()
         {
-            string[] filePaths = Directory.GetFiles(Consts.DataSheetFolderPath, "*Data*", SearchOption.AllDirectories);
+            string[] filePaths = Directory.GetFiles(Consts.DataSheetFolderPath, "*Data.xlsx", SearchOption.AllDirectories);
 
             foreach (var filePath in filePaths)
             {
@@ -57,6 +57,7 @@ namespace Utility
                 "uint" => typeof(uint),
                 "bool" => typeof(bool),
                 // TODO enum 추가 필요
+                "enum<UpgradeName>" => typeof(Enums.UpgradeName),
                 // Nullable 기본 타입
                 "nullableint" => typeof(int?),
                 "nullablefloat" => typeof(float?),
@@ -283,8 +284,16 @@ namespace Utility
                             // 적절한 타입 변환을 가정하고 데이터 할당
                             Type nonNullableType = Nullable.GetUnderlyingType(dataType) ?? dataType; // 필요 없을 수 있음
                         
-                            // 리스트에 대한 처리 필요
-                            dataRow[colIndex] = Convert.ChangeType(currentCellValue, nonNullableType);
+                            if (nonNullableType.IsEnum)
+                            {
+                                object enumValue = Enum.Parse(nonNullableType, currentCellValue.ToString(), true); // true는 대소문자를 무시하고 파싱
+                                dataRow[colIndex] = enumValue;
+                            }
+
+                            else
+                            {
+                                dataRow[colIndex] = Convert.ChangeType(currentCellValue, nonNullableType);
+                            }
                         }
                     }
 

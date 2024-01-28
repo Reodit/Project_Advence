@@ -7,7 +7,8 @@ namespace Utility
         public const string DataSheetSymbolALL = "ALL";
         public const string DataSheetSymbolDESIGN = "DESIGN";
         public const string DataSheetSymbolDESIGNCOLUNM = "DESIGNCOLUNMTHISPROJECT";
-        public const string SCRIPTABLEOBJECT_SAVE_PATH = "Assets/Scripts/Datas/ExportedDatas";
+        public const string SCRIPTABLEOBJECT_SAVE_PATH = "Assets/Resources/ExportedDatas";
         public const string UI_PREFAB_PATH = "";
+        public const string SCRIPTABLEOBJECT_LOAD_PATH = "ExportedDatas/";
     }
 }
