@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class LevelUpPopUp : MonoBehaviour
+public class LevelUpPopUp : UIBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public RectTransform upgradeContentsParent;
+    public GameObject upgradeContentsPrefab;
+    
+    public List<Image> equipSkillImages;
+
+    protected override void Initialize()
     {
-        
+        base.Initialize();
+
+        //upgradeContentsPrefab.GetComponent<UpgradeContentsUI>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Start()
     {
-        
+        GameManager.Instance.PauseGame();
+    }
+
+    private void OnDestroy()
+    {
+        base.OnDisable();
+        GameManager.Instance.ResumeGame();
     }
 }

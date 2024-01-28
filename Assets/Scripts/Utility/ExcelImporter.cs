@@ -57,7 +57,7 @@ namespace Utility
                 "uint" => typeof(uint),
                 "bool" => typeof(bool),
                 // TODO enum 추가 필요
-                "enum<UpgradeName>" => typeof(Enums.UpgradeName),
+                "enum<UpgradeStat>" => typeof(Enums.UpgradeStat),
                 // Nullable 기본 타입
                 "nullableint" => typeof(int?),
                 "nullablefloat" => typeof(float?),

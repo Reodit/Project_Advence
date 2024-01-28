@@ -62,6 +62,15 @@ public class GameManager : MonoBehaviour
         
     }
     
+    public void PauseGame()
+    {
+        Time.timeScale = 0; // 게임 일시정지
+    }
     
+    public void ResumeGame()
+    {
+        Time.timeScale = 1; // 게임 재개
+    }
+
     
 }

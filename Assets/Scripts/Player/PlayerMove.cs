@@ -38,6 +38,7 @@ public class PlayerMove : MonoBehaviour
         {
             currentExp -= Datas.GameData.DTCharacterLevelData[currentLvl].reqExp;
             currentLvl++;
+            PopupManager.Instance.InstantiateItemListPopUp("UIPrefabs/LevelUpPopUp");
         }
 
     }

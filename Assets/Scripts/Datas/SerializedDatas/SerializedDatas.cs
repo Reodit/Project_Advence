@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Enums
 {
     [Serializable]
-    public enum UpgradeName
+    public enum UpgradeStat
     {
         AttackDamage = 0,
         AttackSpeed,
@@ -17,11 +17,7 @@ namespace Enums
     }
 }
 
-[Serializable]
-public class CharacterTableScriptableObject : ScriptableObject
-{
-    public List<CharacterTable> characterTableList;
-}
+
 
 [Serializable]
 public class CharacterTable : IBaseData
@@ -55,12 +51,6 @@ public class CharacterTable : IBaseData
 }
 
 [Serializable]
-public class CharacterLevelTableScriptableObject : ScriptableObject
-{
-    public List<CharacterLevelTable> characterLevelTableList;
-}
-
-[Serializable]
 public class CharacterLevelTable : IBaseData
 {
     public int index;
@@ -76,18 +66,12 @@ public class CharacterLevelTable : IBaseData
 }
 
 [Serializable]
-public class StatLevelTableScriptableObject : ScriptableObject
-{
-    public List<StatLevelTable> characterLevelTableList;
-}
-
-[Serializable]
 public class StatLevelTable : IBaseData
 {
     public int index;
     public int addStatValue;
     public int statLevel;
-    public UpgradeName upgradeName;
+    public UpgradeStat upgradeName;
     public int requireGoldValue;
     public void InitializeFromTableData(DataRow row)
     {
@@ -95,6 +79,6 @@ public class StatLevelTable : IBaseData
         this.statLevel = Convert.ToInt32(row["Level"]);
         this.addStatValue = Convert.ToInt32(row["AddStat"]);
         this.requireGoldValue = Convert.ToInt32(row["Gold"]);
-        this.upgradeName = (UpgradeName)Enum.Parse(typeof(UpgradeName), row["UpgradeName"].ToString());
+        this.upgradeName = (UpgradeStat)Enum.Parse(typeof(UpgradeStat), row["UpgradeStat"].ToString());
     }
 }
