@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36001f6c65bc44668c53a11b78c5bc2, type: 3}
+  m_Name: SkillEnchantTable
+  m_EditorClassIdentifier: 
+  SkillEnchantTables:
+  - index: 14000
+    name: "\uBCF4\uCDA9\uD559\uC2B5"
+    description: "{0}\uC758 \uC8FC\uBB38\uB825\uC744 {1}% \uAC15\uD654\uD569\uB2C8\uB2E4."
+    enchantEffect1: 0
+    enchantEffectValue1: 50
+    maxCnt: 99
+    icon: Icon_Flat__17.png
+    colorToBlack: 1
+  - index: 14001
+    name: "\uCDA9\uB9CC\uD55C\uB9C8\uB098"
+    description: "{0}\uC758 \uC2DC\uC804 \uC18D\uB3C4\uAC00 10% \uBE68\uB77C\uC9D1\uB2C8\uB2E4"
+    enchantEffect1: 1
+    enchantEffectValue1: 100
+    maxCnt: 99
+    icon: Icon_Flat__18.png
+    colorToBlack: 1
+  - index: 14002
+    name: "\uC800\uACA9\uC218"
+    description: "{0}\uC758 \uC0AC\uAC70\uB9AC\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    enchantEffect1: 2
+    enchantEffectValue1: 1
+    maxCnt: 99
+    icon: Icon_Flat__19.png
+    colorToBlack: 1

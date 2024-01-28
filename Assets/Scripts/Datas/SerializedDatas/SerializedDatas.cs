@@ -15,6 +15,24 @@ namespace Enums
         Defence,
         CriticalChance
     }
+
+    [Serializable]
+    public enum SelectStatName
+    {
+        SelectDamage = 0,
+        SelectAttackSpeed,
+        SelectMoveSpeed,
+        SelectDefence,
+        SelectCriticalDamage
+    }
+
+    [Serializable]
+    public enum EnchantEffect1
+    {
+        SkillDamageControl = 0,
+        AttackSpeedControl,
+        RangeControl
+    }
 }
 
 
@@ -80,5 +98,80 @@ public class StatLevelTable : IBaseData
         this.addStatValue = Convert.ToInt32(row["AddStat"]);
         this.requireGoldValue = Convert.ToInt32(row["Gold"]);
         this.upgradeName = (UpgradeStat)Enum.Parse(typeof(UpgradeStat), row["UpgradeStat"].ToString());
+    }
+}
+
+[Serializable]
+public class SelectStatTable : IBaseData
+{
+    public int index;
+    public string name;
+    public SelectStatName selectStatName;
+    public int selectStatRateValue;
+    public string description;
+    public string iconPath;
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.name = row["Name"].ToString();
+        this.selectStatName = (SelectStatName)Enum.Parse(typeof(SelectStatName), row["SelectStatName"].ToString());
+        this.selectStatRateValue = Convert.ToInt32(row["SelectStatRateValue"]);
+        this.description = row["Description"].ToString();
+        this.iconPath = row["Icon"].ToString();
+    }
+}
+
+[Serializable]
+public class SkillTable : IBaseData
+{
+    public int index;
+    public string name;
+    public string description;
+    public string icon;
+    public int skillDamageRate;
+    public int skillSpeedRate;
+    public int range;
+    public int projectileSpeed;
+    public int projectileSize;
+    public string prefabPath;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.name = row["Name"].ToString();
+        this.description = row["Description"].ToString();
+        this.icon = row["Icon"].ToString();
+        this.skillDamageRate = Convert.ToInt32(row["SkillDamageRate"]);
+        this.skillSpeedRate = Convert.ToInt32(row["SkillSpeedRate"]);
+        this.range = Convert.ToInt32(row["Range"]);
+        this.projectileSpeed = Convert.ToInt32(row["ProjectileSpeed"]);
+        this.projectileSize = Convert.ToInt32(row["ProjectileSize"]);
+        this.prefabPath = row["Prefab"].ToString();
+    }
+}
+
+
+[Serializable]
+public class SkillEnchantTable : IBaseData
+{
+    public int index;
+    public string name;
+    public string description;
+    public EnchantEffect1 enchantEffect1; // Enum 타입은 나중에 추가
+    public int enchantEffectValue1;
+    public int maxCnt;
+    public string icon;
+    public bool colorToBlack;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.name = row["Name"].ToString();
+        this.description = row["Description"].ToString();
+        this.enchantEffect1 = (EnchantEffect1)Enum.Parse(typeof(EnchantEffect1), row["EnchantEffect1"].ToString());
+        this.enchantEffectValue1 = Convert.ToInt32(row["EnchantEffectValue1"]);
+        this.maxCnt = Convert.ToInt32(row["MaxCnt"]);
+        this.icon = row["Icon"].ToString();
+        this.colorToBlack = Convert.ToBoolean(row["ColortoBlack"]);
     }
 }

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: f3a7ba13f9af2405caf8cefc631695f8, type: 3}
   m_Name: StatLevelTable
-  m_EditorClassIdentifier: Assembly-CSharp::StatLevelTableScriptableObject
+  m_EditorClassIdentifier: 
   characterLevelTableList:
   - index: 12001
     addStatValue: 20

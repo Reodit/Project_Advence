@@ -1,22 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
+public class BackgroundSets
+{
+    public List<Sprite> backgrounds;
+}
+
 public class ImageScrolling : MonoBehaviour
 {
+    public static ImageScrolling Instace;
     public float scrollSpeed = 0.5f;
-    private RawImage rawImage;
-
-    void Start()
-    {
-        rawImage = GetComponent<RawImage>();
-    }
-
+    public GameObject bgPrefab;
+    public List<BackgroundSets> bgSprites;
+    
     void Update()
     {
-        rawImage.uvRect = new Rect(rawImage.uvRect.position + Vector2.right * scrollSpeed * Time.deltaTime, rawImage.uvRect.size);
+        if (!GameManager.Instance.isGamePause)
+        {
+            foreach (var e in scrollingImages[GameManager.Instance.currentStage - 1])
+            {
+                if (!e.gameObject.activeSelf)
+                {
+                    e.gameObject.SetActive(true);
+                }
+                e.uvRect = new Rect(e.uvRect.position + Vector2.right * scrollSpeed * Time.deltaTime, e.uvRect.size);
+            }
+        }
+    }
 
-        // 필요한 경우, uvRect를 재설정하여 무한 스크롤링 효과를 만듭니다.
+    public Dictionary<int, List<RawImage>> scrollingImages;
+
+    private void Awake()
+    {
+        Instace = this;
+        scrollingImages = new Dictionary<int, List<RawImage>>();
+        
+        for (int i = 0; i < bgSprites.Count; i++)
+        {
+            List<RawImage> backgrounds = new List<RawImage>();
+            
+            for (int j = 0; j < bgSprites[i].backgrounds.Count; j++)
+            {
+                var rawImage = Instantiate(bgPrefab, this.transform).GetComponent<RawImage>();
+                rawImage.texture = bgSprites[i].backgrounds[j].texture;
+                rawImage.color = Color.white;
+                backgrounds.Add(rawImage);
+                rawImage.gameObject.SetActive(false);
+            }
+            
+            scrollingImages.Add(i, backgrounds);
+        }
     }
 }

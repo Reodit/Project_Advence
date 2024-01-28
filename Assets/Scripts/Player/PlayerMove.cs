@@ -1,8 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+
+[Serializable]
+public class CharacterSkill
+{
+    public SkillTable SkillTable;
+    public List<SkillEnchantTable> SkillEnchantTables;
+    public CharacterSkill(SkillTable skillTable, List<SkillEnchantTable> skillEnchantTable)
+    {
+        this.SkillTable = skillTable;
+        this.SkillEnchantTables = skillEnchantTable;
+    }
+}
+
+[Serializable]
+public class UpgradeHistory
+{
+    public List<SelectStatTable> SelectStatTable;
+
+    public UpgradeHistory(List<SelectStatTable> selectStatTable)
+    {
+        this.SelectStatTable = selectStatTable;
+    }
+}
 
 public class PlayerMove : MonoBehaviour
 {
@@ -15,6 +39,9 @@ public class PlayerMove : MonoBehaviour
     
     private Coroutine flashCoroutine = null; // 코루틴의 참조를 저장할 변수
     public CharacterTable characterData;
+
+    public Dictionary<string, CharacterSkill> playerSkills = new Dictionary<string, CharacterSkill>();
+    public UpgradeHistory playerUpgradeHistory = new UpgradeHistory(new List<SelectStatTable>());
     void Update()
     {
         Move();

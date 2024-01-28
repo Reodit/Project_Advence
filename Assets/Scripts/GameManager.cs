@@ -20,21 +20,22 @@ public class GameManager : MonoBehaviour
     public PlayerMove PlayerMove { get; private set; }
     public MonsterSpawner MonsterSpawner;
     public int phaseCount;
-    public int currentPhase;
-
+    public int currentStage;
+    
     public GameObject testMonster;
     public GameObject testBossMonster;
     //public int Stage
+    
     private void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(this);
-
+        isGamePause = false;
         GameDataLoad();
         PlayerInstantiate(1);
         
         IngameUI.Instance.Init();
-        currentPhase = 0;
+        currentStage = 1;
         MonsterSpawner.Init();
         phaseCount = MonsterSpawner.Phases.Count;
         
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
         Datas.GameData.LoadCharacterDataToGameData("CharacterTable");
         Datas.GameData.LoadCharacterLevelDataToGameData("CharacterLevelTable");
     }
+    
 
     // 게임 시작 시 플레이어 스폰
     private void PlayerInstantiate(int id)
@@ -61,16 +63,28 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    
+
+    public bool isGamePause;
     public void PauseGame()
     {
         Time.timeScale = 0; // 게임 일시정지
+        isGamePause = true;
     }
     
     public void ResumeGame()
     {
         Time.timeScale = 1; // 게임 재개
+        isGamePause = false;
     }
 
-    
+    [ContextMenu("test")]
+    public void BgTest()
+    {
+        foreach (var e in ImageScrolling.Instace.scrollingImages[GameManager.Instance.currentStage - 1])
+        {
+            e.gameObject.SetActive(false);   
+        }
+
+        GameManager.Instance.currentStage++;
+    }
 }

@@ -58,6 +58,8 @@ namespace Utility
                 "bool" => typeof(bool),
                 // TODO enum 추가 필요
                 "enum<UpgradeStat>" => typeof(Enums.UpgradeStat),
+                "enum<SelectStatName>" => typeof(Enums.SelectStatName),
+                "enum<EnchantEffect1>" => typeof(Enums.EnchantEffect1),
                 // Nullable 기본 타입
                 "nullableint" => typeof(int?),
                 "nullablefloat" => typeof(float?),

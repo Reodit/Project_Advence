@@ -9,7 +9,7 @@ public class UpgradeContentsUI : UIBase
     public TextMeshProUGUI upgradeTitleText;
     public TextMeshProUGUI upgradeDescriptionText;
     public Image upgradeIcon;
-
+    public Button upgradeButton;
     protected override void Start()
     {
         base.Start();
@@ -17,4 +17,12 @@ public class UpgradeContentsUI : UIBase
         upgradeDescriptionText.text = "";
         upgradeIcon.sprite = null;
     }
+
+    // public void UpdateContents(string title, string desc, Sprite icon, )
+    // {
+    //     upgradeTitleText.text = title;
+    //     upgradeDescriptionText.text = desc;
+    //     upgradeIcon.sprite = icon;
+    //     upgradeButton.onClick.AddListener();
+    // }
 }

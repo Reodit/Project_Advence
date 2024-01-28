@@ -28,15 +28,14 @@ public class IngameUI : UIBase
         Instance = this;
     }
 
-    public void Start()
+    protected override void Start()
     {
         UIManager.Instance.RegisterUIElement("IngameUI", this);
     }
 
-    public void Update()
+    protected override void Update()
     {
         UpdateUIs();
-        
     }
 
     public void UpdateUIs()

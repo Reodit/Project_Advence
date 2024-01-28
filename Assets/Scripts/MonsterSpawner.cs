@@ -127,7 +127,12 @@ public class MonsterSpawner : MonoBehaviour
             // 마지막 페이즈에 대한 처리
             // 다음 스테이지 이동
             Debug.Log("Stage Clear");
-            currentPhase.remainTime = 90000f;
+            foreach (var e in ImageScrolling.Instace.scrollingImages[GameManager.Instance.currentStage - 1])
+            {
+                e.gameObject.SetActive(false);   
+            }
+
+            GameManager.Instance.currentStage++;
         }
     }
     
