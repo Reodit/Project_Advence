@@ -30,6 +30,10 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public int CurrentHp()
+    {
+        return currentHp;
+    }
     
     public void Die()
     {
