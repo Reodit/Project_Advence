@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IngameUI : MonoBehaviour
+public class IngameUI : UIBase
 {
     public static IngameUI Instance;
 
@@ -29,6 +30,7 @@ public class IngameUI : MonoBehaviour
 
     public void Start()
     {
+        UIManager.Instance.RegisterUIElement("IngameUI", this);
     }
 
     public void Update()

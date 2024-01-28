@@ -30,12 +30,10 @@ public class PopupManager : MonoBehaviour
             var popUpCanvas = Instantiate(popUpPrefab, this.transform).GetComponent<Canvas>();
             popUpCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             popUpCanvas.worldCamera = uiCamera;
-            
-            UIManager.Instance.HideAllUIElements();
         }
         else
         {
-            Debug.LogError("ItemListPopUp 프리팹을 불러올 수 없습니다.");
+            Debug.LogError("프리팹을 불러올 수 없습니다.");
         }
     }
 

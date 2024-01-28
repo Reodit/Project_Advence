@@ -40,6 +40,7 @@ namespace Datas
             {
                 foreach (var e in characterLevelTableData.characterLevelTableList)
                 {
+                    
                     DTCharacterLevelData.Add(e.level, e);
                 }
             }
