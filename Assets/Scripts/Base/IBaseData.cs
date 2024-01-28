@@ -1,6 +1,6 @@
 using System.Data;
 
-public interface IBaseDataEx
+public interface IBaseData
 {
     void InitializeFromTableData(DataRow row);
 }

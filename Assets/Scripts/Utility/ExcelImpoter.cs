@@ -34,15 +34,15 @@ namespace Utility
 {
     public static class ExcelImporter
     {
-        /*public static void ReadAllExcelFiles()
+        public static void ReadAllExcelFiles()
         {
             string[] filePaths = Directory.GetFiles(Consts.DataSheetFolderPath, "*Data*", SearchOption.AllDirectories);
 
             foreach (var filePath in filePaths)
             {
-                ExcelToDataSet(filePath);
+                CreateScriptableFromDataTable(ExcelToDataSet(filePath), Consts.SCRIPTABLEOBJECT_SAVE_PATH);
             }
-        }*/
+        }
     
         private static Type GetTypeFromString(string dataTypeString)
         {
@@ -328,7 +328,7 @@ namespace Utility
                 // 실 데이터를 생성할 Instance data type 
                 Type instanceDataType = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes())
-                    .FirstOrDefault(type => typeof(IBaseDataEx).IsAssignableFrom(type)
+                    .FirstOrDefault(type => typeof(IBaseData).IsAssignableFrom(type)
                                             && !type.IsInterface
                                             && !type.IsAbstract
                                             && type.Name == table.TableName);
@@ -351,12 +351,12 @@ namespace Utility
 
                 // 타입 캐스팅이 바로 안되어서 리스트를 2개 만든 후 우회
                 var createdList = Activator.CreateInstance(listField.FieldType);
-                var tempList = new List<IBaseDataEx>();
+                var tempList = new List<IBaseData>();
 
                 // Data Load from DataTable in DataSet
                 foreach (DataRow row in table.Rows)
                 {
-                    IBaseDataEx data = (IBaseDataEx)Activator.CreateInstance(instanceDataType);
+                    IBaseData data = (IBaseData)Activator.CreateInstance(instanceDataType);
                     data.InitializeFromTableData(row);
                     tempList.Add(data);
                 }

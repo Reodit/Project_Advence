@@ -19,5 +19,6 @@ public class ExcelReaderWindow : EditorWindow
 
     private void ReadAllExcelFilesWithProgress()
     {
+        Utility.ExcelImporter.ReadAllExcelFiles();
     }
 }
