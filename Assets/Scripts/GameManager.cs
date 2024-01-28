@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(this);
+        PlayerMove.Init();
+        IngameUI.Instance.Init();
         currentPhase = 0;
         MonsterSpawner.Init();
         phaseCount = MonsterSpawner.Phases.Count;

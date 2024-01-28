@@ -25,12 +25,10 @@ public class IngameUI : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        GameManager.Instance.IngameUI = this;
     }
 
     public void Start()
     {
-        Init();
     }
 
     public void Update()
@@ -63,6 +61,7 @@ public class IngameUI : MonoBehaviour
     
     public void Init()
     {
+        GameManager.Instance.IngameUI = this;
         phaseBgsList.Clear();
         for (int i = 1; i <= GameManager.Instance.phaseCount; i++)
         {

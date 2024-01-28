@@ -45,7 +45,12 @@ public class PlayerMove : MonoBehaviour
 
     }
     
-    private void Awake()
+    public void Awake()
+    {
+
+    }
+
+    public void Init()
     {
         GameManager.Instance.PlayerMove = this;
         needExpNextLvl = new Dictionary<int, int>();
@@ -58,7 +63,7 @@ public class PlayerMove : MonoBehaviour
         currentExp = 0;
         maxLvl = needExpNextLvl.Count - 1;
     }
-
+    
     void Move()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
