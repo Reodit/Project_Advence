@@ -3935,8 +3935,8 @@ RectTransform:
   - {fileID: 2108986090}
   - {fileID: 360767232}
   - {fileID: 1759669689}
-  - {fileID: 242681658}
   - {fileID: 1467038830}
+  - {fileID: 242681658}
   - {fileID: 1331238209}
   - {fileID: 1864395148}
   - {fileID: 1263278711}
@@ -4088,7 +4088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &619786616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8988,12 +8988,12 @@ GameObject:
   - component: {fileID: 1467038832}
   - component: {fileID: 1467038831}
   m_Layer: 5
-  m_Name: UI_GoleIcon
+  m_Name: UI_GoldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1467038830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11169,7 +11169,7 @@ GameObject:
   - component: {fileID: 1796463469}
   - component: {fileID: 1796463468}
   m_Layer: 5
-  m_Name: UI_GoleIcon
+  m_Name: UI_GoldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11544,7 +11544,7 @@ GameObject:
   - component: {fileID: 1825369114}
   - component: {fileID: 1825369113}
   m_Layer: 5
-  m_Name: UI_GoleIcon
+  m_Name: UI_GoldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13303,7 +13303,7 @@ GameObject:
   - component: {fileID: 2105991362}
   - component: {fileID: 2105991361}
   m_Layer: 5
-  m_Name: UI_GoleIcon
+  m_Name: UI_GoldIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
