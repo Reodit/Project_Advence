@@ -1,0 +1,943 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208c6a9858b4845a4bc1277256dd1762, type: 3}
+  m_Name: PatternTable
+  m_EditorClassIdentifier: 
+  Patterns:
+  - index: 2000
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 0
+  - index: 2001
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2002
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2003
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2004
+    vertical1: 0
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2005
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2006
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2007
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2008
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2009
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2010
+    vertical1: 0
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2011
+    vertical1: 0
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2012
+    vertical1: 0
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2013
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2014
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2015
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2016
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2017
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2018
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2019
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2020
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2021
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2022
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2023
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2024
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 0
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2025
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 0
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2026
+    vertical1: 1010
+    vertical2: 0
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2027
+    vertical1: 0
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2028
+    vertical1: 1010
+    vertical2: 1010
+    vertical3: 1010
+    vertical4: 1010
+    vertical5: 1010
+    patternInterval: 6
+    monsterCnt: 5
+  - index: 2029
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 0
+  - index: 2030
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2031
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2032
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2033
+    vertical1: 0
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2034
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2035
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2036
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2037
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2038
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2039
+    vertical1: 0
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2040
+    vertical1: 0
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2041
+    vertical1: 0
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2042
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2043
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2044
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2045
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2046
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2047
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2048
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2049
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2050
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2051
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2052
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2053
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 0
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2054
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 0
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2055
+    vertical1: 1011
+    vertical2: 0
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2056
+    vertical1: 0
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2057
+    vertical1: 1011
+    vertical2: 1011
+    vertical3: 1011
+    vertical4: 1011
+    vertical5: 1011
+    patternInterval: 6
+    monsterCnt: 5
+  - index: 2058
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 0
+  - index: 2059
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2060
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2061
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2062
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2063
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2064
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2065
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2066
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2067
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2068
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2069
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2070
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2071
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2072
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2073
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2074
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2075
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2076
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2077
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2078
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2079
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2080
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2081
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2082
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2083
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2084
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2085
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2086
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 5
+  - index: 2087
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 0
+  - index: 2088
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2089
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2090
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2091
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2092
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 1
+  - index: 2093
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2094
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2095
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2096
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2097
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2098
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2099
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2100
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2101
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2102
+    vertical1: 0
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 2
+  - index: 2103
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2104
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2105
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2106
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2107
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2108
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2109
+    vertical1: 0
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 3
+  - index: 2110
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 0
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2111
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 0
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2112
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 0
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2113
+    vertical1: 1012
+    vertical2: 0
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2114
+    vertical1: 0
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 4
+  - index: 2115
+    vertical1: 1012
+    vertical2: 1012
+    vertical3: 1012
+    vertical4: 1012
+    vertical5: 1012
+    patternInterval: 6
+    monsterCnt: 5

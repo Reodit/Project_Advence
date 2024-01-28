@@ -13,9 +13,6 @@ public class UpgradeContentsUI : UIBase
     protected override void Start()
     {
         base.Start();
-        upgradeTitleText.text = "";
-        upgradeDescriptionText.text = "";
-        upgradeIcon.sprite = null;
     }
 
     // public void UpdateContents(string title, string desc, Sprite icon, )

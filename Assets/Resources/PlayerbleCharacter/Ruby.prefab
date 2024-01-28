@@ -371,15 +371,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ccf8d02c0574ee6b3430caa26f962e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  moveArea: {fileID: 0}
   currentHp: 0
-  playerMaxHp: 100
   Hpbar: {fileID: 9024934406445333322}
   currentExp: 0
   currentLvl: 0
-  maxLvl: 0
   isHit: 0
+  characterData:
+    characterName: 
+    id: 0
+    attackDamage: 0
+    attackSpeed: 0
+    defence: 0
+    moveSpeed: 0
+    criticalPercent: 0
+    criticalDamage: 0
+    maxHp: 0
+    maxLv: 0
+    prefabPath: 
+  playerUpgradeHistory:
+    SelectStatTable: []
   hitColor: {r: 0.735849, g: 0.31585974, b: 0.31585974, a: 1}
   hitDuration: 0.2
 --- !u!1 &745062099501831773
@@ -1782,7 +1792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8988366080519658135}
   - component: {fileID: 1269711516449972922}
-  - component: {fileID: 3831083619477296529}
+  - component: {fileID: 6984294972253577236}
   m_Layer: 0
   m_Name: BulletLoot
   m_TagString: Untagged
@@ -1857,7 +1867,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3831083619477296529
+--- !u!114 &6984294972253577236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1869,8 +1879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3505adcfdbc34558afe232b00a3a350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 8988366080519658135}
-  bulletPath: BulletCollider
+  spawnPoint: {fileID: 0}
+  bulletPath: 
   bullets: []
   fireRate: 2
 --- !u!1 &3778691146250171945

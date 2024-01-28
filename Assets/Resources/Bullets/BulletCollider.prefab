@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3545459381001550113}
-  - component: {fileID: 214368062017962642}
   - component: {fileID: 3239047589755658652}
   - component: {fileID: 7587968159179612550}
   m_Layer: 0
@@ -35,22 +34,6 @@ Transform:
   - {fileID: 3890264417356393311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &214368062017962642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688001717106393180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56ffe20caa8b45228acfd994a475e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  speed: 5
-  maxDistance: 5
-  bulletDamage: 10
 --- !u!65 &3239047589755658652
 BoxCollider:
   m_ObjectHideFlags: 0

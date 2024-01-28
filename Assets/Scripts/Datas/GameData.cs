@@ -135,6 +135,8 @@ namespace Datas
                 Debug.LogError("Failed to load skillEnchantTableData from ScriptableObject.");
             }
         }
+        
+        
 
     }   
 }

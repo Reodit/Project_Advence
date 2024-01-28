@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
 {
     public Transform spawnPoint; // 발사 위치
-    public string bulletPath = "Bullets/BulletRedOBJ";
+    public string bulletPath;
     public List<Bullet> bullets;
     public void Start()
     {
@@ -23,7 +24,10 @@ public class BulletSpawner : MonoBehaviour
         while (true)
         {
             // 총알 인스턴스 생성
-            SpawnBullet("Bullets/" + bulletPath);
+            if (GameManager.Instance.PlayerMove.playerSkills.ToList().Count > 0)
+            {
+                SpawnBullet(GameManager.Instance.PlayerMove.playerSkills.ToList()[0].Value.SkillTable.prefabPath);
+            }
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);
         }

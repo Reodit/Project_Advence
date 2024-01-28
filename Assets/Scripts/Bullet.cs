@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -19,7 +17,7 @@ public class Bullet : MonoBehaviour
         _isTriggered = false;
         destroyDelay = 0.5f;
         initPosition = transform.position;
-        _pixelArsenalProjectileScript = transform.GetChild(0).GetComponent<PixelArsenalProjectileScript>();
+        _pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
     
 

@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     {
         Datas.GameData.LoadCharacterDataToGameData("CharacterTable");
         Datas.GameData.LoadCharacterLevelDataToGameData("CharacterLevelTable");
+        Datas.GameData.LoadSkillDataToGameData("SkillTable");
+        Datas.GameData.LoadSelectStatDataToGameData("SelectStatTable");
+        Datas.GameData.LoadSkillEnchantDataToGameData("SkillEnchantTable");
+        Datas.GameData.LoadStatLevelDataToGameData("StatLevelTable");
     }
     
 

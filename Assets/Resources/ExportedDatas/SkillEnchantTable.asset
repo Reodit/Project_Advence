@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillEnchantTables:
   - index: 14000
     name: "\uBCF4\uCDA9\uD559\uC2B5"
-    description: "{0}\uC758 \uC8FC\uBB38\uB825\uC744 {1}% \uAC15\uD654\uD569\uB2C8\uB2E4."
+    description: "{0}\uC758 \uC8FC\uBB38\uB825\uC744 5% \uAC15\uD654\uD569\uB2C8\uB2E4."
     enchantEffect1: 0
     enchantEffectValue1: 50
     maxCnt: 99
@@ -36,4 +36,28 @@ MonoBehaviour:
     enchantEffectValue1: 1
     maxCnt: 99
     icon: Icon_Flat__19.png
+    colorToBlack: 1
+  - index: 14003
+    name: "\uC18C\uB2C9"
+    description: "{0}\uC758 \uD22C\uC0AC\uCCB4 \uC18D\uB3C4\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    enchantEffect1: 3
+    enchantEffectValue1: 1
+    maxCnt: 99
+    icon: Icon_Flat__20.png
+    colorToBlack: 1
+  - index: 14004
+    name: "\uC0AC\uC120\uD0C0\uACA9"
+    description: "{0}\uC758  \uC0AC\uC120 \uD22C\uC0AC\uCCB4\uAC00 \uCD94\uAC00 \uB429\uB2C8\uB2E4"
+    enchantEffect1: 4
+    enchantEffectValue1: 1
+    maxCnt: 1
+    icon: Icon_Flat__21.png
+    colorToBlack: 1
+  - index: 14005
+    name: "\uC9D1\uC911\uD3EC\uD654"
+    description: "{0}\uC758  \uC9C1\uC120 \uD22C\uC0AC\uCCB4\uAC00 \uCD94\uAC00 \uB429\uB2C8\uB2E4"
+    enchantEffect1: 5
+    enchantEffectValue1: 1
+    maxCnt: 1
+    icon: Icon_Flat__22.png
     colorToBlack: 1

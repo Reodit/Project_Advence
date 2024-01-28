@@ -20,6 +20,7 @@ public class LevelUpPopUp : UIBase
 
     protected override void Start()
     {
+
         Init();
         GameManager.Instance.PauseGame();
     }
@@ -33,6 +34,20 @@ public class LevelUpPopUp : UIBase
             var selectedSkills = Datas.GameData.DTSkillData.Values.OrderBy(x => rng.Next())
                 .Take(3)
                 .ToList();
+            
+            foreach (var e in selectedSkills)
+            {
+                var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
+                upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(e.icon);
+                        
+                upgradePrefab.upgradeTitleText.text = e.name;
+                upgradePrefab.upgradeDescriptionText.text = e.description;
+                upgradePrefab.upgradeButton.onClick.AddListener(() =>
+                {
+                    Destroy(this.gameObject);
+                    GameManager.Instance.PlayerMove.playerSkills.Add(e.name, new CharacterSkill(e, new List<SkillEnchantTable>()));
+                }); // 전투 공식 이후 구현
+            }
         }
         
         // 스킬이 하나라도 있으면 스킬 or 스텟 업그레이드가 뜸
@@ -70,7 +85,7 @@ public class LevelUpPopUp : UIBase
                         
                         upgradePrefab.upgradeTitleText.text = pick.Value.name;
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(upgradePrefab.gameObject);}); // 전투 공식 이후 구현
+                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
                         
                         // 아이콘 배치 필요
                     }
@@ -91,7 +106,7 @@ public class LevelUpPopUp : UIBase
                         
                         upgradePrefab.upgradeTitleText.text = pick.Value.name;
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(upgradePrefab.gameObject);}); // 전투 공식 이후 구현
+                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
                     }
                 }
                 
@@ -132,7 +147,7 @@ public class LevelUpPopUp : UIBase
                         
                         upgradePrefab.upgradeTitleText.text = pick.Value.name;
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(upgradePrefab.gameObject);}); // 전투 공식 이후 구현
+                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
                         
                         // 아이콘 배치 필요
                     }
@@ -156,7 +171,7 @@ public class LevelUpPopUp : UIBase
                         
                             upgradePrefab.upgradeTitleText.text = pick.Value.name;
                             upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                            upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(upgradePrefab.gameObject);}); // 전투 공식 이후 구현
+                            upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
                         }
                         
                         // 스킬에서 뽑기
@@ -174,7 +189,7 @@ public class LevelUpPopUp : UIBase
                             {
                                 randomIndex = Random.Range(0, list.Count);
                                 pick = list[randomIndex];
-                                isUnique = !playerSkills.Any(ps => ps.Value.SkillTable == pick.Value);
+                                isUnique = playerSkills.All(ps => ps.Value.SkillTable != pick.Value);
 
                                 count++;
                                 if (count > 100)
@@ -188,31 +203,19 @@ public class LevelUpPopUp : UIBase
                         
                             upgradePrefab.upgradeTitleText.text = pick.Value.name;
                             upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                            upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(upgradePrefab.gameObject);}); // 전투 공식 이후 구현
+                            upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
                         }
                     }
                     
                 }
-                
-                // 아래 세 딕셔너리에서 랜덤으로 3개의 데이터를 뽑아야 함.
-                // 이 딕셔너리에서 뽑을 때는 가진 스킬 중에 뽑아야 함. 가진 스킬은 playerSkills라는 List에서 검색해야 함.
-                // Datas.GameData.DTSkillEnchantData;
-                
-                // 이 딕셔너리에서 뽑을 때는 모든 데이터에서 뽑아도 상관 없음.
-                // Datas.GameData.DTSelectStatData;
-
-                // 이 딕셔너리에서 뽑을 때는 플레이어가 가지지 않은 스킬 중에 뽑아야 함. 가진 스킬은 playerSkills라는 List에서 검색해야 함.
-                // Datas.GameData.DTSkillData;
             }
         }
-        
-        
     }
     
     public void Init()
     {
-        var updateContents = upgradeContentsPrefab.GetComponent<UpgradeContentsUI>();
 
+        UpgradeLogic();
         
     }
     

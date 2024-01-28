@@ -31,7 +31,19 @@ namespace Enums
     {
         SkillDamageControl = 0,
         AttackSpeedControl,
-        RangeControl
+        RangeControl,
+        ProjectileSpeedControl,
+        AddFrontProjectile,
+        AddSlashProjectile
+    }
+    
+    [Serializable]
+    public enum MonsterType
+    {
+        Melee,
+        Range,
+        Trap,
+        Boss
     }
 }
 
@@ -175,3 +187,83 @@ public class SkillEnchantTable : IBaseData
         this.colorToBlack = Convert.ToBoolean(row["ColortoBlack"]);
     }
 }
+
+[Serializable]
+public class PhaseTable : IBaseData // IBaseData 인터페이스 구현 가정
+{
+    public int index;
+    public int stage;
+    public string backgroundLocal;
+    public int scrollSpeed;
+    public int firstPrintMonster;
+    public int targetMonsterValue;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.stage = Convert.ToInt32(row["Stage"]);
+        this.backgroundLocal = row["Background_Local"].ToString();
+        this.scrollSpeed = Convert.ToInt32(row["ScrollSpeed"]);
+        this.firstPrintMonster = Convert.ToInt32(row["FirstPrintMonster"]);
+        this.targetMonsterValue = Convert.ToInt32(row["TargetMonsterValue"]);
+    }
+}
+
+[Serializable]
+public class PatternTable : IBaseData
+{
+    public int index;
+    public int vertical1;
+    public int vertical2;
+    public int vertical3;
+    public int vertical4;
+    public int vertical5;
+    public int patternInterval;
+    public int monsterCnt;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.index = Convert.ToInt32(row["Index"]);
+        this.vertical1 = Convert.ToInt32(row["Vertical1"]);
+        this.vertical2 = Convert.ToInt32(row["Vertical2"]);
+        this.vertical3 = Convert.ToInt32(row["Vertical3"]);
+        this.vertical4 = Convert.ToInt32(row["Vertical4"]);
+        this.vertical5 = Convert.ToInt32(row["Vertical5"]);
+        this.patternInterval = Convert.ToInt32(row["PatternInterval"]);
+        this.monsterCnt = Convert.ToInt32(row["MonsterCnt"]);
+    }
+}
+
+
+
+[Serializable]
+public class MonsterTable : IBaseData
+{
+    public int ID;
+    public string Name;
+    public MonsterType Type; // Enum 타입
+    public int MaxHP;
+    public int Attack;
+    public int Defence;
+    public int EXP;
+    public int Gold;
+    public int Score;
+    public int Skill; // Skill은 여기서 문자열로 가정합니다. 필요에 따라 다른 타입으로 변경할 수 있습니다.
+    public string PrefabPath;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.ID = Convert.ToInt32(row["ID"]);
+        this.Name = row["Name"].ToString();
+        this.Type = (MonsterType)Enum.Parse(typeof(MonsterType), row["MonsterType"].ToString());
+        this.MaxHP = Convert.ToInt32(row["MaxHP"]);
+        this.Attack = Convert.ToInt32(row["Attack"]);
+        this.Defence = Convert.ToInt32(row["Defence"]);
+        this.EXP = Convert.ToInt32(row["EXP"]);
+        this.Gold = Convert.ToInt32(row["Gold"]);
+        this.Score = Convert.ToInt32(row["Score"]);
+        this.Skill = Convert.ToInt32(row["Skill"]);
+        this.PrefabPath = row["PrefabPath"].ToString();
+    }
+}
+
