@@ -13,7 +13,8 @@ namespace Enums
         AttackSpeed,
         MoveSpeed,
         Defence,
-        CriticalChance
+        CriticalChance,
+        Health
     }
 
     [Serializable]

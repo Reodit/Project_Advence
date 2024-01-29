@@ -26,7 +26,10 @@ public class BulletSpawner : MonoBehaviour
             // 총알 인스턴스 생성
             if (GameManager.Instance.PlayerMove.playerSkills.ToList().Count > 0)
             {
-                SpawnBullet(GameManager.Instance.PlayerMove.playerSkills.ToList()[0].Value.SkillTable.prefabPath);
+                foreach (var e in GameManager.Instance.PlayerMove.playerSkills)
+                {
+                    SpawnBullet(e.Value.SkillTable.prefabPath);
+                }
             }
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);

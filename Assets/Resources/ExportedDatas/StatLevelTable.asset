@@ -138,3 +138,28 @@ MonoBehaviour:
     statLevel: 5
     upgradeName: 4
     requireGoldValue: 8000
+  - index: 12026
+    addStatValue: 50
+    statLevel: 1
+    upgradeName: 5
+    requireGoldValue: 1000
+  - index: 12027
+    addStatValue: 50
+    statLevel: 2
+    upgradeName: 5
+    requireGoldValue: 3000
+  - index: 12028
+    addStatValue: 50
+    statLevel: 3
+    upgradeName: 5
+    requireGoldValue: 5000
+  - index: 12029
+    addStatValue: 50
+    statLevel: 4
+    upgradeName: 5
+    requireGoldValue: 6000
+  - index: 12030
+    addStatValue: 50
+    statLevel: 5
+    upgradeName: 5
+    requireGoldValue: 8000

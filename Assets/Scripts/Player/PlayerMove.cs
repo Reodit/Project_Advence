@@ -67,7 +67,6 @@ public class PlayerMove : MonoBehaviour
             currentLvl++;
             PopupManager.Instance.InstantiateItemListPopUp("UIPrefabs/LevelUpPopUp");
         }
-
     }
 
     public void Init()

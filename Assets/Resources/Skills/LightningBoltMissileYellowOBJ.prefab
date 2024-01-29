@@ -123,6 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
-  speed: 5
+  speed: 15
   maxDistance: 10
-  bulletDamage: 0
+  bulletDamage: 5
