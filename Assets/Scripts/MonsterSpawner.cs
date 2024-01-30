@@ -113,7 +113,6 @@ public class MonsterSpawner : MonoBehaviour
 
     public void MoveNextPhase()
     {
-        Debug.Log("");
         isbossing = false;
         
         if (Phases.Count > 1)

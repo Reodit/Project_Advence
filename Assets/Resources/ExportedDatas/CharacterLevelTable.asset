@@ -21,34 +21,34 @@ MonoBehaviour:
     reqExp: 10
   - index: 12
     level: 2
-    reqExp: 20
+    reqExp: 10
   - index: 13
     level: 3
-    reqExp: 50
+    reqExp: 10
   - index: 14
     level: 4
-    reqExp: 200
+    reqExp: 10
   - index: 15
     level: 5
-    reqExp: 350
+    reqExp: 10
   - index: 16
     level: 6
-    reqExp: 508
+    reqExp: 10
   - index: 17
     level: 7
-    reqExp: 626
+    reqExp: 10
   - index: 18
     level: 8
-    reqExp: 744
+    reqExp: 10
   - index: 19
     level: 9
-    reqExp: 862
+    reqExp: 10
   - index: 20
     level: 10
-    reqExp: 980
+    reqExp: 10
   - index: 21
     level: 11
-    reqExp: 1098
+    reqExp: 10
   - index: 22
     level: 12
     reqExp: 1216
