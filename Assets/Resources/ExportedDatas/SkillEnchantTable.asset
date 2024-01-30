@@ -19,7 +19,7 @@ MonoBehaviour:
     enchantEffect1: 0
     enchantEffectValue1: 50
     maxCnt: 99
-    icon: Icon_Flat__17.png
+    icon: SPUM/0_Flat/Icon_Flat__19
     colorToBlack: 1
   - index: 14001
     name: "\uCDA9\uB9CC\uD55C\uB9C8\uB098"
@@ -27,7 +27,7 @@ MonoBehaviour:
     enchantEffect1: 1
     enchantEffectValue1: 100
     maxCnt: 99
-    icon: Icon_Flat__18.png
+    icon: SPUM/0_Flat/Icon_Flat__43
     colorToBlack: 1
   - index: 14002
     name: "\uC800\uACA9\uC218"
@@ -35,7 +35,7 @@ MonoBehaviour:
     enchantEffect1: 2
     enchantEffectValue1: 1
     maxCnt: 99
-    icon: Icon_Flat__19.png
+    icon: SPUM/0_Flat/Icon_Flat__4
     colorToBlack: 1
   - index: 14003
     name: "\uC18C\uB2C9"
@@ -43,7 +43,7 @@ MonoBehaviour:
     enchantEffect1: 3
     enchantEffectValue1: 1
     maxCnt: 99
-    icon: Icon_Flat__20.png
+    icon: SPUM/0_Flat/Icon_Flat__42
     colorToBlack: 1
   - index: 14004
     name: "\uC0AC\uC120\uD0C0\uACA9"
@@ -51,7 +51,7 @@ MonoBehaviour:
     enchantEffect1: 4
     enchantEffectValue1: 1
     maxCnt: 1
-    icon: Icon_Flat__21.png
+    icon: SPUM/0_Flat/Icon_Flat__39
     colorToBlack: 1
   - index: 14005
     name: "\uC9D1\uC911\uD3EC\uD654"
@@ -59,5 +59,5 @@ MonoBehaviour:
     enchantEffect1: 5
     enchantEffectValue1: 1
     maxCnt: 1
-    icon: Icon_Flat__22.png
+    icon: SPUM/0_Flat/Icon_Flat__17
     colorToBlack: 1
