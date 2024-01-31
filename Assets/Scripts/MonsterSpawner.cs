@@ -7,88 +7,34 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-[Serializable]
-public class Phase
-{
-    public float remainTime;
-    public float PhaseTime;
-    public float firstPrintMonster;
-    public int targetMonsterValue;
-    public List<Pattern> Patterns;
-    public float phaseValue1;
-    public float phaseValue2;
-    public Phase(float phaseTime, float firstPrintMonster, int targetMonsterValue, float phaseValue1, float phaseValue2)
-    {
-        this.remainTime = phaseTime;
-        this.PhaseTime = phaseTime;
-        this.firstPrintMonster = firstPrintMonster;
-        this.targetMonsterValue = targetMonsterValue;
-        this.phaseValue1 = phaseValue1;
-        this.phaseValue2 = phaseValue2;
-
-        AddPattern();
-    }
-
-    public void AddPattern()
-    {
-        this.Patterns = new List<Pattern>();
-
-        var monster = GameManager.Instance.testMonster;
-
-        Patterns.Add(new Pattern(10f, monster, null, null, null, null, 0));
-        Patterns.Add(new Pattern(5f, monster, monster, null, null, null, 0));
-        Patterns.Add(new Pattern(20f, monster, monster, monster, null, null, 1));
-        Patterns.Add(new Pattern(15f, monster, monster, monster, monster, null, 1));
-        Patterns.Add(new Pattern(10f, monster, monster, monster, monster, monster, 2));
-    }
-}
-
-[Serializable]
-public class Pattern
-{
-    public float monsterSpace;
-
-    public GameObject vertical1;
-    public GameObject vertical2;
-    public GameObject vertical3;
-    public GameObject vertical4;   
-    public GameObject vertical5;
-
-    public int logic;
-
-    public Pattern(float monsterSpace, GameObject vertical1, 
-        GameObject vertical2, GameObject vertical3, GameObject vertical4, GameObject vertical5,
-        int logic)
-    {
-        this.monsterSpace = monsterSpace;
-        this.vertical1 = vertical1;
-        this.vertical2 = vertical2;
-        this.vertical3 = vertical3;
-        this.vertical4 = vertical4;
-        this.vertical5 = vertical5;
-        this.logic = logic;
-    }
-}
+public Phase
 
 public class MonsterSpawner : MonoBehaviour
 {
+    
+
     public List<Transform> SpawnPoints;
     public float outOfScreenXPos = -20f;
     public List<GameObject> MonsterList;
     public float scrollSpeed;
     public float initialXPos;
-    public Phase currentPhase;
+    public PhaseTable currentPhase;
     [SerializeField] private float targetXPos;
 
     public static int totalMonsterCount;
     public static float currentSpace;
     public int trackingCount;
-    public List<Phase> Phases = new List<Phase>();
+    public List<PhaseTable> Phases = new List<PhaseTable>();
     // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없
     // 
 
     private void Awake()
     {
+    }
+
+    public void AddPattern()
+    {
+        //this.Patterns = Datas.GameData.DTPatternData.Values.ToList();
     }
 
     void Start()
@@ -101,14 +47,7 @@ public class MonsterSpawner : MonoBehaviour
         targetXPos = this.transform.position.x + initialXPos;
         currentSpace = 0;
 
-        if (Phases != null && Phases.Count <= 0)
-        {
-            Phases.Add(new Phase(20f, 10f, 50, 0.8f, 1.2f));
-            Phases.Add(new Phase(50f, 10f, 150,  0.8f, 1.2f));
-            Phases.Add(new Phase(360f, 10f, 300,  0.8f, 1.2f));
-        }
-
-        currentPhase = Phases[0];
+        currentPhase = Datas.GameData.DTPhaseData.Values.FirstOrDefault();
     }
 
     public void MoveNextPhase()
@@ -136,11 +75,11 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
     
-    void MonsterSpawn(Pattern pattern)
+    void MonsterSpawn(PatternTable pattern)
     {
         for (int i = 1; i <= 5; i++)
         {
-            FieldInfo fieldInfo = typeof(Pattern).GetField($"vertical{i}", BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo fieldInfo = typeof(PatternTable).GetField($"vertical{i}", BindingFlags.Public | BindingFlags.Instance);
     
             if (fieldInfo != null)
             {
@@ -155,7 +94,7 @@ public class MonsterSpawner : MonoBehaviour
             }
         }
         
-        currentSpace += pattern.monsterSpace;
+        currentSpace += pattern.patternInterval;
     }
 
     private bool isbossing;
@@ -205,13 +144,13 @@ public class MonsterSpawner : MonoBehaviour
             if (transform.position.x <= targetXPos)
             {
                 var pattern = SelectPattern(currentPhase);
-                targetXPos -= pattern.monsterSpace;
+                targetXPos -= pattern.patternInterval;
                 MonsterSpawn(pattern);
             }
         }
     }
-    
-    Pattern SelectPattern(Phase phase)
+
+    PatternTable SelectPattern(PhaseTable phase)
     {
         if (totalMonsterCount <= phase.targetMonsterValue * 
             phase.remainTime / phase.PhaseTime * phase.phaseValue1)
