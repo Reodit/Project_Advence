@@ -456,8 +456,8 @@ GameObject:
   - component: {fileID: 7965771414589264399}
   - component: {fileID: 3480912627956845062}
   - component: {fileID: 2693001535574820270}
-  - component: {fileID: 2770835680133257388}
   - component: {fileID: 7654054338211363455}
+  - component: {fileID: 9039204379313486705}
   m_Layer: 0
   m_Name: UnitRoot
   m_TagString: Enemy
@@ -516,27 +516,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &2770835680133257388
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847348784378203380}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &7654054338211363455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,6 +537,41 @@ MonoBehaviour:
   Hpbar: {fileID: 1741321867858047804}
   hitColor: {r: 0.745283, g: 0.5308384, b: 0.5308384, a: 1}
   hitDuration: 0.2
+--- !u!58 &9039204379313486705
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847348784378203380}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.42}
+  serializedVersion: 2
+  m_Radius: 0.45
 --- !u!1 &914036637649111586
 GameObject:
   m_ObjectHideFlags: 0

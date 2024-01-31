@@ -152,6 +152,7 @@ public class LevelUpPopUp : UIBase
                     
                     if (value < Datas.GameData.DTSkillEnchantData.Count)
                     {
+                        Debug.Log("1");
                         var playerSkill = GameManager.Instance.PlayerMove.playerSkills.ToList()
                             [Random.Range(0, GameManager.Instance.PlayerMove.playerSkills.Count)].Value;
 
@@ -190,6 +191,7 @@ public class LevelUpPopUp : UIBase
                         // 스킬 업그레이드에서 뽑기
                         if (value - Datas.GameData.DTSkillEnchantData.Count < Datas.GameData.DTSelectStatData.Count)
                         {
+                            Debug.Log("2");
                             var list = Datas.GameData.DTSelectStatData.ToList();
                             int randomIndex = Random.Range(0, list.Count);
                             var pick = list[randomIndex];
@@ -240,6 +242,7 @@ public class LevelUpPopUp : UIBase
                                 count++;
                                 if (count > 100)
                                 {
+                                    count++;
                                     Debug.Log("");
                                     break;
                                 }
