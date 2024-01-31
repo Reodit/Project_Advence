@@ -533,7 +533,7 @@ MonoBehaviour:
   monsterMaxHp: 30
   currentHp: 30
   dieDelay: 0.1
-  rewardExp: 5
+  rewardExp: 10
   Hpbar: {fileID: 1741321867858047804}
   hitColor: {r: 0.745283, g: 0.5308384, b: 0.5308384, a: 1}
   hitDuration: 0.2

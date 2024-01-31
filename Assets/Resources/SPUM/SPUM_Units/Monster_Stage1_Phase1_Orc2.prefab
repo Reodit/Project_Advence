@@ -914,8 +914,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerCooldown: 0.5
   lastTriggerTime: -0.5
-  monsterMaxHp: 50
-  currentHp: 50
+  monsterMaxHp: 30
+  currentHp: 30
   dieDelay: 0.2
   rewardExp: 10
   Hpbar: {fileID: 5078607712591528327}
