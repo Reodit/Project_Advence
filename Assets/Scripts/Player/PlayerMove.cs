@@ -40,12 +40,10 @@ public class PlayerMove : MonoBehaviour
     private Coroutine flashCoroutine = null; // 코루틴의 참조를 저장할 변수
     public CharacterTable characterData;
 
-    public Dictionary<string, CharacterSkill> playerSkills = new Dictionary<string, CharacterSkill>();
-    public UpgradeHistory playerUpgradeHistory = new UpgradeHistory(new List<SelectStatTable>());
     void Update()
     {
         Move();
-        LevelUp();
+        //LevelUp();
         if (isHit)
         {
             Hit();
