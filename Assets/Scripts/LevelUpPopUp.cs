@@ -100,7 +100,8 @@ public class LevelUpPopUp : UIBase
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
                         upgradePrefab.upgradeButton.onClick.AddListener(() => 
                         {
-                            GameManager.Instance.PlayerMove.playerSkills[pick.Value.name].SkillEnchantTables.Add(pick.Value);
+                            GameManager.Instance.PlayerMove.playerSkills.ElementAt(Random.Range(0, GameManager.Instance.PlayerMove.playerSkills.Count)).
+                                Value.SkillEnchantTables.Add(pick.Value);
                             Destroy(this.gameObject);
                         }); // 전투 공식 이후 구현
                         selectedSkillEnchantTables.Add(pick.Value);
@@ -168,7 +169,7 @@ public class LevelUpPopUp : UIBase
                             pick = Datas.GameData.DTSkillEnchantData.ElementAt(Random.Range(0, Datas.GameData.DTSkillEnchantData.Count));
 
                             count++;
-                            if (count > 100)
+                            if (count > 100) 
                             {
                                 break;
                             }
@@ -181,7 +182,8 @@ public class LevelUpPopUp : UIBase
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
                         upgradePrefab.upgradeButton.onClick.AddListener(() => 
                         {
-                            GameManager.Instance.PlayerMove.playerSkills[pick.Value.name].SkillEnchantTables.Add(pick.Value);
+                            GameManager.Instance.PlayerMove.playerSkills.ElementAt(Random.Range(0, GameManager.Instance.PlayerMove.playerSkills.Count)).
+                                Value.SkillEnchantTables.Add(pick.Value);
                             Destroy(this.gameObject);
                         }); // 전투 공식 이후 구현
                         selectedSkillEnchantTables.Add(pick.Value);
