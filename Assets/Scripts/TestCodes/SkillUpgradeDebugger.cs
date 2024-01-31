@@ -52,7 +52,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_fireball == null)
             return;
 
-        _skillDict[_fireball.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
     }
 
     public void UpgradeStraightLightningBolt()
@@ -60,7 +60,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_lightningBolt == null)
             return;
 
-        _skillDict[_lightningBolt.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
     }
 
     public void UpgradeStraightBlueLaser()
@@ -68,7 +68,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_blueLaser == null)
             return;
 
-        _skillDict[_blueLaser.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
     }
 
     public void UpgradeCrossFireball()
@@ -76,7 +76,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_fireball == null)
             return;
 
-        _skillDict[_fireball.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
     }
 
     public void UpgradeCrossLightningBolt()
@@ -84,7 +84,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_lightningBolt == null)    
             return;
 
-        _skillDict[_lightningBolt.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
     }
 
     public void UpgradeCrossBlueLaser()
@@ -92,7 +92,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_blueLaser == null)
             return;
 
-        _skillDict[_blueLaser.name].SkillEnchantTables.Add(Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
     }
 
     private void SpawnBullet(SkillTable skill)
@@ -102,10 +102,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
             _skillDict = SkillManager.instance.playerSkills;
         }
 
-        if (!_skillDict.ContainsKey(skill.name))
-        {
-            _skillDict.Add(skill.name, new CharacterSkill(skill, new List<SkillEnchantTable>()));
-        }
+        SkillManager.instance.AddPlayerSkill(skill);
     }
 
     private void EnchantDictInit()
