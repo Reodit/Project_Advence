@@ -135,8 +135,70 @@ namespace Datas
                 Debug.LogError("Failed to load skillEnchantTableData from ScriptableObject.");
             }
         }
-        
-        
 
+        public static Dictionary<int, PatternTable> DTPatternData = new Dictionary<int, PatternTable>();
+        public static Dictionary<int, PhaseTable> DTPhaseData = new Dictionary<int, PhaseTable>();
+
+        public static void LoadPatternDataToGameData(string fileName)
+        {
+            string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
+            var patternData = Resources.Load<ScriptableObject>(path) as PatternTableScriptableObject;
+
+            if (patternData != null)
+            {
+                foreach (var e in patternData.Patterns)
+                {
+
+                    DTPatternData.Add(e.index, e);
+                }
+            }
+
+            else
+            {
+                Debug.LogError("Failed to load PatternData from ScriptableObject.");
+            }
+        }
+
+        public static void LoadPhaseDataToGameData(string fileName)
+        {
+            string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
+            var phaseData = Resources.Load<ScriptableObject>(path) as PhaseTableScriptableObject;
+
+            if (phaseData != null)
+            {
+                foreach (var e in phaseData.PhaseTables)
+                {
+
+                    DTPhaseData.Add(e.index, e);
+                }
+            }
+
+            else
+            {
+                Debug.LogError("Failed to load PhaseData from ScriptableObject.");
+            }
+        }
+
+        public static Dictionary<int, MonsterTable> DTMonsterData = new Dictionary<int, MonsterTable>();
+
+        public static void LoadMonsterDataToGameData(string fileName)
+        {
+            string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
+            var monsterData = Resources.Load<ScriptableObject>(path) as MonsterTableScriptableObject;
+
+            if (monsterData != null)
+            {
+                foreach (var e in monsterData.MonsterTables)
+                {
+
+                    DTMonsterData.Add(e.ID, e);
+                }
+            }
+
+            else
+            {
+                Debug.LogError("Failed to load PatternData from ScriptableObject.");
+            }
+        }
     }   
 }

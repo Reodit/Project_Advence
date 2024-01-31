@@ -84,7 +84,6 @@ public class LevelUpPopUp : UIBase
                         while (playerSkill.SkillEnchantTables.Count(item => item.index == pick.Value.index) >=
                                pick.Value.maxCnt && selectedSkillEnchantTables.Contains(pick.Value))
                         {
-                            Debug.Log("");
                             pick = Datas.GameData.DTSkillEnchantData.ElementAt(Random.Range(0, Datas.GameData.DTSkillEnchantData.Count));
 
                             count++;
@@ -99,7 +98,11 @@ public class LevelUpPopUp : UIBase
                         
                         upgradePrefab.upgradeTitleText.text = pick.Value.name;
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
+                        upgradePrefab.upgradeButton.onClick.AddListener(() => 
+                        {
+                            GameManager.Instance.PlayerMove.playerSkills[pick.Value.name].SkillEnchantTables.Add(pick.Value);
+                            Destroy(this.gameObject);
+                        }); // 전투 공식 이후 구현
                         selectedSkillEnchantTables.Add(pick.Value);
                         // 아이콘 배치 필요
                     }
@@ -147,9 +150,6 @@ public class LevelUpPopUp : UIBase
                     
                     int value = Random.Range(0, totalCount);
                     
-                    Debug.Log(value + "!!!" +
-                              "");
-                    
                     if (value < Datas.GameData.DTSkillEnchantData.Count)
                     {
                         var playerSkill = GameManager.Instance.PlayerMove.playerSkills.ToList()
@@ -169,7 +169,6 @@ public class LevelUpPopUp : UIBase
                             count++;
                             if (count > 100)
                             {
-                                Debug.Log("");
                                 break;
                             }
                         }
@@ -179,7 +178,11 @@ public class LevelUpPopUp : UIBase
                         
                         upgradePrefab.upgradeTitleText.text = pick.Value.name;
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
-                        upgradePrefab.upgradeButton.onClick.AddListener(() => { Destroy(this.gameObject);}); // 전투 공식 이후 구현
+                        upgradePrefab.upgradeButton.onClick.AddListener(() => 
+                        {
+                            GameManager.Instance.PlayerMove.playerSkills[pick.Value.name].SkillEnchantTables.Add(pick.Value);
+                            Destroy(this.gameObject);
+                        }); // 전투 공식 이후 구현
                         selectedSkillEnchantTables.Add(pick.Value);
 
                         // 아이콘 배치 필요
@@ -187,7 +190,6 @@ public class LevelUpPopUp : UIBase
 
                     else
                     {
-                        // 스킬 업그레이드에서 뽑기
                         if (value - Datas.GameData.DTSkillEnchantData.Count < Datas.GameData.DTSelectStatData.Count)
                         {
                             var list = Datas.GameData.DTSelectStatData.ToList();
@@ -201,7 +203,6 @@ public class LevelUpPopUp : UIBase
                                 count++;
                                 if (count > 100)
                                 {
-                                    Debug.Log("");
                                     break;
                                 }
                             }
@@ -223,7 +224,6 @@ public class LevelUpPopUp : UIBase
                         // 스킬에서 뽑기
                         else
                         {
-                            Debug.Log("3");
                             var list = Datas.GameData.DTSkillData.ToList();
                             int randomIndex = Random.Range(0, list.Count);
                             var pick = list[randomIndex];
@@ -232,6 +232,9 @@ public class LevelUpPopUp : UIBase
                             var playerSkills = GameManager.Instance.PlayerMove.playerSkills.ToList();
 
                             int count = 0;
+
+                            // TODO 현재 스킬이 3개 뿐이라.. 스킬이 2개인데, 하나를 뽑은 상태에서 또 여기 빠질 경우  while문을 빠져나갈 수가 없음.
+                            // 
                             while (!isUnique)
                             {
                                 pick = list[Random.Range(0, list.Count)];
@@ -240,10 +243,10 @@ public class LevelUpPopUp : UIBase
                                 count++;
                                 if (count > 100)
                                 {
-                                    Debug.Log("");
-                                    break;
+                                    return;
                                 }
                             }
+                            
                             
                             var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
                             upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(pick.Value.icon);

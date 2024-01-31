@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         Datas.GameData.LoadSelectStatDataToGameData("SelectStatTable");
         Datas.GameData.LoadSkillEnchantDataToGameData("SkillEnchantTable");
         Datas.GameData.LoadStatLevelDataToGameData("StatLevelTable");
+        Datas.GameData.LoadPatternDataToGameData("PatternTable");
+        Datas.GameData.LoadPhaseDataToGameData("PhaseTable");
     }
     
 

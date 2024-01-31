@@ -12,7 +12,7 @@ public class Phase
 {
     public float remainTime;
     public float PhaseTime;
-    public float firstPrintMonster; // 몬스터가 최초로 나오는 위치
+    public float firstPrintMonster;
     public int targetMonsterValue;
     public List<Pattern> Patterns;
     public float phaseValue1;
@@ -84,7 +84,7 @@ public class MonsterSpawner : MonoBehaviour
     public static float currentSpace;
     public int trackingCount;
     public List<Phase> Phases = new List<Phase>();
-    // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없음;
+    // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없
     // 
 
     private void Awake()
