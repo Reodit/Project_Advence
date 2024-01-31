@@ -3,10 +3,16 @@
 --- !u!1 &102434
 GameObject:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
+=======
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_Component:
   - component: {fileID: 415264}
   - component: {fileID: 19855462}
@@ -19,6 +25,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &415264
 Transform:
   m_ObjectHideFlags: 0
@@ -31,10 +38,68 @@ Transform:
   m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
+=======
+--- !u!1 &108446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 409222}
+  - component: {fileID: 19857894}
+  - component: {fileID: 19997944}
+  m_Layer: 0
+  m_Name: ExtraGlow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &172638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 463676}
+  - component: {fileID: 10889644}
+  m_Layer: 0
+  m_Name: Point light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &409222
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 415264}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &415264
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_Children:
   - {fileID: 409222}
   - {fileID: 463676}
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &19855462
 ParticleSystem:
@@ -51,11 +116,173 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
+=======
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &463676
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172638}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 415264}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!82 &8286356
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102434}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bd4f3453a5b042244b6199cc8bf208bd, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.6
+  m_Pitch: 0.5
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!108 &10889644
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172638}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0, g: 0.42068958, b: 1, a: 1}
+  m_Intensity: 2
+  m_Range: 7
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!198 &19855462
+ParticleSystem:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102434}
+  serializedVersion: 5
+  lengthInSec: 5
+  simulationSpeed: 1
+  stopAction: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+<<<<<<< HEAD
+=======
+  useRigidbodyForVelocity: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -218,7 +445,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -248,7 +478,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     startSize:
@@ -394,7 +627,11 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
+<<<<<<< HEAD
       minMaxState: 3
+=======
+      minMaxState: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -447,7 +684,11 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
+<<<<<<< HEAD
       minMaxState: 3
+=======
+      minMaxState: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -534,9 +775,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 0
     randomizeRotationDirection: 0
+<<<<<<< HEAD
     gravitySource: 0
     maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
+=======
+    maxNumParticles: 1000
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -593,7 +838,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   ShapeModule:
+<<<<<<< HEAD
     serializedVersion: 6
+=======
+    serializedVersion: 5
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     enabled: 0
     type: 0
     angle: 11.49
@@ -607,6 +856,7 @@ ParticleSystem:
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
+<<<<<<< HEAD
     m_MeshSpawn:
       mode: 0
       spread: 0
@@ -668,6 +918,11 @@ ParticleSystem:
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 0}
     m_SpriteRenderer: {fileID: 0}
+=======
+    m_Mesh: {fileID: 0}
+    m_MeshRenderer: {fileID: 0}
+    m_SkinnedMeshRenderer: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
     alignToDirection: 0
@@ -1246,7 +1501,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 3
         m_NumAlphaKeys: 3
       minGradient:
@@ -1276,6 +1534,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
@@ -1285,6 +1544,13 @@ ParticleSystem:
     mode: 0
     timeMode: 0
     fps: 30
+=======
+        m_NumColorKeys: 2
+        m_NumAlphaKeys: 2
+  UVModule:
+    enabled: 1
+    mode: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     frameOverTime:
       serializedVersion: 2
       minMaxState: 2
@@ -1391,18 +1657,29 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+<<<<<<< HEAD
     speedRange: {x: 0, y: 1}
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     tilesX: 3
     tilesY: 3
     animationType: 0
     rowIndex: 0
     cycles: 2
     uvChannelMask: -1
+<<<<<<< HEAD
     rowMode: 1
     sprites:
     - sprite: {fileID: 0}
     flipU: 0
     flipV: 0
+=======
+    flipU: 0
+    flipV: 0
+    randomRow: 1
+    sprites:
+    - sprite: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   VelocityModule:
     enabled: 0
     x:
@@ -1991,6 +2268,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+<<<<<<< HEAD
   LifetimeByEmitterSpeedModule:
     enabled: 0
     m_Curve:
@@ -2047,6 +2325,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     m_Range: {x: 0, y: 1}
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   ForceModule:
     enabled: 0
     x:
@@ -2211,6 +2491,7 @@ ParticleSystem:
     inWorldSpace: 0
     randomizePerFrame: 0
   ExternalForcesModule:
+<<<<<<< HEAD
     serializedVersion: 2
     enabled: 0
     multiplierCurve:
@@ -2271,6 +2552,10 @@ ParticleSystem:
       serializedVersion: 2
       m_Bits: 4294967295
     influenceList: []
+=======
+    enabled: 0
+    multiplier: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   ClampVelocityModule:
     enabled: 0
     x:
@@ -3443,7 +3728,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -3473,19 +3761,27 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
     enabled: 0
+<<<<<<< HEAD
     serializedVersion: 4
+=======
+    serializedVersion: 3
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     type: 0
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
     multiplyColliderForceByCollisionAngle: 1
+<<<<<<< HEAD
     m_Planes:
     - {fileID: 0}
     - {fileID: 0}
@@ -3493,6 +3789,14 @@ ParticleSystem:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+=======
+    plane0: {fileID: 0}
+    plane1: {fileID: 0}
+    plane2: {fileID: 0}
+    plane3: {fileID: 0}
+    plane4: {fileID: 0}
+    plane5: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
@@ -3666,11 +3970,21 @@ ParticleSystem:
     interiorCollisions: 1
   TriggerModule:
     enabled: 0
+<<<<<<< HEAD
     serializedVersion: 2
+=======
+    collisionShape0: {fileID: 0}
+    collisionShape1: {fileID: 0}
+    collisionShape2: {fileID: 0}
+    collisionShape3: {fileID: 0}
+    collisionShape4: {fileID: 0}
+    collisionShape5: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     inside: 1
     outside: 0
     enter: 0
     exit: 0
+<<<<<<< HEAD
     colliderQueryMode: 0
     radiusScale: 1
     primitives:
@@ -3680,15 +3994,25 @@ ParticleSystem:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+=======
+    radiusScale: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   SubModule:
     serializedVersion: 2
     enabled: 0
     subEmitters:
+<<<<<<< HEAD
     - serializedVersion: 3
       emitter: {fileID: 0}
       type: 0
       properties: 0
       emitProbability: 1
+=======
+    - serializedVersion: 2
+      emitter: {fileID: 0}
+      type: 0
+      properties: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   LightsModule:
     enabled: 0
     ratio: 0
@@ -3863,9 +4187,13 @@ ParticleSystem:
         m_RotationOrder: 4
     minVertexDistance: 0.2
     textureMode: 0
+<<<<<<< HEAD
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
+=======
+    ribbonCount: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     worldSpace: 0
     dieWithParticles: 1
     sizeAffectsWidth: 1
@@ -3873,7 +4201,10 @@ ParticleSystem:
     inheritParticleColor: 1
     generateLightingData: 0
     splitSubEmitterRibbons: 0
+<<<<<<< HEAD
     attachRibbonsToTransform: 0
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     colorOverLifetime:
       serializedVersion: 2
       minMaxState: 0
@@ -3906,7 +4237,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -3936,7 +4270,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     widthOverTrail:
@@ -4024,7 +4361,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -4054,7 +4394,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   CustomDataModule:
@@ -4093,7 +4436,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -4123,7 +4469,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     colorLabel0: Color
@@ -4377,7 +4726,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -4407,7 +4759,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     colorLabel1: Color
@@ -4627,6 +4982,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
 --- !u!199 &19906448
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4846,11 +5202,27 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
+=======
+--- !u!198 &19857894
+ParticleSystem:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108446}
+  serializedVersion: 5
+  lengthInSec: 5
+  simulationSpeed: 1
+  stopAction: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+<<<<<<< HEAD
+=======
+  useRigidbodyForVelocity: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -5049,7 +5421,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -5079,7 +5454,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     startSize:
@@ -5383,9 +5761,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
+<<<<<<< HEAD
     gravitySource: 0
     maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
+=======
+    maxNumParticles: 1000
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5442,7 +5824,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   ShapeModule:
+<<<<<<< HEAD
     serializedVersion: 6
+=======
+    serializedVersion: 5
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     enabled: 0
     type: 0
     angle: 25
@@ -5456,6 +5842,7 @@ ParticleSystem:
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
+<<<<<<< HEAD
     m_MeshSpawn:
       mode: 0
       spread: 0
@@ -5517,6 +5904,11 @@ ParticleSystem:
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 0}
     m_SpriteRenderer: {fileID: 0}
+=======
+    m_Mesh: {fileID: 0}
+    m_MeshRenderer: {fileID: 0}
+    m_SkinnedMeshRenderer: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
     alignToDirection: 0
@@ -6113,7 +6505,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 4
       minGradient:
@@ -6143,6 +6538,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
@@ -6152,6 +6548,13 @@ ParticleSystem:
     mode: 0
     timeMode: 0
     fps: 30
+=======
+        m_NumColorKeys: 2
+        m_NumAlphaKeys: 2
+  UVModule:
+    enabled: 0
+    mode: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     frameOverTime:
       serializedVersion: 2
       minMaxState: 1
@@ -6258,18 +6661,29 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+<<<<<<< HEAD
     speedRange: {x: 0, y: 1}
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     tilesX: 1
     tilesY: 1
     animationType: 0
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
+<<<<<<< HEAD
     rowMode: 1
     sprites:
     - sprite: {fileID: 0}
     flipU: 0
     flipV: 0
+=======
+    flipU: 0
+    flipV: 0
+    randomRow: 1
+    sprites:
+    - sprite: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   VelocityModule:
     enabled: 0
     x:
@@ -6912,6 +7326,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+<<<<<<< HEAD
   LifetimeByEmitterSpeedModule:
     enabled: 0
     m_Curve:
@@ -6968,6 +7383,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     m_Range: {x: 0, y: 1}
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   ForceModule:
     enabled: 0
     x:
@@ -7132,6 +7549,7 @@ ParticleSystem:
     inWorldSpace: 0
     randomizePerFrame: 0
   ExternalForcesModule:
+<<<<<<< HEAD
     serializedVersion: 2
     enabled: 0
     multiplierCurve:
@@ -7192,6 +7610,10 @@ ParticleSystem:
       serializedVersion: 2
       m_Bits: 4294967295
     influenceList: []
+=======
+    enabled: 0
+    multiplier: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   ClampVelocityModule:
     enabled: 0
     x:
@@ -8364,7 +8786,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -8394,19 +8819,27 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
     enabled: 0
+<<<<<<< HEAD
     serializedVersion: 4
+=======
+    serializedVersion: 3
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     type: 0
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
     multiplyColliderForceByCollisionAngle: 1
+<<<<<<< HEAD
     m_Planes:
     - {fileID: 0}
     - {fileID: 0}
@@ -8414,6 +8847,14 @@ ParticleSystem:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+=======
+    plane0: {fileID: 0}
+    plane1: {fileID: 0}
+    plane2: {fileID: 0}
+    plane3: {fileID: 0}
+    plane4: {fileID: 0}
+    plane5: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
@@ -8587,11 +9028,21 @@ ParticleSystem:
     interiorCollisions: 1
   TriggerModule:
     enabled: 0
+<<<<<<< HEAD
     serializedVersion: 2
+=======
+    collisionShape0: {fileID: 0}
+    collisionShape1: {fileID: 0}
+    collisionShape2: {fileID: 0}
+    collisionShape3: {fileID: 0}
+    collisionShape4: {fileID: 0}
+    collisionShape5: {fileID: 0}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     inside: 1
     outside: 0
     enter: 0
     exit: 0
+<<<<<<< HEAD
     colliderQueryMode: 0
     radiusScale: 1
     primitives:
@@ -8601,15 +9052,25 @@ ParticleSystem:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+=======
+    radiusScale: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   SubModule:
     serializedVersion: 2
     enabled: 0
     subEmitters:
+<<<<<<< HEAD
     - serializedVersion: 3
       emitter: {fileID: 0}
       type: 0
       properties: 0
       emitProbability: 1
+=======
+    - serializedVersion: 2
+      emitter: {fileID: 0}
+      type: 0
+      properties: 0
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   LightsModule:
     enabled: 0
     ratio: 0
@@ -8784,9 +9245,13 @@ ParticleSystem:
         m_RotationOrder: 4
     minVertexDistance: 0.2
     textureMode: 0
+<<<<<<< HEAD
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
+=======
+    ribbonCount: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     worldSpace: 0
     dieWithParticles: 1
     sizeAffectsWidth: 1
@@ -8794,7 +9259,10 @@ ParticleSystem:
     inheritParticleColor: 1
     generateLightingData: 0
     splitSubEmitterRibbons: 0
+<<<<<<< HEAD
     attachRibbonsToTransform: 0
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
     colorOverLifetime:
       serializedVersion: 2
       minMaxState: 0
@@ -8827,7 +9295,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -8857,7 +9328,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     widthOverTrail:
@@ -8945,7 +9419,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -8975,7 +9452,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   CustomDataModule:
@@ -9014,7 +9494,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -9044,7 +9527,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     colorLabel0: Color
@@ -9298,7 +9784,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -9328,7 +9817,10 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
+<<<<<<< HEAD
         m_ColorSpace: -1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     colorLabel1: Color
@@ -9548,6 +10040,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
 --- !u!199 &19997944
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9556,10 +10049,20 @@ ParticleSystemRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108446}
+=======
+--- !u!199 &19906448
+ParticleSystemRenderer:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102434}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+<<<<<<< HEAD
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -9570,6 +10073,14 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dc465efe33ad97c42a9a8a3b1d42c7fd, type: 2}
+=======
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 854ff48ec0d5fa548abcc21c5608735b, type: 2}
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9578,7 +10089,10 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+<<<<<<< HEAD
   m_ReceiveGI: 1
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9592,7 +10106,10 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 0
+<<<<<<< HEAD
   m_MeshDistribution: 0
+=======
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 1
@@ -9601,6 +10118,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
+<<<<<<< HEAD
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
@@ -9614,10 +10132,18 @@ ParticleSystemRenderer:
   m_VertexStreams: 0001030405
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
+=======
+  m_RenderAlignment: 0
+  m_Pivot: {x: 0, y: 0, z: 0}
+  m_UseCustomVertexStreams: 0
+  m_EnableGPUInstancing: 0
+  m_VertexStreams: 0001030405
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+<<<<<<< HEAD
   m_MeshWeighting: 1
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
@@ -9717,3 +10243,73 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+=======
+  m_MaskInteraction: 0
+--- !u!199 &19997944
+ParticleSystemRenderer:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108446}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: dc465efe33ad97c42a9a8a3b1d42c7fd, type: 2}
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_RenderMode: 0
+  m_SortMode: 0
+  m_MinParticleSize: 0
+  m_MaxParticleSize: 1
+  m_CameraVelocityScale: 0
+  m_VelocityScale: 0
+  m_LengthScale: 2
+  m_SortingFudge: 0
+  m_NormalDirection: 1
+  m_RenderAlignment: 0
+  m_Pivot: {x: 0, y: 0, z: 0}
+  m_UseCustomVertexStreams: 0
+  m_EnableGPUInstancing: 0
+  m_VertexStreams: 0001030405
+  m_Mesh: {fileID: 0}
+  m_Mesh1: {fileID: 0}
+  m_Mesh2: {fileID: 0}
+  m_Mesh3: {fileID: 0}
+  m_MaskInteraction: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 102434}
+  m_IsPrefabParent: 1
+>>>>>>> 88486291e097000549ab45f3053cdecc91658ef4

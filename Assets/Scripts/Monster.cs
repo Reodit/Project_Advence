@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
 {
     [SerializeField] private float triggerCooldown = 0.5f; // 트리거 호출 간의 쿨다운 시간 (0.5초)
     [SerializeField] private float lastTriggerTime = -0.5f; // 마지막으로 트리거 함수가 호출된 시간
-    
+
     
     private CircleCollider2D _collider;
     private Vector2 _centerPos;
@@ -82,10 +82,10 @@ public class Monster : MonoBehaviour
     }
 
     private bool CheckPreviousHit()
-    {
+        {
         return Time.time > lastTriggerTime + triggerCooldown;
     }
-
+    
     public Color hitColor = Color.red; // 피격 시 적용할 색상
     public float hitDuration = 0.2f; // 피격 색상이 지속되는 시간
 

@@ -78,12 +78,20 @@ public class LevelUpPopUp : UIBase
                         var list = Datas.GameData.DTSkillEnchantData.ToList();
                         int randomIndex = Random.Range(0, list.Count);
                         var pick = list[randomIndex];
-                        
+
+                        int count = 0;
                         // 다시 뽑는다
                         while (playerSkill.SkillEnchantTables.Count(item => item.index == pick.Value.index) >=
                                pick.Value.maxCnt && selectedSkillEnchantTables.Contains(pick.Value))
                         {
+                            Debug.Log("");
                             pick = Datas.GameData.DTSkillEnchantData.ElementAt(Random.Range(0, Datas.GameData.DTSkillEnchantData.Count));
+
+                            count++;
+                            if (count > 100)
+                            {
+                                break;
+                            }
                         }
                         
                         var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
@@ -104,9 +112,15 @@ public class LevelUpPopUp : UIBase
                         
                         var upgradeHistory = GameManager.Instance.PlayerMove.playerUpgradeHistory;
 
+                        int count = 0;
                         while (selectedStatTable.Contains(pick.Value))
                         {
                             pick = list[Random.Range(0, list.Count)];
+                            count++;
+                            if (count > 100)
+                            {
+                                break;
+                            }
                         }
                         
                         //예외처리 필요 캐릭터가 업그레이드를 풀까지 돌렸을 때 예외처리
@@ -147,10 +161,18 @@ public class LevelUpPopUp : UIBase
                         var pick = list[randomIndex];
                         
                         // 다시 뽑는다
+                        int count = 0;
                         while (playerSkill.SkillEnchantTables.Count(item => item.index == pick.Value.index) >=
                                pick.Value.maxCnt && selectedSkillEnchantTables.Contains(pick.Value))
                         {
                             pick = Datas.GameData.DTSkillEnchantData.ElementAt(Random.Range(0, Datas.GameData.DTSkillEnchantData.Count));
+
+                            count++;
+                            if (count > 100)
+                            {
+                                Debug.Log("");
+                                break;
+                            }
                         }
                         
                         var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
@@ -174,9 +196,16 @@ public class LevelUpPopUp : UIBase
                             int randomIndex = Random.Range(0, list.Count);
                             var pick = list[randomIndex];
                         
+                            int count = 0;
                             while (selectedStatTable.Contains(pick.Value))
                             {
                                 pick = list[Random.Range(0, list.Count)];
+                                count++;
+                                if (count > 100)
+                                {
+                                    Debug.Log("");
+                                    break;
+                                }
                             }
                             
                             var upgradeHistory = GameManager.Instance.PlayerMove.playerUpgradeHistory;
@@ -210,6 +239,7 @@ public class LevelUpPopUp : UIBase
                                 pick = list[Random.Range(0, list.Count)];
                                 isUnique = playerSkills.All(ps => ps.Value.SkillTable.index != pick.Value.index) && !selectedSkillTables.Contains(pick.Value);
 
+                                count++;
                                 if (count > 100)
                                 {
                                     count++;

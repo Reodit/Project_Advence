@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public Transform characterSpawnPoint;
-    public MoveArea MoveArea; // 할당
+    public MoveArea MoveArea;
     
     public IngameUI IngameUI;
     public PlayerMove PlayerMove { get; private set; }

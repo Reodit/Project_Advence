@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     public int bulletDamage;
     private Vector3 initPosition;
     private CircleCollider2D _collider;
-
+    
     private void Awake()
     {
         _collider = GetComponent<CircleCollider2D>();
