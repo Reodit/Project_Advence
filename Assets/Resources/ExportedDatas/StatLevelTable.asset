@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a7ba13f9af2405caf8cefc631695f8, type: 3}
+  m_Name: StatLevelTable
+  m_EditorClassIdentifier: 
+  characterLevelTableList:
+  - index: 12001
+    addStatValue: 20
+    statLevel: 1
+    upgradeName: 0
+    requireGoldValue: 1000
+  - index: 12002
+    addStatValue: 20
+    statLevel: 2
+    upgradeName: 0
+    requireGoldValue: 3000
+  - index: 12003
+    addStatValue: 20
+    statLevel: 3
+    upgradeName: 0
+    requireGoldValue: 5000
+  - index: 12004
+    addStatValue: 20
+    statLevel: 4
+    upgradeName: 0
+    requireGoldValue: 6000
+  - index: 12005
+    addStatValue: 20
+    statLevel: 5
+    upgradeName: 0
+    requireGoldValue: 8000
+  - index: 12006
+    addStatValue: 100
+    statLevel: 1
+    upgradeName: 1
+    requireGoldValue: 1000
+  - index: 12007
+    addStatValue: 100
+    statLevel: 2
+    upgradeName: 1
+    requireGoldValue: 3000
+  - index: 12008
+    addStatValue: 100
+    statLevel: 3
+    upgradeName: 1
+    requireGoldValue: 5000
+  - index: 12009
+    addStatValue: 100
+    statLevel: 4
+    upgradeName: 1
+    requireGoldValue: 6000
+  - index: 12010
+    addStatValue: 100
+    statLevel: 5
+    upgradeName: 1
+    requireGoldValue: 8000
+  - index: 12011
+    addStatValue: 200
+    statLevel: 1
+    upgradeName: 2
+    requireGoldValue: 1000
+  - index: 12012
+    addStatValue: 200
+    statLevel: 2
+    upgradeName: 2
+    requireGoldValue: 3000
+  - index: 12013
+    addStatValue: 200
+    statLevel: 3
+    upgradeName: 2
+    requireGoldValue: 5000
+  - index: 12014
+    addStatValue: 200
+    statLevel: 4
+    upgradeName: 2
+    requireGoldValue: 6000
+  - index: 12015
+    addStatValue: 200
+    statLevel: 5
+    upgradeName: 2
+    requireGoldValue: 8000
+  - index: 12016
+    addStatValue: 100
+    statLevel: 1
+    upgradeName: 3
+    requireGoldValue: 1000
+  - index: 12017
+    addStatValue: 100
+    statLevel: 2
+    upgradeName: 3
+    requireGoldValue: 3000
+  - index: 12018
+    addStatValue: 100
+    statLevel: 3
+    upgradeName: 3
+    requireGoldValue: 5000
+  - index: 12019
+    addStatValue: 100
+    statLevel: 4
+    upgradeName: 3
+    requireGoldValue: 6000
+  - index: 12020
+    addStatValue: 100
+    statLevel: 5
+    upgradeName: 3
+    requireGoldValue: 8000
+  - index: 12021
+    addStatValue: 50
+    statLevel: 1
+    upgradeName: 4
+    requireGoldValue: 1000
+  - index: 12022
+    addStatValue: 50
+    statLevel: 2
+    upgradeName: 4
+    requireGoldValue: 3000
+  - index: 12023
+    addStatValue: 50
+    statLevel: 3
+    upgradeName: 4
+    requireGoldValue: 5000
+  - index: 12024
+    addStatValue: 50
+    statLevel: 4
+    upgradeName: 4
+    requireGoldValue: 6000
+  - index: 12025
+    addStatValue: 50
+    statLevel: 5
+    upgradeName: 4
+    requireGoldValue: 8000
+  - index: 12026
+    addStatValue: 50
+    statLevel: 1
+    upgradeName: 5
+    requireGoldValue: 1000
+  - index: 12027
+    addStatValue: 50
+    statLevel: 2
+    upgradeName: 5
+    requireGoldValue: 3000
+  - index: 12028
+    addStatValue: 50
+    statLevel: 3
+    upgradeName: 5
+    requireGoldValue: 5000
+  - index: 12029
+    addStatValue: 50
+    statLevel: 4
+    upgradeName: 5
+    requireGoldValue: 6000
+  - index: 12030
+    addStatValue: 50
+    statLevel: 5
+    upgradeName: 5
+    requireGoldValue: 8000

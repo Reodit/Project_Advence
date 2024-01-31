@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42567381d013442bb5600a99a6b7fdf, type: 3}
+  m_Name: SelectStatTable
+  m_EditorClassIdentifier: 
+  SelectStatTableList:
+  - index: 16000
+    name: "\uC6B4\uAE30\uC870\uC2DD"
+    selectStatName: 0
+    selectStatRateValue: 50
+    description: "\uC2A4\uD0AC\uC758 \uC804\uCCB4 \uACF5\uACA9\uB825\uC744 \uAC15\uD654
+      \uD569\uB2C8\uB2E4"
+    iconPath: Icon/Icon_Flat__20
+  - index: 16001
+    name: "\uBA85\uC0C1"
+    selectStatName: 1
+    selectStatRateValue: 100
+    description: "\uC2A4\uD0AC\uC758 \uC804\uCCB4 \uACF5\uACA9\uC18D\uB3C4\uB97C
+      \uAC15\uD654 \uD569\uB2C8\uB2E4"
+    iconPath: Icon/Icon_Flat__21
+  - index: 16002
+    name: "\uCD95\uC9C0\uBC95"
+    selectStatName: 2
+    selectStatRateValue: 100
+    description: "\uCE90\uB9AD\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4\uB97C \uAC15\uD654
+      \uD569\uB2C8\uB2E4"
+    iconPath: Icon/Icon_Flat__22
+  - index: 16003
+    name: "\uAE08\uAC15\uBD88\uAD34"
+    selectStatName: 3
+    selectStatRateValue: 100
+    description: "\uCE90\uB9AD\uD130\uC758 \uBC29\uC5B4\uB825\uC744 \uAC15\uD654
+      \uD569\uB2C8\uB2E4"
+    iconPath: Icon/Icon_Flat__23
+  - index: 16004
+    name: "\uC808\uD638\uC758\uC77C\uACA9"
+    selectStatName: 4
+    selectStatRateValue: 50
+    description: "\uCE90\uB9AD\uD130\uC758 \uD06C\uB9AC\uD2F0\uCEEC \uB370\uBBF8\uC9C0\uB97C
+      \uAC15\uD654 \uD569\uB2C8\uB2E4"
+    iconPath: Icon/Icon_Flat__24
