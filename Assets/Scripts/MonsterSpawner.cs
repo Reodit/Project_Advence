@@ -7,71 +7,111 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public Phase
+
+[Serializable]
+public class Phase
+{
+    public PhaseTable phaseData;
+    public List<PatternTable> patternList;
+    public float remainTime;
+    public float phaseTime;
+    /// <summary>
+    /// 커스텀 패턴 추가가 필요할 때
+    /// </summary>
+    /// <param name="phaseData"></param>
+    /// <param name="patternList"></param>
+    public Phase(PhaseTable phaseData, List<PatternTable> patternList, float phaseTime)
+    {
+        this.phaseData = phaseData;
+        this.patternList = patternList;
+        this.phaseTime = phaseTime;
+        remainTime = phaseTime;
+    }
+
+    /// <summary>
+    /// 데이터 테이블에 있는 패턴을 사용
+    /// </summary>
+    /// <param name="phaseData"></param>
+    public Phase(PhaseTable phaseData, float phaseTime)
+    {
+        this.phaseData = phaseData;
+        this.patternList = AddPattern();
+        this.phaseTime = phaseTime;
+
+        remainTime = phaseTime;
+    }
+
+    private List<PatternTable> AddPattern()
+    {
+        var patterns = new List<PatternTable>();
+        
+        foreach (var e in Datas.GameData.DTPatternData)
+        {
+            patterns.Add(e.Value);    
+        }
+
+        return patterns;
+    }
+}
 
 public class MonsterSpawner : MonoBehaviour
 {
-    
-
-    public List<Transform> SpawnPoints;
+    [FormerlySerializedAs("SpawnPoints")] public List<Transform> spawnPoints;
+    // TODO 이거 정리
     public float outOfScreenXPos = -20f;
-    public List<GameObject> MonsterList;
     public float scrollSpeed;
     public float initialXPos;
-    public PhaseTable currentPhase;
+    public Phase currentPhase;
     [SerializeField] private float targetXPos;
 
+    [SerializeField] private float phaseTime = 360f; 
+    // 풀링 대상
     public static int totalMonsterCount;
     public static float currentSpace;
-    public int trackingCount;
-    public List<PhaseTable> Phases = new List<PhaseTable>();
-    // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없
-    // 
 
-    private void Awake()
-    {
-    }
-
-    public void AddPattern()
-    {
-        //this.Patterns = Datas.GameData.DTPatternData.Values.ToList();
-    }
-
-    void Start()
-    {
-        
-    }
+    public List<Phase> phases;
+    // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없음
 
     public void Init()
     {
-        targetXPos = this.transform.position.x + initialXPos;
+        phases = new List<Phase>();
+        foreach (var e in Datas.GameData.DTPhaseData.Values)
+        {
+            phases.Add(new Phase(e, phaseTime));
+        }
+        
         currentSpace = 0;
-
-        currentPhase = Datas.GameData.DTPhaseData.Values.FirstOrDefault();
+        currentPhase = phases.FirstOrDefault();
+        targetXPos = this.transform.position.x + currentPhase.phaseData.firstPrintMonster;
+        GameManager.Instance.currentStage = currentPhase.phaseData.stage;
+        ImageScrolling.Instace.scrollSpeed = currentPhase.phaseData.scrollSpeed;
+        GameManager.Instance.phaseCountInCurrentStage = phases.Count(phase =>
+            phase.phaseData.stage == GameManager.Instance.currentStage);
+        GameManager.Instance.currentPhaseNumber = phases[GameManager.Instance.currentStage].phaseData.phaseNumber;
     }
 
     public void MoveNextPhase()
     {
-        Debug.Log("");
         isbossing = false;
         
-        if (Phases.Count > 1)
+        if (phases.Count > 1)
         {
-            Phases.Remove(currentPhase);
-            currentPhase = Phases[0];
+            phases.Remove(currentPhase);
+            currentPhase = phases[0];
+            GameManager.Instance.currentStage = currentPhase.phaseData.stage;
+            ImageScrolling.Instace.scrollSpeed = currentPhase.phaseData.scrollSpeed;
+            GameManager.Instance.phaseCountInCurrentStage = phases.Count(phase =>
+                phase.phaseData.stage == GameManager.Instance.currentStage);
+            GameManager.Instance.currentPhaseNumber = phases[GameManager.Instance.currentStage].phaseData.phaseNumber;
         }
 
         else
         {
-            // 마지막 페이즈에 대한 처리
-            // 다음 스테이지 이동
+            // 마지막 스테이지에 대한 처리
+            // TODO 다음 스테이지 이동
             Debug.Log("Stage Clear");
-            foreach (var e in ImageScrolling.Instace.scrollingImages[GameManager.Instance.currentStage - 1])
-            {
-                e.gameObject.SetActive(false);   
-            }
-
-            GameManager.Instance.currentStage++;
+            // 다른거 개발될때 까지 일단 멈춥시다. (태훈)
+            GameManager.Instance.PauseGame();
         }
     }
     
@@ -87,7 +127,15 @@ public class MonsterSpawner : MonoBehaviour
 
                 if (value != null && !isbossing)
                 {
-                    var monster = Instantiate(value as GameObject, SpawnPoints[i-1]);
+                    int monsterID = (int)value;
+                    if (monsterID == 0)
+                    {
+                        continue;
+                    }
+                    
+                    var monster = Instantiate(
+                        Resources.Load<GameObject>(Datas.GameData.DTMonsterData[monsterID].PrefabPath), 
+                        spawnPoints[i-1]);
                     monster.transform.position += new Vector3(currentSpace, 0f, 0f);
                     totalMonsterCount++;
                 }
@@ -118,7 +166,6 @@ public class MonsterSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        trackingCount = totalMonsterCount;
         if (isbossing)
         {
             currentPhase.remainTime = 0f;
@@ -150,15 +197,16 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    PatternTable SelectPattern(PhaseTable phase)
+    PatternTable SelectPattern(Phase phase)
     {
-        if (totalMonsterCount <= phase.targetMonsterValue * 
-            phase.remainTime / phase.PhaseTime * phase.phaseValue1)
+        if (totalMonsterCount <= phase.phaseData.targetMonsterValue * 
+            phase.remainTime / phase.phaseTime * phase.phaseData.phaseValue1)
         {
-            if (totalMonsterCount <= phase.targetMonsterValue *
-                phase.remainTime / phase.PhaseTime * phase.phaseValue2)
+            if (totalMonsterCount <= phase.phaseData.targetMonsterValue *
+                phase.remainTime / phase.phaseTime * phase.phaseData.phaseValue2)
             {
-                var filteredPatterns = phase.Patterns.Where(pattern => pattern.logic == 2).ToList();
+                var filteredPatterns = phase.patternList.Where(pattern => 
+                    pattern.monsterCnt >= 3).ToList();
                 
                 if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
                 {
@@ -171,7 +219,7 @@ public class MonsterSpawner : MonoBehaviour
 
             else
             {
-                var filteredPatterns = phase.Patterns.Where(pattern => pattern.logic == 1).ToList();
+                var filteredPatterns = phase.patternList.Where(pattern => pattern.monsterCnt < 3).ToList();
                 
                 if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
                 {
@@ -185,7 +233,7 @@ public class MonsterSpawner : MonoBehaviour
 
         else
         {
-            var filteredPatterns = phase.Patterns.Where(pattern => pattern.logic == 0).ToList();
+            var filteredPatterns = phase.patternList.Where(pattern => pattern.monsterCnt == 0).ToList();
 
             if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
             {
