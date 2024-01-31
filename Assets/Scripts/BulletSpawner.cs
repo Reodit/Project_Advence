@@ -24,9 +24,9 @@ public class BulletSpawner : MonoBehaviour
         while (true)
         {
             // 총알 인스턴스 생성
-            if (GameManager.Instance.PlayerMove.playerSkills.ToList().Count > 0)
+            if (SkillManager.instance.playerSkills.ToList().Count > 0)
             {
-                foreach (var e in GameManager.Instance.PlayerMove.playerSkills)
+                foreach (var e in SkillManager.instance.playerSkills)
                 {
                     SpawnBullet(e.Value.SkillTable.prefabPath);
                 }
