@@ -154,7 +154,7 @@ public class LevelUpPopUp : UIBase
                     
                     if (value < Datas.GameData.DTSkillEnchantData.Count)
                     {
-                        Debug.Log("1");
+
                         int skillIndex = Random.Range(0, SkillManager.instance.playerSkills.Count);
                         var playerSkill = SkillManager.instance.playerSkills.ToList()
                             [skillIndex].Value;
@@ -197,7 +197,6 @@ public class LevelUpPopUp : UIBase
                     {
                         if (value - Datas.GameData.DTSkillEnchantData.Count < Datas.GameData.DTSelectStatData.Count)
                         {
-                            Debug.Log("2");
                             var list = Datas.GameData.DTSelectStatData.ToList();
                             int randomIndex = Random.Range(0, list.Count);
                             var pick = list[randomIndex];

@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utility;
 
@@ -150,6 +151,7 @@ namespace Datas
                 {
 
                     DTPatternData.Add(e.index, e);
+                    DTPatternData.OrderBy(kvp => kvp.Key);
                 }
             }
 
@@ -170,6 +172,7 @@ namespace Datas
                 {
 
                     DTPhaseData.Add(e.index, e);
+                    DTPhaseData.OrderBy(kvp => kvp.Key);
                 }
             }
 
