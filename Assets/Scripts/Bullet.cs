@@ -11,7 +11,13 @@ public class Bullet : MonoBehaviour
     private float destroyDelay;
     public int bulletDamage;
     private Vector3 initPosition;
+    private CircleCollider2D _collider;
     
+    private void Awake()
+    {
+        _collider = GetComponent<CircleCollider2D>();
+    }
+
     public void Start()
     {
         _isTriggered = false;
@@ -51,16 +57,20 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (collision.TryGetComponent(out Monster monster))
         {
             _pixelArsenalProjectileScript.OnCol();
-            var monster = other.GetComponent<Monster>();
             monster.Hit();
             monster.currentHp -= bulletDamage;
-            monster.Hpbar.fillAmount = (float) monster.currentHp / monster.monsterMaxHp;
+            monster.Hpbar.fillAmount = (float)monster.currentHp / monster.monsterMaxHp;
             TriggerDestruction();
         }
+    }
+
+    public void Resize(float amount)
+    {
+        _collider.radius += _collider.radius * amount;
     }
 }
