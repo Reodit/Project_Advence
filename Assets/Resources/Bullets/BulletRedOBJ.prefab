@@ -52,11 +52,8 @@ MonoBehaviour:
   muzzleParticle: {fileID: 169396, guid: 9971eebea0c4b6544a1cdcc5f56f4d3f, type: 3}
   trailParticles: []
   impactNormal: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
   spawnPoint: {fileID: 0}
   speed: 5
->>>>>>> 88486291e097000549ab45f3053cdecc91658ef4
 --- !u!54 &5461848
 Rigidbody:
   m_ObjectHideFlags: 0
