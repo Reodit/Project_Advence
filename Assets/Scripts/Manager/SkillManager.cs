@@ -13,7 +13,7 @@ public class SkillManager : MonoBehaviour
     private List<CharacterSkill> _upgradableskills = new List<CharacterSkill>();
 
     public event Action<SkillTable> OnAddSkill;
-    public event Action<SkillEnchantTable> OnAddEnchant;
+    public event Action<string, SkillEnchantTable> OnAddEnchant;
 
     private void Awake()
     {
@@ -32,8 +32,18 @@ public class SkillManager : MonoBehaviour
 
     public void AddSkillEnchant(string skillName, SkillEnchantTable skillEnchant)
     {
-        playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
+        int index = playerSkills[skillName].SkillEnchantTables.IndexOf(skillEnchant);
+        if (index == -1)
+        {
+            playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
+        }
+        else if (skillEnchant.maxCnt <= playerSkills[skillName].SkillEnchantTables[index].maxCnt)
+        {
+            return;
+        }
 
-        OnAddEnchant.Invoke(skillEnchant);
+        int enchantCount = playerSkills[skillName].SkillEnchantTables.Count;
+        playerSkills[skillName].SkillEnchantTables[enchantCount - 1].maxCnt++;
+        OnAddEnchant.Invoke(skillName, skillEnchant);
     }
 }
