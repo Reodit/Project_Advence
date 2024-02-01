@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +13,11 @@ public class Bullet : MonoBehaviour
     public int bulletDamage;
     private Vector3 initPosition;
     private CircleCollider2D _collider;
-    
+
+    private Action<Bullet> OnDestroyed;
+
+    private string _skillName;
+
     private void Awake()
     {
         _collider = GetComponent<CircleCollider2D>();
@@ -25,7 +30,17 @@ public class Bullet : MonoBehaviour
         initPosition = transform.position;
         _pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
-    
+
+    public void Init(Action<Bullet> destroyCallback)
+    {
+        OnDestroyed = destroyCallback;
+    }
+
+    private void OnDestroy()
+    {
+        OnDestroyed.Invoke(this);
+    }
+
 
     public void TriggerDestruction()
     {
