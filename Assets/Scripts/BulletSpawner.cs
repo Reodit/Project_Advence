@@ -9,14 +9,34 @@ public class BulletSpawner : MonoBehaviour
     public Transform spawnPoint; // 발사 위치
     public string bulletPath;
     public List<Bullet> bullets;
+
     public void Start()
     {
+        SkillManager.instance.OnAddSkill += AddSkillCallback;
+        SkillManager.instance.OnAddEnchant += AddEnchantCallback;
+
         spawnPoint = this.transform;
         StartCoroutine(FireContinuously());
     }
-    
+
+    private void OnDestroy()
+    {
+        SkillManager.instance.OnAddSkill -= AddSkillCallback;
+        SkillManager.instance.OnAddEnchant -= AddEnchantCallback;
+    }
+
     public float fireRate = 2f; // 초당 발사 횟수
     private float nextFireTime = 0f; // 다음 발사 시간
+
+    public void AddSkillCallback(SkillTable skill)
+    {
+
+    }
+
+    public void AddEnchantCallback(SkillEnchantTable enchant)
+    {
+
+    }
 
     IEnumerator FireContinuously()
     {
@@ -28,6 +48,7 @@ public class BulletSpawner : MonoBehaviour
             {
                 foreach (var e in SkillManager.instance.playerSkills)
                 {
+                    //GameManager.Instance.PlayerMove.ce
                     SpawnBullet(e.Value.SkillTable.prefabPath);
                 }
             }

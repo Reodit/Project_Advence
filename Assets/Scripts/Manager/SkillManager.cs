@@ -12,6 +12,9 @@ public class SkillManager : MonoBehaviour
 
     private List<CharacterSkill> _upgradableskills = new List<CharacterSkill>();
 
+    public event Action<SkillTable> OnAddSkill;
+    public event Action<SkillEnchantTable> OnAddEnchant;
+
     private void Awake()
     {
         instance = this;
@@ -23,19 +26,14 @@ public class SkillManager : MonoBehaviour
             return;
 
         playerSkills.Add(skill.name, new CharacterSkill(skill, new List<SkillEnchantTable>()));
+
+        OnAddSkill.Invoke(skill);
     }
-
-
 
     public void AddSkillEnchant(string skillName, SkillEnchantTable skillEnchant)
     {
         playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
-    }
 
-    public void AddSkillEnchant(int skillIndex, SkillEnchantTable skillEnchant)
-    {
-        _upgradableskills = new List<CharacterSkill>(playerSkills.Values);
-
-        _upgradableskills[skillIndex].SkillEnchantTables.Add(skillEnchant);
+        OnAddEnchant.Invoke(skillEnchant);
     }
 }
