@@ -293,28 +293,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 390899973}
   - component: {fileID: 390899972}
   m_Layer: 0
-  m_Name: SkillDebugger
+  m_Name: 
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &390899972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390899971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95bd87fab10c1b94d8a1fce28229f236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &390899973
+  m_IsActive: 0
+--- !u!4 &390899972
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,32 +456,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33d7733a280147af818904740141771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoints:
+  spawnPoints:
   - {fileID: 2129205227}
   - {fileID: 1087748163}
   - {fileID: 1324842566}
   - {fileID: 1387989499}
   - {fileID: 1324223880}
   outOfScreenXPos: -20
-  MonsterList:
-  - {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d, type: 3}
-  - {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d, type: 3}
-  - {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d, type: 3}
-  - {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d, type: 3}
-  - {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d, type: 3}
   scrollSpeed: 3
   initialXPos: 3
   currentPhase:
+    phaseData:
+      index: 0
+      stage: 0
+      backgroundLocal: 
+      scrollSpeed: 0
+      firstPrintMonster: 0
+      targetMonsterValue: 0
+      phaseValue1: 0
+      phaseValue2: 0
+      phaseNumber: 0
+    patternList: []
     remainTime: 0
-    PhaseTime: 0
-    firstPrintMonster: 0
-    targetMonsterValue: 0
-    Patterns: []
-    phaseValue1: 1.2
-    phaseValue2: 0.8
+    phaseTime: 0
   targetXPos: 3
-  trackingCount: 0
-  Phases: []
+  phaseTime: 360
+  phases: []
 --- !u!1 &1087748162
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,11 +577,10 @@ MonoBehaviour:
   MoveArea: {fileID: 1924272024}
   IngameUI: {fileID: 8831447331651222881}
   MonsterSpawner: {fileID: 1056201335}
-  phaseCount: 3
   currentStage: 0
-  testMonster: {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d,
-    type: 3}
-  testBossMonster: {fileID: 847348784378203380, guid: 0f6ae644856e9412390b8de36a2706cf,
+  phaseCountInCurrentStage: 0
+  currentPhaseNumber: 0
+  testBossMonster: {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d,
     type: 3}
   isGamePause: 0
 --- !u!4 &1248753119
@@ -3190,6 +3176,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 390899972}
   - {fileID: 1592662666}
   - {fileID: 3486167}
   - {fileID: 1979212849}
@@ -3201,5 +3188,4 @@ SceneRoots:
   - {fileID: 1248753119}
   - {fileID: 548643837}
   - {fileID: 210957331}
-  - {fileID: 390899973}
   - {fileID: 918826736}

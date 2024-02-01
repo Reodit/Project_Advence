@@ -198,7 +198,10 @@ public class PhaseTable : IBaseData // IBaseData 인터페이스 구현 가정
     public int scrollSpeed;
     public int firstPrintMonster;
     public int targetMonsterValue;
-
+    public float phaseValue1;
+    public float phaseValue2;
+    public int phaseNumber;
+    
     public void InitializeFromTableData(DataRow row)
     {
         this.index = Convert.ToInt32(row["Index"]);
@@ -207,6 +210,9 @@ public class PhaseTable : IBaseData // IBaseData 인터페이스 구현 가정
         this.scrollSpeed = Convert.ToInt32(row["ScrollSpeed"]);
         this.firstPrintMonster = Convert.ToInt32(row["FirstPrintMonster"]);
         this.targetMonsterValue = Convert.ToInt32(row["TargetMonsterValue"]);
+        this.phaseValue1 = Convert.ToSingle(row["PhaseValue1"]);
+        this.phaseValue2 = Convert.ToSingle(row["PhaseValue2"]);
+        this.phaseNumber = Convert.ToInt32(row["PhaseNumber"]);
     }
 }
 

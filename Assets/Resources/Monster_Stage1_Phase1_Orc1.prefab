@@ -457,9 +457,9 @@ GameObject:
   - component: {fileID: 3480912627956845062}
   - component: {fileID: 2693001535574820270}
   - component: {fileID: 7654054338211363455}
-  - component: {fileID: 9039204379313486705}
+  - component: {fileID: 1221793105627641319}
   m_Layer: 0
-  m_Name: UnitRoot
+  m_Name: Monster_Stage1_Phase1_Orc1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,7 +475,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9160891413288248836}
@@ -530,14 +530,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerCooldown: 0.5
   lastTriggerTime: -0.5
-  monsterMaxHp: 20
-  currentHp: 20
+  monsterMaxHp: 200
+  currentHp: 200
   dieDelay: 0.1
   rewardExp: 5
   Hpbar: {fileID: 1741321867858047804}
   hitColor: {r: 0.745283, g: 0.5308384, b: 0.5308384, a: 1}
   hitDuration: 0.2
---- !u!58 &9039204379313486705
+--- !u!58 &1221793105627641319
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

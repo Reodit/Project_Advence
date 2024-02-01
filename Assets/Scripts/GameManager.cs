@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Stage
@@ -19,10 +21,9 @@ public class GameManager : MonoBehaviour
     public IngameUI IngameUI;
     public PlayerMove PlayerMove { get; private set; }
     public MonsterSpawner MonsterSpawner;
-    public int phaseCount;
     public int currentStage;
-    
-    public GameObject testMonster;
+    public int phaseCountInCurrentStage;
+    [FormerlySerializedAs("currentPhase")] public int currentPhaseNumber;
     public GameObject testBossMonster;
     //public int Stage
     
@@ -33,12 +34,9 @@ public class GameManager : MonoBehaviour
         isGamePause = false;
         GameDataLoad();
         PlayerInstantiate(1);
-        
-        IngameUI.Instance.Init();
-        currentStage = 1;
+
         MonsterSpawner.Init();
-        phaseCount = MonsterSpawner.Phases.Count;
-        
+        IngameUI.Instance.Init();
     }
 
     private void GameDataLoad()
@@ -51,6 +49,7 @@ public class GameManager : MonoBehaviour
         Datas.GameData.LoadStatLevelDataToGameData("StatLevelTable");
         Datas.GameData.LoadPatternDataToGameData("PatternTable");
         Datas.GameData.LoadPhaseDataToGameData("PhaseTable");
+        Datas.GameData.LoadMonsterDataToGameData("MonsterTable");
     }
     
 
@@ -81,6 +80,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1; // 게임 재개
         isGamePause = false;
+    }
+
+    public void StageInitialize()
+    {
+        
     }
 
     [ContextMenu("test")]
