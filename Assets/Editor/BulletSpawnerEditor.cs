@@ -16,6 +16,5 @@ public class BulletSpawnerEditor : Editor
 
         _bulletSpawnerDebugger.Angle = EditorGUILayout.Slider("LowerBulletRotation", _bulletSpawnerDebugger.Angle, 0f, 90f);
 
-        EditorUtility.SetDirty(_bulletSpawnerDebugger);
     }
 }
