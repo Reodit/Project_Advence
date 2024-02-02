@@ -66,7 +66,7 @@ public class MonsterSpawner : MonoBehaviour
 
     [SerializeField] private float phaseTime = 360f; 
     // 풀링 대상
-    public static int totalMonsterCount;
+    public int totalMonsterCount;
     public static float currentSpace;
 
     public List<Phase> phases;
@@ -200,10 +200,10 @@ public class MonsterSpawner : MonoBehaviour
     PatternTable SelectPattern(Phase phase)
     {
         if (totalMonsterCount <= phase.phaseData.targetMonsterValue * 
-            phase.remainTime / phase.phaseTime * phase.phaseData.phaseValue1)
+            (1 - phase.remainTime / phase.phaseTime) * phase.phaseData.phaseValue2)
         {
             if (totalMonsterCount <= phase.phaseData.targetMonsterValue *
-                phase.remainTime / phase.phaseTime * phase.phaseData.phaseValue2)
+                (1 - phase.remainTime / phase.phaseTime) * phase.phaseData.phaseValue1)
             {
                 var filteredPatterns = phase.patternList.Where(pattern => 
                     pattern.monsterCnt >= 3).ToList();

@@ -102,7 +102,7 @@ public class LevelUpPopUp : UIBase
                         upgradePrefab.upgradeButton.onClick.AddListener(() => 
                         {
 
-                            SkillManager.instance.AddSkillEnchant(skillIndex, pick.Value);
+                            SkillManager.instance.AddSkillEnchant(playerSkill.SkillTable.name, pick.Value);
                             Destroy(this.gameObject);
                         }); // 전투 공식 이후 구현
                         selectedSkillEnchantTables.Add(pick.Value);
@@ -184,7 +184,7 @@ public class LevelUpPopUp : UIBase
                         upgradePrefab.upgradeDescriptionText.text = pick.Value.description;
                         upgradePrefab.upgradeButton.onClick.AddListener(() => 
                         {
-                            SkillManager.instance.AddSkillEnchant(skillIndex, pick.Value);
+                            SkillManager.instance.AddSkillEnchant(playerSkill.SkillTable.name, pick.Value);
 
                             Destroy(this.gameObject);
                         }); // 전투 공식 이후 구현
