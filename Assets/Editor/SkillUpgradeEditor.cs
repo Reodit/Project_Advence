@@ -22,7 +22,6 @@ public class SkillUpgradeEditor : Editor
 
 
         GUILayout.Label("Spawn", _center);
-
         if (GUILayout.Button("SpawnFireball"))
         {
             _debugger.SpawnFireball();
@@ -38,38 +37,38 @@ public class SkillUpgradeEditor : Editor
             _debugger.SpawnBlueLaser();
         }
 
-        GUILayout.Label("Upgrade Straight", _center);
+        GUILayout.Label("Upgrade Front", _center);
 
-        if (GUILayout.Button("UpgradeStraightFireball"))
+        if (GUILayout.Button("UpgradeFrontFireball"))
         {
-            _debugger.UpgradeStraightFireball();
+            _debugger.UpgradeFrontFireball();
         }
 
-        if (GUILayout.Button("UpgradeStraightLightningBolt"))
+        if (GUILayout.Button("UpgradeFrontLightningBolt"))
         {
-            _debugger.UpgradeStraightLightningBolt();
+            _debugger.UpgradeFrontLightningBolt();
         }
 
-        if (GUILayout.Button("UpgradeStraightBlueLaser"))
+        if (GUILayout.Button("UpgradeFrontBlueLaser"))
         {
-            _debugger.UpgradeStraightBlueLaser();
+            _debugger.UpgradeFrontBlueLaser();
         }
 
-        GUILayout.Label("Upgrade Cross", _center);
+        GUILayout.Label("Upgrade Slash", _center);
 
-        if (GUILayout.Button("UpgradeCrossFireball"))
+        if (GUILayout.Button("UpgradeSlashFireball"))
         {
-            _debugger.UpgradeCrossFireball();
+            _debugger.UpgradeSlashFireball();
         }
 
-        if (GUILayout.Button("UpgradeCrossLightningBolt"))
+        if (GUILayout.Button("UpgradeSlashLightningBolt"))
         {
-            _debugger.UpgradeStraightLightningBolt();
+            _debugger.UpgradeSlashLightningBolt();
         }
 
-        if (GUILayout.Button("UpgradeCrossBlueLaser"))
+        if (GUILayout.Button("UpgradeSlashBlueLaser"))
         {
-            _debugger.UpgradeStraightBlueLaser();
+            _debugger.UpgradeSlashBlueLaser();
         }
 
     }
