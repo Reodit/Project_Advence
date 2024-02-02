@@ -62,8 +62,7 @@ public class Bullet : MonoBehaviour
     
     public void Update()
     {
-        Vector3 currentPosition = transform.position;
-        Vector3 newPosition = new Vector3(currentPosition.x + speed * Time.deltaTime, currentPosition.y, 0f);
+        Vector2 newPosition = transform.position + transform.right * speed * Time.deltaTime;
         transform.position = newPosition;
         
         if (Vector3.Distance(initPosition, transform.position) >= maxDistance)

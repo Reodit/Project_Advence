@@ -2,11 +2,7 @@ using Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -14,9 +10,11 @@ public class BulletSpawner : MonoBehaviour
     public string bulletPath;
     public List<Bullet> bullets;
 
-    // 파티클 에셋 사이즈 5 / 12 한 상황
-    [SerializeField] private int bulletSpawnSpace = 5;
+    // 파티클 에셋 사이즈 3 / 12 한 상황
+    [SerializeField] private int bulletSpawnSpace = 3;
     [SerializeField] private int maxBulletSpawnArea = 12;
+
+    [field: SerializeField] public float Angle { get; private set; } = 60f;
     
     private PlayerMove _player;
     private int _bulletSpawnAreaCount;
@@ -28,16 +26,17 @@ public class BulletSpawner : MonoBehaviour
     private List<Bullet> _frontBullet = new List<Bullet>();
     private List<Bullet> _slashBullet = new List<Bullet>();
 
-    private float _totalSpawnHeight;
     private float _bulletInterval;
     private float _bulletIntervalHalf;
+
+    private float _topForntBulletPosY;
+    private float _bottomFrontBulletPosY;
 
     public void Start()
     {
         _player = GameManager.Instance.PlayerMove;
-        _totalSpawnHeight = _player.transform.localScale.y * bulletSpawnSpace;
 
-        _bulletInterval = _totalSpawnHeight / maxBulletSpawnArea;
+        _bulletInterval = (float)bulletSpawnSpace / maxBulletSpawnArea;
         _bulletIntervalHalf = _bulletInterval * 0.5f;
 
 
@@ -61,6 +60,11 @@ public class BulletSpawner : MonoBehaviour
     {
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
         _bulletPrefabDict.Add(skill.name, bullet);
+        AddFirstBulletType(bullet);
+    }
+
+    private void AddFirstBulletType(Bullet bullet)
+    {
         if (_bulletPrefabDict.Count % 2 == 0)
         {
             _frontBullet.Add(bullet);
@@ -86,13 +90,18 @@ public class BulletSpawner : MonoBehaviour
                 break;
             case EnchantEffect1.AddFrontProjectile:
                 AddFrontBullet(skillName);
-                //_slashBullet.Add(_bulletPrefabDict[skillName]);
-                //_bulletSpawnAreaCount++;
                 break;
             case EnchantEffect1.AddSlashProjectile:
-                AddFrontBullet(skillName);
+                AddSlashBullet(skillName);
                 break;
         }
+    }
+
+    private void AddSlashBullet(string skillName)
+    {
+        _slashBullet.Insert(0, _bulletPrefabDict[skillName]);
+        _slashBullet.Add(_bulletPrefabDict[skillName]);
+        _bulletSpawnAreaCount += 2;
     }
 
     private void AddFrontBullet(string skillName)
@@ -126,6 +135,7 @@ public class BulletSpawner : MonoBehaviour
                         Vector2 spawnPos = spawnPoint.position;
                         spawnPos.y += (i - halfCount + 1) * _bulletInterval - _bulletIntervalHalf;
                         SpawnBullet(_frontBullet[i], spawnPos);
+                        SetSideBulletPosY(frontBulletCount, i, spawnPos);
                     }
                 }
                 else
@@ -135,14 +145,48 @@ public class BulletSpawner : MonoBehaviour
                         Vector2 spawnPos = spawnPoint.position;
                         spawnPos.y += (i - halfCount) * _bulletInterval;
                         SpawnBullet(_frontBullet[i], spawnPos);
+                        SetSideBulletPosY(frontBulletCount, i, spawnPos);
                     }
+                }
+
+                int slashBulletCount = _slashBullet.Count;
+                halfCount = slashBulletCount / 2;
+
+                for (int i = 0; i < _slashBullet.Count; i++)
+                {
+                    Vector2 spawnPos = spawnPoint.position;
+                    Quaternion quat = Quaternion.identity;
+                    if (i < halfCount)
+                    {
+                        spawnPos.y = _topForntBulletPosY + (halfCount - i) * _bulletInterval;
+                        quat = Quaternion.Euler(0, 0, Angle);
+                    }
+                    else
+                    {
+                        spawnPos.y = _bottomFrontBulletPosY - (i - halfCount + 1) * _bulletInterval;
+                        quat = Quaternion.Euler(0, 0, -Angle);
+                    }
+
+                    SpawnBullet(_slashBullet[i], spawnPos, quat);
                 }
             }
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);
         }
     }
-    
+
+    private void SetSideBulletPosY(int frontBulletCount, int i, Vector2 spawnPos)
+    {
+        if (i == 0)
+        {
+            _bottomFrontBulletPosY = spawnPos.y;
+        }
+        else if (i == frontBulletCount - 1)
+        {
+            _topForntBulletPosY = spawnPos.y;
+        }
+    }
+
     void SpawnBullet(Bullet bulletPrefab, Vector2 pos)
     {
         // 프리팹이 제대로 불러와졌는지 확인합니다.
@@ -154,8 +198,26 @@ public class BulletSpawner : MonoBehaviour
         }
     }
 
+    void SpawnBullet(Bullet bulletPrefab, Vector2 pos, Quaternion quaternion)
+    {
+        // 프리팹이 제대로 불러와졌는지 확인합니다.
+        if (bulletPrefab != null)
+        {
+            Bullet bullet = Instantiate(bulletPrefab, pos, quaternion);
+            bullet.Init(RemoveBullet);
+            _activeBullets.Add(bullet);
+        }
+    }
+
     private void RemoveBullet(Bullet bullet)
     {
         _activeBullets.Remove(bullet);
     }
+
+#if UNITY_EDITOR
+    public void SetLowerBulletRotation(float value)
+    {
+        Angle = value;
+    }
+#endif
 }

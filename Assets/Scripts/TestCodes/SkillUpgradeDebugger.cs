@@ -12,8 +12,8 @@ public class SkillUpgradeDebugger : MonoBehaviour
     private SkillTable _lightningBolt;
     private SkillTable _fireball;
     private SkillTable _blueLaser;
-    private const int CROSS_PROJECTILE = 14004;
-    private const int STRAIGHT_PROJECTILE = 14005;
+    private const int SLASH_PROJECTILE = 14004;
+    private const int FRONT_PROJECTILE = 14005;
 
     
 
@@ -47,52 +47,52 @@ public class SkillUpgradeDebugger : MonoBehaviour
         }
     }
 
-    public void UpgradeStraightFireball()
+    public void UpgradeFrontFireball()
     {
         if (_fireball == null)
             return;
 
-        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[FRONT_PROJECTILE]);
     }
 
-    public void UpgradeStraightLightningBolt()
+    public void UpgradeFrontLightningBolt()
     {
         if (_lightningBolt == null)
             return;
 
-        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[FRONT_PROJECTILE]);
     }
 
-    public void UpgradeStraightBlueLaser()
+    public void UpgradeFrontBlueLaser()
     {
         if (_blueLaser == null)
             return;
 
-        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[STRAIGHT_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[FRONT_PROJECTILE]);
     }
 
-    public void UpgradeCrossFireball()
+    public void UpgradeSlashFireball()
     {
         if (_fireball == null)
             return;
 
-        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_fireball.name, Datas.GameData.DTSkillEnchantData[SLASH_PROJECTILE]);
     }
 
-    public void UpgradeCrossLightningBolt()
+    public void UpgradeSlashLightningBolt()
     {
         if (_lightningBolt == null)    
             return;
 
-        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_lightningBolt.name, Datas.GameData.DTSkillEnchantData[SLASH_PROJECTILE]);
     }
 
-    public void UpgradeCrossBlueLaser()
+    public void UpgradeSlashBlueLaser()
     {
         if (_blueLaser == null)
             return;
 
-        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[CROSS_PROJECTILE]);
+        SkillManager.instance.AddSkillEnchant(_blueLaser.name, Datas.GameData.DTSkillEnchantData[SLASH_PROJECTILE]);
     }
 
     private void SpawnBullet(SkillTable skill)

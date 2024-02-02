@@ -337,8 +337,6 @@ MonoBehaviour:
     maxHp: 0
     maxLv: 0
     prefabPath: 
-  playerUpgradeHistory:
-    SelectStatTable: []
   hitColor: {r: 0.735849, g: 0.31585974, b: 0.31585974, a: 1}
   hitDuration: 0.2
 --- !u!58 &156977332226646732
@@ -1866,6 +1864,10 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   bulletPath: 
   bullets: []
+  bulletSpawnSpace: 3
+  maxBulletSpawnArea: 12
+  UpperBulletRotation: -60
+  LowerBulletRotation: 60
   fireRate: 2
 --- !u!1 &3778691146250171945
 GameObject:
