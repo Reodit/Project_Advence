@@ -34,8 +34,8 @@ namespace Enums
         AttackSpeedControl,
         RangeControl,
         ProjectileSpeedControl,
+        AddSlashProjectile,
         AddFrontProjectile,
-        AddSlashProjectile
     }
     
     [Serializable]
