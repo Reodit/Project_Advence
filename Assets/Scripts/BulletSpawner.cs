@@ -128,11 +128,12 @@ public class BulletSpawner : MonoBehaviour
             {
                 int frontBulletCount = _frontBullet.Count;
                 int halfCount = frontBulletCount / 2;
+                Vector2 spawnPos = Vector2.zero;
                 if (frontBulletCount % 2 == 0)
                 {
                     for (int i = 0; i < frontBulletCount; i++)
                     {
-                        Vector2 spawnPos = spawnPoint.position;
+                        spawnPos = spawnPoint.position;
                         spawnPos.y += (i - halfCount + 1) * _bulletInterval - _bulletIntervalHalf;
                         SpawnBullet(_frontBullet[i], spawnPos);
                         SetSideBulletPosY(frontBulletCount, i, spawnPos);
@@ -142,11 +143,16 @@ public class BulletSpawner : MonoBehaviour
                 {
                     for (int i = 0; i < frontBulletCount; i++)
                     {
-                        Vector2 spawnPos = spawnPoint.position;
+                        spawnPos = spawnPoint.position;
                         spawnPos.y += (i - halfCount) * _bulletInterval;
                         SpawnBullet(_frontBullet[i], spawnPos);
                         SetSideBulletPosY(frontBulletCount, i, spawnPos);
                     }
+                }
+
+                if (_frontBullet.Count == 1)
+                {
+                    _topForntBulletPosY = spawnPos.y;
                 }
 
                 int slashBulletCount = _slashBullet.Count;
@@ -154,7 +160,7 @@ public class BulletSpawner : MonoBehaviour
 
                 for (int i = 0; i < _slashBullet.Count; i++)
                 {
-                    Vector2 spawnPos = spawnPoint.position;
+                    spawnPos = spawnPoint.position;
                     Quaternion quat = Quaternion.identity;
                     if (i < halfCount)
                     {
