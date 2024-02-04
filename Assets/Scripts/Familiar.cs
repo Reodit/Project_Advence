@@ -1,32 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Familiar : MonoBehaviour
 {
+    protected float spawnCoolTime;
+    protected BulletSpawner bulletSpawner;
+    [SerializeField] private Familiar scale;
+
+    protected Vector3 spawnPos;
+
     // bulletSpawn // + bullet cooltime
     // FamiliarSpawn // respawn cooltime
     // move transform
-    // delete --> 2°¡Áö Å¸ÀÔ¿¡ ±ÔÄ¢ÀÌ ´Ù¸§
+    // delete --> 2ê°€ì§€ íƒ€ì…ì— ê·œì¹™ì´ ë‹¤ë¦„
     // combat
 
+    protected void Update()
+    {
+        if (CheckDestroyCondition())
+        {
+            // Destroy;
+        }
+    }
 
-    private void Start()
+    protected virtual void Start()
+    {
+        // Initialize
+        // spawnPos
+        // bulletSpawner / bullets
+        // spawnCoolTime
+        // scale
+    }
+
+    protected void OnDestroy()
     {
         
     }
-
-
-
-    void Move(Vector3 pos, float moveSpeed)
+    
+    protected virtual bool CheckDestroyCondition()
     {
-
-    }
-
-
-
-    private void OnDestroy()
-    {
-        
+        return false;
     }
 }

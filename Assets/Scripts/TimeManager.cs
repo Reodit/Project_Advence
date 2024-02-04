@@ -33,7 +33,7 @@ public class TimeManager : MonoBehaviour
 
         if (coolTimes.ContainsKey(id))
         {
-            throw new ArgumentException($"Cool time item with id '{id}' is already registered.", "id");
+            throw new ArgumentException($"Cool time item with id '{id}' is already registered.", id);
         }
 
         coolTimes.Add(id, coolTime);
@@ -44,7 +44,7 @@ public class TimeManager : MonoBehaviour
     {
         if (!coolTimes.ContainsKey(id))
         {
-            throw new ArgumentException($"No cool time item with id '{id}' is registered.", "id");
+            throw new ArgumentException($"No cool time item with id '{id}' is registered.", id);
         }
 
         lastUsedTimes[id] = Time.time;
@@ -54,12 +54,11 @@ public class TimeManager : MonoBehaviour
     {
         if (!coolTimes.ContainsKey(id))
         {
-            throw new ArgumentException($"No cool time item with id '{id}' is registered.", "id");
+            throw new ArgumentException($"No cool time item with id '{id}' is registered.", id);
         }
 
         if (Time.time >= lastUsedTimes[id] + coolTimes[id])
         {
-            // 쿨타임이 완료되면 이벤트 발생
             OnCoolTimeFinished?.Invoke(id);
             return true;
         }

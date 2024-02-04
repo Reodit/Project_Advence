@@ -16,7 +16,6 @@ public class BulletSpawner : MonoBehaviour
 
     [field: SerializeField] public float Angle { get; private set; } = 60f;
     
-    private PlayerMove _player;
     private int _bulletSpawnAreaCount;
 
     private Dictionary<string, Bullet> _bulletPrefabDict = new Dictionary<string, Bullet>();
@@ -34,8 +33,6 @@ public class BulletSpawner : MonoBehaviour
 
     public void Start()
     {
-        _player = GameManager.Instance.PlayerMove;
-
         _bulletInterval = (float)bulletSpawnSpace / maxBulletSpawnArea;
         _bulletIntervalHalf = _bulletInterval * 0.5f;
 
