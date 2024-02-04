@@ -1567,7 +1567,7 @@ GameObject:
   - component: {fileID: 4983815833924403213}
   m_Layer: 5
   m_Name: Monster_Stage2_Phase2_AttackBlueOrc
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1580,8 +1580,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3688256342189267642}
   m_LocalRotation: {x: -0, y: 0.008726557, z: -0, w: 0.9999619}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00015256465}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4976348019586818796}
@@ -1589,7 +1589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4983815833924403213
@@ -1607,7 +1607,7 @@ MonoBehaviour:
   _version: 164
   _spriteOBj: {fileID: 1864943376663762182}
   EditChk: 0
-  _code: Monster_Stage2_Phase2_AttackBlueOrc
+  _code: Unit009
   _anim: {fileID: 5719605878893749180}
   _horse: 0
   _horseString: 

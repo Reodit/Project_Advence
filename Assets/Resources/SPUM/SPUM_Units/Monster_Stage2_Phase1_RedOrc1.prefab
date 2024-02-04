@@ -2085,8 +2085,8 @@ GameObject:
   - component: {fileID: 2948391721879029093}
   - component: {fileID: 3330492790486677351}
   m_Layer: 5
-  m_Name: Unit000
-  m_TagString: Untagged
+  m_Name: Monster_Stage2_Phase1_RedOrc1
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2099,8 +2099,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3668372411936245555}
   m_LocalRotation: {x: -0, y: 0.008726557, z: -0, w: 0.9999619}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00015256465}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3961232540345923509}
@@ -2108,7 +2108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3330492790486677351
@@ -2126,13 +2126,15 @@ MonoBehaviour:
   _version: 164
   _spriteOBj: {fileID: 3495530950581135972}
   EditChk: 0
-  _code: Unit000
+  _code: Unit003
   _anim: {fileID: 7849958313051017610}
   _horse: 0
   _horseString: 
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
+  animationStatesNames: []
+  selectedAnimationName: 
 --- !u!1 &3680199383253681987
 GameObject:
   m_ObjectHideFlags: 0

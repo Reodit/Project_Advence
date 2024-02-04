@@ -2830,8 +2830,8 @@ GameObject:
   - component: {fileID: 4683878140329117532}
   - component: {fileID: 2780263916423707591}
   m_Layer: 5
-  m_Name: Unit002
-  m_TagString: Untagged
+  m_Name: Monster_Stage3_Phase2_AttackSkeleton
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2844,8 +2844,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7182700534087946906}
   m_LocalRotation: {x: -0, y: 0.008726557, z: -0, w: 0.9999619}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00015256465}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 925140502172797820}
@@ -2853,7 +2853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2780263916423707591
@@ -2871,7 +2871,7 @@ MonoBehaviour:
   _version: 164
   _spriteOBj: {fileID: 6970276419660863612}
   EditChk: 0
-  _code: Unit002
+  _code: Unit017
   _anim: {fileID: 5966866247321939442}
   _horse: 0
   _horseString: 
