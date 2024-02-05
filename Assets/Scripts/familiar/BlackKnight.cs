@@ -27,6 +27,11 @@ public class BlackKnight : Familiar
         return needDestroy;
     }
 
+    protected override void Init()
+    {
+        base.Init();
 
+
+    }
     // atk
 }
