@@ -38,13 +38,13 @@ public class SkillManager : MonoBehaviour
         {
             playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
         }
-        else if (skillEnchant.maxCnt <= playerSkills[skillName].SkillEnchantTables[index].maxCnt)
+        else if (skillEnchant.maxCnt <= playerSkills[skillName].SkillEnchantTables[index].currentCount)
         {
             return;
         }
 
         int enchantCount = playerSkills[skillName].SkillEnchantTables.Count;
-        playerSkills[skillName].SkillEnchantTables[enchantCount - 1].maxCnt++;
+        playerSkills[skillName].SkillEnchantTables[enchantCount - 1].currentCount++;
         OnAddEnchant.Invoke(skillName, skillEnchant);
     }
 

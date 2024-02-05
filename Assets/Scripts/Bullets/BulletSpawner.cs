@@ -24,13 +24,15 @@ public class BulletSpawner
         _onRemoveBullet = onRemoveBullet;
     }
 
-    public void SpawnSlashBullets(List<Bullet> slashBullets, float angle)
+    public void SpawnSlashBullets(List<Bullet> slashBullets, Dictionary<string, BulletInfo> bulletInfoDict, float angle)
     {
         int slashBulletCount = slashBullets.Count;
         int halfCount = slashBulletCount / 2;
 
         for (int i = 0; i < slashBullets.Count; i++)
         {
+            Bullet bullet = slashBullets[i];
+
             Vector2 spawnPos = _spawnPoint.position;
             Quaternion quat = Quaternion.identity;
             if (i < halfCount)
@@ -44,23 +46,27 @@ public class BulletSpawner
                 quat = Quaternion.Euler(0, 0, -angle);
             }
 
-            SpawnBullet(slashBullets[i], spawnPos, quat);
+            SpawnBullet(bullet, spawnPos, quat, bulletInfoDict[bullet.SkillName]);
         }
     }
 
-    public void SpawnFrontBullets(List<Bullet> frontBullets)
+    public void SpawnFrontBullets(List<Bullet> frontBullets, Dictionary<string, BulletInfo> bulletInfoDict)
     {
+
         int frontBulletCount = frontBullets.Count;
         int halfCount = frontBulletCount / 2;
         Vector2 spawnPos = Vector2.zero;
+
+        Bullet bullet;
 
         if (frontBulletCount % 2 == 0)
         {
             for (int i = 0; i < frontBulletCount; i++)
             {
+                bullet = frontBullets[i];
                 spawnPos = _spawnPoint.position;
                 spawnPos.y += (i - halfCount + 1) * _bulletInterval - _bulletIntervalHalf;
-                SpawnBullet(frontBullets[i], spawnPos);
+                SpawnBullet(bullet, spawnPos, bulletInfoDict[bullet.SkillName]);
                 SetSideBulletPosY(frontBulletCount, i, spawnPos);
             }
         }
@@ -68,9 +74,10 @@ public class BulletSpawner
         {
             for (int i = 0; i < frontBulletCount; i++)
             {
+                bullet = frontBullets[i];
                 spawnPos = _spawnPoint.position;
                 spawnPos.y += (i - halfCount) * _bulletInterval;
-                SpawnBullet(frontBullets[i], spawnPos);
+                SpawnBullet(frontBullets[i], spawnPos, bulletInfoDict[bullet.SkillName]);
                 SetSideBulletPosY(frontBulletCount, i, spawnPos);
             }
         }
@@ -93,24 +100,24 @@ public class BulletSpawner
         }
     }
 
-    void SpawnBullet(Bullet bulletPrefab, Vector2 pos)
+    void SpawnBullet(Bullet bulletPrefab, Vector2 pos, BulletInfo bulletInfo)
     {
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
             Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, Quaternion.identity);
-            bullet.Init(RemoveBullet);
+            bullet.Init(bulletInfo, RemoveBullet);
             _onAddBullet.Invoke(bullet);
         }
     }
 
-    void SpawnBullet(Bullet bulletPrefab, Vector2 pos, Quaternion quaternion)
+    void SpawnBullet(Bullet bulletPrefab, Vector2 pos, Quaternion quaternion, BulletInfo bulletInfo)
     {
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
             Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, quaternion);
-            bullet.Init(RemoveBullet);
+            bullet.Init(bulletInfo, RemoveBullet);
             _onAddBullet.Invoke(bullet);
         }
     }
@@ -119,4 +126,6 @@ public class BulletSpawner
     {
         _onRemoveBullet.Invoke(bullet);
     }
+
+    
 }

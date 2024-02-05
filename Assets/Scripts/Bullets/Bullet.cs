@@ -2,21 +2,49 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[Serializable]
+public struct BulletInfo
+{
+    [field: SerializeField] public float Damage;
+    [field: SerializeField] public float MaxDistance;
+    [field: SerializeField] public float Speed; // 총알의 속도
+
+    public BulletInfo(float damage, float maxDistance, float speed)
+    {
+        Damage = damage;
+        MaxDistance = maxDistance;
+        Speed = speed;
+    }
+
+    public void SetDamage(float damage)
+    {
+        Damage = damage;
+    }
+
+    public void SetMaxDistance(float maxDistance)
+    {
+        MaxDistance = maxDistance;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        Speed = speed;
+    }
+}
+
 public class Bullet : MonoBehaviour
 {
     public Transform spawnPoint;
-    public float speed = 5f; // 총알의 속도
-    public float maxDistance = 10f;
     private PixelArsenalProjectileScript _pixelArsenalProjectileScript;
     private bool _isTriggered;
     private float destroyDelay;
-    public int bulletDamage;
     private Vector3 initPosition;
     private CircleCollider2D _collider;
 
     private Action<Bullet> OnDestroyed;
+    [field: SerializeField] public BulletInfo BulletInfo { get; private set; }
 
-    private string _skillName;
+    public string SkillName { get; private set; }
 
     private void Awake()
     {
@@ -31,8 +59,9 @@ public class Bullet : MonoBehaviour
         _pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
 
-    public void Init(Action<Bullet> destroyCallback)
+    public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback)
     {
+        BulletInfo = bulletInfo;
         OnDestroyed = destroyCallback;
     }
 
@@ -41,6 +70,15 @@ public class Bullet : MonoBehaviour
         OnDestroyed.Invoke(this);
     }
 
+    public void SetSkillName(string skillName)
+    {
+        SkillName = skillName;
+    }
+
+    public void SetBulletInfo(BulletInfo bulletInfo)
+    {
+        BulletInfo = bulletInfo;
+    }
 
     public void TriggerDestruction()
     {
@@ -62,10 +100,10 @@ public class Bullet : MonoBehaviour
     
     public void Update()
     {
-        Vector2 newPosition = transform.position + transform.right * speed * Time.deltaTime;
+        Vector2 newPosition = transform.position + transform.right * BulletInfo.Speed * Time.deltaTime;
         transform.position = newPosition;
         
-        if (Vector3.Distance(initPosition, transform.position) >= maxDistance)
+        if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.MaxDistance)
         {
             Destroy(gameObject);
         }
@@ -77,7 +115,7 @@ public class Bullet : MonoBehaviour
         {
             _pixelArsenalProjectileScript.OnCol();
             monster.Hit();
-            monster.currentHp -= bulletDamage;
+            monster.currentHp -= (int)BulletInfo.Damage;
             monster.Hpbar.fillAmount = (float)monster.currentHp / monster.monsterMaxHp;
             TriggerDestruction();
         }
