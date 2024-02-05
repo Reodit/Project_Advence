@@ -5,11 +5,6 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Serialization;
 
-[Serializable]
-public class Stage
-{
-    //public int 
-}
 
 public class GameManager : MonoBehaviour
 {
@@ -21,9 +16,13 @@ public class GameManager : MonoBehaviour
     public IngameUI IngameUI;
     public PlayerMove PlayerMove { get; private set; }
     public MonsterSpawner MonsterSpawner;
+
+    [Header("Stage & Phase")]
     public int currentStage;
     public int phaseCountInCurrentStage;
     [FormerlySerializedAs("currentPhase")] public int currentPhaseNumber;
+    
+    
     public GameObject testBossMonster;
     //public int Stage
     
