@@ -11,7 +11,7 @@ public class Familiar : MonoBehaviour
 
     protected Vector3 spawnPos;
 
-    protected void Update()
+    protected virtual void Update()
     {
         if (CheckDestroyCondition())
         {
@@ -22,10 +22,11 @@ public class Familiar : MonoBehaviour
     protected virtual void Start()
     {
         // Initialize
-        // spawnPos
+        spawnPos = GameManager.Instance.PlayerMove.transform.position;
+        
         // bulletSpawner / bullets
         // spawnCoolTime
-        // scale
+        
         Init();
     }
 
@@ -34,6 +35,11 @@ public class Familiar : MonoBehaviour
     }
 
     protected void OnDestroy()
+    {
+        
+    }
+
+    public virtual void HitMonster(Monster monster)
     {
         
     }

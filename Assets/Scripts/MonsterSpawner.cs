@@ -157,7 +157,7 @@ public class MonsterSpawner : MonoBehaviour
         var boss = bossMonster.GetComponent<Monster>();
 
         // 보스 처리
-        yield return new WaitUntil(() => boss.CurrentHp() <= 0);
+        yield return new WaitUntil(() => boss.CurrentHp <= 0);
         
         // 다음 페이즈 이동
         MoveNextPhase();

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public Camera mainCamera;
     public Transform characterSpawnPoint;
     public MoveArea MoveArea;
     
@@ -20,14 +21,13 @@ public class GameManager : MonoBehaviour
     [Header("Stage & Phase")]
     public int currentStage;
     public int phaseCountInCurrentStage;
-    [FormerlySerializedAs("currentPhase")] public int currentPhaseNumber;
-    
-    
+    public int currentPhaseNumber;
+
     public GameObject testBossMonster;
-    //public int Stage
     
     private void Awake()
     {
+        mainCamera = Camera.main;
         Instance = this;
         DontDestroyOnLoad(this);
         isGamePause = false;

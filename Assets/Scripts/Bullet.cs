@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public Transform spawnPoint;
     public float speed = 5f; // 총알의 속도
     public float maxDistance = 10f;
-    private PixelArsenalProjectileScript _pixelArsenalProjectileScript;
+    public PixelArsenalProjectileScript _pixelArsenalProjectileScript { get; private set; }
     private bool _isTriggered;
     private float destroyDelay;
     public int bulletDamage;
@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
     
     public void Update()
     {
-        Vector2 newPosition = transform.position + transform.right * speed * Time.deltaTime;
+        Vector2 newPosition = transform.position + transform.right * (speed * Time.deltaTime);
         transform.position = newPosition;
         
         if (Vector3.Distance(initPosition, transform.position) >= maxDistance)
@@ -73,16 +73,21 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Monster monster))
+        CollisionManager.Instance.HandleCollision(this.gameObject, collision.gameObject);
+    }
+
+    public void HitMonster(Monster monster)
+    {
+        if (monster)
         {
             _pixelArsenalProjectileScript.OnCol();
-            monster.Hit();
-            monster.currentHp -= bulletDamage;
-            monster.Hpbar.fillAmount = (float)monster.currentHp / monster.monsterMaxHp;
+            StartCoroutine(monster.FlashHitColor());
+            monster.CurrentHp -= bulletDamage;
+            monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
             TriggerDestruction();
         }
     }
-
+    
     public void Resize(float amount)
     {
         _collider.radius += _collider.radius * amount;

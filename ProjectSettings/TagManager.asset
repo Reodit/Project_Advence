@@ -6,6 +6,10 @@ TagManager:
   tags:
   - FPS Counter
   - Enemy
+  - Monster
+  - MonsterBullet
+  - PlayerBullet
+  - Familiar
   layers:
   - Default
   - TransparentFX
