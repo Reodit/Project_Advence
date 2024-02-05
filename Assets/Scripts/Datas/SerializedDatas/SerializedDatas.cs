@@ -175,6 +175,7 @@ public class SkillEnchantTable : IBaseData
     public int maxCnt;
     public string icon;
     public bool colorToBlack;
+    public int currentCount;
 
     public void InitializeFromTableData(DataRow row)
     {

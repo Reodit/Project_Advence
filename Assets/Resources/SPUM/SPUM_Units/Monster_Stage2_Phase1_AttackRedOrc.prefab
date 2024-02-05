@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 5348382778243960153}
   m_Layer: 5
   m_Name: Monster_Stage2_Phase1_AttackRedOrc
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -713,7 +713,7 @@ MonoBehaviour:
   _version: 164
   _spriteOBj: {fileID: 2211684556496882206}
   EditChk: 0
-  _code: Unit004
+  _code: Unit005
   _anim: {fileID: 4176352677148841275}
   _horse: 0
   _horseString: 
