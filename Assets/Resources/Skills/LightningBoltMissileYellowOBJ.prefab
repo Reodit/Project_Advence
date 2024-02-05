@@ -75,9 +75,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
-  speed: 15
-  maxDistance: 10
-  bulletDamage: 5
+  <BulletInfo>k__BackingField:
+    Damage: 4
+    MaxDistance: 15
+    Speed: 5
 --- !u!58 &1128879278765334928
 CircleCollider2D:
   m_ObjectHideFlags: 0
