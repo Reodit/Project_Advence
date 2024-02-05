@@ -26,6 +26,11 @@ public class Familiar : MonoBehaviour
         // bulletSpawner / bullets
         // spawnCoolTime
         // scale
+        Init();
+    }
+
+    protected virtual void Init()
+    {
     }
 
     protected void OnDestroy()
