@@ -11,12 +11,6 @@ public class Familiar : MonoBehaviour
 
     protected Vector3 spawnPos;
 
-    // bulletSpawn // + bullet cooltime
-    // FamiliarSpawn // respawn cooltime
-    // move transform
-    // delete --> 2가지 타입에 규칙이 다름
-    // combat
-
     protected void Update()
     {
         if (CheckDestroyCondition())
