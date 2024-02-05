@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletSpawnDebugger : MonoBehaviour
 {
-    private BulletSpawner _bulletSpawner;
+    private BulletController _bulletSpawner;
 
     private float _angle = 60f;
 
@@ -24,7 +24,7 @@ public class BulletSpawnDebugger : MonoBehaviour
             _angle = value;
             if (!_bulletSpawner)
             {
-                _bulletSpawner = FindBulletSpawner<BulletSpawner>();
+                _bulletSpawner = FindObjectType<BulletController>();
             }
             else
             {
@@ -33,7 +33,7 @@ public class BulletSpawnDebugger : MonoBehaviour
         }
     }
 
-    private T FindBulletSpawner<T>() where T : MonoBehaviour
+    private T FindObjectType<T>() where T : MonoBehaviour
     {
         return FindObjectOfType<T>();
     }

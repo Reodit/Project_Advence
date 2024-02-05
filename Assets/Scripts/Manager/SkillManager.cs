@@ -1,3 +1,4 @@
+using Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,4 +47,6 @@ public class SkillManager : MonoBehaviour
         playerSkills[skillName].SkillEnchantTables[enchantCount - 1].maxCnt++;
         OnAddEnchant.Invoke(skillName, skillEnchant);
     }
+
+    
 }
