@@ -100,7 +100,7 @@ public class Bullet : MonoBehaviour
     
     public void Update()
     {
-        Vector2 newPosition = transform.position + transform.right * (speed * Time.deltaTime);
+        Vector2 newPosition = transform.position + transform.right * (BulletInfo.Speed * Time.deltaTime);
         transform.position = newPosition;
         
         if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.MaxDistance)
@@ -120,7 +120,9 @@ public class Bullet : MonoBehaviour
         {
             _pixelArsenalProjectileScript.OnCol();
             StartCoroutine(monster.FlashHitColor());
-            monster.CurrentHp -= bulletDamage;
+            
+            // TODO 몬스터 데미지 계산 통일필요
+            monster.CurrentHp -= (int)BulletInfo.Damage;
             monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
             TriggerDestruction();
         }

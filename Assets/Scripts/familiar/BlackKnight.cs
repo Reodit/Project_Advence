@@ -23,9 +23,9 @@ public class BlackKnight : Familiar
 
     private void Move()
     {
-        Vector3 currentPosition = transform.position;
+        Vector3 currentPosition = transform.root.position;
         Vector3 newPosition = new Vector3(currentPosition.x + moveSpeed * Time.deltaTime, currentPosition.y, 0f);
-        transform.position = newPosition;
+        transform.root.position = newPosition;
     }
     
     // Hit Logic & out of camera
@@ -42,8 +42,9 @@ public class BlackKnight : Familiar
         return needDestroy;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log("Test");
         CollisionManager.Instance.HandleCollision(this.gameObject, col.gameObject);
     }
     
@@ -63,6 +64,7 @@ public class BlackKnight : Familiar
     {
         base.Init();
         attackDamage = 5;
-        Hp = 200;
+        moveSpeed = 4f;
+        Hp = 20;
     }
 }

@@ -10,6 +10,9 @@ public class MiniFairy : Familiar
     protected override void Start()
     {
         base.Start();
+        
+
+        moveSpeed = 2f;
     }
 
     protected override void Update()
@@ -20,9 +23,9 @@ public class MiniFairy : Familiar
 
     private void Move()
     {
-        Vector3 currentPosition = transform.position;
+        Vector3 currentPosition = transform.root.position;
         Vector3 newPosition = new Vector3(currentPosition.x - moveSpeed * Time.deltaTime, currentPosition.y, 0f);
-        transform.position = newPosition;
+        transform.root.position = newPosition;
     }
     
     // Hit Logic & out of camera
@@ -48,5 +51,9 @@ public class MiniFairy : Familiar
     protected override void Init()
     {
         base.Init();
+        var skill = Datas.GameData.DTSkillData[10001];
+        
+        bulletController = GetComponent<BulletController>();
+        bulletController.AddSkillCallback(skill);
     }
 }

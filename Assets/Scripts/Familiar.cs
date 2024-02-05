@@ -6,7 +6,7 @@ using UnityEngine;
 public class Familiar : MonoBehaviour
 {
     protected float spawnCoolTime;
-    protected BulletSpawner bulletSpawner;
+    protected BulletController bulletController;
     [SerializeField] private Familiar scale;
 
     protected Vector3 spawnPos;
@@ -23,7 +23,6 @@ public class Familiar : MonoBehaviour
     {
         // Initialize
         spawnPos = GameManager.Instance.PlayerMove.transform.position;
-        
         // bulletSpawner / bullets
         // spawnCoolTime
         
@@ -38,7 +37,7 @@ public class Familiar : MonoBehaviour
     {
         
     }
-
+    
     public virtual void HitMonster(Monster monster)
     {
         
