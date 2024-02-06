@@ -45,3 +45,23 @@ MonoBehaviour:
     projectileSpeed: 1000
     projectileSize: 1000
     prefabPath: Skills/LaserBigBlueOBJ
+  - index: 10004
+    name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
+    description: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8 \uC124\uBA85"
+    icon: SPUM/0_Flat/Icon_Flat__14
+    skillDamageRate: 200
+    skillSpeedRate: 500
+    range: 12
+    projectileSpeed: 1000
+    projectileSize: 1000
+    prefabPath: Skills/Summon_GhostKnight
+  - index: 10005
+    name: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC"
+    description: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC \uC124\uBA85"
+    icon: SPUM/0_Flat/Icon_Flat__14
+    skillDamageRate: 200
+    skillSpeedRate: 500
+    range: 12
+    projectileSpeed: 1000
+    projectileSize: 1000
+    prefabPath: Skills/Summon_MiniFairy

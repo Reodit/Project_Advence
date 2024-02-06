@@ -913,14 +913,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCooldown: 0.5
-  lastTriggerTime: -0.5
   monsterMaxHp: 30
-  currentHp: 30
   dieDelay: 0.2
   rewardExp: 10
   Hpbar: {fileID: 5078607712591528327}
+  attackDamage: 5
   hitColor: {r: 1, g: 0, b: 0, a: 1}
-  hitDuration: 0.2
+  hitDuration: 0.1
 --- !u!1 &1754443020822186536
 GameObject:
   m_ObjectHideFlags: 0

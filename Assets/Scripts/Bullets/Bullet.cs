@@ -119,7 +119,7 @@ public class Bullet : MonoBehaviour
         if (monster)
         {
             _pixelArsenalProjectileScript.OnCol();
-            StartCoroutine(monster.FlashHitColor());
+            monster.FlashHitColor();
             
             // TODO 몬스터 데미지 계산 통일필요
             monster.CurrentHp -= (int)BulletInfo.Damage;

@@ -10,8 +10,6 @@ public class MiniFairy : Familiar
     protected override void Start()
     {
         base.Start();
-        
-
         moveSpeed = 2f;
     }
 
@@ -41,7 +39,7 @@ public class MiniFairy : Familiar
     {
         if (monster)
         {
-            StartCoroutine(monster.FlashHitColor());
+            monster.FlashHitColor();
             monster.CurrentHp -= (int)attackDamage;
             monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
         }

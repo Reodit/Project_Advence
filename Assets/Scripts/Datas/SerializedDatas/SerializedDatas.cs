@@ -275,3 +275,22 @@ public class MonsterTable : IBaseData
     }
 }
 
+[Serializable]
+public class FamiliarData : IBaseData
+{
+    public int Index;
+    public int SkillId;
+    public int MaxHp; // Enum 타입
+    public int MoveSpeed;
+    public int PamiliarSkillId;
+
+    public void InitializeFromTableData(DataRow row)
+    {
+        this.Index = Convert.ToInt32(row["Index"]);
+        this.SkillId = Convert.ToInt32(row["SkillId"]);
+        this.MaxHp = Convert.ToInt32(row["MaxHp"]);
+        this.MoveSpeed = Convert.ToInt32(row["MoveSpeed"]);
+        this.PamiliarSkillId = Convert.ToInt32(row["PamiliarSkillId"]);
+    }
+}
+

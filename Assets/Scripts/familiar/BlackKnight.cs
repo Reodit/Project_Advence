@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class BlackKnight : Familiar
 {
-    protected int Hp;
+    protected int MaxHp;
+    protected int currentHp;
     protected float attackDamage;
     protected float moveSpeed;
-    
+    [SerializeField] private Image hpBar;
 
     protected override void Start()
     {
@@ -34,7 +36,7 @@ public class BlackKnight : Familiar
         bool needDestroy = base.CheckDestroyCondition() || 
                            CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
                                this.transform.position);
-        if (Hp <= 0)
+        if (MaxHp <= 0)
         {
             needDestroy = true;
         }
@@ -52,9 +54,10 @@ public class BlackKnight : Familiar
     {
         if (monster)
         {
-            StartCoroutine(monster.FlashHitColor());
+            monster.FlashHitColor();
             monster.CurrentHp -= (int)attackDamage;
-            Hp -= monster.attackDamage;
+            currentHp -= monster.attackDamage;
+            hpBar.fillAmount = (float)currentHp / MaxHp;
             monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
         }
     }
@@ -65,6 +68,6 @@ public class BlackKnight : Familiar
         base.Init();
         attackDamage = 5;
         moveSpeed = 4f;
-        Hp = 20;
+        currentHp = MaxHp = 20;
     }
 }

@@ -43,7 +43,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Move();
-        //LevelUp();
+        LevelUp();
         if (isHit)
         {
             Hit();

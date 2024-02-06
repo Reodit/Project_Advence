@@ -18,10 +18,10 @@ public class Monster : MonoBehaviour
     public int attackDamage;
     
     public Color hitColor = Color.red;
-    public float hitDuration = 0.2f;
+    public float hitDuration = 0.1f;
 
     private string _monsterAttackCoolTimeID;
-    
+    private List<Color> _originalColors;
     void Start()
     {
         _player = GameManager.Instance.PlayerMove;
@@ -31,6 +31,13 @@ public class Monster : MonoBehaviour
         
         _monsterAttackCoolTimeID = "MonsterAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterAttackCoolTimeID, triggerCooldown);
+        
+        _originalColors = new List<Color>();
+
+        foreach (var spriteRenderer in _spriteRenderers)
+        {
+            _originalColors.Add(spriteRenderer.color);
+        }
     }
 
     private void Update()
@@ -70,21 +77,26 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public IEnumerator FlashHitColor()
+    public void FlashHitColor()
     {
-        List<Color> originalColors = new List<Color>();
-
+        StartCoroutine(FlashHitColorCo());
+    }
+    
+    private IEnumerator FlashHitColorCo()
+    {
         foreach (var spriteRenderer in _spriteRenderers)
         {
-            originalColors.Add(spriteRenderer.color);
             spriteRenderer.color = hitColor;
         }
-
+        
         yield return new WaitForSeconds(hitDuration);
 
         for (int i = 0; i < _spriteRenderers.Count; i++)
         {
-            _spriteRenderers[i].color = originalColors[i];
+            if (_spriteRenderers[i] != null)
+            {
+                _spriteRenderers[i].color = _originalColors[i];
+            }
         }
     }
 }

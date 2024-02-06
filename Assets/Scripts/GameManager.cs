@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
         Datas.GameData.LoadPatternDataToGameData("PatternTable");
         Datas.GameData.LoadPhaseDataToGameData("PhaseTable");
         Datas.GameData.LoadMonsterDataToGameData("MonsterTable");
+        Datas.GameData.LoadFamiliarDataToGameData("FamiliarData");
     }
     
 
@@ -102,14 +103,14 @@ public class GameManager : MonoBehaviour
     public void FamiliarTest()
     {   
         StartCoroutine(SpawnFamiliarRoutine(2f,
-            Resources.Load<GameObject>("SPUM/SPUM_Units/Summon_MiniFairy")));
+            Resources.Load<GameObject>("Skills/Summon_MiniFairy")));
     }
     
     [ContextMenu("BlackKnight")]
     public void FamiliarTest2()
     {
         StartCoroutine(SpawnFamiliarRoutine(1.5f,
-            Resources.Load<GameObject>("SPUM/SPUM_Units/Summon_GhostKnight")));
+            Resources.Load<GameObject>("Skills/Summon_GhostKnight")));
     }
     
     //TODO Remove TESTCODE
