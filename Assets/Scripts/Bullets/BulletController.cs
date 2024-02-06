@@ -1,9 +1,8 @@
-using Cysharp.Threading.Tasks.Triggers;
 using Enums;
-using NPOI.POIFS.Properties;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -18,7 +17,6 @@ public class BulletController : MonoBehaviour
 
     [field: SerializeField] public float Angle { get; private set; } = 60f;
     
-    private PlayerMove _player;
     private int _bulletSpawnAreaCount;
 
     private Dictionary<string, Bullet> _bulletPrefabDict = new Dictionary<string, Bullet>();
@@ -36,8 +34,6 @@ public class BulletController : MonoBehaviour
 
     public void Start()
     {
-        _player = GameManager.Instance.PlayerMove;
-
         float bulletInterval = (float)bulletSpawnSpace / maxBulletSpawnArea;
         float bulletIntervalHalf = bulletInterval * 0.5f;
 
@@ -60,10 +56,11 @@ public class BulletController : MonoBehaviour
     public float fireRate = 2f; // 초당 발사 횟수
     private float nextFireTime = 0f; // 다음 발사 시간
 
+    // TODO 임시처리  ==> 구조화 다시 논의 필요
     public void AddSkillCallback(SkillTable skill)
     {
+        
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
-
         bullet.SetSkillName(skill.name);
 
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
@@ -72,6 +69,7 @@ public class BulletController : MonoBehaviour
 
         _bulletPrefabDict.Add(skill.name, bullet);
         AddFirstBulletType(bullet);
+        
     }
 
     public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
@@ -226,6 +224,13 @@ public class BulletController : MonoBehaviour
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);
         }
+    }
+    
+    IEnumerator FamiliarSpawnCo(Familiar familiar)
+    {
+        Instantiate(familiar, GameManager.Instance.PlayerMove.transform.position, Quaternion.identity);
+        
+        yield return new WaitForSeconds(familiar.spawnCoolTime);
     }
 
 #if UNITY_EDITOR

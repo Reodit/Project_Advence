@@ -56,11 +56,11 @@ public class CharacterTable : IBaseData
     public string characterName;
     public int id;
     public int attackDamage; // 기본 스텟 공격력
-    public int attackSpeed; // 천분, 초당 공격 속도
+    public float attackSpeed; // 천분, 초당 공격 속도
     public int defence;
     public float moveSpeed;
-    public int criticalPercent; // 천분율 치명타 확률
-    public int criticalDamage; // 천분율 치명타 데미지
+    public float criticalPercent; // 천분율 치명타 확률
+    public float criticalDamage; // 천분율 치명타 데미지
     public int maxHp;
     public int maxLv;
     public string prefabPath;
@@ -70,11 +70,11 @@ public class CharacterTable : IBaseData
         this.characterName = row["Name"].ToString();
         this.id = Convert.ToInt32(row["ID"]);
         this.attackDamage = Convert.ToInt32(row["AttackDamage"]);
-        this.attackSpeed = Convert.ToInt32(row["AttackSpeed"]);
+        this.attackSpeed = Convert.ToSingle(row["AttackSpeed"]);
         this.defence = Convert.ToInt32(row["Defence"]);
         this.moveSpeed = Convert.ToSingle(row["MoveSpeed"]);
-        this.criticalPercent = Convert.ToInt32(row["CriticalPercent"]);
-        this.criticalDamage = Convert.ToInt32(row["CriticalDamage"]);
+        this.criticalPercent = Convert.ToSingle(row["CriticalPercent"]);
+        this.criticalDamage = Convert.ToSingle(row["CriticalDamage"]);
         this.maxHp = Convert.ToInt32(row["HP"]);
         this.maxLv = Convert.ToInt32(row["MaxLV"]);
         this.prefabPath = row["Prefab"].ToString();
@@ -120,7 +120,7 @@ public class SelectStatTable : IBaseData
     public int index;
     public string name;
     public SelectStatName selectStatName;
-    public int selectStatRateValue;
+    public float selectStatRateValue;
     public string description;
     public string iconPath;
     public void InitializeFromTableData(DataRow row)
@@ -128,7 +128,7 @@ public class SelectStatTable : IBaseData
         this.index = Convert.ToInt32(row["Index"]);
         this.name = row["Name"].ToString();
         this.selectStatName = (SelectStatName)Enum.Parse(typeof(SelectStatName), row["SelectStatName"].ToString());
-        this.selectStatRateValue = Convert.ToInt32(row["SelectStatRateValue"]);
+        this.selectStatRateValue = Convert.ToSingle(row["SelectStatRateValue"]);
         this.description = row["Description"].ToString();
         this.iconPath = row["Icon"].ToString();
     }
@@ -141,11 +141,11 @@ public class SkillTable : IBaseData
     public string name;
     public string description;
     public string icon;
-    public int skillDamageRate;
-    public int skillSpeedRate;
+    public float skillDamageRate;
+    public float skillSpeedRate;
     public int range;
-    public int projectileSpeed;
-    public int projectileSize;
+    public float projectileSpeed;
+    public float projectileSize;
     public string prefabPath;
 
     public void InitializeFromTableData(DataRow row)
@@ -154,11 +154,11 @@ public class SkillTable : IBaseData
         this.name = row["Name"].ToString();
         this.description = row["Description"].ToString();
         this.icon = row["Icon"].ToString();
-        this.skillDamageRate = Convert.ToInt32(row["SkillDamageRate"]);
-        this.skillSpeedRate = Convert.ToInt32(row["SkillSpeedRate"]);
+        this.skillDamageRate = Convert.ToSingle(row["SkillDamageRate"]);
+        this.skillSpeedRate = Convert.ToSingle(row["SkillSpeedRate"]);
         this.range = Convert.ToInt32(row["Range"]);
-        this.projectileSpeed = Convert.ToInt32(row["ProjectileSpeed"]);
-        this.projectileSize = Convert.ToInt32(row["ProjectileSize"]);
+        this.projectileSpeed = Convert.ToSingle(row["ProjectileSpeed"]);
+        this.projectileSize = Convert.ToSingle(row["ProjectileSize"]);
         this.prefabPath = row["Prefab"].ToString();
     }
 }
@@ -171,7 +171,7 @@ public class SkillEnchantTable : IBaseData
     public string name;
     public string description;
     public EnchantEffect1 enchantEffect1; // Enum 타입은 나중에 추가
-    public int enchantEffectValue1;
+    public float enchantEffectValue1;
     public int maxCnt;
     public string icon;
     public bool colorToBlack;
@@ -183,7 +183,7 @@ public class SkillEnchantTable : IBaseData
         this.name = row["Name"].ToString();
         this.description = row["Description"].ToString();
         this.enchantEffect1 = (EnchantEffect1)Enum.Parse(typeof(EnchantEffect1), row["EnchantEffect1"].ToString());
-        this.enchantEffectValue1 = Convert.ToInt32(row["EnchantEffectValue1"]);
+        this.enchantEffectValue1 = Convert.ToSingle(row["EnchantEffectValue1"]);
         this.maxCnt = Convert.ToInt32(row["MaxCnt"]);
         this.icon = row["Icon"].ToString();
         this.colorToBlack = Convert.ToBoolean(row["ColortoBlack"]);
@@ -281,7 +281,7 @@ public class FamiliarData : IBaseData
     public int Index;
     public int SkillId;
     public int MaxHp; // Enum 타입
-    public int MoveSpeed;
+    public float MoveSpeed;
     public int PamiliarSkillId;
 
     public void InitializeFromTableData(DataRow row)
@@ -289,7 +289,7 @@ public class FamiliarData : IBaseData
         this.Index = Convert.ToInt32(row["Index"]);
         this.SkillId = Convert.ToInt32(row["SkillId"]);
         this.MaxHp = Convert.ToInt32(row["MaxHp"]);
-        this.MoveSpeed = Convert.ToInt32(row["MoveSpeed"]);
+        this.MoveSpeed = Convert.ToSingle(row["MoveSpeed"]);
         this.PamiliarSkillId = Convert.ToInt32(row["PamiliarSkillId"]);
     }
 }
