@@ -5,6 +5,14 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
+public enum BulletType
+{
+    Normal,
+    Waterballoon,
+    Outside,
+    Creature,
+}
+
 public class BulletController : MonoBehaviour
 {
     public Transform spawnPoint; // 발사 위치
