@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Enums;
 
 [Serializable]
 public struct BulletInfo
@@ -38,25 +39,33 @@ public class Bullet : MonoBehaviour
     public PixelArsenalProjectileScript _pixelArsenalProjectileScript { get; private set; }
     private bool _isTriggered;
     private float destroyDelay;
-    private Vector3 initPosition;
-    private CircleCollider2D _collider;
+    protected Vector3 initPosition;
 
     private Action<Bullet> OnDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; private set; }
 
     public string SkillName { get; private set; }
 
+    public SkillType SkillType { get; private set; } = SkillType.Normal;
+
+    protected Transform _myTrans;
+
     private void Awake()
     {
-        _collider = GetComponent<CircleCollider2D>();
+        _myTrans = transform;
     }
 
-    public void Start()
+    protected void Start()
     {
+        initPosition = transform.position;
         _isTriggered = false;
         destroyDelay = 0.5f;
-        initPosition = transform.position;
         _pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
+    }
+
+    private void OnDestroy()
+    {
+        OnDestroyed.Invoke(this);
     }
 
     public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback)
@@ -65,10 +74,6 @@ public class Bullet : MonoBehaviour
         OnDestroyed = destroyCallback;
     }
 
-    private void OnDestroy()
-    {
-        OnDestroyed.Invoke(this);
-    }
 
     public void SetSkillName(string skillName)
     {
@@ -89,7 +94,7 @@ public class Bullet : MonoBehaviour
         }
     }
     
-    IEnumerator DestroyAfterDelayCoroutine()
+    protected virtual IEnumerator DestroyAfterDelayCoroutine()
     {
         // destroyDelay 만큼 대기
         yield return new WaitForSeconds(destroyDelay);
@@ -98,7 +103,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
     
-    public void Update()
+    protected void Update()
     {
         Vector2 newPosition = transform.position + transform.right * (BulletInfo.Speed * Time.deltaTime);
         transform.position = newPosition;
@@ -109,12 +114,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         CollisionManager.Instance.HandleCollision(this.gameObject, collision.gameObject);
     }
 
-    public void HitMonster(Monster monster)
+    public virtual void HitMonster(Monster monster)
     {
         if (monster)
         {
@@ -130,6 +135,13 @@ public class Bullet : MonoBehaviour
     
     public void Resize(float amount)
     {
-        _collider.radius += _collider.radius * amount;
+        Vector3 scale = _myTrans.localScale;
+        scale += scale * amount;
+        _myTrans.localScale = scale;
+    }
+
+    public void SetSkillType(SkillType skillType)
+    {
+        SkillType = SkillType;
     }
 }

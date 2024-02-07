@@ -1,17 +1,7 @@
 using Enums;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-
-public enum BulletType
-{
-    Normal,
-    Waterballoon,
-    Outside,
-    Creature,
-}
 
 public class BulletController : MonoBehaviour
 {
@@ -67,17 +57,28 @@ public class BulletController : MonoBehaviour
     // TODO 임시처리  ==> 구조화 다시 논의 필요
     public void AddSkillCallback(SkillTable skill)
     {
-        
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
-        bullet.SetSkillName(skill.name);
 
+        bullet.SetSkillName(skill.name);
+        bullet.SetSkillType(skill.type);
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
 
         _bulletInfoDict.Add(skill.name, bulletInfo);
 
         _bulletPrefabDict.Add(skill.name, bullet);
-        AddFirstBulletType(bullet);
-        
+
+        switch (skill.type)
+        {
+            case SkillType.Normal:
+                AddFirstBulletType(bullet);
+                break;
+            case SkillType.Waterballoon:
+                break;
+            case SkillType.Outside:
+                break;
+            case SkillType.Creature:
+                break;
+        }
     }
 
     public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)

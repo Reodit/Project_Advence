@@ -61,6 +61,7 @@ namespace Utility
                 "enum<SelectStatName>" => typeof(Enums.SelectStatName),
                 "enum<EnchantEffect1>" => typeof(Enums.EnchantEffect1),
                 "enum<MonsterType>" => typeof(Enums.MonsterType),
+                "enum<SkillType>" => typeof(Enums.SkillType),
                 // Nullable 기본 타입
                 "nullableint" => typeof(int?),
                 "nullablefloat" => typeof(float?),
