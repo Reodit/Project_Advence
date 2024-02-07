@@ -15,13 +15,10 @@ public class LevelUpPopUp : UIBase
     protected override void Initialize()
     {
         base.Initialize();
-
-        //upgradeContentsPrefab.GetComponent<UpgradeContentsUI>();
     }
 
     protected override void Start()
     {
-
         Init();
         GameManager.Instance.PauseGame();
     }
@@ -33,6 +30,10 @@ public class LevelUpPopUp : UIBase
 
     public void UpgradeLogic(int a)
     {
+        List<SkillTable> selectedSkillTables = new List<SkillTable>();
+        List<SkillEnchantTable> selectedSkillEnchantTables = new List<SkillEnchantTable>();
+        List<SelectStatTable> selectedStatTable = new List<SelectStatTable>();
+
         if (SkillManager.instance.playerSkills.Count == 0)
         {
             OfferNewSkills();
