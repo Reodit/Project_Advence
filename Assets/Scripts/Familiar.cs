@@ -1,41 +1,38 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Familiar : MonoBehaviour
 {
-    protected float spawnCoolTime;
-    protected BulletController bulletController;
+    [HideInInspector] public SkillTable SkillData;
+    [HideInInspector] public FamiliarData FamiliarSkillData;
+    protected float attackDamage;
+    public float spawnCoolTime;
+    [SerializeField] protected BulletController bulletController;
+    
     [SerializeField] private Familiar scale;
-
-    protected Vector3 spawnPos;
+    public string familiarSpawnCoolTimeID;
 
     protected virtual void Update()
     {
         if (CheckDestroyCondition())
         {
-            // Destroy;
+            Destroy(this.gameObject);
         }
     }
 
     protected virtual void Start()
     {
-        // Initialize
-        spawnPos = GameManager.Instance.PlayerMove.transform.position;
-        // bulletSpawner / bullets
-        // spawnCoolTime
-        
         Init();
     }
 
     protected virtual void Init()
     {
-    }
-
-    protected void OnDestroy()
-    {
-        
+        spawnCoolTime = SkillData.skillSpeedRate;
+        attackDamage = SkillData.skillDamageRate * 15;
+//        familiarSpawnCoolTimeID = "familiarSpawn_" + gameObject.GetInstanceID();
+//        TimeManager.Instance.RegisterCoolTime(familiarSpawnCoolTimeID, spawnCoolTime);
     }
     
     public virtual void HitMonster(Monster monster)

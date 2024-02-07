@@ -98,40 +98,4 @@ public class GameManager : MonoBehaviour
 
         GameManager.Instance.currentStage++;
     }
-
-    [ContextMenu("MiniFairy")]
-    public void FamiliarTest()
-    {   
-        StartCoroutine(SpawnFamiliarRoutine(2f,
-            Resources.Load<GameObject>("Skills/Summon_MiniFairy")));
-    }
-    
-    [ContextMenu("BlackKnight")]
-    public void FamiliarTest2()
-    {
-        StartCoroutine(SpawnFamiliarRoutine(1.5f,
-            Resources.Load<GameObject>("Skills/Summon_GhostKnight")));
-    }
-    
-    //TODO Remove TESTCODE
-    
-    IEnumerator SpawnFamiliarRoutine(float spawnCoolTime, GameObject familiar)
-    {
-        int count = 0;
-        while (true)
-        {
-            yield return new WaitForSeconds(spawnCoolTime);
-
-            if (count < 20)
-            {
-                Instantiate(familiar, PlayerMove.transform.position, quaternion.identity);
-                count++;
-            }
-
-            else
-            {
-                yield break;
-            }
-        }
-    }
 }

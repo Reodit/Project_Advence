@@ -6,11 +6,10 @@ using UnityEngine;
 public class MiniFairy : Familiar
 {
     protected float moveSpeed;
-    protected float attackDamage;
     protected override void Start()
     {
         base.Start();
-        moveSpeed = 2f;
+        moveSpeed = FamiliarSkillData.MoveSpeed;
     }
 
     protected override void Update()
@@ -22,7 +21,7 @@ public class MiniFairy : Familiar
     private void Move()
     {
         Vector3 currentPosition = transform.root.position;
-        Vector3 newPosition = new Vector3(currentPosition.x - moveSpeed * Time.deltaTime, currentPosition.y, 0f);
+        Vector3 newPosition = new Vector3(currentPosition.x + moveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
     }
     
@@ -49,9 +48,6 @@ public class MiniFairy : Familiar
     protected override void Init()
     {
         base.Init();
-        var skill = Datas.GameData.DTSkillData[10001];
-        
-        bulletController = GetComponent<BulletController>();
-        bulletController.AddSkillCallback(skill);
+        bulletController.AddSkillCallback(Datas.GameData.DTSkillData[FamiliarSkillData.SkillId]);
     }
 }

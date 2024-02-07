@@ -8,7 +8,6 @@ public class BlackKnight : Familiar
 {
     protected int MaxHp;
     protected int currentHp;
-    protected float attackDamage;
     protected float moveSpeed;
     [SerializeField] private Image hpBar;
 
@@ -67,7 +66,7 @@ public class BlackKnight : Familiar
     {
         base.Init();
         attackDamage = 5;
-        moveSpeed = 4f;
-        currentHp = MaxHp = 20;
+        moveSpeed = FamiliarSkillData.MoveSpeed;
+        currentHp = MaxHp = FamiliarSkillData.MaxHp;
     }
 }
