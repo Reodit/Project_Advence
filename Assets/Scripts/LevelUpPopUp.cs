@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class LevelUpPopUp : UIBase
 {
@@ -26,6 +27,113 @@ public class LevelUpPopUp : UIBase
     }
 
     private static System.Random rng = new System.Random();
+
+    private const int MaxSkills = 3;
+    private const int MaxRetries = 100;
+
+    public void UpgradeLogic(int a)
+    {
+        if (SkillManager.instance.playerSkills.Count == 0)
+        {
+            OfferNewSkills();
+        }
+        else
+        {
+            OfferUpgrades();
+        }
+    }
+
+    private void OfferNewSkills()
+    {
+        var selectedSkills = Datas.GameData.DTSkillData.Values.OrderBy(x => rng.Next()).Take(MaxSkills).ToList();
+        foreach (var skill in selectedSkills)
+        {
+            SetupUpgradeUI(skill.icon, skill.name, skill.description, () =>
+            {
+                SkillManager.instance.AddPlayerSkill(skill);
+            });
+        }
+    }
+
+    private void OfferUpgrades()
+    {
+        for (int i = 0; i < MaxSkills; i++)
+        {
+            if (SkillManager.instance.playerSkills.Count < MaxSkills)
+            {
+                OfferSkillOrStatOrSkillEnchantUpgrade();
+            }
+            else
+            {
+                OfferSkillEnchantOrStatUpgrade();
+            }
+        }
+    }
+
+    private void OfferSkillOrStatOrSkillEnchantUpgrade()
+    {
+        int totalOptions = Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count + Datas.GameData.DTSelectStatData.Count;
+        int choice = rng.Next(totalOptions);
+
+        if (choice < Datas.GameData.DTSkillData.Count)
+        {
+            OfferNewSkillOption();
+        }
+        else if (choice < (Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count))
+        {
+            OfferSkillEnchantOption();
+        }
+        else
+        {
+            OfferStatUpgradeOption();
+        }
+    }
+
+    private void OfferSkillEnchantOrStatUpgrade()
+    {
+        int choice = rng.Next(GetTotalOptionsCount() - Datas.GameData.DTSkillData.Count);
+        if (choice < Datas.GameData.DTSkillEnchantData.Count)
+        {
+            OfferSkillEnchantOption();
+        }
+        else
+        {
+            OfferStatUpgradeOption();
+        }
+    }
+
+    private void SetupUpgradeUI(string iconPath, string title, string description, Action onClickAction)
+    {
+        var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
+        upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(iconPath);
+        upgradePrefab.upgradeTitleText.text = title;
+        upgradePrefab.upgradeDescriptionText.text = description;
+        upgradePrefab.upgradeButton.onClick.AddListener(() =>
+        {
+            onClickAction.Invoke();
+            Destroy(this.gameObject);
+        });
+    }
+
+    private int GetTotalOptionsCount()
+    {
+        return Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count + Datas.GameData.DTSelectStatData.Count;
+    }
+
+    private void OfferNewSkillOption()
+    {
+
+    }
+
+    private void OfferSkillEnchantOption()
+    {
+
+    }
+
+    private void OfferStatUpgradeOption()
+    {
+    }
+
     public void UpgradeLogic()
     {
         List<SkillTable> selectedSkillTables = new List<SkillTable>();

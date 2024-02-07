@@ -22,7 +22,7 @@ public class PopupManager : MonoBehaviour
         }
     }
     
-    public void InstantiateItemListPopUp(string path)
+    public void InstantiatePopUp(string path)
     {
         GameObject popUpPrefab = Resources.Load<GameObject>(path);
         if (popUpPrefab != null)

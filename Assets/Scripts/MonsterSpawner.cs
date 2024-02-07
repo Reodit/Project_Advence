@@ -65,12 +65,11 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private float targetXPos;
 
     [SerializeField] private float phaseTime = 360f; 
-    // 풀링 대상
+    // TODO 풀링 대상
     public int totalMonsterCount;
     public static float currentSpace;
 
     public List<Phase> phases;
-    // 1 Phase = 5분 = 360f 스크롤 시간과 관계 없음
 
     public void Init()
     {
