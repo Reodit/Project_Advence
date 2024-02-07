@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class MiniFairy : Familiar
 {
-    protected float moveSpeed;
-    protected float attackDamage;
     protected override void Start()
     {
         base.Start();
-        moveSpeed = 2f;
     }
 
     protected override void Update()
@@ -22,7 +19,7 @@ public class MiniFairy : Familiar
     private void Move()
     {
         Vector3 currentPosition = transform.root.position;
-        Vector3 newPosition = new Vector3(currentPosition.x - moveSpeed * Time.deltaTime, currentPosition.y, 0f);
+        Vector3 newPosition = new Vector3(currentPosition.x - familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
     }
     
@@ -40,7 +37,7 @@ public class MiniFairy : Familiar
         if (monster)
         {
             monster.FlashHitColor();
-            monster.CurrentHp -= (int)attackDamage;
+            monster.CurrentHp -= (int)5;
             monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
         }
     }

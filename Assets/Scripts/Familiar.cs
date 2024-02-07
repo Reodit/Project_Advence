@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Familiar : MonoBehaviour
 {
-    protected float spawnCoolTime;
+    public SkillTable familiarSkillData;
+    public FamiliarData familiarData;
     protected BulletController bulletController;
-    [SerializeField] private Familiar scale;
+    [SerializeField] private Vector3 scale;
 
     protected Vector3 spawnPos;
 
