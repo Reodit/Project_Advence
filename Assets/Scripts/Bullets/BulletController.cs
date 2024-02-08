@@ -60,7 +60,6 @@ public class BulletController : MonoBehaviour
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
 
         bullet.SetSkillName(skill.name);
-        bullet.SetSkillType(skill.type);
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
 
         _bulletInfoDict.Add(skill.name, bulletInfo);
@@ -136,8 +135,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillRange(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterDistance = _bulletInfoDict[skillName].MaxDistance + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterDistance = _bulletInfoDict[skillName].MaxDistance;
+        afterDistance += afterDistance * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -150,8 +150,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseBulletSpeed(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterSpeed = _bulletInfoDict[skillName].Speed + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterSpeed = _bulletInfoDict[skillName].Speed;
+        afterSpeed += afterSpeed * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetSpeed(afterSpeed);

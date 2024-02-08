@@ -16,19 +16,31 @@ public class SkillManager : MonoBehaviour
     public event Action<SkillTable> OnAddSkill;
     public event Action<string, SkillEnchantTable> OnAddEnchant;
 
+#if UNITY_EDITOR
+    private SkillUpgradeDebugger _debugger;
+#endif
+
     private void Awake()
     {
         instance = this;
+#if UNITY_EDITOR
+        _debugger = FindAnyObjectByType<SkillUpgradeDebugger>();
+#endif
     }
 
     public void AddPlayerSkill(SkillTable skill)
     {
+#if UNITY_EDITOR
+        _debugger.Spawn(skill.index);
+#endif
+
         if (playerSkills.ContainsKey(skill.name))
             return;
 
         playerSkills.Add(skill.name, new CharacterSkill(skill, new List<SkillEnchantTable>()));
 
         OnAddSkill.Invoke(skill);
+
     }
 
     public void AddSkillEnchant(string skillName, SkillEnchantTable skillEnchant)
@@ -37,14 +49,14 @@ public class SkillManager : MonoBehaviour
         if (index == -1)
         {
             playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
+            index = playerSkills[skillName].SkillEnchantTables.Count - 1;
         }
         else if (skillEnchant.maxCnt <= playerSkills[skillName].SkillEnchantTables[index].currentCount)
         {
             return;
         }
 
-        int enchantCount = playerSkills[skillName].SkillEnchantTables.Count;
-        playerSkills[skillName].SkillEnchantTables[enchantCount - 1].currentCount++;
+        playerSkills[skillName].SkillEnchantTables[index].currentCount++;
         OnAddEnchant.Invoke(skillName, skillEnchant);
     }
 
