@@ -280,7 +280,7 @@ public class FamiliarData : IBaseData
 {
     public int Index;
     public int SkillId;
-    public int MaxHp; // Enum 타입
+    public int MaxHp;
     public int MoveSpeed;
     public int PamiliarSkillId;
 
