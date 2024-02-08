@@ -1,17 +1,7 @@
 using Enums;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-
-public enum BulletType
-{
-    Normal,
-    Waterballoon,
-    Outside,
-    Creature,
-}
 
 public class BulletController : MonoBehaviour
 {
@@ -67,17 +57,27 @@ public class BulletController : MonoBehaviour
     // TODO 임시처리  ==> 구조화 다시 논의 필요
     public void AddSkillCallback(SkillTable skill)
     {
-        
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
-        bullet.SetSkillName(skill.name);
 
+        bullet.SetSkillName(skill.name);
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
 
         _bulletInfoDict.Add(skill.name, bulletInfo);
 
         _bulletPrefabDict.Add(skill.name, bullet);
-        AddFirstBulletType(bullet);
-        
+
+        switch (skill.type)
+        {
+            case SkillType.Normal:
+                AddFirstBulletType(bullet);
+                break;
+            case SkillType.Waterballoon:
+                break;
+            case SkillType.Outside:
+                break;
+            case SkillType.Creature:
+                break;
+        }
     }
 
     public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
@@ -135,8 +135,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillRange(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterDistance = _bulletInfoDict[skillName].MaxDistance + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterDistance = _bulletInfoDict[skillName].MaxDistance;
+        afterDistance += afterDistance * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -149,8 +150,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseBulletSpeed(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterSpeed = _bulletInfoDict[skillName].Speed + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterSpeed = _bulletInfoDict[skillName].Speed;
+        afterSpeed += afterSpeed * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetSpeed(afterSpeed);

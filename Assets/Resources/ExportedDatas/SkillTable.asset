@@ -23,6 +23,7 @@ MonoBehaviour:
     projectileSpeed: 1
     projectileSize: 1
     prefabPath: Skills/FireballRedOBJ
+    type: 0
   - index: 10002
     name: "\uB77C\uC774\uD2B8\uB2DD\uC2A4\uD53C\uC5B4"
     description: "\uAC70\uB9AC\uAC00 \uBA3C \uC801\uC744 \uCC98\uCE58\uD560 \uC218
@@ -34,6 +35,7 @@ MonoBehaviour:
     projectileSpeed: 1
     projectileSize: 1
     prefabPath: Skills/LightningBoltMissileYellowOBJ
+    type: 0
   - index: 10003
     name: "\uC544\uC774\uC2A4\uC560\uB85C\uC6B0"
     description: "\uACB9\uACB9\uC774 \uBAB0\uB824\uC624\uB294 \uC801\uC744 \uB6AB\uC744
@@ -45,7 +47,20 @@ MonoBehaviour:
     projectileSpeed: 1
     projectileSize: 1
     prefabPath: Skills/LaserBigBlueOBJ
+    type: 0
   - index: 10004
+    name: "\uC6CC\uD130\uBC8C\uB8EC"
+    description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
+      \uAC00\uD569\uB2C8\uB2E4."
+    icon: SPUM/0_Flat/Icon_Flat__14
+    skillDamageRate: 2
+    skillSpeedRate: 0.5
+    range: 12
+    projectileSpeed: 1
+    projectileSize: 1
+    prefabPath: Skills/LaserBigBlueOBJ
+    type: 1
+  - index: 10005
     name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
     description: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8 \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
@@ -55,7 +70,8 @@ MonoBehaviour:
     projectileSpeed: 1
     projectileSize: 1
     prefabPath: Skills/Summon_GhostKnight
-  - index: 10005
+    type: 3
+  - index: 10006
     name: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC"
     description: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
@@ -65,3 +81,4 @@ MonoBehaviour:
     projectileSpeed: 1
     projectileSize: 1
     prefabPath: Skills/Summon_MiniFairy
+    type: 3

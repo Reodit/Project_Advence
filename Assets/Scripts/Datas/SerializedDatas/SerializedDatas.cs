@@ -46,6 +46,15 @@ namespace Enums
         Trap,
         Boss
     }
+
+    [Serializable]
+    public enum SkillType
+    {
+        Normal,
+        Waterballoon,
+        Outside,
+        Creature,
+    }
 }
 
 
@@ -147,6 +156,7 @@ public class SkillTable : IBaseData
     public float projectileSpeed;
     public float projectileSize;
     public string prefabPath;
+    public SkillType type;
 
     public void InitializeFromTableData(DataRow row)
     {
@@ -160,6 +170,7 @@ public class SkillTable : IBaseData
         this.projectileSpeed = Convert.ToSingle(row["ProjectileSpeed"]);
         this.projectileSize = Convert.ToSingle(row["ProjectileSize"]);
         this.prefabPath = row["Prefab"].ToString();
+        this.type = (SkillType)Enum.Parse(typeof(SkillType), row["Type"].ToString());
     }
 }
 
