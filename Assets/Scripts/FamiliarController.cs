@@ -8,7 +8,7 @@ using UnityEngine;
 public class FamiliarController : MonoBehaviour
 {
     private List<Familiar> _familiars;
-    private List<GameObject> _familiarPrefabss; 
+    private List<GameObject> _familiarPrefabs; 
     private void Start()
     {
         SkillManager.instance.OnAddSkillFamiliar += AddSkillCallback;
@@ -24,20 +24,21 @@ public class FamiliarController : MonoBehaviour
         SkillManager.instance.OnAddEnchantFamiliar -= AddEnchantCallback;
     }
 
-    /*IEnumerator FireContinuously()
+    IEnumerator FireContinuously()
     {
         while (true)
         {
-            // familiar prefab 
-            if (_bulletPrefabDict.Count > 0)
+            foreach (var e in _familiarPrefabs) 
             {
-                _spawner.SpawnFrontBullets(_frontBullets, _bulletInfoDict);
-                _spawner.SpawnSlashBullets(_slashBullets, _bulletInfoDict, Angle);
+                if (e)
+                {
+                    
+                }
             }
-            
-            yield return new WaitForSeconds(1f / fireRate);
+
+            yield return null;
         }
-    }*/
+    }
 
     public void AddSkillCallback(SkillTable skill)
     {
@@ -53,7 +54,7 @@ public class FamiliarController : MonoBehaviour
             return; 
         }
 
-        _familiarPrefabss.Add(familiarObject);
+        _familiarPrefabs.Add(familiarObject);
         _familiars.Add(familiar);
                 
         familiar.familiarData = familiarData;
