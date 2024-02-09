@@ -19,7 +19,7 @@ public class Monster : MonoBehaviour
     
     public Color hitColor = Color.red;
     public float hitDuration = 0.1f;
-
+    public BoxCollider2D
     private string _monsterAttackCoolTimeID;
     private List<Color> _originalColors;
     void Start()
@@ -57,6 +57,7 @@ public class Monster : MonoBehaviour
 
     public void Die(float delay = 0f)
     {
+        collider
         Destroy(this.gameObject, delay);
     }
 
