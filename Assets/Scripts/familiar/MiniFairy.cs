@@ -19,7 +19,7 @@ public class MiniFairy : Familiar
     private void Move()
     {
         Vector3 currentPosition = transform.root.position;
-        Vector3 newPosition = new Vector3(currentPosition.x - familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
+        Vector3 newPosition = new Vector3(currentPosition.x + familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
     }
     
@@ -27,7 +27,7 @@ public class MiniFairy : Familiar
     protected override bool CheckDestroyCondition()
     {
         bool needDestroy = base.CheckDestroyCondition() ||
-                           CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
+                           !CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
                                this.transform.position);
         return needDestroy;
     }
@@ -46,9 +46,35 @@ public class MiniFairy : Familiar
     protected override void Init()
     {
         base.Init();
-        var skill = Datas.GameData.DTSkillData[10001];
-        
+        animator = GetComponent<Animator>();
         bulletController = GetComponent<BulletController>();
-        bulletController.AddSkillCallback(skill);
+        bulletController.OnFire += PlayFireAnimation;
+        bulletController.AddSkillCallback(Datas.GameData.DTSkillData[familiarData.PamiliarSkillId]);
+    }
+
+    private void PlayFireAnimation()
+    {
+        animator.Play("MagicAttack");
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        bulletController.OnFire -= PlayFireAnimation;
+    }
+    
+    public void TurnOffAttack()
+    {
+        
+    }
+
+    public void MagicAttack()
+    {
+        
+    }
+
+    public void RangedAttack()
+    {
+        
     }
 }

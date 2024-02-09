@@ -38,6 +38,22 @@ public class TimeManager : MonoBehaviour
         coolTimes.Add(id, coolTime);
         lastUsedTimes.Add(id, 0f);
     }
+    
+    public void UpdateCoolTime(string id, float newCoolTime)
+    {
+        if (newCoolTime < 0)
+        {
+            throw new ArgumentException("Cool time cannot be negative.", nameof(newCoolTime));
+        }
+
+        if (!coolTimes.ContainsKey(id))
+        {
+            throw new ArgumentException($"No cool time item with id '{id}' is registered.", id);
+        }
+
+        // 기존의 쿨타임 값을 새로운 값으로 업데이트
+        coolTimes[id] = newCoolTime;
+    }
 
     public void Use(string id)
     {
@@ -53,7 +69,8 @@ public class TimeManager : MonoBehaviour
     {
         if (!coolTimes.ContainsKey(id))
         {
-            throw new ArgumentException($"No cool time item with id '{id}' is registered.", id);
+            Debug.Log($"No cool time item with id '{id}' is registered.");
+            return false;
         }
 
         if (Time.time >= lastUsedTimes[id] + coolTimes[id])

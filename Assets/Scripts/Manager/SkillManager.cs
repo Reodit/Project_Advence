@@ -36,7 +36,11 @@ public class SkillManager : MonoBehaviour
     public void AddPlayerSkill(SkillTable skill)
     {
 #if UNITY_EDITOR
-        _debugger.Spawn(skill.index);
+        
+        if (!(skill.name == "고스트나이트" || skill.name == "미니페어리"))
+        {
+            _debugger.Spawn(skill.index);
+        }
 #endif
 
         if (playerSkills.ContainsKey(skill.name))
@@ -79,6 +83,5 @@ public class SkillManager : MonoBehaviour
         {
             OnAddEnchant.Invoke(skillName, skillEnchant);
         }
-        OnAddEnchant.Invoke(skillName, skillEnchant);
     }
 }

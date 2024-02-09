@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarList:
   - Index: 11001
-    SkillId: 10004
+    SkillId: 10005
     MaxHp: 20
     MoveSpeed: 5
     PamiliarSkillId: 0
   - Index: 11002
-    SkillId: 10005
+    SkillId: 10006
     MaxHp: 0
     MoveSpeed: -3
     PamiliarSkillId: 10003

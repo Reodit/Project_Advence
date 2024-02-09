@@ -5644,10 +5644,9 @@ GameObject:
   - component: {fileID: 3285400647304652556}
   - component: {fileID: 4888012730686360756}
   - component: {fileID: 3162408495511217522}
-  - component: {fileID: 8036963988776499459}
-  - component: {fileID: -593082626125654372}
   - component: {fileID: 3890772782609746627}
   - component: {fileID: 7951619264215942782}
+  - component: {fileID: 252389852961532297}
   m_Layer: 0
   m_Name: Summon_GhostKnight
   m_TagString: Untagged
@@ -5722,7 +5721,7 @@ Animator:
   m_GameObject: {fileID: 8821680729806311668}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2fc0aafc4ba14749a6cc196ffeb52b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6afdac86022b42e44b0cca967407cd11, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5733,39 +5732,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8036963988776499459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8821680729806311668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1bfc935f3cbf1149b3d33c038db8585, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scale: {fileID: 0}
-  hpBar: {fileID: 4751351787952576086}
---- !u!114 &-593082626125654372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8821680729806311668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3505adcfdbc34558afe232b00a3a350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  bulletPath: 
-  bullets: []
-  bulletSpawnSpace: 3
-  maxBulletSpawnArea: 12
-  <Angle>k__BackingField: 60
-  fireRate: 2
 --- !u!61 &3890772782609746627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5838,6 +5804,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &252389852961532297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821680729806311668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bfc935f3cbf1149b3d33c038db8585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  familiarSkillData:
+    index: 10005
+    name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
+    description: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8 \uC124\uBA85"
+    icon: SPUM/0_Flat/Icon_Flat__14
+    skillDamageRate: 2
+    skillSpeedRate: 2
+    range: 12
+    projectileSpeed: 1
+    projectileSize: 1
+    prefabPath: Skills/Summon_GhostKnight
+    type: 3
+  familiarData:
+    Index: 11002
+    SkillId: 10005
+    MaxHp: 0
+    MoveSpeed: -3
+    PamiliarSkillId: 10003
+  FamiliarType: 0
+  spawnCoolTime: 0
+  currentHp: 0
+  bulletController: {fileID: 0}
+  scale: {x: 0, y: 0, z: 0}
+  hpBar: {fileID: 4751351787952576086}
 --- !u!1 &8839489239700066637
 GameObject:
   m_ObjectHideFlags: 0

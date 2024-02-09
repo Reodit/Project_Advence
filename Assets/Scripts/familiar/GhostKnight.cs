@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class BlackKnight : Familiar
+public class GhostKnight : Familiar
 {
     [SerializeField] private Image hpBar;
-
+    private float fadeInTime = 0.5f;
     protected override void Start()
     {
         base.Start();
@@ -21,6 +21,11 @@ public class BlackKnight : Familiar
 
     private void Move()
     {
+        if (!TimeManager.Instance.IsCoolTimeFinished(gameObject.GetInstanceID().ToString()))
+        {
+            return;
+        }
+        animator.SetBool("Run", true);
         Vector3 currentPosition = transform.root.position;
         Vector3 newPosition = new Vector3(currentPosition.x + familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
@@ -30,7 +35,7 @@ public class BlackKnight : Familiar
     protected override bool CheckDestroyCondition()
     {
         bool needDestroy = base.CheckDestroyCondition() || 
-                           CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
+                           !CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
                                this.transform.position);
         if (currentHp <= 0)
         {
@@ -42,7 +47,6 @@ public class BlackKnight : Familiar
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Test");
         CollisionManager.Instance.HandleCollision(this.gameObject, col.gameObject);
     }
     
@@ -51,7 +55,7 @@ public class BlackKnight : Familiar
         if (monster)
         {
             monster.FlashHitColor();
-            monster.CurrentHp -= familiarData.MaxHp * familiarSkillData.skillDamageRate;
+            monster.CurrentHp -= familiarData.MaxHp;
             currentHp -= monster.attackDamage;
             hpBar.fillAmount = (float)currentHp / familiarData.MaxHp;
             monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
@@ -61,6 +65,13 @@ public class BlackKnight : Familiar
     protected override void Init()
     {
         base.Init();
+        TimeManager.Instance.RegisterCoolTime(gameObject.GetInstanceID().ToString(), fadeInTime);
+        TimeManager.Instance.Use(gameObject.GetInstanceID().ToString());
+        List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+        spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
+        animator = GetComponent<Animator>();
+
+        EffectUtility.FadeIn(spriteRenderers , fadeInTime);
         currentHp = familiarData.MaxHp;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ public class BulletController : MonoBehaviour
     private const float PERCENT_DIVISION = 0.01f;
 
     private Dictionary<string, BulletInfo> _bulletInfoDict = new Dictionary<string, BulletInfo>();
-
+    public event Action OnFire;
     public void Start()
     {
         float bulletInterval = (float)bulletSpawnSpace / maxBulletSpawnArea;
@@ -58,7 +59,11 @@ public class BulletController : MonoBehaviour
     public void AddSkillCallback(SkillTable skill)
     {
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
-
+        if (!bullet)
+        {
+            return;
+        }
+        
         bullet.SetSkillName(skill.name);
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
 
@@ -230,6 +235,7 @@ public class BulletController : MonoBehaviour
             {
                 _spawner.SpawnFrontBullets(_frontBullets, _bulletInfoDict);
                 _spawner.SpawnSlashBullets(_slashBullets, _bulletInfoDict, Angle);
+                OnFire?.Invoke();
             }
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);

@@ -19,20 +19,19 @@ public class Familiar : MonoBehaviour
     public BulletController bulletController;
     [SerializeField] private Vector3 scale;
 
-    protected Vector3 spawnPos;
+    protected Animator animator;
 
     protected virtual void Update()
     {
         if (CheckDestroyCondition())
         {
-            // Destroy;
+            Destroy(this.gameObject);
         }
     }
 
     protected virtual void Start()
     {
         // Initialize
-        spawnPos = GameManager.Instance.PlayerMove.transform.position;
         // bulletSpawner / bullets
         // spawnCoolTime
         
@@ -43,7 +42,7 @@ public class Familiar : MonoBehaviour
     {
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         
     }

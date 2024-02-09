@@ -7,15 +7,14 @@ using UnityEngine;
 
 public class FamiliarController : MonoBehaviour
 {
-    private List<Familiar> _familiars;
-    private List<GameObject> _familiarPrefabs; 
+    private List<(Familiar, GameObject)> _familiarAndFamiliarPrefabs;
+    
     private void Start()
     {
         SkillManager.instance.OnAddSkillFamiliar += AddSkillCallback;
         SkillManager.instance.OnAddEnchantFamiliar += AddEnchantCallback;
-
-
-    //    StartCoroutine(FireContinuously());
+        _familiarAndFamiliarPrefabs = new List<(Familiar, GameObject)>();
+        //    StartCoroutine(FireContinuously());
     }
 
     private void OnDestroy()
@@ -24,19 +23,16 @@ public class FamiliarController : MonoBehaviour
         SkillManager.instance.OnAddEnchantFamiliar -= AddEnchantCallback;
     }
 
-    IEnumerator FireContinuously()
+    private void Update()
     {
-        while (true)
+        for (int i = 0; i < _familiarAndFamiliarPrefabs.Count; i++)
         {
-            foreach (var e in _familiarPrefabs) 
+            if(TimeManager.Instance.IsCoolTimeFinished
+                   (_familiarAndFamiliarPrefabs[i].Item1.familiarData.Index.ToString()))
             {
-                if (e)
-                {
-                    
-                }
+                Instantiate(_familiarAndFamiliarPrefabs[i].Item1, this.transform.position, _familiarAndFamiliarPrefabs[i].Item1.transform.rotation);
+                TimeManager.Instance.Use(_familiarAndFamiliarPrefabs[i].Item1.familiarData.Index.ToString());
             }
-
-            yield return null;
         }
     }
 
@@ -54,8 +50,7 @@ public class FamiliarController : MonoBehaviour
             return; 
         }
 
-        _familiarPrefabs.Add(familiarObject);
-        _familiars.Add(familiar);
+        _familiarAndFamiliarPrefabs.Add((familiar, familiarObject));
                 
         familiar.familiarData = familiarData;
         familiar.familiarSkillData = skill;
@@ -78,7 +73,10 @@ public class FamiliarController : MonoBehaviour
             isMeleeFamiliar = true;
         }
 
-        if (!isMeleeFamiliar)
+        familiar.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed;
+        TimeManager.Instance.RegisterCoolTime(familiar.familiarData.Index.ToString(), familiar.spawnCoolTime);
+        
+        if (isMeleeFamiliar == false)
         {
             familiar.bulletController.AddSkillCallback(skill);
         }
@@ -132,22 +130,23 @@ public class FamiliarController : MonoBehaviour
                     switch(e.enchantEffect1)
                     {
                         case EnchantEffect1.SkillDamageControl:
-                            foreach (var familiar in _familiars)
+                            foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.FamiliarType == FamiliarType.melee)
+                                if (familiar.Item1.FamiliarType == FamiliarType.melee)
                                 {
-                                    familiar.familiarData.MaxHp = familiarData.MaxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp);
-                                    familiar.currentHp = e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp);
+                                    familiar.Item1.familiarData.MaxHp = (int)(familiarData.MaxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp));
+                                    familiar.Item1.currentHp = (int)(e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp));
                                 }
                             }
                             break;
 
                         case EnchantEffect1.AttackSpeedControl:
-                            foreach (var familiar in _familiars)
+                            foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.FamiliarType == FamiliarType.melee)
+                                if (familiar.Item1.FamiliarType == FamiliarType.melee)
                                 {
-                                    familiar.spawnCoolTime = (1 / (Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed)));
+                                    familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
+                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.Index.ToString(), familiar.Item1.spawnCoolTime);
                                 }
                             }
                             break;
@@ -167,22 +166,23 @@ public class FamiliarController : MonoBehaviour
                     switch (e.enchantEffect1)
                     {
                         case EnchantEffect1.AttackSpeedControl:
-                            foreach (var familiar in _familiars)
+                            foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.FamiliarType == FamiliarType.range)
+                                if (familiar.Item1.FamiliarType == FamiliarType.range)
                                 {
-                                    familiar.spawnCoolTime = (1 / (Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed)));
+                                    familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
+                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.Index.ToString(), familiar.Item1.spawnCoolTime);
                                 }
                             }
 
                             break;
 
                         default:
-                            foreach (var familiar in _familiars)
+                            foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.FamiliarType == FamiliarType.range)
+                                if (familiar.Item1.FamiliarType == FamiliarType.range)
                                 {
-                                    familiar.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.SkillId].name, enchant);
+                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.SkillId].name, enchant);
                                 }
                             }
 

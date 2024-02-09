@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationFunction : MonoBehaviour
 {
-     public void TurnOffAttack()
+    public void TurnOffAttack()
     {
         
     }
