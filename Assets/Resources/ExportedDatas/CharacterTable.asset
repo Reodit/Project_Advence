@@ -16,11 +16,11 @@ MonoBehaviour:
   - characterName: "\uB8E8\uBE44"
     id: 1
     attackDamage: 50
-    attackSpeed: 1000
+    attackSpeed: 1
     defence: 1
     moveSpeed: 4
     criticalPercent: 0
-    criticalDamage: 1500
+    criticalDamage: 1.5
     maxHp: 1000
     maxLv: 30
     prefabPath: PlayerbleCharacter/Ruby

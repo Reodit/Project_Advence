@@ -69,10 +69,7 @@ public class Monster : MonoBehaviour
     {
         if (TimeManager.Instance.IsCoolTimeFinished(_monsterAttackCoolTimeID))
         {
-            // 쿨타임이 완료되었으므로 공격 처리
             CollisionManager.Instance.HandleCollision(this.gameObject, collision.gameObject);
-
-            // 쿨타임 재설정
             TimeManager.Instance.Use(_monsterAttackCoolTimeID);
         }
     }
