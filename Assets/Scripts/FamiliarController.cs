@@ -67,7 +67,7 @@ public class FamiliarController : MonoBehaviour
 
         bool isMeleeFamiliar = false;
 
-        // TODO Å¸ÀÔÀº µû·Î ÄÃ·³À¸·Î »©±â
+        // TODO Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (familiarData.MaxHp == 0)
         {
             isMeleeFamiliar = false;
@@ -86,8 +86,8 @@ public class FamiliarController : MonoBehaviour
 
     public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
     {
-        // 1. skillName¿¡ ÇØ´çÇÏ´Â ½ºÅ³À» Ã£°í, ÇØ´ç ½ºÅ³ÀÌ ¾î¶² Å¸ÀÔÀÎÁö È®ÀÎ 
-        // 2. Å¸ÀÔ¿¡ ÇØ´çÇÏ´Â ÀÎÃ¦Æ®¸¦ ºÎ¿©
+        // 1. skillNameï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ Ã£ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½î¶² Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 
+        // 2. Å¸ï¿½Ô¿ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¦Æ®ï¿½ï¿½ ï¿½Î¿ï¿½
 
         var skill = Datas.GameData.DTSkillData
             .Select(pair => pair.Value)
@@ -109,7 +109,7 @@ public class FamiliarController : MonoBehaviour
 
         bool isMeleeFamiliar = false;
 
-        // TODO Å¸ÀÔÀº µû·Î ÄÃ·³À¸·Î »©±â
+        // TODO Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (familiarData.MaxHp == 0)
         {
             isMeleeFamiliar = false;
@@ -136,7 +136,8 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.FamiliarType == FamiliarType.melee)
                                 {
-                                    familiar.familiarData.MaxHp = Datas.GameData.DTCharacterData[0].attackDamage + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackDamage);
+                                    familiar.familiarData.MaxHp = familiarData.MaxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp);
+                                    familiar.currentHp = e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp);
                                 }
                             }
                             break;
@@ -146,7 +147,7 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.FamiliarType == FamiliarType.melee)
                                 {
-                                    familiar.spawnCoolTime = (1 / Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed));
+                                    familiar.spawnCoolTime = (1 / (Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed)));
                                 }
                             }
                             break;
@@ -170,7 +171,7 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.FamiliarType == FamiliarType.range)
                                 {
-                                    familiar.spawnCoolTime = (1 / Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed));
+                                    familiar.spawnCoolTime = (1 / (Datas.GameData.DTCharacterData[0].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[0].attackSpeed)));
                                 }
                             }
 

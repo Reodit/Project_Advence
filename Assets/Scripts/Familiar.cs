@@ -15,6 +15,7 @@ public class Familiar : MonoBehaviour
     public FamiliarData familiarData;
     public FamiliarType FamiliarType;
     public float spawnCoolTime;
+    public int currentHp;
     public BulletController bulletController;
     [SerializeField] private Vector3 scale;
 
@@ -37,12 +38,17 @@ public class Familiar : MonoBehaviour
         
         Init();
     }
-
+    
     protected virtual void Init()
     {
     }
 
     protected void OnDestroy()
+    {
+        
+    }
+
+    public virtual void ApplyEnchant()
     {
         
     }
