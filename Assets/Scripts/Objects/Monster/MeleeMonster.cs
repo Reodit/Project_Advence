@@ -7,13 +7,13 @@ using UnityEngine;
 public class MeleeMonster : Monster
 {
     [SerializeField] private float triggerCooldown = 0.5f;
-    private string _monsterAttackCoolTimeID;
+    private string _monsterMeleeAttackCoolTimeID;
 
     protected override void Start()
     {
         base.Start();
-        _monsterAttackCoolTimeID = "MonsterAttack_" + gameObject.GetInstanceID();
-        TimeManager.Instance.RegisterCoolTime(_monsterAttackCoolTimeID, triggerCooldown);
+        _monsterMeleeAttackCoolTimeID = "MonsterMeleeAttack_" + gameObject.GetInstanceID();
+        TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
     }
 
     protected override void InitializeFsm()
@@ -28,7 +28,7 @@ public class MeleeMonster : Monster
             
         StateMachine.CurrentState = idle;
         
-        TransitionParameter dieParam = new TransitionParameter("Die", ParameterType.Bool);
+        TransitionParameter dieParam = new TransitionParameter("IsDie", ParameterType.Bool);
         StateMachine.AddTransitionCondition(idleToDieTransition, 
             dieParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(dieToIdleTransition, 
@@ -39,10 +39,10 @@ public class MeleeMonster : Monster
 
     protected override void OnTriggerStay2D(Collider2D other)
     {
-        if (TimeManager.Instance.IsCoolTimeFinished(_monsterAttackCoolTimeID))
+        if (TimeManager.Instance.IsCoolTimeFinished(_monsterMeleeAttackCoolTimeID))
         {
             CollisionManager.Instance.HandleCollision(this.gameObject, other.gameObject);
-            TimeManager.Instance.Use(_monsterAttackCoolTimeID);
+            TimeManager.Instance.Use(_monsterMeleeAttackCoolTimeID);
         }
     }
 }
