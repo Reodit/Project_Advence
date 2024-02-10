@@ -30,9 +30,10 @@ public class CollisionManager : MonoBehaviour
         }
         
         // 몬스터 --> 플레이어 (hit)
-        else if (collider.TryGetComponent(out monster))
+        else if (collider.TryGetComponent(out monster) &&
+                 collidee.TryGetComponent(out PlayerMove player))
         {
-            monster.HitPlayer();
+            monster.HitPlayer(player);
         }
         
         // 소환수(근접) (hit) --> 몬스터 (hit)

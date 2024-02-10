@@ -770,7 +770,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCooldown: 0.5
-  _spriteRenderers: []
   monsterMaxHp: 30
   dieDelay: 0.1
   rewardExp: 10

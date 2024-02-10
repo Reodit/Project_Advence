@@ -54,14 +54,14 @@ public class GhostKnight : Familiar
     {
         if (monster)
         {
-            monster.FlashHitColor();
+            EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             monster.CurrentHp -= familiarData.MaxHp;
-            currentHp -= monster.attackDamage;
+            currentHp -= monster.monsterData.Attack;
             hpBar.fillAmount = (float)currentHp / familiarData.MaxHp;
-            monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
+            monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
         }
     }
-    // 초기화
+
     protected override void Init()
     {
         base.Init();
