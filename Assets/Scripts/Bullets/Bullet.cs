@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnDestroyed.Invoke(this);
+        OnDestroyed?.Invoke(this);
     }
 
     public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback)
@@ -124,13 +124,18 @@ public class Bullet : MonoBehaviour
         if (monster)
         {
             _pixelArsenalProjectileScript.OnCol();
-            monster.FlashHitColor();
+            EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             
             // TODO 몬스터 데미지 계산 통일필요
             monster.CurrentHp -= (int)BulletInfo.Damage;
-            monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
+            monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
             TriggerDestruction();
         }
+    }
+
+    public virtual void HitPlayer(Monster monster, PlayerMove player)
+    {
+
     }
     
     public void Resize(float amount)

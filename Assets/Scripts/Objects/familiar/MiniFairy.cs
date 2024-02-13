@@ -36,9 +36,9 @@ public class MiniFairy : Familiar
     {
         if (monster)
         {
-            monster.FlashHitColor();
+            EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             monster.CurrentHp -= (int)5;
-            monster.Hpbar.fillAmount = (float)monster.CurrentHp / monster.monsterMaxHp;
+            monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
         }
     }
     

@@ -1,100 +1,66 @@
-using System.Collections;
 using System.Collections.Generic;
+using FSM;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
-    [SerializeField] private float triggerCooldown = 0.5f;
-
-    private PlayerMove _player;
-
-    private List<SpriteRenderer> _spriteRenderers = new ();
-    public int monsterMaxHp;
+    // TODO need refactor this 
+    [SerializeField] private int dataKey;
+    public List<SpriteRenderer> spriteRenderers { get; private set; }
     public int CurrentHp { get; set; }
-    public float dieDelay;
-    public int rewardExp;
-    public Image Hpbar;
-    public int attackDamage;
-    
+    [HideInInspector] public MonsterTable monsterData;
+
+    public Animator Animator;
+
+    [Header("Visual Effects")]
+    public Image hpBar;
     public Color hitColor = Color.red;
     public float hitDuration = 0.1f;
-    //public BoxCollider2D
+    public float dieDelay;
+
     private string _monsterAttackCoolTimeID;
-    private List<Color> _originalColors;
-    void Start()
-    {
-        _player = GameManager.Instance.PlayerMove;
-        CurrentHp = monsterMaxHp;
-        _spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
-        attackDamage = 5;
-        
-        _monsterAttackCoolTimeID = "MonsterAttack_" + gameObject.GetInstanceID();
-        TimeManager.Instance.RegisterCoolTime(_monsterAttackCoolTimeID, triggerCooldown);
-        
-        _originalColors = new List<Color>();
+    public StateMachine<Monster> StateMachine { get; protected set; }
 
-        foreach (var spriteRenderer in _spriteRenderers)
-        {
-            _originalColors.Add(spriteRenderer.color);
-        }
+    protected virtual void Start()
+    {
+        monsterData = Datas.GameData.DTMonsterData[dataKey];
+        CurrentHp = monsterData.MaxHP;
+        spriteRenderers = new List<SpriteRenderer>();
+        spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
+        InitializeFsm();
+    }
+    
+    protected virtual void InitializeFsm()
+    {
     }
 
-    private void Update()
+    public void HitPlayer(PlayerMove currentPlayer)
     {
-        if (CurrentHp <= 0)
-        {
-            Die(dieDelay);
-        }
+        EffectUtility.Instance.FlashHitColor(currentPlayer.spriteRenderers, currentPlayer.hitColor, currentPlayer.hitDuration);
+        currentPlayer.currentHp -= monsterData.Attack;
+        currentPlayer.Hpbar.fillAmount = (float)currentPlayer.currentHp / currentPlayer.characterData.maxHp;
     }
-
-    public void HitPlayer()
-    {
-        _player.isHit = true;
-        _player.currentHp -= attackDamage;
-        _player.Hpbar.fillAmount = (float)_player.currentHp / _player.characterData.maxHp;
-    }
-
+    
     public void Die(float delay = 0f)
     {
-        //collider
         Destroy(this.gameObject, delay);
     }
 
-    public void OnDestroy()
+    protected virtual void OnDestroy()
     {
-        GameManager.Instance.PlayerMove.currentExp += rewardExp;
+        GameManager.Instance.PlayerMove.currentExp += monsterData.EXP;
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    public virtual void RangeAttack()
     {
-        if (TimeManager.Instance.IsCoolTimeFinished(_monsterAttackCoolTimeID))
-        {
-            CollisionManager.Instance.HandleCollision(this.gameObject, collision.gameObject);
-            TimeManager.Instance.Use(_monsterAttackCoolTimeID);
-        }
-    }
-
-    public void FlashHitColor()
-    {
-        StartCoroutine(FlashHitColorCo());
+        
     }
     
-    private IEnumerator FlashHitColorCo()
+    protected virtual void OnTriggerStay2D(Collider2D other)
     {
-        foreach (var spriteRenderer in _spriteRenderers)
-        {
-            spriteRenderer.color = hitColor;
-        }
-        
-        yield return new WaitForSeconds(hitDuration);
-
-        for (int i = 0; i < _spriteRenderers.Count; i++)
-        {
-            if (_spriteRenderers[i] != null)
-            {
-                _spriteRenderers[i].color = _originalColors[i];
-            }
-        }
     }
+    
+    // TODO Animation 관리 어떻게 ?
 }

@@ -670,10 +670,10 @@ GameObject:
   - component: {fileID: 539953714037023133}
   - component: {fileID: 5578287341697420827}
   - component: {fileID: 5851459668926785291}
-  - component: {fileID: 5348382778243960153}
+  - component: {fileID: 7528052307587432660}
   m_Layer: 5
   m_Name: Monster_Stage2_Phase1_AttackRedOrc
-  m_TagString: Enemy
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -691,6 +691,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4881695173883970463}
+  - {fileID: 1911739127390409677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -757,7 +758,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5348382778243960153
+--- !u!114 &7528052307587432660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -766,18 +767,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005189332382294190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a15660ab5771446aa77e82703909f10, type: 3}
+  m_Script: {fileID: 11500000, guid: d066c79e49d594374bb78c0ee87efbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerCooldown: 0.5
-  _spriteRenderers: []
-  monsterMaxHp: 30
-  dieDelay: 0.1
-  rewardExp: 10
-  Hpbar: {fileID: 6345093564737053190}
-  attackDamage: 5
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  dataKey: 1012
+  monsterData:
+    ID: 0
+    Name: 
+    Type: 0
+    MaxHP: 0
+    Attack: 0
+    Defence: 0
+    EXP: 0
+    Gold: 0
+    Score: 0
+    Skill: 0
+    PrefabPath: 
+  Animator: {fileID: 4176352677148841275}
+  hpBar: {fileID: 6345093564737053190}
+  hitColor: {r: 0.990566, g: 0.7242346, b: 0.7242346, a: 0.5019608}
   hitDuration: 0.1
+  dieDelay: 0.1
+  triggerCooldown: 0.5
+  bulletStartPoint: {fileID: 1911739127390409677}
+  monsterBullet: {fileID: 7997688019381865445, guid: 35841c0912f82de4db1bcdaeb6956f67,
+    type: 3}
 --- !u!1 &2356185236507630846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,7 +1840,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2683084962047497714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2032,7 +2046,7 @@ Animator:
   m_GameObject: {fileID: 3822937135334165156}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab937231d0600440fb0d8757568d78d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5306df516ffb50f43a60d2642ebcfea7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2713,6 +2727,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5196628997227209347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911739127390409677}
+  m_Layer: 5
+  m_Name: BulletLoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911739127390409677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196628997227209347}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 539953714037023133}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5247510517651891400
 GameObject:
   m_ObjectHideFlags: 0
