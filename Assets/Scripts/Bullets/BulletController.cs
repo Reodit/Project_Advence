@@ -241,13 +241,6 @@ public class BulletController : MonoBehaviour
             yield return new WaitForSeconds(1f / fireRate);
         }
     }
-    
-    IEnumerator FamiliarSpawnCo(Familiar familiar)
-    {
-        Instantiate(familiar, GameManager.Instance.PlayerMove.transform.position, Quaternion.identity);
-        
-        yield return new WaitForSeconds(familiar.spawnCoolTime);
-    }
 
 #if UNITY_EDITOR
     public void SetLowerBulletRotation(float value)

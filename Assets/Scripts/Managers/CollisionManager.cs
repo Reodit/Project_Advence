@@ -19,31 +19,38 @@ public class CollisionManager : MonoBehaviour
         }
     }
     
-    // Collision 처리모음 (FSM, Animation 포함)
     public void HandleCollision(GameObject collider, GameObject collidee)
     {
-        // 총알 --> 몬스터 (hit)
-        if (collider.TryGetComponent(out Bullet bullet) && 
-            collidee.TryGetComponent(out Monster monster))
+        if (collider.CompareTag("PlayerProjectile") && collidee.CompareTag("Monster"))
         {
-            bullet.HitMonster(monster);
+            if (collider.TryGetComponent(out Bullet bullet) && 
+                collidee.TryGetComponent(out Monster monster))
+            {
+                bullet.HitMonster(monster);
+            }
         }
         
-        // 몬스터 --> 플레이어 (hit)
-        else if (collider.TryGetComponent(out monster) &&
+        else if (collider.CompareTag("MonsterProjectile") && collidee.CompareTag("Player"))
+        {
+            if (collider.TryGetComponent(out Bullet bullet) && 
+                collidee.TryGetComponent(out Monster monster))
+            {
+                bullet.HitMonster(monster);
+            }
+        }
+
+        else if (collider.TryGetComponent(out Monster monster) &&
                  collidee.TryGetComponent(out PlayerMove player))
         {
             monster.HitPlayer(player);
         }
         
-        // 소환수(근접) (hit) --> 몬스터 (hit)
         else if (collider.TryGetComponent(out Familiar familiar) &&
                  collidee.TryGetComponent(out monster))
         {
             familiar.HitMonster(monster);
         }
         
-        // 몬스터(원거리) --> 플레이어 (hit)
         /*else if (collider.CompareTag("") && collidee.CompareTag(""))
         {
             

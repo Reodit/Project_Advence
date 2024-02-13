@@ -51,6 +51,7 @@ public class Monster : MonoBehaviour
         currentPlayer.Hpbar.fillAmount = (float)currentPlayer.currentHp / currentPlayer.characterData.maxHp;
     }
 
+
     public void Die(float delay = 0f)
     {
         Destroy(this.gameObject, delay);

@@ -4,7 +4,7 @@ using FSM;
 using Managers;
 using UnityEngine;
 
-public class BossMonster : Monster
+public class S1P1BossMonster : Monster
 {
     [SerializeField] private float triggerCooldown = 0.5f;
     private string _monsterMeleeAttackCoolTimeID;
@@ -21,19 +21,28 @@ public class BossMonster : Monster
         base.InitializeFsm();
         StateMachine = new StateMachine<Monster>(this);
         var idle = StateMachine.CreateState(new MonsterIdle("MonsterIdle", true));
+        var rangeAttack = StateMachine.CreateState(new MonsterIdle("MonsterRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
+        var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, rangeAttack);
         var idleToDieTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
-        var dieToIdleTransition = StateMachine.CreateTransition("MonsterDieToIdle", die, idle);
-            
+        var rangeAttackToIdleTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", rangeAttack, idle);
+        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", rangeAttack, die);
+
         StateMachine.CurrentState = idle;
-        
+
         TransitionParameter dieParam = new TransitionParameter("IsDie", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToDieTransition, 
+        StateMachine.AddTransitionCondition(idleToDieTransition,
             dieParam, targetValue => (bool)targetValue);
-        StateMachine.AddTransitionCondition(dieToIdleTransition, 
+        StateMachine.AddTransitionCondition(rangeAttackToIDieTransition,
+            dieParam, targetValue => (bool)targetValue);
+
+        TransitionParameter rangeAttackParam = new TransitionParameter("isRangeAttack", ParameterType.Bool);
+        StateMachine.AddTransitionCondition(idleToRangeAttackTransition,
+            dieParam, targetValue => (bool)targetValue);
+        StateMachine.AddTransitionCondition(rangeAttackToIdleTransition,
             dieParam, targetValue => !(bool)targetValue);
-        
+
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }
     

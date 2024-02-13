@@ -132,6 +132,11 @@ public class Bullet : MonoBehaviour
             TriggerDestruction();
         }
     }
+
+    public virtual void HitPlayer(Monster monster, PlayerMove player)
+    {
+
+    }
     
     public void Resize(float amount)
     {
