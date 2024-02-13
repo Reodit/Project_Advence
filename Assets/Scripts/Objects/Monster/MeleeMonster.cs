@@ -20,6 +20,7 @@ public class MeleeMonster : Monster
     {
         base.InitializeFsm();
         StateMachine = new StateMachine<Monster>(this);
+        StateMachine.Init();
         var idle = StateMachine.CreateState(new MonsterIdle("MonsterIdle", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
@@ -28,7 +29,7 @@ public class MeleeMonster : Monster
             
         StateMachine.CurrentState = idle;
         
-        TransitionParameter dieParam = new TransitionParameter("IsDie", ParameterType.Bool);
+        TransitionParameter dieParam = new TransitionParameter("isDie", ParameterType.Bool);
         StateMachine.AddTransitionCondition(idleToDieTransition, 
             dieParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(dieToIdleTransition, 
@@ -44,5 +45,11 @@ public class MeleeMonster : Monster
             CollisionManager.Instance.HandleCollision(this.gameObject, other.gameObject);
             TimeManager.Instance.Use(_monsterMeleeAttackCoolTimeID);
         }
+    }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        StateMachineManager.Instance.Unregister(gameObject.GetInstanceID());
     }
 }

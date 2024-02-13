@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnDestroyed.Invoke(this);
+        OnDestroyed?.Invoke(this);
     }
 
     public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback)

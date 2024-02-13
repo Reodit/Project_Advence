@@ -26,29 +26,39 @@ public class CollisionManager : MonoBehaviour
             if (collider.TryGetComponent(out Bullet bullet) && 
                 collidee.TryGetComponent(out Monster monster))
             {
-                bullet.HitMonster(monster);
+                if (monster.CurrentHp > 0)
+                {
+                    bullet.HitMonster(monster);   
+                }
             }
         }
         
         else if (collider.CompareTag("MonsterProjectile") && collidee.CompareTag("Player"))
         {
             if (collider.TryGetComponent(out Bullet bullet) && 
-                collidee.TryGetComponent(out Monster monster))
+                collidee.TryGetComponent(out PlayerMove player))
             {
-                bullet.HitMonster(monster);
+                bullet.transform.parent.
+                    transform.parent.GetComponent<Monster>().HitPlayer(player);
             }
         }
 
-        else if (collider.TryGetComponent(out Monster monster) &&
-                 collidee.TryGetComponent(out PlayerMove player))
+        else if (collider.CompareTag("Monster") && collidee.CompareTag("Player"))
         {
-            monster.HitPlayer(player);
+            if (collider.TryGetComponent(out Monster monster) && 
+                collidee.TryGetComponent(out PlayerMove player))
+            {
+                monster.HitPlayer(player);
+            }
         }
         
-        else if (collider.TryGetComponent(out Familiar familiar) &&
-                 collidee.TryGetComponent(out monster))
+        else if (collider.CompareTag("Familiar") && collidee.CompareTag("Monster"))
         {
-            familiar.HitMonster(monster);
+            if (collider.TryGetComponent(out Familiar familiar) && 
+                collidee.TryGetComponent(out Monster monster))
+            {
+                familiar.HitMonster(monster);
+            }
         }
         
         /*else if (collider.CompareTag("") && collidee.CompareTag(""))

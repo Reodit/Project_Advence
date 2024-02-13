@@ -3153,7 +3153,7 @@ GameObject:
   - component: {fileID: 3534402242782151284}
   m_Layer: 5
   m_Name: Monster_Stage3_Phase3_Boss
-  m_TagString: Enemy
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -93,11 +93,20 @@ public class EffectUtility : MonoBehaviour
         float endTime = startTime + duration;
         while (Time.time < endTime)
         {
-            float alpha = 1 - ((Time.time - startTime) / duration);
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+            if (spriteRenderer != null)
+            {
+                float alpha = 1 - ((Time.time - startTime) / duration);
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,
+                    alpha);
+            }
+
             yield return null;
         }
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        }
     }
 
     private IEnumerator PerformFadeIn(SpriteRenderer spriteRenderer, float duration)
@@ -106,10 +115,18 @@ public class EffectUtility : MonoBehaviour
         float endTime = startTime + duration;
         while (Time.time < endTime)
         {
-            float alpha = (Time.time - startTime) / duration;
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+            if (spriteRenderer != null)
+            {
+                float alpha = (Time.time - startTime) / duration;
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+            }
+            
             yield return null;
         }
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+        }
     }
 }

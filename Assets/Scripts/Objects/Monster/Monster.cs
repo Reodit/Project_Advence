@@ -12,13 +12,14 @@ public class Monster : MonoBehaviour
     public int CurrentHp { get; set; }
     [HideInInspector] public MonsterTable monsterData;
 
+    public Animator Animator;
+
     [Header("Visual Effects")]
     public Image hpBar;
     public Color hitColor = Color.red;
     public float hitDuration = 0.1f;
     public float dieDelay;
 
-    //public BoxCollider2D
     private string _monsterAttackCoolTimeID;
     public StateMachine<Monster> StateMachine { get; protected set; }
 
@@ -33,15 +34,6 @@ public class Monster : MonoBehaviour
     
     protected virtual void InitializeFsm()
     {
-        StateMachine.Init();
-    }
-    
-    private void Update()
-    {
-        if (CurrentHp <= 0)
-        {
-            Die(dieDelay);
-        }
     }
 
     public void HitPlayer(PlayerMove currentPlayer)
@@ -50,19 +42,25 @@ public class Monster : MonoBehaviour
         currentPlayer.currentHp -= monsterData.Attack;
         currentPlayer.Hpbar.fillAmount = (float)currentPlayer.currentHp / currentPlayer.characterData.maxHp;
     }
-
-
+    
     public void Die(float delay = 0f)
     {
         Destroy(this.gameObject, delay);
     }
 
-    public void OnDestroy()
+    protected virtual void OnDestroy()
     {
         GameManager.Instance.PlayerMove.currentExp += monsterData.EXP;
     }
 
+    public virtual void RangeAttack()
+    {
+        
+    }
+    
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
     }
+    
+    // TODO Animation 관리 어떻게 ?
 }

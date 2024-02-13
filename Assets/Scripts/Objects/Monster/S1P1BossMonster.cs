@@ -20,8 +20,9 @@ public class S1P1BossMonster : Monster
     {
         base.InitializeFsm();
         StateMachine = new StateMachine<Monster>(this);
+        StateMachine.Init();
         var idle = StateMachine.CreateState(new MonsterIdle("MonsterIdle", true));
-        var rangeAttack = StateMachine.CreateState(new MonsterIdle("MonsterRangeAttack", true));
+        var rangeAttack = StateMachine.CreateState(new MonsterRangeAttack("MonsterRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
         var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, rangeAttack);
@@ -31,7 +32,7 @@ public class S1P1BossMonster : Monster
 
         StateMachine.CurrentState = idle;
 
-        TransitionParameter dieParam = new TransitionParameter("IsDie", ParameterType.Bool);
+        TransitionParameter dieParam = new TransitionParameter("isDie", ParameterType.Bool);
         StateMachine.AddTransitionCondition(idleToDieTransition,
             dieParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(rangeAttackToIDieTransition,
@@ -39,9 +40,9 @@ public class S1P1BossMonster : Monster
 
         TransitionParameter rangeAttackParam = new TransitionParameter("isRangeAttack", ParameterType.Bool);
         StateMachine.AddTransitionCondition(idleToRangeAttackTransition,
-            dieParam, targetValue => (bool)targetValue);
+            rangeAttackParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(rangeAttackToIdleTransition,
-            dieParam, targetValue => !(bool)targetValue);
+            rangeAttackParam, targetValue => !(bool)targetValue);
 
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }
@@ -53,5 +54,11 @@ public class S1P1BossMonster : Monster
             CollisionManager.Instance.HandleCollision(this.gameObject, other.gameObject);
             TimeManager.Instance.Use(_monsterMeleeAttackCoolTimeID);
         }
+    }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        StateMachineManager.Instance.Unregister(gameObject.GetInstanceID());
     }
 }

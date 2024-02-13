@@ -5,11 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - FPS Counter
-  - Enemy
   - Monster
-  - MonsterBullet
-  - PlayerBullet
   - Familiar
+  - PlayerProjectile
+  - MonsterProjectile
   layers:
   - Default
   - TransparentFX
