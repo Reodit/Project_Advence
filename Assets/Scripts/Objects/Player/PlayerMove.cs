@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
@@ -50,7 +48,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Move();
-        LevelUp();
+        //LevelUp();
     }
 
     public void LevelUp()

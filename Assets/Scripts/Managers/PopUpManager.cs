@@ -36,7 +36,7 @@ public class PopupManager : MonoBehaviour
             Debug.LogError("프리팹을 불러올 수 없습니다.");
         }
     }
-
+     
     // 팝업 열기
     public void OpenPopup(GameObject popup)
     {
