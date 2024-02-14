@@ -6,80 +6,63 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
 
-    public Dictionary<string, CharacterSkill> playerSkills = new Dictionary<string, CharacterSkill>();
+    public Dictionary<int, CharacterSkill> playerSkills = new Dictionary<int, CharacterSkill>();
     public UpgradeHistory playerUpgradeHistory = new UpgradeHistory(new List<SelectStatTable>());
 
-    private List<CharacterSkill> _upgradableskills = new List<CharacterSkill>();
-
     public event Action<SkillTable> OnAddSkill;
-    public event Action<string, SkillEnchantTable> OnAddEnchant;
+    public event Action<int, SkillEnchantTable> OnAddEnchant;
     
     // TODO 소환수 관련 리펙토링
     public event Action<SkillTable> OnAddSkillFamiliar;
-    public event Action<string, SkillEnchantTable> OnAddEnchantFamiliar;
-
-
-#if UNITY_EDITOR
-    private SkillUpgradeDebugger _debugger;
-#endif
+    public event Action<int, SkillEnchantTable> OnAddEnchantFamiliar;
 
     private void Awake()
     {
         instance = this;
-#if UNITY_EDITOR
-        _debugger = FindAnyObjectByType<SkillUpgradeDebugger>();
-#endif
     }
 
     public void AddPlayerSkill(SkillTable skill)
     {
-#if UNITY_EDITOR
-        
-        if (!(skill.name == "고스트나이트" || skill.name == "미니페어리"))
-        {
-            _debugger.Spawn(skill.index);
-        }
-#endif
-
-        if (playerSkills.ContainsKey(skill.name))
+        if (playerSkills.ContainsKey(skill.index))
             return;
 
-        playerSkills.Add(skill.name, new CharacterSkill(skill, new List<SkillEnchantTable>()));
+        bool isCreature = skill.type == Enums.SkillType.Creature;
 
-        if (skill.name == "고스트나이트" || skill.name == "미니페어리")
+        playerSkills.Add(skill.index, new CharacterSkill(skill, new List<SkillEnchantTable>()));
+
+        if (isCreature)
         {
             OnAddSkillFamiliar.Invoke(skill);
         }
-
         else
         {
             OnAddSkill.Invoke(skill);   
         } 
     }
 
-    public void AddSkillEnchant(string skillName, SkillEnchantTable skillEnchant)
+    public void AddSkillEnchant(int skillIndex, SkillEnchantTable skillEnchant)
     {
-        int index = playerSkills[skillName].SkillEnchantTables.IndexOf(skillEnchant);
-        if (index == -1)
+        CharacterSkill characterSkill = playerSkills[skillIndex];
+        int enchantIndex = playerSkills[skillIndex].SkillEnchantTables.IndexOf(skillEnchant);
+        if (enchantIndex == -1)
         {
-            playerSkills[skillName].SkillEnchantTables.Add(skillEnchant);
-            index = playerSkills[skillName].SkillEnchantTables.Count - 1;
+            characterSkill.SkillEnchantTables.Add(skillEnchant);
+            enchantIndex = characterSkill.SkillEnchantTables.Count - 1;
         }
-        else if (skillEnchant.maxCnt <= playerSkills[skillName].SkillEnchantTables[index].currentCount)
+        else if (skillEnchant.maxCnt <= characterSkill.SkillEnchantTables[enchantIndex].currentCount)
         {
             return;
         }
 
-        playerSkills[skillName].SkillEnchantTables[index].currentCount++;
+        characterSkill.SkillEnchantTables[enchantIndex].currentCount++;
         
-        if (skillName == "고스트나이트" || skillName == "미니페어리")
+        if (playerSkills[skillIndex].SkillTable.type == Enums.SkillType.Creature)
         {
-            OnAddEnchantFamiliar.Invoke(skillName, skillEnchant);
+            OnAddEnchantFamiliar.Invoke(skillIndex, skillEnchant);
         }
-
         else
         {
-            OnAddEnchant.Invoke(skillName, skillEnchant);
+            OnAddEnchant.Invoke(skillIndex, skillEnchant);
         }
     }
 }

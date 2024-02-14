@@ -10,8 +10,8 @@ public class CharacterSkill
     public List<SkillEnchantTable> SkillEnchantTables;
     public CharacterSkill(SkillTable skillTable, List<SkillEnchantTable> skillEnchantTable)
     {
-        this.SkillTable = skillTable;
-        this.SkillEnchantTables = skillEnchantTable;
+        SkillTable = skillTable;
+        SkillEnchantTables = skillEnchantTable;
     }
 }
 
