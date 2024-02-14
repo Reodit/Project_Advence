@@ -78,6 +78,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   <BulletInfo>k__BackingField:
     Damage: 5
+    SkillSpeedRate: 0
     MaxDistance: 6
     Speed: 10
 --- !u!58 &-4938375369724209474

@@ -19,7 +19,7 @@ public class RangeMonster : Monster
         _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
         TimeManager.Instance.RegisterCoolTime(_monsterRangeAttackCoolTimeID, 2f);
-        monsterBullet.SetBulletInfo(new BulletInfo(10f, 15f, -5f));
+        monsterBullet.SetBulletInfo(new BulletInfo(10f, 3f, 15f, -5f));
     }
     protected override void InitializeFsm()
     {

@@ -65,7 +65,9 @@ public class BulletController : MonoBehaviour
         }
         
         bullet.SetSkillName(skill.name);
-        BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
+        
+        BulletInfo bulletInfo = new BulletInfo(skill.skillDamageRate, skill.skillSpeedRate, skill.range, skill.projectileSpeed);
+        bullet.SetBulletInfo(bulletInfo);
 
         _bulletInfoDict.Add(skill.name, bulletInfo);
 
@@ -237,9 +239,9 @@ public class BulletController : MonoBehaviour
                 _spawner.SpawnSlashBullets(_slashBullets, _bulletInfoDict, Angle);
                 OnFire?.Invoke();
             }
-            // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
-            yield return new WaitForSeconds(1f / fireRate);
+            yield return null;
         }
+
     }
 
 #if UNITY_EDITOR

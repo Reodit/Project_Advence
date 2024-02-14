@@ -20,6 +20,8 @@ public class SkillUpgradeDebugger : MonoBehaviour
     
     public void Spawn(int skillIndex)
     {
+        EnchantDictInit();
+
         switch (skillIndex)
         {
             case 10001:
@@ -165,7 +167,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_fireball == null)
         {
             _fireball = Datas.GameData.DTSkillData[10001];
-            EnchantDictInit();
+            SpawnBullet(_fireball);
         }
     }
 
@@ -174,7 +176,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_lightningBolt == null)
         {
             _lightningBolt = Datas.GameData.DTSkillData[10002];
-            EnchantDictInit();
+            SpawnBullet(_lightningBolt);
         }
     }
 
@@ -183,7 +185,7 @@ public class SkillUpgradeDebugger : MonoBehaviour
         if (_blueLaser == null)
         {
             _blueLaser = Datas.GameData.DTSkillData[10003];
-            EnchantDictInit();
+            SpawnBullet(_blueLaser);
         }
     }
 
