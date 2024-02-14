@@ -1,5 +1,4 @@
-﻿using MathNet.Numerics.Statistics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +17,8 @@ public class BulletSpawner
 
     private Dictionary<Bullet, float> _spawnTimerDict = new Dictionary<Bullet, float>();
 
+    private HashSet<Bullet> _spawnableBullets = new HashSet<Bullet>();
+
     public BulletSpawner(Transform spawnPoint, float bulletInterval, float bulletIntervalHalf, Action<Bullet> onAddBullet, Action<Bullet> onRemoveBullet)
     {
         _spawnPoint = spawnPoint;
@@ -27,36 +28,7 @@ public class BulletSpawner
         _onRemoveBullet = onRemoveBullet;
     }
 
-    public void SpawnSlashBullets(List<Bullet> slashBullets, Dictionary<string, BulletInfo> bulletInfoDict, float angle)
-    {
-        int slashBulletCount = slashBullets.Count;
-        int halfCount = slashBulletCount / 2;
-
-        for (int i = 0; i < slashBullets.Count; i++)
-        {
-            Bullet bullet = slashBullets[i];
-
-            if (!IsSpawnable(bullet, bulletInfoDict[bullet.SkillName].SkillSpeedRate))
-                return;
-
-            Vector2 spawnPos = _spawnPoint.position;
-            Quaternion quat = Quaternion.identity;
-            if (i < halfCount)
-            {
-                spawnPos.y = _topForntBulletPosY + (halfCount - i) * _bulletInterval;
-                quat = Quaternion.Euler(0, 0, angle);
-            }
-            else
-            {
-                spawnPos.y = _bottomFrontBulletPosY - (i - halfCount + 1) * _bulletInterval;
-                quat = Quaternion.Euler(0, 0, -angle);
-            }
-
-            SpawnBullet(bullet, spawnPos, quat, bulletInfoDict[bullet.SkillName]);
-        }
-    }
-
-    public void SpawnFrontBullets(List<Bullet> frontBullets, Dictionary<string, BulletInfo> bulletInfoDict)
+    public void SpawnFrontBullets(List<Bullet> frontBullets, Dictionary<int, BulletInfo> bulletInfoDict)
     {
         int frontBulletCount = frontBullets.Count;
         int halfCount = frontBulletCount / 2;
@@ -69,12 +41,14 @@ public class BulletSpawner
             for (int i = 0; i < frontBulletCount; i++)
             {
                 bullet = frontBullets[i];
-                if (!IsSpawnable(bullet, bulletInfoDict[bullet.SkillName].SkillSpeedRate))
-                    return;
+                CheckSpawnable(bulletInfoDict, bullet);
+
+                if (!_spawnableBullets.Contains(bullet))
+                    continue;
 
                 spawnPos = _spawnPoint.position;
                 spawnPos.y += (i - halfCount + 1) * _bulletInterval - _bulletIntervalHalf;
-                SpawnBullet(bullet, spawnPos, bulletInfoDict[bullet.SkillName]);
+                SpawnBullet(bullet, spawnPos, bulletInfoDict[bullet.SkillIndex]);
                 SetSideBulletPosY(frontBulletCount, i, spawnPos);
             }
         }
@@ -83,12 +57,14 @@ public class BulletSpawner
             for (int i = 0; i < frontBulletCount; i++)
             {
                 bullet = frontBullets[i];
-                if (!IsSpawnable(bullet, bulletInfoDict[bullet.SkillName].SkillSpeedRate))
-                    return;
+                CheckSpawnable(bulletInfoDict, bullet);
+
+                if (!_spawnableBullets.Contains(bullet))
+                    continue;
 
                 spawnPos = _spawnPoint.position;
                 spawnPos.y += (i - halfCount) * _bulletInterval;
-                SpawnBullet(frontBullets[i], spawnPos, bulletInfoDict[bullet.SkillName]);
+                SpawnBullet(frontBullets[i], spawnPos, bulletInfoDict[bullet.SkillIndex]);
                 SetSideBulletPosY(frontBulletCount, i, spawnPos);
             }
         }
@@ -99,14 +75,67 @@ public class BulletSpawner
         }
     }
 
+    public void SpawnSlashBullets(List<Bullet> slashBullets, Dictionary<int, BulletInfo> bulletInfoDict, float angle)
+    {
+        int slashBulletCount = slashBullets.Count;
+        int halfCount = slashBulletCount / 2;
+
+        for (int i = 0; i < slashBullets.Count; i++)
+        {
+            Bullet bullet = slashBullets[i];
+
+            bool isSpawnable = IsSpawnable(bullet, bulletInfoDict[bullet.SkillIndex].SkillSpeedRate);
+
+            if (isSpawnable)
+                _spawnableBullets.Add(bullet);
+
+            if (!_spawnableBullets.Contains(bullet))
+                continue;
+
+            SpawnSlashBullet(bulletInfoDict, bullet, angle, halfCount, i);
+        }
+
+        if (_spawnableBullets.Count > 0)
+            _spawnableBullets.Clear();
+    }
+
+    private void SpawnSlashBullet(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet, float angle, int halfCount, int i)
+    {
+        Vector2 spawnPos = _spawnPoint.position;
+        Quaternion quat = Quaternion.identity;
+        if (i < halfCount)
+        {
+            spawnPos.y = _topForntBulletPosY + (halfCount - i) * _bulletInterval;
+            quat = Quaternion.Euler(0, 0, angle);
+        }
+        else
+        {
+            spawnPos.y = _bottomFrontBulletPosY - (i - halfCount + 1) * _bulletInterval;
+            quat = Quaternion.Euler(0, 0, -angle);
+        }
+
+        SpawnBullet(bullet, spawnPos, quat, bulletInfoDict[bullet.SkillIndex]);
+    }
+
+    private void CheckSpawnable(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet)
+    {
+        bool isSpawnable = IsSpawnable(bullet, bulletInfoDict[bullet.SkillIndex].SkillSpeedRate);
+
+        if (isSpawnable)
+            _spawnableBullets.Add(bullet);
+    }
+
     private bool IsSpawnable(Bullet bullet, float bulletSpeedRate)
     {
         if (!_spawnTimerDict.ContainsKey(bullet))
+        {
             _spawnTimerDict.Add(bullet, 0f);
+        }
 
         float currentTime = Time.time;
+        float lastSpawnTime = _spawnTimerDict[bullet];
 
-        bool isSpawnable = currentTime - _spawnTimerDict[bullet] >= bulletSpeedRate;
+        bool isSpawnable = currentTime - lastSpawnTime >= bulletSpeedRate;
 
         if (isSpawnable)
             _spawnTimerDict[bullet] = currentTime;

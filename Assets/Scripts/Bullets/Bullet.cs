@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
     private Action<Bullet> OnDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; private set; }
 
-    public string SkillName { get; private set; }
+    public int SkillIndex { get; private set; }
 
     public SkillType SkillType { get; private set; } = SkillType.Normal;
 
@@ -82,9 +82,9 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public void SetSkillName(string skillName)
+    public void SetSkillIndex(int skillIndex)
     {
-        SkillName = skillName;
+        SkillIndex = skillIndex;
     }
 
     public void SetBulletInfo(BulletInfo bulletInfo)

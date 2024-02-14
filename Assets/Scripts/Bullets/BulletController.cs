@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     
     private int _bulletSpawnAreaCount;
 
-    private Dictionary<string, Bullet> _bulletPrefabDict = new Dictionary<string, Bullet>();
+    private Dictionary<int, Bullet> _bulletPrefabDict = new Dictionary<int, Bullet>();
     
     private List<Bullet> _activeBullets = new List<Bullet>();
 
@@ -29,7 +29,7 @@ public class BulletController : MonoBehaviour
 
     private const float PERCENT_DIVISION = 0.01f;
 
-    private Dictionary<string, BulletInfo> _bulletInfoDict = new Dictionary<string, BulletInfo>();
+    private Dictionary<int, BulletInfo> _bulletInfoDict = new Dictionary<int, BulletInfo>();
     public event Action OnFire;
     public void Start()
     {
@@ -38,7 +38,9 @@ public class BulletController : MonoBehaviour
 
         spawnPoint = transform;
 
-        _spawner = new BulletSpawner(spawnPoint, bulletInterval, bulletIntervalHalf, AddActiveBulletCallback, RemoveActiveBulletCallback);
+        _spawner = new BulletSpawner(
+            spawnPoint, bulletInterval, bulletIntervalHalf,
+            AddActiveBulletCallback, RemoveActiveBulletCallback);
 
         SkillManager.instance.OnAddSkill += AddSkillCallback;
         SkillManager.instance.OnAddEnchant += AddEnchantCallback;
@@ -52,10 +54,6 @@ public class BulletController : MonoBehaviour
         SkillManager.instance.OnAddEnchant -= AddEnchantCallback;
     }
 
-    public float fireRate = 2f; // 초당 발사 횟수
-    private float nextFireTime = 0f; // 다음 발사 시간
-
-    // TODO 임시처리  ==> 구조화 다시 논의 필요
     public void AddSkillCallback(SkillTable skill)
     {
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
@@ -64,14 +62,14 @@ public class BulletController : MonoBehaviour
             return;
         }
         
-        bullet.SetSkillName(skill.name);
+        bullet.SetSkillIndex(skill.index);
         
         BulletInfo bulletInfo = new BulletInfo(skill.skillDamageRate, skill.skillSpeedRate, skill.range, skill.projectileSpeed);
         bullet.SetBulletInfo(bulletInfo);
 
-        _bulletInfoDict.Add(skill.name, bulletInfo);
+        _bulletInfoDict.Add(skill.index, bulletInfo);
 
-        _bulletPrefabDict.Add(skill.name, bullet);
+        _bulletPrefabDict.Add(skill.index, bullet);
 
         switch (skill.type)
         {
@@ -87,84 +85,94 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
+    public void AddEnchantCallback(int skillIndex, SkillEnchantTable enchant)
     {
         switch (enchant.enchantEffect1)
         {
             case EnchantEffect1.SkillDamageControl:
-                IncreaseSkillDamage(skillName, enchant.index);
+                IncreaseSkillDamage(skillIndex, enchant.index);
                 break;
             case EnchantEffect1.AttackSpeedControl:
-                IncreaseSkillRate(skillName, enchant.index);
+                IncreaseSkillRate(skillIndex, enchant.index);
                 break;
             case EnchantEffect1.RangeControl:
-                IncreaseSkillRange(skillName, enchant.index);
+                IncreaseSkillRange(skillIndex, enchant.index);
                 break;
             case EnchantEffect1.ProjectileSpeedControl:
-                IncreaseBulletSpeed(skillName, enchant.index);
+                IncreaseBulletSpeed(skillIndex, enchant.index);
                 break;
             case EnchantEffect1.AddFrontProjectile:
-                IncreaseFrontBullet(skillName);
+                IncreaseFrontBullet(skillIndex);
                 break;
             case EnchantEffect1.AddSlashProjectile:
-                IncreaseSlashBullet(skillName);
+                IncreaseSlashBullet(skillIndex);
                 break;
         }
     }
 
-    private void IncreaseSkillDamage(string skillName, int index)
+    private void IncreaseSkillDamage(int skillIndex, int enchantIndex)
     {
-        string description = GetDescrition(index);
+        string description = GetDescrition(enchantIndex);
         float percent = ExcelUtility.GetPercentValue(description);
 
-        float damage = _bulletInfoDict[skillName].Damage;
-        float afterDamage = damage + damage * percent * PERCENT_DIVISION;
+        float damage = _bulletPrefabDict[skillIndex].BulletInfo.Damage;
+        float afterDamage = _bulletInfoDict[skillIndex].Damage + (damage * percent * PERCENT_DIVISION);
 
-        BulletInfo bulletInfo = _bulletInfoDict[skillName];
+        BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetDamage(afterDamage);
 
-        _bulletInfoDict[skillName] = bulletInfo;
+        _bulletInfoDict[skillIndex] = bulletInfo;
 
         ApplyActiveBullets(bulletInfo);
     }
 
     
 
-    private void IncreaseSkillRate(string skillName, int index)
+    private void IncreaseSkillRate(int skillIndex, int enchantIndex)
     {
-        string description = GetDescrition(index);
+        string description = GetDescrition(enchantIndex);
         float percent = ExcelUtility.GetPercentValue(description);
 
-        fireRate += fireRate * percent * PERCENT_DIVISION;
-    }
+        float skillRate = _bulletPrefabDict[skillIndex].BulletInfo.SkillSpeedRate;
+        float afterRate = _bulletInfoDict[skillIndex].SkillSpeedRate - (skillRate * percent * PERCENT_DIVISION);
 
+        // TODO : 제한 걸 필요성
 
-    private void IncreaseSkillRange(string skillName, int index)
-    {
-        string description = GetDescrition(index);
-        int amount = ExcelUtility.GetPercentValue(description);
-        float afterDistance = _bulletInfoDict[skillName].MaxDistance;
-        afterDistance += afterDistance * amount * PERCENT_DIVISION;
+        BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
+        bulletInfo.SetSkillSpeedRate(afterRate);
 
-        BulletInfo bulletInfo = _bulletInfoDict[skillName];
-        bulletInfo.SetMaxDistance(afterDistance);
-
-        _bulletInfoDict[skillName] = bulletInfo;
+        _bulletInfoDict[skillIndex] = bulletInfo;
 
         ApplyActiveBullets(bulletInfo);
     }
 
-    private void IncreaseBulletSpeed(string skillName, int index)
-    {
-        string description = GetDescrition(index);
-        int amount = ExcelUtility.GetPercentValue(description);
-        float afterSpeed = _bulletInfoDict[skillName].Speed;
-        afterSpeed += afterSpeed * amount * PERCENT_DIVISION;
 
-        BulletInfo bulletInfo = _bulletInfoDict[skillName];
+    private void IncreaseSkillRange(int skillIndex, int enchantIndex)
+    {
+        string description = GetDescrition(enchantIndex);
+        int amount = ExcelUtility.GetPercentValue(description);
+        float distance = _bulletPrefabDict[skillIndex].BulletInfo.MaxDistance;
+        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount * PERCENT_DIVISION);
+
+        BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
+        bulletInfo.SetMaxDistance(afterDistance);
+
+        _bulletInfoDict[skillIndex] = bulletInfo;
+
+        ApplyActiveBullets(bulletInfo);
+    }
+
+    private void IncreaseBulletSpeed(int skillIndex, int enchantIndex)
+    {
+        string description = GetDescrition(enchantIndex);
+        int amount = ExcelUtility.GetPercentValue(description);
+        float speed = _bulletPrefabDict[skillIndex].BulletInfo.Speed;
+        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount * PERCENT_DIVISION);
+
+        BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetSpeed(afterSpeed);
 
-        _bulletInfoDict[skillName] = bulletInfo;
+        _bulletInfoDict[skillIndex] = bulletInfo;
 
         ApplyActiveBullets(bulletInfo);
     }
@@ -196,23 +204,23 @@ public class BulletController : MonoBehaviour
         _bulletSpawnAreaCount++;
     }
 
-    private void IncreaseSlashBullet(string skillName)
+    private void IncreaseSlashBullet(int skillIndex)
     {
-        _slashBullets.Insert(0, _bulletPrefabDict[skillName]);
-        _slashBullets.Add(_bulletPrefabDict[skillName]);
+        _slashBullets.Insert(0, _bulletPrefabDict[skillIndex]);
+        _slashBullets.Add(_bulletPrefabDict[skillIndex]);
         _bulletSpawnAreaCount += 2;
     }
 
-    private void IncreaseFrontBullet(string skillName)
+    private void IncreaseFrontBullet(int skillIndex)
     {
-        int index = _frontBullets.IndexOf(_bulletPrefabDict[skillName]);
+        int index = _frontBullets.IndexOf(_bulletPrefabDict[skillIndex]);
         if (index != -1)
         {
-            _frontBullets.Insert(index, _bulletPrefabDict[skillName]);
+            _frontBullets.Insert(index, _bulletPrefabDict[skillIndex]);
         }
         else
         {
-            _frontBullets.Add(_bulletPrefabDict[skillName]);
+            _frontBullets.Add(_bulletPrefabDict[skillIndex]);
         }
         _bulletSpawnAreaCount++;
     }

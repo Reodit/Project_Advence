@@ -82,14 +82,14 @@ public class FamiliarController : MonoBehaviour
         }
     }
 
-    public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
+    public void AddEnchantCallback(int skillIdnex, SkillEnchantTable enchant)
     {
         // 1. skillName�� �ش��ϴ� ��ų�� ã��, �ش� ��ų�� � Ÿ������ Ȯ�� 
         // 2. Ÿ�Կ� �ش��ϴ� ��æƮ�� �ο�
 
         var skill = Datas.GameData.DTSkillData
             .Select(pair => pair.Value)
-            .FirstOrDefault(skill => skill.name == skillName);
+            .FirstOrDefault(skill => skill.index == skillIdnex);
         
         if (skill == null)
         {
@@ -123,7 +123,7 @@ public class FamiliarController : MonoBehaviour
         {
             // async status;
             // damage, attackspeed ==> spawntime
-            foreach(var e in SkillManager.instance.playerSkills[skillName].SkillEnchantTables)
+            foreach(var e in SkillManager.instance.playerSkills[skillIdnex].SkillEnchantTables)
             {
                 if (e != null && e.currentCount < e.maxCnt)
                 {
@@ -159,7 +159,7 @@ public class FamiliarController : MonoBehaviour
 
         else
         {
-            foreach (var e in SkillManager.instance.playerSkills[skillName].SkillEnchantTables)
+            foreach (var e in SkillManager.instance.playerSkills[skillIdnex].SkillEnchantTables)
             {
                 if (e != null && e.currentCount < e.maxCnt)
                 {
@@ -182,7 +182,7 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.Item1.FamiliarType == FamiliarType.range)
                                 {
-                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.SkillId].name, enchant);
+                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.SkillId].index, enchant);
                                 }
                             }
 
