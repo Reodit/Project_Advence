@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4183be2c58619b649bde584a70505405, type: 3}
+  m_Name: FamiliarData
+  m_EditorClassIdentifier: 
+  familiarList:
+  - Index: 11001
+    SkillId: 10005
+    MaxHp: 20
+    MoveSpeed: 5
+    PamiliarSkillId: 0
+  - Index: 11002
+    SkillId: 10006
+    MaxHp: 0
+    MoveSpeed: -3
+    PamiliarSkillId: 10003

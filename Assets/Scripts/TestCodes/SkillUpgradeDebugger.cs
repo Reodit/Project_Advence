@@ -166,7 +166,6 @@ public class SkillUpgradeDebugger : MonoBehaviour
         {
             _fireball = Datas.GameData.DTSkillData[10001];
             EnchantDictInit();
-            SpawnBullet(_fireball);
         }
     }
 
@@ -176,7 +175,6 @@ public class SkillUpgradeDebugger : MonoBehaviour
         {
             _lightningBolt = Datas.GameData.DTSkillData[10002];
             EnchantDictInit();
-            SpawnBullet(_lightningBolt);
         }
     }
 
@@ -186,7 +184,6 @@ public class SkillUpgradeDebugger : MonoBehaviour
         {
             _blueLaser = Datas.GameData.DTSkillData[10003];
             EnchantDictInit();
-            SpawnBullet(_blueLaser);
         }
     }
 

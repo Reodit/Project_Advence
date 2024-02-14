@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 3210871718038966926}
   m_Layer: 5
   m_Name: Monster_Stage2_Phase2_BlueOrc1
-  m_TagString: Enemy
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -203,5 +203,26 @@ namespace Datas
                 Debug.LogError("Failed to load PatternData from ScriptableObject.");
             }
         }
+        
+        public static Dictionary<int, FamiliarData> DTFamiliarData = new Dictionary<int, FamiliarData>();
+
+        public static void LoadFamiliarDataToGameData(string fileName)
+        {
+            string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
+            var familiarData = Resources.Load<ScriptableObject>(path) as FamiliarDataScriptableObject;
+
+            if (familiarData != null)
+            {
+                foreach (var e in familiarData.familiarList)
+                {
+                    DTFamiliarData.Add(e.Index, e);
+                }
+            }
+
+            else
+            {
+                Debug.LogError("Failed to load familiarData from ScriptableObject.");
+            }
+        }
     }   
 }

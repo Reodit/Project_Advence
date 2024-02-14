@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 6729832646228951774}
   - component: {fileID: 4256302522621452090}
   - component: {fileID: 156977332226646732}
+  - component: {fileID: 8680858986308996890}
   m_Layer: 0
   m_Name: Ruby
   m_TagString: Player
@@ -339,6 +340,7 @@ MonoBehaviour:
     prefabPath: 
   hitColor: {r: 0.735849, g: 0.31585974, b: 0.31585974, a: 1}
   hitDuration: 0.2
+  spriteRenderers: []
 --- !u!58 &156977332226646732
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -368,12 +370,39 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.4}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &8680858986308996890
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553444068008694147}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &745062099501831773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1804,7 @@ GameObject:
   - component: {fileID: 8988366080519658135}
   - component: {fileID: 1269711516449972922}
   - component: {fileID: 6984294972253577236}
+  - component: {fileID: 7921394912926191436}
   m_Layer: 0
   m_Name: BulletLoot
   m_TagString: Untagged
@@ -1866,9 +1896,20 @@ MonoBehaviour:
   bullets: []
   bulletSpawnSpace: 3
   maxBulletSpawnArea: 12
-  UpperBulletRotation: -60
-  LowerBulletRotation: 60
+  <Angle>k__BackingField: 60
   fireRate: 2
+--- !u!114 &7921394912926191436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641719020336860192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1a2216cc51c9642a39bb62c5e5c806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3778691146250171945
 GameObject:
   m_ObjectHideFlags: 0

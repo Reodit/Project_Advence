@@ -1,5 +1,5 @@
-using Enums;
 using System;
+using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +16,6 @@ public class BulletController : MonoBehaviour
 
     [field: SerializeField] public float Angle { get; private set; } = 60f;
     
-    private PlayerMove _player;
     private int _bulletSpawnAreaCount;
 
     private Dictionary<string, Bullet> _bulletPrefabDict = new Dictionary<string, Bullet>();
@@ -31,11 +30,9 @@ public class BulletController : MonoBehaviour
     private const float PERCENT_DIVISION = 0.01f;
 
     private Dictionary<string, BulletInfo> _bulletInfoDict = new Dictionary<string, BulletInfo>();
-
+    public event Action OnFire;
     public void Start()
     {
-        _player = GameManager.Instance.PlayerMove;
-
         float bulletInterval = (float)bulletSpawnSpace / maxBulletSpawnArea;
         float bulletIntervalHalf = bulletInterval * 0.5f;
 
@@ -58,18 +55,34 @@ public class BulletController : MonoBehaviour
     public float fireRate = 2f; // 초당 발사 횟수
     private float nextFireTime = 0f; // 다음 발사 시간
 
+    // TODO 임시처리  ==> 구조화 다시 논의 필요
     public void AddSkillCallback(SkillTable skill)
     {
         Bullet bullet = Resources.Load<Bullet>(skill.prefabPath);
-
+        if (!bullet)
+        {
+            return;
+        }
+        
         bullet.SetSkillName(skill.name);
-
         BulletInfo bulletInfo = new BulletInfo(bullet.BulletInfo.Damage, bullet.BulletInfo.MaxDistance, bullet.BulletInfo.Speed);
 
         _bulletInfoDict.Add(skill.name, bulletInfo);
 
         _bulletPrefabDict.Add(skill.name, bullet);
-        AddFirstBulletType(bullet);
+
+        switch (skill.type)
+        {
+            case SkillType.Normal:
+                AddFirstBulletType(bullet);
+                break;
+            case SkillType.Waterballoon:
+                break;
+            case SkillType.Outside:
+                break;
+            case SkillType.Creature:
+                break;
+        }
     }
 
     public void AddEnchantCallback(string skillName, SkillEnchantTable enchant)
@@ -127,8 +140,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillRange(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterDistance = _bulletInfoDict[skillName].MaxDistance + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterDistance = _bulletInfoDict[skillName].MaxDistance;
+        afterDistance += afterDistance * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -141,8 +155,9 @@ public class BulletController : MonoBehaviour
     private void IncreaseBulletSpeed(string skillName, int index)
     {
         string description = GetDescrition(index);
-        int amount = ExcelUtility.GetNumericValue(description);
-        float afterSpeed = _bulletInfoDict[skillName].Speed + amount;
+        int amount = ExcelUtility.GetPercentValue(description);
+        float afterSpeed = _bulletInfoDict[skillName].Speed;
+        afterSpeed += afterSpeed * amount * PERCENT_DIVISION;
 
         BulletInfo bulletInfo = _bulletInfoDict[skillName];
         bulletInfo.SetSpeed(afterSpeed);
@@ -220,6 +235,7 @@ public class BulletController : MonoBehaviour
             {
                 _spawner.SpawnFrontBullets(_frontBullets, _bulletInfoDict);
                 _spawner.SpawnSlashBullets(_slashBullets, _bulletInfoDict, Angle);
+                OnFire?.Invoke();
             }
             // 다음 발사까지 기다림 (초당 발사 횟수의 역수를 기다림 시간으로 사용)
             yield return new WaitForSeconds(1f / fireRate);

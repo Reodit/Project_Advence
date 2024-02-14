@@ -1512,7 +1512,7 @@ Animator:
   m_GameObject: {fileID: 3455854828196796709}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab937231d0600440fb0d8757568d78d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5306df516ffb50f43a60d2642ebcfea7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2511,7 +2511,7 @@ GameObject:
   - component: {fileID: 3138111384497193054}
   m_Layer: 5
   m_Name: Monster_Stage1_Phase1_Boss
-  m_TagString: Enemy
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
