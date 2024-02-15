@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enums
 {
@@ -64,12 +65,12 @@ public class CharacterTable : IBaseData
 {
     public string characterName;
     public int id;
-    public int attackDamage; // 기본 스텟 공격력
-    public float attackSpeed; // 천분, 초당 공격 속도
+    public int attackDamage;
+    public float attackSpeed;
     public int defence;
     public float moveSpeed;
-    public float criticalPercent; // 천분율 치명타 확률
-    public float criticalDamage; // 천분율 치명타 데미지
+    public float criticalPercent;
+    public float criticalDamage;
     public int maxHp;
     public int maxLv;
     public string prefabPath;
@@ -132,6 +133,9 @@ public class SelectStatTable : IBaseData
     public float selectStatRateValue;
     public string description;
     public string iconPath;
+    public int maxCount;
+    public int currentUpgradeCount;
+    
     public void InitializeFromTableData(DataRow row)
     {
         this.index = Convert.ToInt32(row["Index"]);
@@ -140,6 +144,8 @@ public class SelectStatTable : IBaseData
         this.selectStatRateValue = Convert.ToSingle(row["SelectStatRateValue"]);
         this.description = row["Description"].ToString();
         this.iconPath = row["Icon"].ToString();
+        this.maxCount = Convert.ToInt32(row["MaxCount"]);
+        this.currentUpgradeCount = 0;
     }
 }
 
@@ -305,3 +311,36 @@ public class FamiliarData : IBaseData
     }
 }
 
+[Serializable]
+public class CharacterSkill
+{
+    public SkillTable skillTable;
+    public List<SkillEnchantTable> skillEnchantTables;
+    public CharacterSkill(SkillTable skillTable, List<SkillEnchantTable> skillEnchantTable)
+    {
+        this.skillTable = skillTable;
+        skillEnchantTables = skillEnchantTable;
+    }
+}
+
+[Serializable]
+public class UpgradeHistory
+{
+    public List<SelectStatTable> selectStatTable;
+
+    public UpgradeHistory(List<SelectStatTable> selectStatTable)
+    {
+        this.selectStatTable = selectStatTable;
+    }
+}
+
+[Serializable]
+public class CharacterStat
+{
+    public int attackPoint;
+    public float attackRate;
+    public float criticalRate;
+    public int healthPoint;
+    public int defencePoint;
+    public float moveSpeed;
+}

@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void GameDataLoad()
     {
+        Datas.PlayerData.LoadCharacterStatData();
         Datas.GameData.LoadCharacterDataToGameData("CharacterTable");
         Datas.GameData.LoadCharacterLevelDataToGameData("CharacterLevelTable");
         Datas.GameData.LoadSkillDataToGameData("SkillTable");
@@ -97,5 +98,10 @@ public class GameManager : MonoBehaviour
         }
 
         GameManager.Instance.currentStage++;
+    }
+    
+    private void OnApplicationQuit()
+    {
+        Datas.PlayerData.SaveCharacterStatData();
     }
 }

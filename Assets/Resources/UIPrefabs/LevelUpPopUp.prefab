@@ -698,6 +698,7 @@ GameObject:
   - component: {fileID: 7221278611403671481}
   - component: {fileID: 4285407180295898441}
   - component: {fileID: 5047724562540901257}
+  - component: {fileID: 6797095100400945861}
   m_Layer: 5
   m_Name: LevelUpPopUp
   m_TagString: Untagged
@@ -801,16 +802,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0a0ddc745f643c097e67ed64e4b9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeOptionPicker: {fileID: 6797095100400945861}
+--- !u!114 &6797095100400945861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413311118402488877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c056885662bd54b97044577a221be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   upgradeContentsParent: {fileID: 7058913057731211975}
   upgradeContentsPrefab: {fileID: 522020578834605782, guid: 3665c52f407a94f37be9f8f34c0cd8d1,
     type: 3}
-  equipSkillImages:
-  - {fileID: 2189930390350764995}
-  - {fileID: 4031596242603959586}
-  - {fileID: 5332557095537884654}
-  - {fileID: 1351279462460329782}
-  - {fileID: 5180645584147752595}
-  - {fileID: 7348242020074273065}
+  equipSkillImages: []
+  maxPickCount: 3
 --- !u!1 &4867844773093964670
 GameObject:
   m_ObjectHideFlags: 0

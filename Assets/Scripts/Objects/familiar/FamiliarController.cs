@@ -123,7 +123,7 @@ public class FamiliarController : MonoBehaviour
         {
             // async status;
             // damage, attackspeed ==> spawntime
-            foreach(var e in SkillManager.instance.playerSkills[skillIdnex].SkillEnchantTables)
+            foreach(var e in Datas.PlayerData.GetCharacterSkills()[skillIdnex].skillEnchantTables)
             {
                 if (e != null && e.currentCount < e.maxCnt)
                 {
@@ -159,7 +159,7 @@ public class FamiliarController : MonoBehaviour
 
         else
         {
-            foreach (var e in SkillManager.instance.playerSkills[skillIdnex].SkillEnchantTables)
+            foreach (var e in Datas.PlayerData.GetCharacterSkills()[skillIdnex].skillEnchantTables)
             {
                 if (e != null && e.currentCount < e.maxCnt)
                 {
