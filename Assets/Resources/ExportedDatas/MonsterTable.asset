@@ -16,7 +16,7 @@ MonoBehaviour:
   - ID: 1010
     Name: Orc1
     Type: 0
-    MaxHP: 1
+    MaxHP: 200
     Attack: 100
     Defence: 10
     EXP: 10
@@ -27,7 +27,7 @@ MonoBehaviour:
   - ID: 1011
     Name: Orc2
     Type: 0
-    MaxHP: 1
+    MaxHP: 200
     Attack: 100
     Defence: 10
     EXP: 10
@@ -38,7 +38,7 @@ MonoBehaviour:
   - ID: 1012
     Name: Orc3
     Type: 1
-    MaxHP: 1
+    MaxHP: 200
     Attack: 100
     Defence: 10
     EXP: 10

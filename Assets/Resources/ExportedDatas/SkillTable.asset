@@ -19,8 +19,8 @@ MonoBehaviour:
     icon: SPUM/0_Flat/Icon_Flat__16
     skillDamageRate: 1
     skillSpeedRate: 1
-    range: 5
-    projectileSpeed: 1
+    range: 7
+    projectileSpeed: 10
     projectileSize: 1
     prefabPath: Skills/FireballRedOBJ
     type: 0
@@ -31,8 +31,8 @@ MonoBehaviour:
     icon: SPUM/0_Flat/Icon_Flat__11
     skillDamageRate: 1.7
     skillSpeedRate: 3
-    range: 3
-    projectileSpeed: 1
+    range: 15
+    projectileSpeed: 18
     projectileSize: 1
     prefabPath: Skills/LightningBoltMissileYellowOBJ
     type: 0
@@ -43,8 +43,8 @@ MonoBehaviour:
     icon: SPUM/0_Flat/Icon_Flat__14
     skillDamageRate: 2
     skillSpeedRate: 0.5
-    range: 12
-    projectileSpeed: 1
+    range: 9
+    projectileSpeed: 12
     projectileSize: 1
     prefabPath: Skills/LaserBigBlueOBJ
     type: 0
