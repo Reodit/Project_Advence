@@ -22,6 +22,7 @@ namespace Datas
             }
 
             var jsonData = File.ReadAllText(CacheFilePath);
+            InitializeCharacterSkillAndUpgradeHistory();
             _characterStat = JsonUtility.FromJson<CharacterStat>(jsonData);
         }
 

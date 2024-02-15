@@ -36,6 +36,7 @@ public class UpgradeOptionPicker : MonoBehaviour
         for (int i = _skillTableClone.Count - 1; i >= 0; i--)
         {
             var skillDataDict = _skillTableClone[i];
+
             foreach (var characterSkill in Datas.PlayerData.GetCharacterSkills())
             {
                 if (skillDataDict.Value.index == characterSkill.Value.skillTable.index)
