@@ -1,30 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-[Serializable]
-public class CharacterSkill
-{
-    public SkillTable SkillTable;
-    public List<SkillEnchantTable> SkillEnchantTables;
-    public CharacterSkill(SkillTable skillTable, List<SkillEnchantTable> skillEnchantTable)
-    {
-        SkillTable = skillTable;
-        SkillEnchantTables = skillEnchantTable;
-    }
-}
-
-[Serializable]
-public class UpgradeHistory
-{
-    public List<SelectStatTable> SelectStatTable;
-
-    public UpgradeHistory(List<SelectStatTable> selectStatTable)
-    {
-        this.SelectStatTable = selectStatTable;
-    }
-}
 
 public class PlayerMove : MonoBehaviour
 {
@@ -33,7 +9,6 @@ public class PlayerMove : MonoBehaviour
     
     public int currentExp;
     public int currentLvl;
-    public bool isHit = false;
     public CharacterTable characterData;
     public Color hitColor = Color.red;
     public float hitDuration = 0.2f;
@@ -48,7 +23,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Move();
-        //LevelUp();
+        LevelUp();
     }
 
     public void LevelUp()

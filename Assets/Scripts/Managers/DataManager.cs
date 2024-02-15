@@ -14,18 +14,6 @@ namespace Managers
             Instance = this;
         }
 
-        void Start()
-        {
-        }
-
-        private void ConversionToJsonFailedCallback()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void ConversionToJsonSuccessfullCallback()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

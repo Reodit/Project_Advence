@@ -5,10 +5,6 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
-
-    public Dictionary<int, CharacterSkill> playerSkills = new Dictionary<int, CharacterSkill>();
-    public UpgradeHistory playerUpgradeHistory = new UpgradeHistory(new List<SelectStatTable>());
-
     public event Action<SkillTable> OnAddSkill;
     public event Action<int, SkillEnchantTable> OnAddEnchant;
     
@@ -23,6 +19,7 @@ public class SkillManager : MonoBehaviour
 
     public void AddPlayerSkill(SkillTable skill)
     {
+        var playerSkills = Datas.PlayerData.GetCharacterSkills();
         if (playerSkills.ContainsKey(skill.index))
             return;
 
@@ -42,21 +39,23 @@ public class SkillManager : MonoBehaviour
 
     public void AddSkillEnchant(int skillIndex, SkillEnchantTable skillEnchant)
     {
+        var playerSkills = Datas.PlayerData.GetCharacterSkills();
+        
         CharacterSkill characterSkill = playerSkills[skillIndex];
-        int enchantIndex = playerSkills[skillIndex].SkillEnchantTables.IndexOf(skillEnchant);
+        int enchantIndex = playerSkills[skillIndex].skillEnchantTables.IndexOf(skillEnchant);
         if (enchantIndex == -1)
         {
-            characterSkill.SkillEnchantTables.Add(skillEnchant);
-            enchantIndex = characterSkill.SkillEnchantTables.Count - 1;
+            characterSkill.skillEnchantTables.Add(skillEnchant);
+            enchantIndex = characterSkill.skillEnchantTables.Count - 1;
         }
-        else if (skillEnchant.maxCnt <= characterSkill.SkillEnchantTables[enchantIndex].currentCount)
+        else if (skillEnchant.maxCnt <= characterSkill.skillEnchantTables[enchantIndex].currentCount)
         {
             return;
         }
 
-        characterSkill.SkillEnchantTables[enchantIndex].currentCount++;
+        characterSkill.skillEnchantTables[enchantIndex].currentCount++;
         
-        if (playerSkills[skillIndex].SkillTable.type == Enums.SkillType.Creature)
+        if (playerSkills[skillIndex].skillTable.type == Enums.SkillType.Creature)
         {
             OnAddEnchantFamiliar.Invoke(skillIndex, skillEnchant);
         }

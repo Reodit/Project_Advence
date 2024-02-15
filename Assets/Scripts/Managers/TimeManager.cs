@@ -32,7 +32,8 @@ public class TimeManager : MonoBehaviour
 
         if (coolTimes.ContainsKey(id))
         {
-            throw new ArgumentException($"Cool time item with id '{id}' is already registered.", id);
+            UpdateCoolTime(id, coolTime);
+            Debug.Log($"Cool time item with id '{id}' is already registered.\nCooltime will be update");
         }
 
         coolTimes.Add(id, coolTime);
