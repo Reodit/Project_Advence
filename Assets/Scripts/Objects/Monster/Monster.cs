@@ -61,6 +61,28 @@ public class Monster : MonoBehaviour
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
     }
-    
+
     // TODO Animation 관리 어떻게 ?
+
+    private bool MoveTowardsAndCheckArrival(Vector3 currentPosition, Vector3 targetPosition, float moveSpeed, float threshold = 0.1f)
+    {
+        // Move towards the target position
+        float step = moveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(currentPosition, targetPosition, step);
+
+        // Check if the object is within the threshold distance of the target position
+        bool hasArrived = Vector3.Distance(transform.position, targetPosition) <= threshold;
+
+        return hasArrived;
+    }
+
+    private int GetNextWaypointIndex(int currentIndex, int waypointsCount, bool loop = true)
+    {
+        int nextIndex = currentIndex + 1;
+        if (nextIndex >= waypointsCount)
+        {
+            nextIndex = loop ? 0 : waypointsCount - 1;
+        }
+        return nextIndex;
+    }
 }

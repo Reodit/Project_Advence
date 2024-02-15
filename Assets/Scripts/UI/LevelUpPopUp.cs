@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public class LevelUpPopUp : UIBase
 {
@@ -25,7 +26,7 @@ public class LevelUpPopUp : UIBase
 
     private static System.Random rng = new System.Random();
 
-    private const int MaxSkills = 3;
+    private const int MaxPickCount = 3;
     private const int MaxRetries = 100;
 
     public void UpgradeLogic(int a)
@@ -46,7 +47,7 @@ public class LevelUpPopUp : UIBase
 
     private void OfferNewSkills()
     {
-        var selectedSkills = Datas.GameData.DTSkillData.Values.OrderBy(x => rng.Next()).Take(MaxSkills).ToList();
+        var selectedSkills = Datas.GameData.DTSkillData.Values.OrderBy(x => rng.Next()).Take(MaxPickCount).ToList();
         foreach (var skill in selectedSkills)
         {
             SetupUpgradeUI(skill.icon, skill.name, skill.description, () =>
@@ -58,32 +59,40 @@ public class LevelUpPopUp : UIBase
 
     private void OfferUpgrades()
     {
-        for (int i = 0; i < MaxSkills; i++)
+        int pickCount = 0;
+
+        while (pickCount <= MaxPickCount)
         {
-            if (SkillManager.instance.playerSkills.Count < MaxSkills)
+            if (SkillManager.instance.playerSkills.Count < MaxPickCount)
             {
                 OfferSkillOrStatOrSkillEnchantUpgrade();
+                pickCount++;
             }
+
             else
             {
                 OfferSkillEnchantOrStatUpgrade();
+                pickCount++;
             }
         }
     }
 
     private void OfferSkillOrStatOrSkillEnchantUpgrade()
-    {
-        int totalOptions = Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count + Datas.GameData.DTSelectStatData.Count;
-        int choice = rng.Next(totalOptions);
+    {    
+        int choice = rng.Next(Datas.GameData.DTSkillData.Count + 
+            Datas.GameData.DTSkillEnchantData.Count + 
+            Datas.GameData.DTSelectStatData.Count);
 
         if (choice < Datas.GameData.DTSkillData.Count)
         {
             OfferNewSkillOption();
         }
+        
         else if (choice < (Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count))
         {
             OfferSkillEnchantOption();
         }
+        
         else
         {
             OfferStatUpgradeOption();
@@ -92,23 +101,28 @@ public class LevelUpPopUp : UIBase
 
     private void OfferSkillEnchantOrStatUpgrade()
     {
-        int choice = rng.Next(GetTotalOptionsCount() - Datas.GameData.DTSkillData.Count);
+        int choice = rng.Next(Datas.GameData.DTSkillEnchantData.Count + 
+            Datas.GameData.DTSelectStatData.Count);
+        
         if (choice < Datas.GameData.DTSkillEnchantData.Count)
         {
             OfferSkillEnchantOption();
         }
+        
         else
         {
             OfferStatUpgradeOption();
         }
     }
 
-    private void SetupUpgradeUI(string iconPath, string title, string description, Action onClickAction)
+    private void SetupUpgradeUI(SkillTable skillData, Action onClickAction)
     {
         var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
-        upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(iconPath);
-        upgradePrefab.upgradeTitleText.text = title;
-        upgradePrefab.upgradeDescriptionText.text = description;
+        upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(skillData.icon);
+        upgradePrefab.upgradeTitleText.text = skillData.name;
+
+        // TODO description 
+        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(skillData.description);
         upgradePrefab.upgradeButton.onClick.AddListener(() =>
         {
             onClickAction.Invoke();
@@ -116,9 +130,34 @@ public class LevelUpPopUp : UIBase
         });
     }
 
-    private int GetTotalOptionsCount()
+    private void SetupUpgradeUI(SkillTable skillData, SkillEnchantTable skillEnchantData, Action onClickAction)
     {
-        return Datas.GameData.DTSkillData.Count + Datas.GameData.DTSkillEnchantData.Count + Datas.GameData.DTSelectStatData.Count;
+        var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
+        upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(skillEnchantData.icon);
+        upgradePrefab.upgradeTitleText.text = skillEnchantData.name;
+
+        // TODO description 
+        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(skillEnchantData.description, skillData.name, skillEnchantData.enchantEffectValue1);
+        upgradePrefab.upgradeButton.onClick.AddListener(() =>
+        {
+            onClickAction.Invoke();
+            Destroy(this.gameObject);
+        });
+    }
+
+    private void SetupUpgradeUI(SelectStatTable selectStatData, Action onClickAction)
+    {
+        var upgradePrefab = Instantiate(upgradeContentsPrefab, upgradeContentsParent).GetComponent<UpgradeContentsUI>();
+        upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(selectStatData.iconPath);
+        upgradePrefab.upgradeTitleText.text = selectStatData.name;
+
+        // TODO description 
+        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(selectStatData.description);
+        upgradePrefab.upgradeButton.onClick.AddListener(() =>
+        {
+            onClickAction.Invoke();
+            Destroy(this.gameObject);
+        });
     }
 
     private void OfferNewSkillOption()
