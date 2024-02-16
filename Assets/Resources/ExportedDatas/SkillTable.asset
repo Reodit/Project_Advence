@@ -58,7 +58,7 @@ MonoBehaviour:
     range: 12
     projectileSpeed: 1
     projectileSize: 1
-    prefabPath: Skills/LaserBigBlueOBJ
+    prefabPath: Skills/WaterBalloon
     type: 1
   - index: 10005
     name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"

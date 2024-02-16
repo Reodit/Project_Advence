@@ -22,8 +22,6 @@ public class SkillUpgradeEditor : Editor
         _debugger = (SkillUpgradeDebugger)target;
         _center = new GUIStyle() { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
         _center.normal.textColor = Color.green;
-
-        
     }
 
     public override void OnInspectorGUI()

@@ -5,7 +5,6 @@ using UnityEngine;
 public class SkillUpgradeDebugger : MonoBehaviour
 {
     private Dictionary<int, SkillTable> _skillDict = new Dictionary<int, SkillTable>();
-    private Dictionary<int, SkillEnchantTable> _enchantDict = new Dictionary<int, SkillEnchantTable>();
 
     private const int DAMAGE = 14000;
     private const int ATTACK_RATE = 14001;
@@ -13,7 +12,16 @@ public class SkillUpgradeDebugger : MonoBehaviour
     private const int SPEED = 14003;
     private const int SLASH_PROJECTILE = 14004;
     private const int FRONT_PROJECTILE = 14005;
-    
+
+    private PlayerMove _player;
+    public bool isLevelUpOn = true;
+
+    private void Start()
+    {
+        _player = FindObjectOfType<PlayerMove>();
+        _player.isLevelUpOn = isLevelUpOn;
+    }
+
     public void Spawn(int skillIndex)
     {
         if (!_skillDict.ContainsKey(skillIndex))

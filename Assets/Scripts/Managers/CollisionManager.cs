@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,20 @@ public class CollisionManager : MonoBehaviour
         {
             
         }*/
+    }
+
+    public void ExplodeFromCapsule2D(Bullet bullet, List<Collider2D> colliders, float angle = 0f)
+    {
+        foreach (var col in colliders)
+        {
+            if (bullet.tag == "PlayerProjectile")
+            {
+                if (col.TryGetComponent(out Monster monster))
+                {
+                    bullet.HitMonster(monster);
+                }
+            }
+        }
     }
 
 }

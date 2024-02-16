@@ -10,5 +10,7 @@ namespace Utility
         public const string SCRIPTABLEOBJECT_SAVE_PATH = "Assets/Resources/ExportedDatas";
         public const string UI_PREFAB_PATH = "";
         public const string SCRIPTABLEOBJECT_LOAD_PATH = "ExportedDatas/";
+        public const float PERCENT_DIVISION = 0.01f;
+
     }
 }
