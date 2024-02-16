@@ -3,47 +3,10 @@ using System.Collections;
 using UnityEngine;
 using Enums;
 
-[Serializable]
-public struct BulletInfo
-{
-    [field: SerializeField] public float Damage;
-    [field: SerializeField] public float SkillSpeedRate;
-    [field: SerializeField] public float MaxDistance;
-    [field: SerializeField] public float Speed; // 총알의 속도
-
-    public BulletInfo(float damage, float skillSpeedRate, float maxDistance, float speed)
-    {
-        Damage = damage;
-        SkillSpeedRate = skillSpeedRate;
-        MaxDistance = maxDistance;
-        Speed = speed;
-    }
-
-    public void SetDamage(float damage)
-    {
-        Damage = damage;
-    }
-
-    public void SetSkillSpeedRate(float skillSpeedRate)
-    {
-        SkillSpeedRate = skillSpeedRate;
-    }
-
-    public void SetMaxDistance(float maxDistance)
-    {
-        MaxDistance = maxDistance;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        Speed = speed;
-    }
-}
-
 public class Bullet : MonoBehaviour
 {
     public Transform spawnPoint;
-    public PixelArsenalProjectileScript _pixelArsenalProjectileScript { get; private set; }
+    public PixelArsenalProjectileScript pixelArsenalProjectileScript { get; private set; }
     private bool _isTriggered;
     private float destroyDelay;
     protected Vector3 initPosition;
@@ -55,22 +18,22 @@ public class Bullet : MonoBehaviour
 
     public SkillType SkillType { get; private set; } = SkillType.Normal;
 
-    protected Transform _myTrans;
+    protected Transform myTrans;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        _myTrans = transform;
+        myTrans = transform;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         initPosition = transform.position;
         _isTriggered = false;
         destroyDelay = 0.5f;
-        _pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
+        pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         OnDestroyed?.Invoke(this);
     }
@@ -110,7 +73,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
     
-    protected void Update()
+    protected virtual void Update()
     {
         Vector2 newPosition = transform.position + transform.right * (BulletInfo.Speed * Time.deltaTime);
         transform.position = newPosition;
@@ -121,7 +84,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    protected void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         CollisionManager.Instance.HandleCollision(this.gameObject, collision.gameObject);
     }
@@ -130,7 +93,7 @@ public class Bullet : MonoBehaviour
     {
         if (monster)
         {
-            _pixelArsenalProjectileScript.OnCol();
+            pixelArsenalProjectileScript.OnCol();
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             
             // TODO 몬스터 데미지 계산 통일필요
@@ -147,9 +110,9 @@ public class Bullet : MonoBehaviour
     
     public void Resize(float amount)
     {
-        Vector3 scale = _myTrans.localScale;
+        Vector3 scale = myTrans.localScale;
         scale += scale * amount;
-        _myTrans.localScale = scale;
+        myTrans.localScale = scale;
     }
 
     public void SetSkillType(SkillType skillType)

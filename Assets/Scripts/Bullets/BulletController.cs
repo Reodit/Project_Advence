@@ -3,6 +3,7 @@ using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 public class BulletController : MonoBehaviour
 {
@@ -24,10 +25,10 @@ public class BulletController : MonoBehaviour
 
     private List<Bullet> _frontBullets = new List<Bullet>();
     private List<Bullet> _slashBullets = new List<Bullet>();
+    private List<Bullet> _specialBullets = new List<Bullet>();
 
     private BulletSpawner _spawner;
 
-    private const float PERCENT_DIVISION = 0.01f;
 
     private Dictionary<int, BulletInfo> _bulletInfoDict = new Dictionary<int, BulletInfo>();
     public event Action OnFire;
@@ -77,12 +78,18 @@ public class BulletController : MonoBehaviour
                 AddFirstBulletType(bullet);
                 break;
             case SkillType.Waterballoon:
+                AddSpecialBullet(bullet);
                 break;
             case SkillType.Outside:
                 break;
             case SkillType.Creature:
                 break;
         }
+    }
+
+    private void AddSpecialBullet(Bullet bullet)
+    {
+        _specialBullets.Add(bullet);
     }
 
     public void AddEnchantCallback(int skillIndex, SkillEnchantTable enchant)
@@ -116,7 +123,7 @@ public class BulletController : MonoBehaviour
         float percent = ExcelUtility.GetPercentValue(description);
 
         float damage = _bulletPrefabDict[skillIndex].BulletInfo.Damage;
-        float afterDamage = _bulletInfoDict[skillIndex].Damage + (damage * percent * PERCENT_DIVISION);
+        float afterDamage = _bulletInfoDict[skillIndex].Damage + (damage * percent * Consts.PERCENT_DIVISION);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetDamage(afterDamage);
@@ -134,7 +141,7 @@ public class BulletController : MonoBehaviour
         float percent = ExcelUtility.GetPercentValue(description);
 
         float skillRate = _bulletPrefabDict[skillIndex].BulletInfo.SkillSpeedRate;
-        float afterRate = _bulletInfoDict[skillIndex].SkillSpeedRate - (skillRate * percent * PERCENT_DIVISION);
+        float afterRate = _bulletInfoDict[skillIndex].SkillSpeedRate - (skillRate * percent * Consts.PERCENT_DIVISION);
 
         // TODO : 제한 걸 필요성
 
@@ -152,7 +159,7 @@ public class BulletController : MonoBehaviour
         string description = GetDescrition(enchantIndex);
         int amount = ExcelUtility.GetPercentValue(description);
         float distance = _bulletPrefabDict[skillIndex].BulletInfo.MaxDistance;
-        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount * PERCENT_DIVISION);
+        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount * Consts.PERCENT_DIVISION);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -167,7 +174,7 @@ public class BulletController : MonoBehaviour
         string description = GetDescrition(enchantIndex);
         int amount = ExcelUtility.GetPercentValue(description);
         float speed = _bulletPrefabDict[skillIndex].BulletInfo.Speed;
-        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount * PERCENT_DIVISION);
+        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount * Consts.PERCENT_DIVISION);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetSpeed(afterSpeed);
@@ -245,6 +252,7 @@ public class BulletController : MonoBehaviour
             {
                 _spawner.SpawnFrontBullets(_frontBullets, _bulletInfoDict);
                 _spawner.SpawnSlashBullets(_slashBullets, _bulletInfoDict, Angle);
+                _spawner.SpawnSpecialBullets(_specialBullets, _bulletInfoDict);
                 OnFire?.Invoke();
             }
             yield return null;

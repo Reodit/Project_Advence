@@ -84,10 +84,7 @@ public class BulletSpawner
         {
             Bullet bullet = slashBullets[i];
 
-            bool isSpawnable = IsSpawnable(bullet, bulletInfoDict[bullet.SkillIndex].SkillSpeedRate);
-
-            if (isSpawnable)
-                _spawnableBullets.Add(bullet);
+            CheckSpawnable(bulletInfoDict, bullet);
 
             if (!_spawnableBullets.Contains(bullet))
                 continue;
@@ -117,12 +114,33 @@ public class BulletSpawner
         SpawnBullet(bullet, spawnPos, quat, bulletInfoDict[bullet.SkillIndex]);
     }
 
-    private void CheckSpawnable(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet)
+    public void SpawnSpecialBullets(List<Bullet> specialBullets, Dictionary<int, BulletInfo> bulletInfoDict)
+    {
+        Vector2 spawnPos = _spawnPoint.position;
+        for (int i = 0; i < specialBullets.Count; i++)
+        {
+            Bullet bullet = specialBullets[i];
+
+            CheckSpawnable(bulletInfoDict, bullet);
+
+            if (!_spawnableBullets.Contains(bullet))
+                continue;
+
+            SpawnBullet(bullet, spawnPos, bulletInfoDict[bullet.SkillIndex]);
+        }
+
+        if (_spawnableBullets.Count > 0)
+            _spawnableBullets.Clear();
+    }
+
+    private bool CheckSpawnable(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet)
     {
         bool isSpawnable = IsSpawnable(bullet, bulletInfoDict[bullet.SkillIndex].SkillSpeedRate);
 
         if (isSpawnable)
             _spawnableBullets.Add(bullet);
+
+        return isSpawnable;
     }
 
     private bool IsSpawnable(Bullet bullet, float bulletSpeedRate)
@@ -182,5 +200,4 @@ public class BulletSpawner
         _onRemoveBullet.Invoke(bullet);
     }
 
-    
 }

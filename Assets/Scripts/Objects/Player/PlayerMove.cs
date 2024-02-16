@@ -14,6 +14,10 @@ public class PlayerMove : MonoBehaviour
     public float hitDuration = 0.2f;
     public List<SpriteRenderer> spriteRenderers;
 
+#if UNITY_EDITOR
+    public bool isLevelUpOn = true;
+#endif
+
     void Start()
     {
         spriteRenderers = new List<SpriteRenderer>();
@@ -23,6 +27,10 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Move();
+#if UNITY_EDITOR
+        if (!isLevelUpOn)
+            return;
+#endif
         LevelUp();
     }
 
