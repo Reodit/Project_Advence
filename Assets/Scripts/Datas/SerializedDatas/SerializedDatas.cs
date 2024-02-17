@@ -25,7 +25,9 @@ namespace Enums
         SelectAttackSpeed,
         SelectMoveSpeed,
         SelectDefence,
-        SelectCriticalDamage
+        SelectCriticalDamage,
+        SelectHealthRegen,
+        SelectHealth
     }
 
     [Serializable]
