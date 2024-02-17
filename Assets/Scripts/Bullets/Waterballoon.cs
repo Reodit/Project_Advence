@@ -11,14 +11,12 @@ public class Waterballoon : Bullet
 
     private float _distanceY;
     private float _startPosY;
-    private CapsuleCollider2D _collider;
 
     private bool _isMovable = false;
 
     protected override void Awake()
     {
         base.Awake();
-        _collider = rangeParticlePrefab.GetComponent<CapsuleCollider2D>();
     }
 
     protected override void Start()
@@ -50,7 +48,7 @@ public class Waterballoon : Bullet
         if (!_isMovable)
             return;
 
-        Vector2 nextPos = Vector2.down * _distanceY * Time.deltaTime;
+        Vector2 nextPos = Vector2.down * _distanceY * Time.deltaTime * BulletInfo.Speed;
         myTrans.position += new Vector3(nextPos.x, nextPos.y, 0f);
     }
 

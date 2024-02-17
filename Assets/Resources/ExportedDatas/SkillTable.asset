@@ -53,7 +53,7 @@ MonoBehaviour:
     description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
       \uAC00\uD569\uB2C8\uB2E4."
     icon: SPUM/0_Flat/Icon_Flat__14
-    skillDamageRate: 2
+    skillDamageRate: 50
     skillSpeedRate: 0.5
     range: 12
     projectileSpeed: 1
