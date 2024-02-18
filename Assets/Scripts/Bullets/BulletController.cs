@@ -82,7 +82,9 @@ public class BulletController : MonoBehaviour
                 break;
             case SkillType.Outside:
                 break;
-            case SkillType.Creature:
+            case SkillType.MeleeFamiliar:
+                break;
+            case SkillType.RangeFamiliar:
                 break;
         }
     }

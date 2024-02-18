@@ -12,8 +12,7 @@ public static class DamageCalculator
 
         switch (characterSkill.skillTable.type)
         {
-            case SkillType.Creature:
-                break;
+            
             default:
                 break;
         }

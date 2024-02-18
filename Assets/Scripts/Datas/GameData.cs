@@ -215,7 +215,7 @@ namespace Datas
             {
                 foreach (var e in familiarData.familiarList)
                 {
-                    DTFamiliarData.Add(e.Index, e);
+                    DTFamiliarData.Add(e.index, e);
                 }
             }
 

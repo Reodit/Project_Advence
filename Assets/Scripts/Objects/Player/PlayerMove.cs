@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    public int currentHp;
+    public float currentHp;
     public Image Hpbar;
     
     public int currentExp;

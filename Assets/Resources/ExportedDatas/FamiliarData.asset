@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: FamiliarData
   m_EditorClassIdentifier: 
   familiarList:
-  - Index: 11001
-    SkillId: 10005
-    MaxHp: 20
-    MoveSpeed: 5
-    PamiliarSkillId: 0
-  - Index: 11002
-    SkillId: 10006
-    MaxHp: 0
-    MoveSpeed: -3
-    PamiliarSkillId: 10003
+  - index: 11001
+    skillId: 10005
+    maxHp: 20
+    moveSpeed: 5
+    familiarSkillId: 0
+  - index: 11002
+    skillId: 10006
+    maxHp: 0
+    moveSpeed: -3
+    familiarSkillId: 10003

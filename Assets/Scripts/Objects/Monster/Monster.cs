@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     // TODO need refactor this 
     [SerializeField] private int dataKey;
     public List<SpriteRenderer> spriteRenderers { get; private set; }
-    public int CurrentHp { get; set; }
+    public float CurrentHp { get; set; }
     [HideInInspector] public MonsterTable monsterData;
 
     public Animator Animator;

@@ -28,10 +28,10 @@ public class FamiliarController : MonoBehaviour
         for (int i = 0; i < _familiarAndFamiliarPrefabs.Count; i++)
         {
             if(TimeManager.Instance.IsCoolTimeFinished
-                   (_familiarAndFamiliarPrefabs[i].Item1.familiarData.Index.ToString()))
+                   (_familiarAndFamiliarPrefabs[i].Item1.familiarData.index.ToString()))
             {
                 Instantiate(_familiarAndFamiliarPrefabs[i].Item1, this.transform.position, _familiarAndFamiliarPrefabs[i].Item1.transform.rotation);
-                TimeManager.Instance.Use(_familiarAndFamiliarPrefabs[i].Item1.familiarData.Index.ToString());
+                TimeManager.Instance.Use(_familiarAndFamiliarPrefabs[i].Item1.familiarData.index.ToString());
             }
         }
     }
@@ -40,7 +40,7 @@ public class FamiliarController : MonoBehaviour
     {
         var familiarData = Datas.GameData.DTFamiliarData
             .Select(pair => pair.Value)
-            .FirstOrDefault(familiarData => familiarData.SkillId == skill.index);
+            .FirstOrDefault(familiarData => familiarData.skillId == skill.index);
 
         var familiarObject = Resources.Load<GameObject>(skill.prefabPath);
         var familiar = familiarObject.GetComponent<Familiar>();
@@ -63,7 +63,7 @@ public class FamiliarController : MonoBehaviour
         bool isMeleeFamiliar = false;
 
         // TODO Ÿ���� ���� �÷����� ����
-        if (familiarData.MaxHp == 0)
+        if (familiarData.maxHp == 0)
         {
             isMeleeFamiliar = false;
         }
@@ -74,7 +74,7 @@ public class FamiliarController : MonoBehaviour
         }
 
         familiar.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed;
-        TimeManager.Instance.RegisterCoolTime(familiar.familiarData.Index.ToString(), familiar.spawnCoolTime);
+        TimeManager.Instance.RegisterCoolTime(familiar.familiarData.index.ToString(), familiar.spawnCoolTime);
         
         if (isMeleeFamiliar == false)
         {
@@ -98,7 +98,7 @@ public class FamiliarController : MonoBehaviour
 
         var familiarData = Datas.GameData.DTFamiliarData
             .Select(pair => pair.Value)
-            .FirstOrDefault(familiarData => familiarData.SkillId == skill.index);
+            .FirstOrDefault(familiarData => familiarData.skillId == skill.index);
 
         if (familiarData == null)
         {
@@ -108,7 +108,7 @@ public class FamiliarController : MonoBehaviour
         bool isMeleeFamiliar = false;
 
         // TODO Ÿ���� ���� �÷����� ����
-        if (familiarData.MaxHp == 0)
+        if (familiarData.maxHp == 0)
         {
             isMeleeFamiliar = false;
         }
@@ -134,8 +134,8 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.Item1.FamiliarType == FamiliarType.melee)
                                 {
-                                    familiar.Item1.familiarData.MaxHp = (int)(familiarData.MaxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp));
-                                    familiar.Item1.currentHp = (int)(e.currentCount * (e.enchantEffectValue1 * familiarData.MaxHp));
+                                    familiar.Item1.familiarData.maxHp = (int)(familiarData.maxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
+                                    familiar.Item1.currentHp = (int)(e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
                                 }
                             }
                             break;
@@ -146,7 +146,7 @@ public class FamiliarController : MonoBehaviour
                                 if (familiar.Item1.FamiliarType == FamiliarType.melee)
                                 {
                                     familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
-                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.Index.ToString(), familiar.Item1.spawnCoolTime);
+                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
                                 }
                             }
                             break;
@@ -171,7 +171,7 @@ public class FamiliarController : MonoBehaviour
                                 if (familiar.Item1.FamiliarType == FamiliarType.range)
                                 {
                                     familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
-                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.Index.ToString(), familiar.Item1.spawnCoolTime);
+                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
                                 }
                             }
 
@@ -182,7 +182,7 @@ public class FamiliarController : MonoBehaviour
                             {
                                 if (familiar.Item1.FamiliarType == FamiliarType.range)
                                 {
-                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.SkillId].index, enchant);
+                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.skillId].index, enchant);
                                 }
                             }
 

@@ -15,7 +15,7 @@ public class Familiar : MonoBehaviour
     public FamiliarData familiarData;
     public FamiliarType FamiliarType;
     public float spawnCoolTime;
-    public int currentHp;
+    public float currentHp;
     public BulletController bulletController;
     [SerializeField] private Vector3 scale;
 

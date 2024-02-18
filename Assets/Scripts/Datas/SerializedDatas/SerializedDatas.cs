@@ -39,6 +39,8 @@ namespace Enums
         ProjectileSpeedControl,
         AddSlashProjectile,
         AddFrontProjectile,
+        CriticalDamageControl,
+        FamiliarHealthControl
     }
     
     [Serializable]
@@ -56,7 +58,8 @@ namespace Enums
         Normal,
         Waterballoon,
         Outside,
-        Creature,
+        MeleeFamiliar,
+        RangeFamiliar
     }
 }
 
@@ -67,13 +70,13 @@ public class CharacterTable : IBaseData
 {
     public string characterName;
     public int id;
-    public int attackDamage;
+    public float attackDamage;
     public float attackSpeed;
-    public int defence;
+    public float defence;
     public float moveSpeed;
     public float criticalPercent;
     public float criticalDamage;
-    public int maxHp;
+    public float maxHp;
     public int maxLv;
     public string prefabPath;
     
@@ -81,13 +84,13 @@ public class CharacterTable : IBaseData
     {
         this.characterName = row["Name"].ToString();
         this.id = Convert.ToInt32(row["ID"]);
-        this.attackDamage = Convert.ToInt32(row["AttackDamage"]);
+        this.attackDamage = Convert.ToSingle(row["AttackDamage"]);
         this.attackSpeed = Convert.ToSingle(row["AttackSpeed"]);
-        this.defence = Convert.ToInt32(row["Defence"]);
+        this.defence = Convert.ToSingle(row["Defence"]);
         this.moveSpeed = Convert.ToSingle(row["MoveSpeed"]);
         this.criticalPercent = Convert.ToSingle(row["CriticalPercent"]);
         this.criticalDamage = Convert.ToSingle(row["CriticalDamage"]);
-        this.maxHp = Convert.ToInt32(row["HP"]);
+        this.maxHp = Convert.ToSingle(row["HP"]);
         this.maxLv = Convert.ToInt32(row["MaxLV"]);
         this.prefabPath = row["Prefab"].ToString();
     }
@@ -112,17 +115,19 @@ public class CharacterLevelTable : IBaseData
 public class StatLevelTable : IBaseData
 {
     public int index;
-    public int addStatValue;
+    public float addStatValue;
     public int statLevel;
     public UpgradeStat upgradeName;
     public int requireGoldValue;
+    public string iconPath;
     public void InitializeFromTableData(DataRow row)
     {
         this.index = Convert.ToInt32(row["Index"]);
         this.statLevel = Convert.ToInt32(row["Level"]);
-        this.addStatValue = Convert.ToInt32(row["AddStat"]);
+        this.addStatValue = Convert.ToSingle(row["AddStat"]);
         this.requireGoldValue = Convert.ToInt32(row["Gold"]);
         this.upgradeName = (UpgradeStat)Enum.Parse(typeof(UpgradeStat), row["UpgradeStat"].ToString());
+        this.iconPath = row["Icon"].ToString();
     }
 }
 
@@ -160,12 +165,12 @@ public class SkillTable : IBaseData
     public string icon;
     public float skillDamageRate;
     public float skillSpeedRate;
-    public int range;
+    public float range;
     public float projectileSpeed;
     public float projectileSize;
     public string prefabPath;
     public SkillType type;
-
+    public List<int> allowSkillEnchantKey;
     public void InitializeFromTableData(DataRow row)
     {
         this.index = Convert.ToInt32(row["Index"]);
@@ -174,11 +179,12 @@ public class SkillTable : IBaseData
         this.icon = row["Icon"].ToString();
         this.skillDamageRate = Convert.ToSingle(row["SkillDamageRate"]);
         this.skillSpeedRate = Convert.ToSingle(row["SkillSpeedRate"]);
-        this.range = Convert.ToInt32(row["Range"]);
+        this.range = Convert.ToSingle(row["Range"]);
         this.projectileSpeed = Convert.ToSingle(row["ProjectileSpeed"]);
         this.projectileSize = Convert.ToSingle(row["ProjectileSize"]);
         this.prefabPath = row["Prefab"].ToString();
         this.type = (SkillType)Enum.Parse(typeof(SkillType), row["Type"].ToString());
+        //this.allowSkillEnchantKey = row["AllowSkillEnchantKey"] as List<int>;
     }
 }
 
@@ -193,7 +199,6 @@ public class SkillEnchantTable : IBaseData
     public float enchantEffectValue1;
     public int maxCnt;
     public string icon;
-    public bool colorToBlack;
     public int currentCount;
 
     public void InitializeFromTableData(DataRow row)
@@ -205,7 +210,6 @@ public class SkillEnchantTable : IBaseData
         this.enchantEffectValue1 = Convert.ToSingle(row["EnchantEffectValue1"]);
         this.maxCnt = Convert.ToInt32(row["MaxCnt"]);
         this.icon = row["Icon"].ToString();
-        this.colorToBlack = Convert.ToBoolean(row["ColortoBlack"]);
     }
 }
 
@@ -269,13 +273,12 @@ public class MonsterTable : IBaseData
     public int ID;
     public string Name;
     public MonsterType Type; // Enum 타입
-    public int MaxHP;
-    public int Attack;
-    public int Defence;
+    public float MaxHP;
+    public float Attack;
+    public float Defence;
     public int EXP;
     public int Gold;
     public int Score;
-    public int Skill; // Skill은 여기서 문자열로 가정합니다. 필요에 따라 다른 타입으로 변경할 수 있습니다.
     public string PrefabPath;
 
     public void InitializeFromTableData(DataRow row)
@@ -289,7 +292,6 @@ public class MonsterTable : IBaseData
         this.EXP = Convert.ToInt32(row["EXP"]);
         this.Gold = Convert.ToInt32(row["Gold"]);
         this.Score = Convert.ToInt32(row["Score"]);
-        this.Skill = Convert.ToInt32(row["Skill"]);
         this.PrefabPath = row["PrefabPath"].ToString();
     }
 }
@@ -297,19 +299,19 @@ public class MonsterTable : IBaseData
 [Serializable]
 public class FamiliarData : IBaseData
 {
-    public int Index;
-    public int SkillId;
-    public int MaxHp; // Enum 타입
-    public float MoveSpeed;
-    public int PamiliarSkillId;
+    [FormerlySerializedAs("Index")] public int index;
+    [FormerlySerializedAs("SkillId")] public int skillId;
+    [FormerlySerializedAs("MaxHp")] public float maxHp;
+    [FormerlySerializedAs("MoveSpeed")] public float moveSpeed;
+    public int familiarSkillId;
 
     public void InitializeFromTableData(DataRow row)
     {
-        this.Index = Convert.ToInt32(row["Index"]);
-        this.SkillId = Convert.ToInt32(row["SkillId"]);
-        this.MaxHp = Convert.ToInt32(row["MaxHp"]);
-        this.MoveSpeed = Convert.ToSingle(row["MoveSpeed"]);
-        this.PamiliarSkillId = Convert.ToInt32(row["PamiliarSkillId"]);
+        this.index = Convert.ToInt32(row["Index"]);
+        this.skillId = Convert.ToInt32(row["SkillId"]);
+        this.maxHp = Convert.ToSingle(row["MaxHp"]);
+        this.moveSpeed = Convert.ToSingle(row["MoveSpeed"]);
+        this.familiarSkillId = Convert.ToInt32(row["FamiliarSkillId"]);
     }
 }
 

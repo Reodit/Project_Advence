@@ -27,7 +27,7 @@ public class GhostKnight : Familiar
         }
         animator.SetBool("Run", true);
         Vector3 currentPosition = transform.root.position;
-        Vector3 newPosition = new Vector3(currentPosition.x + familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
+        Vector3 newPosition = new Vector3(currentPosition.x + familiarData.moveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
     }
     
@@ -55,9 +55,9 @@ public class GhostKnight : Familiar
         if (monster)
         {
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
-            monster.CurrentHp -= familiarData.MaxHp;
+            monster.CurrentHp -= familiarData.maxHp;
             currentHp -= monster.monsterData.Attack;
-            hpBar.fillAmount = (float)currentHp / familiarData.MaxHp;
+            hpBar.fillAmount = (float)currentHp / familiarData.maxHp;
             monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
         }
     }
@@ -72,6 +72,6 @@ public class GhostKnight : Familiar
         animator = GetComponent<Animator>();
 
         EffectUtility.FadeIn(spriteRenderers , fadeInTime);
-        currentHp = familiarData.MaxHp;
+        currentHp = familiarData.maxHp;
     }
 }

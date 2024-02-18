@@ -18,148 +18,178 @@ MonoBehaviour:
     statLevel: 1
     upgradeName: 0
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon18
   - index: 12002
     addStatValue: 20
     statLevel: 2
     upgradeName: 0
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon18
   - index: 12003
     addStatValue: 20
     statLevel: 3
     upgradeName: 0
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon18
   - index: 12004
     addStatValue: 20
     statLevel: 4
     upgradeName: 0
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon18
   - index: 12005
     addStatValue: 20
     statLevel: 5
     upgradeName: 0
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon18
   - index: 12006
-    addStatValue: 100
+    addStatValue: 0.05
     statLevel: 1
     upgradeName: 1
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon31
   - index: 12007
-    addStatValue: 100
+    addStatValue: 0.05
     statLevel: 2
     upgradeName: 1
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon31
   - index: 12008
-    addStatValue: 100
+    addStatValue: 0.05
     statLevel: 3
     upgradeName: 1
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon31
   - index: 12009
-    addStatValue: 100
+    addStatValue: 0.05
     statLevel: 4
     upgradeName: 1
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon31
   - index: 12010
-    addStatValue: 100
+    addStatValue: 0.05
     statLevel: 5
     upgradeName: 1
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon31
   - index: 12011
-    addStatValue: 200
+    addStatValue: 0.05
     statLevel: 1
     upgradeName: 2
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon22
   - index: 12012
-    addStatValue: 200
+    addStatValue: 0.05
     statLevel: 2
     upgradeName: 2
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon22
   - index: 12013
-    addStatValue: 200
+    addStatValue: 0.05
     statLevel: 3
     upgradeName: 2
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon22
   - index: 12014
-    addStatValue: 200
+    addStatValue: 0.05
     statLevel: 4
     upgradeName: 2
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon22
   - index: 12015
-    addStatValue: 200
+    addStatValue: 0.05
     statLevel: 5
     upgradeName: 2
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon22
   - index: 12016
-    addStatValue: 100
+    addStatValue: 10
     statLevel: 1
     upgradeName: 3
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon28
   - index: 12017
-    addStatValue: 100
+    addStatValue: 10
     statLevel: 2
     upgradeName: 3
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon28
   - index: 12018
-    addStatValue: 100
+    addStatValue: 10
     statLevel: 3
     upgradeName: 3
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon28
   - index: 12019
-    addStatValue: 100
+    addStatValue: 10
     statLevel: 4
     upgradeName: 3
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon28
   - index: 12020
-    addStatValue: 100
+    addStatValue: 10
     statLevel: 5
     upgradeName: 3
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon28
   - index: 12021
-    addStatValue: 50
+    addStatValue: 0.05
     statLevel: 1
     upgradeName: 4
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon23
   - index: 12022
-    addStatValue: 50
+    addStatValue: 0.05
     statLevel: 2
     upgradeName: 4
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon23
   - index: 12023
-    addStatValue: 50
+    addStatValue: 0.05
     statLevel: 3
     upgradeName: 4
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon23
   - index: 12024
-    addStatValue: 50
+    addStatValue: 0.05
     statLevel: 4
     upgradeName: 4
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon23
   - index: 12025
-    addStatValue: 50
+    addStatValue: 0.05
     statLevel: 5
     upgradeName: 4
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon23
   - index: 12026
-    addStatValue: 50
+    addStatValue: 20
     statLevel: 1
     upgradeName: 5
     requireGoldValue: 1000
+    iconPath: Icon/Spum_Icon24
   - index: 12027
-    addStatValue: 50
+    addStatValue: 20
     statLevel: 2
     upgradeName: 5
     requireGoldValue: 3000
+    iconPath: Icon/Spum_Icon24
   - index: 12028
-    addStatValue: 50
+    addStatValue: 20
     statLevel: 3
     upgradeName: 5
     requireGoldValue: 5000
+    iconPath: Icon/Spum_Icon24
   - index: 12029
-    addStatValue: 50
+    addStatValue: 20
     statLevel: 4
     upgradeName: 5
     requireGoldValue: 6000
+    iconPath: Icon/Spum_Icon24
   - index: 12030
-    addStatValue: 50
+    addStatValue: 20
     statLevel: 5
     upgradeName: 5
     requireGoldValue: 8000
+    iconPath: Icon/Spum_Icon24

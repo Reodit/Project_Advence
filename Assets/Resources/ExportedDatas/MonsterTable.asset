@@ -22,7 +22,6 @@ MonoBehaviour:
     EXP: 10
     Gold: 10
     Score: 10
-    Skill: 0
     PrefabPath: SPUM/SPUM_Units/Monster_Stage1_Phase1_Orc1
   - ID: 1011
     Name: Orc2
@@ -33,7 +32,6 @@ MonoBehaviour:
     EXP: 10
     Gold: 10
     Score: 10
-    Skill: 0
     PrefabPath: SPUM/SPUM_Units/Monster_Stage1_Phase1_Orc2
   - ID: 1012
     Name: Orc3
@@ -44,7 +42,6 @@ MonoBehaviour:
     EXP: 10
     Gold: 10
     Score: 10
-    Skill: 0
     PrefabPath: SPUM/SPUM_Units/Monster_Stage2_Phase1_AttackRedOrc
   - ID: 1013
     Name: Trap1
@@ -55,7 +52,6 @@ MonoBehaviour:
     EXP: 0
     Gold: 0
     Score: 0
-    Skill: 0
     PrefabPath: GroundFireRed
   - ID: 1014
     Name: Trap2
@@ -66,7 +62,6 @@ MonoBehaviour:
     EXP: 0
     Gold: 0
     Score: 0
-    Skill: 0
     PrefabPath: RoundFireRed
   - ID: 1015
     Name: Orc_Boss
@@ -77,5 +72,4 @@ MonoBehaviour:
     EXP: 100
     Gold: 100
     Score: 100
-    Skill: 10008
     PrefabPath: SPUM/SPUM_Units/Monster_Stage1_Phase1_Boss

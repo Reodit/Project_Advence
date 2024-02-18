@@ -19,7 +19,7 @@ public class MiniFairy : Familiar
     private void Move()
     {
         Vector3 currentPosition = transform.root.position;
-        Vector3 newPosition = new Vector3(currentPosition.x + familiarData.MoveSpeed * Time.deltaTime, currentPosition.y, 0f);
+        Vector3 newPosition = new Vector3(currentPosition.x + familiarData.moveSpeed * Time.deltaTime, currentPosition.y, 0f);
         transform.root.position = newPosition;
     }
     
@@ -49,7 +49,7 @@ public class MiniFairy : Familiar
         animator = GetComponent<Animator>();
         bulletController = GetComponent<BulletController>();
         bulletController.OnFire += PlayFireAnimation;
-        bulletController.AddSkillCallback(Datas.GameData.DTSkillData[familiarData.PamiliarSkillId]);
+        bulletController.AddSkillCallback(Datas.GameData.DTSkillData[familiarData.familiarSkillId]);
     }
 
     private void PlayFireAnimation()

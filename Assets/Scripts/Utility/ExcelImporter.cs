@@ -10,26 +10,6 @@ using NPOI.XSSF.UserModel;
 using UnityEditor;
 using UnityEngine;
 
-// System.Int32
-    // System.Single
-    // System.String
-    // System.Double
-    // System.Int64
-    // System.UInt32
-    /*Nullable<int>(int ?): "System.Nullable1[System.Int32]"`
-    Nullable<float>(float ?): "System.Nullable1[System.Single]"`
-    string(본래 nullable): "System.String"
-    Nullable<double>(double ?): "System.Nullable1[System.Double]"`
-    Nullable<long>(long ?): "System.Nullable1[System.Int64]"`
-    Nullable<uint>(uint ?): "System.Nullable1[System.UInt32]"`
-    List<int> 의 nullable 요소: "System.Collections.Generic.List1[System.Nullable1[System.Int32]]"
-    List<float> 의 nullable 요소: "System.Collections.Generic.List1[System.Nullable1[System.Single]]"
-    List<string>(본래 nullable 요소 포함): "System.Collections.Generic.List1[System.String]"`
-    특정 enum 타입에 대한 Nullable(예: MyEnum ?): "System.Nullable1[MyEnum]"(여기서MyEnum`을 실제 enum 이름으로 대체해야 합니다)*/
-    /*List<int>(요소가 nullable이 아닌 경우): "System.Collections.Generic.List1[System.Int32]"`
-    List<float>(요소가 nullable이 아닌 경우): "System.Collections.Generic.List1[System.Single]"`
-    List<string>(요소가 nullable이 아닌 경우): "System.Collections.Generic.List1[System.String]"`*/
-
 namespace Utility
 {
     public static class ExcelImporter
@@ -78,12 +58,6 @@ namespace Utility
                 _ => throw new InvalidOperationException($"지원하지 않는 데이터 타입입니다. : {dataTypeString}")
             };
         }
-
-        /*public static void TEST()
-        {
-            CreateScriptableFromDataTable(ExcelToDataSet(Consts.DataSheetFolderPath), "Assets");
-        }
-        */
 
         public static DataSet ExcelToDataSet(string filePath)
         {
@@ -167,13 +141,21 @@ namespace Utility
                     Type columnType;
                 
                     // target type이 nullable인지 검사
-                    if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    if (targetType.IsGenericType && 
+                        targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     {
                         columnType = Nullable.GetUnderlyingType(targetType); 
                         dataTable.Columns.Add(variableNameRow.GetCell(i).StringCellValue, columnType);
                         dataTable.Columns[i].AllowDBNull = true;
                     }
 
+                    else if (targetType.IsGenericType && 
+                             targetType.GetGenericTypeDefinition() == typeof(List<>))
+                    {
+                        dataTable.Columns.Add(variableNameRow.GetCell(i).StringCellValue, targetType);
+                        dataTable.Columns[i].AllowDBNull = true;
+                    }
+                    
                     else
                     {
                         columnType = targetType;
@@ -238,6 +220,7 @@ namespace Utility
                     
                         // Nullable 타입 체크
                         var dataType = dataTable.Columns[colIndex].DataType;
+                        
                         bool isNullableType = dataTable.Columns[colIndex].AllowDBNull;
                     
                         // 유일한 키 체크
@@ -254,20 +237,7 @@ namespace Utility
                             }
                         }
                     
-                        // targetType이 Nullable<T> 일 경우 또는 List<T>이고 T가 Nullable<T>이거나 참조 타입인 경우
-                        /*if (dataType.IsGenericType)
-                    {
-                        Type genericTypeDef = dataType.GetGenericTypeDefinition();
-                        if (genericTypeDef == typeof(Nullable<>))
-                        {
-                            isNullableType = true;
-                        }
-                        else if (genericTypeDef == typeof(List<>))
-                        {
-                            Type elementType = dataType.GetGenericArguments()[0];
-                            isNullableType = elementType.IsGenericType && elementType.GetGenericTypeDefinition() == typeof(Nullable<>) || !elementType.IsValueType;
-                        }
-                    }*/
+                        // targetType이 Nullable<T> 일 경우 또는 List<T>이고 T가 Nullable<T>이거나 참조 타입인 경우(dataType.IsGenericType) isNullableType = true;
 
                         if (string.IsNullOrEmpty(currentCellValue))
                         {
@@ -285,18 +255,33 @@ namespace Utility
 
                         else
                         {
-                            // 적절한 타입 변환을 가정하고 데이터 할당
-                            Type nonNullableType = Nullable.GetUnderlyingType(dataType) ?? dataType; // 필요 없을 수 있음
-                        
-                            if (nonNullableType.IsEnum)
+                            if (dataType.IsGenericType && dataType.GetGenericTypeDefinition() == typeof(List<>))
                             {
-                                object enumValue = Enum.Parse(nonNullableType, currentCellValue.ToString(), true); // true는 대소문자를 무시하고 파싱
-                                dataRow[colIndex] = enumValue;
+                                string[] listElements = currentCellValue.Split(',');
+                                Type elementType = dataRow.Table.Columns[colIndex].DataType.GetGenericArguments()[0];
+
+                                List<object> data = new List<object>();
+                                
+                                foreach (string value in listElements)
+                                {
+                                    data.Add(Convert.ChangeType(value, elementType));
+                                }
+
+                                dataRow[colIndex] = Convert.ChangeType(data, dataRow.Table.Columns[colIndex].DataType);
                             }
 
                             else
                             {
-                                dataRow[colIndex] = Convert.ChangeType(currentCellValue, nonNullableType);
+                                if (dataType.IsEnum)
+                                {
+                                    object enumValue = Enum.Parse(dataType, currentCellValue, true); // true는 대소문자를 무시하고 파싱
+                                    dataRow[colIndex] = enumValue;
+                                }
+
+                                else
+                                {
+                                    dataRow[colIndex] = Convert.ChangeType(currentCellValue, dataType);
+                                }
                             }
                         }
                     }
