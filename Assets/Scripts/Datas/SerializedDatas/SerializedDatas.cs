@@ -184,7 +184,7 @@ public class SkillTable : IBaseData
         this.projectileSize = Convert.ToSingle(row["ProjectileSize"]);
         this.prefabPath = row["Prefab"].ToString();
         this.type = (SkillType)Enum.Parse(typeof(SkillType), row["Type"].ToString());
-        //this.allowSkillEnchantKey = row["AllowSkillEnchantKey"] as List<int>;
+        this.allowSkillEnchantKey = row["AllowSkillEnchantKey"] as List<int>;
     }
 }
 

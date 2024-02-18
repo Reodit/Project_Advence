@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -53,6 +54,7 @@ namespace Utility
                 "List<int>" => typeof(List<int>),
                 "List<float>" => typeof(List<float>),
                 "List<uint>" => typeof(List<uint>),
+                "List<bool>" => typeof(List<bool>),
                 "List<long>" => typeof(List<long>),
                 "List<double>" => typeof(List<double>),
                 _ => throw new InvalidOperationException($"지원하지 않는 데이터 타입입니다. : {dataTypeString}")
@@ -260,8 +262,8 @@ namespace Utility
                                 string[] listElements = currentCellValue.Split(',');
                                 Type elementType = dataRow.Table.Columns[colIndex].DataType.GetGenericArguments()[0];
 
-                                List<object> data = new List<object>();
-                                
+                                IList data = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType));
+
                                 foreach (string value in listElements)
                                 {
                                     data.Add(Convert.ChangeType(value, elementType));

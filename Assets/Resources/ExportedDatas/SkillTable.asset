@@ -24,7 +24,7 @@ MonoBehaviour:
     projectileSize: 1
     prefabPath: Skills/FireballRedOBJ
     type: 0
-    allowSkillEnchantKey: 
+    allowSkillEnchantKey: b0360000b1360000
   - index: 10002
     name: "\uB77C\uC774\uD2B8\uB2DD\uC2A4\uD53C\uC5B4"
     description: "\uAC70\uB9AC\uAC00 \uBA3C \uC801\uC744 \uCC98\uCE58\uD560 \uC218
@@ -37,7 +37,7 @@ MonoBehaviour:
     projectileSize: 1
     prefabPath: Skills/LightningBoltMissileYellowOBJ
     type: 0
-    allowSkillEnchantKey: 
+    allowSkillEnchantKey: b0360000b1360000
   - index: 10003
     name: "\uC544\uC774\uC2A4\uC560\uB85C\uC6B0"
     description: "\uACB9\uACB9\uC774 \uBAB0\uB824\uC624\uB294 \uC801\uC744 \uB6AB\uC744
@@ -50,7 +50,7 @@ MonoBehaviour:
     projectileSize: 1
     prefabPath: Skills/LaserBigBlueOBJ
     type: 0
-    allowSkillEnchantKey: 
+    allowSkillEnchantKey: b0360000b1360000
   - index: 10004
     name: "\uC6CC\uD130\uBC8C\uB8EC"
     description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
