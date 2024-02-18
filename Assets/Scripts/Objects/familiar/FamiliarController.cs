@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Datas;
 using UnityEngine;
 
 public class FamiliarController : MonoBehaviour
@@ -55,141 +56,61 @@ public class FamiliarController : MonoBehaviour
         familiar.familiarData = familiarData;
         familiar.familiarSkillData = skill;
 
-        if (familiarData == null)
-        {
-            return;
-        }
-
-        bool isMeleeFamiliar = false;
-
-        // TODO Ÿ���� ���� �÷����� ����
-        if (familiarData.maxHp == 0)
-        {
-            isMeleeFamiliar = false;
-        }
-
-        else
-        {
-            isMeleeFamiliar = true;
-        }
-
-        familiar.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed;
-        TimeManager.Instance.RegisterCoolTime(familiar.familiarData.index.ToString(), familiar.spawnCoolTime);
+        TimeManager.Instance.RegisterCoolTime(familiar.familiarData?.index.ToString(), 
+            1 / DamageCalculator.PlayerAttackSpeed(skill.index));
         
-        if (isMeleeFamiliar == false)
+        if (skill.type == SkillType.RangeFamiliar)
         {
-            familiar.bulletController.AddSkillCallback(skill);
+            if (familiarData != null)
+                familiar.bulletController.AddSkillCallback(
+                    Datas.GameData.DTSkillData[familiarData.familiarSkillId]);
         }
     }
 
-    public void AddEnchantCallback(int skillIdnex, SkillEnchantTable enchant)
+    public void AddEnchantCallback(int skillIndex, SkillEnchantTable enchant)
     {
-        // 1. skillName�� �ش��ϴ� ��ų�� ã��, �ش� ��ų�� � Ÿ������ Ȯ�� 
-        // 2. Ÿ�Կ� �ش��ϴ� ��æƮ�� �ο�
-
-        var skill = Datas.GameData.DTSkillData
-            .Select(pair => pair.Value)
-            .FirstOrDefault(skill => skill.index == skillIdnex);
+        var skill = Datas.PlayerData.GetCharacterSkills()[skillIndex];
         
         if (skill == null)
         {
             return;
         }
-
-        var familiarData = Datas.GameData.DTFamiliarData
-            .Select(pair => pair.Value)
-            .FirstOrDefault(familiarData => familiarData.skillId == skill.index);
-
-        if (familiarData == null)
+        
+        var familiar = _familiarAndFamiliarPrefabs.Find(x => 
+            x.Item1.familiarSkillData.index == skillIndex).Item1;
+        
+        switch (enchant.enchantEffect1)
         {
-            return;
-        }
-
-        bool isMeleeFamiliar = false;
-
-        // TODO Ÿ���� ���� �÷����� ����
-        if (familiarData.maxHp == 0)
-        {
-            isMeleeFamiliar = false;
-        }
-
-        else
-        {
-            isMeleeFamiliar = true;
-        }
-
-
-        if (isMeleeFamiliar)
-        {
-            // async status;
-            // damage, attackspeed ==> spawntime
-            foreach(var e in Datas.PlayerData.GetCharacterSkills()[skillIdnex].skillEnchantTables)
-            {
-                if (e != null && e.currentCount < e.maxCnt)
+            case Status.AttackDamage:
+                switch (skill.skillTable.type)
                 {
-                    switch(e.enchantEffect1)
-                    {
-                        case EnchantEffect1.SkillDamageControl:
-                            foreach (var familiar in _familiarAndFamiliarPrefabs)
-                            {
-                                if (familiar.Item1.familiarType == FamiliarType.melee)
-                                {
-                                    familiar.Item1.familiarData.maxHp = (int)(familiarData.maxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
-                                    familiar.Item1.currentHp = (int)(e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
-                                }
-                            }
-                            break;
+                    case SkillType.MeleeFamiliar:
+                        familiar.familiarData.maxHp =+ (familiar.familiarData.maxHp * 
+                                                         enchant.enchantEffectValue1 * 
+                                                         enchant.currentCount);
+                        break;
 
-                        case EnchantEffect1.AttackSpeedControl:
-                            foreach (var familiar in _familiarAndFamiliarPrefabs)
-                            {
-                                if (familiar.Item1.familiarType == FamiliarType.melee)
-                                {
-                                    familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
-                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
-                                }
-                            }
-                            break;
-                        default: 
-                            break;
-                    }
+                    case SkillType.RangeFamiliar:
+                        familiar.bulletController.AddEnchantCallback(
+                            Datas.GameData.DTSkillData[familiar.familiarData.familiarSkillId].index, enchant);
+                        break;
                 }
-            }
-        }
-
-        else
-        {
-            foreach (var e in Datas.PlayerData.GetCharacterSkills()[skillIdnex].skillEnchantTables)
-            {
-                if (e != null && e.currentCount < e.maxCnt)
+                
+                break;
+            
+            case Status.AttackSpeed:
+                TimeManager.Instance.RegisterCoolTime(familiar.familiarData.index.ToString(),
+                    1 / DamageCalculator.PlayerAttackSpeed(skillIndex));
+                break;
+            
+            default:
+                if (familiar.bulletController != null)
                 {
-                    switch (e.enchantEffect1)
-                    {
-                        case EnchantEffect1.AttackSpeedControl:
-                            foreach (var familiar in _familiarAndFamiliarPrefabs)
-                            {
-                                if (familiar.Item1.familiarType == FamiliarType.range)
-                                {
-                                    familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
-                                    TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
-                                }
-                            }
-
-                            break;
-
-                        default:
-                            foreach (var familiar in _familiarAndFamiliarPrefabs)
-                            {
-                                if (familiar.Item1.familiarType == FamiliarType.range)
-                                {
-                                    familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.skillId].index, enchant);
-                                }
-                            }
-
-                            break;
-                    }
+                    familiar.bulletController.AddEnchantCallback(
+                        Datas.GameData.DTSkillData[familiar.familiarData.familiarSkillId].index, enchant);
                 }
-            }
+                
+                break;
         }
     }
 

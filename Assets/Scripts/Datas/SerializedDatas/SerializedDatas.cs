@@ -8,41 +8,25 @@ using UnityEngine.Serialization;
 namespace Enums
 {
     [Serializable]
-    public enum UpgradeStat
+    public enum Status
     {
         AttackDamage = 0,
         AttackSpeed,
+        AttackSpeedRate,
         MoveSpeed,
         Defence,
         CriticalChance,
-        Health
-    }
-
-    [Serializable]
-    public enum SelectStatName
-    {
-        SelectDamage = 0,
-        SelectAttackSpeed,
-        SelectMoveSpeed,
-        SelectDefence,
-        SelectCriticalDamage,
-        SelectHealthRegen,
-        SelectHealth
-    }
-
-    [Serializable]
-    public enum EnchantEffect1
-    {
-        SkillDamageControl = 0,
-        AttackSpeedControl,
-        RangeControl,
-        ProjectileSpeedControl,
+        CriticalDamage,
+        SkillDamageRate,
+        FamiliarHealth,
+        Health,
+        HealthRegen,
+        ProjectileRange,
+        ProjectileSpeed,
         AddSlashProjectile,
         AddFrontProjectile,
-        CriticalDamageControl,
-        FamiliarHealthControl
     }
-    
+
     [Serializable]
     public enum MonsterType
     {
@@ -117,7 +101,7 @@ public class StatLevelTable : IBaseData
     public int index;
     public float addStatValue;
     public int statLevel;
-    public UpgradeStat upgradeName;
+    public Status upgradeName;
     public int requireGoldValue;
     public string iconPath;
     public void InitializeFromTableData(DataRow row)
@@ -126,7 +110,7 @@ public class StatLevelTable : IBaseData
         this.statLevel = Convert.ToInt32(row["Level"]);
         this.addStatValue = Convert.ToSingle(row["AddStat"]);
         this.requireGoldValue = Convert.ToInt32(row["Gold"]);
-        this.upgradeName = (UpgradeStat)Enum.Parse(typeof(UpgradeStat), row["UpgradeStat"].ToString());
+        this.upgradeName = (Status)Enum.Parse(typeof(Status), row["UpgradeStat"].ToString());
         this.iconPath = row["Icon"].ToString();
     }
 }
@@ -136,7 +120,7 @@ public class SelectStatTable : IBaseData
 {
     public int index;
     public string name;
-    public SelectStatName selectStatName;
+    public Status selectStatName;
     public float selectStatRateValue;
     public string description;
     public string iconPath;
@@ -147,7 +131,7 @@ public class SelectStatTable : IBaseData
     {
         this.index = Convert.ToInt32(row["Index"]);
         this.name = row["Name"].ToString();
-        this.selectStatName = (SelectStatName)Enum.Parse(typeof(SelectStatName), row["SelectStatName"].ToString());
+        this.selectStatName = (Status)Enum.Parse(typeof(Status), row["SelectStatName"].ToString());
         this.selectStatRateValue = Convert.ToSingle(row["SelectStatRateValue"]);
         this.description = row["Description"].ToString();
         this.iconPath = row["Icon"].ToString();
@@ -171,6 +155,7 @@ public class SkillTable : IBaseData
     public string prefabPath;
     public SkillType type;
     public List<int> allowSkillEnchantKey;
+    public float criticalDamageRate;
     public void InitializeFromTableData(DataRow row)
     {
         this.index = Convert.ToInt32(row["Index"]);
@@ -185,6 +170,7 @@ public class SkillTable : IBaseData
         this.prefabPath = row["Prefab"].ToString();
         this.type = (SkillType)Enum.Parse(typeof(SkillType), row["Type"].ToString());
         this.allowSkillEnchantKey = row["AllowSkillEnchantKey"] as List<int>;
+        this.criticalDamageRate = Convert.ToSingle(row["SkillCriticalDamageRate"]);
     }
 }
 
@@ -195,7 +181,7 @@ public class SkillEnchantTable : IBaseData
     public int index;
     public string name;
     public string description;
-    public EnchantEffect1 enchantEffect1; // Enum 타입은 나중에 추가
+    public Status enchantEffect1; // Enum 타입은 나중에 추가
     public float enchantEffectValue1;
     public int maxCnt;
     public string icon;
@@ -206,7 +192,7 @@ public class SkillEnchantTable : IBaseData
         this.index = Convert.ToInt32(row["Index"]);
         this.name = row["Name"].ToString();
         this.description = row["Description"].ToString();
-        this.enchantEffect1 = (EnchantEffect1)Enum.Parse(typeof(EnchantEffect1), row["EnchantEffect1"].ToString());
+        this.enchantEffect1 = (Status)Enum.Parse(typeof(Status), row["EnchantEffect1"].ToString());
         this.enchantEffectValue1 = Convert.ToSingle(row["EnchantEffectValue1"]);
         this.maxCnt = Convert.ToInt32(row["MaxCnt"]);
         this.icon = row["Icon"].ToString();
@@ -336,15 +322,4 @@ public class UpgradeHistory
     {
         this.selectStatTable = selectStatTable;
     }
-}
-
-[Serializable]
-public class CharacterStat
-{
-    public int attackPoint;
-    public float attackRate;
-    public float criticalRate;
-    public int healthPoint;
-    public int defencePoint;
-    public float moveSpeed;
 }

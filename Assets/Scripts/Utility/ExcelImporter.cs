@@ -38,9 +38,7 @@ namespace Utility
                 "uint" => typeof(uint),
                 "bool" => typeof(bool),
                 // TODO enum 추가 필요
-                "enum<UpgradeStat>" => typeof(Enums.UpgradeStat),
-                "enum<SelectStatName>" => typeof(Enums.SelectStatName),
-                "enum<EnchantEffect1>" => typeof(Enums.EnchantEffect1),
+                "enum<Status>" => typeof(Enums.Status),
                 "enum<MonsterType>" => typeof(Enums.MonsterType),
                 "enum<SkillType>" => typeof(Enums.SkillType),
                 // Nullable 기본 타입

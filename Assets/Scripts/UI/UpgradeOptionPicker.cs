@@ -46,10 +46,7 @@ public class UpgradeOptionPicker : MonoBehaviour
                 }
             }
         }
-
-        _skillEnchantClone = _skillEnchantClone.Where(x =>
-            x.Value.currentCount < x.Value.maxCnt).ToList();
-
+        
         _statUpgradeListClone = _statUpgradeListClone.Where(x =>
             x.Value.currentUpgradeCount < x.Value.maxCount).ToList();
     }
@@ -208,9 +205,13 @@ public class UpgradeOptionPicker : MonoBehaviour
     {
         var pickRandomSkillInPlayer = Datas.PlayerData.GetCharacterSkills().ToList()
             [Random.Range(0, Datas.PlayerData.GetCharacterSkills().Count)].Value;
+
+        _skillEnchantClone = _skillEnchantClone.Where(x =>
+            x.Value.currentCount < x.Value.maxCnt &&
+            pickRandomSkillInPlayer.skillTable.allowSkillEnchantKey.Contains(x.Value.index)).ToList();
         
         var pickRandomSkillEnchant = 
-            _skillEnchantClone[Random.Range(0, _skillEnchantClone.Count - 1)];
+            _skillEnchantClone[Random.Range(0, _skillEnchantClone.Count)];
 
         SetupUpgradeUI(pickRandomSkillInPlayer.skillTable, pickRandomSkillEnchant.Value,
             () =>

@@ -98,22 +98,22 @@ public class BulletController : MonoBehaviour
     {
         switch (enchant.enchantEffect1)
         {
-            case EnchantEffect1.SkillDamageControl:
+            case Status.SkillDamageRate:
                 IncreaseSkillDamage(skillIndex, enchant.index);
                 break;
-            case EnchantEffect1.AttackSpeedControl:
+            case Status.AttackSpeed:
                 IncreaseSkillRate(skillIndex, enchant.index);
                 break;
-            case EnchantEffect1.RangeControl:
+            case Status.ProjectileRange:
                 IncreaseSkillRange(skillIndex, enchant.index);
                 break;
-            case EnchantEffect1.ProjectileSpeedControl:
+            case Status.ProjectileSpeed:
                 IncreaseBulletSpeed(skillIndex, enchant.index);
                 break;
-            case EnchantEffect1.AddFrontProjectile:
+            case Status.AddFrontProjectile:
                 IncreaseFrontBullet(skillIndex);
                 break;
-            case EnchantEffect1.AddSlashProjectile:
+            case Status.AddSlashProjectile:
                 IncreaseSlashBullet(skillIndex);
                 break;
         }

@@ -16,7 +16,7 @@ MonoBehaviour:
   - index: 14000
     name: "\uBCF4\uCDA9\uD559\uC2B5"
     description: "{0}\uC758 \uD53C\uD574\uB7C9\uC744 {1}% \uAC15\uD654\uD569\uB2C8\uB2E4."
-    enchantEffect1: 0
+    enchantEffect1: 7
     enchantEffectValue1: 0.2
     maxCnt: 99
     icon: SPUM/0_Flat/Icon_Flat__19
@@ -24,7 +24,7 @@ MonoBehaviour:
   - index: 14001
     name: "\uCDA9\uB9CC\uD55C\uB9C8\uB098"
     description: "{0}\uC758 \uACF5\uACA9\uC18D\uB3C4\uAC00 {1}% \uBE68\uB77C\uC9D1\uB2C8\uB2E4"
-    enchantEffect1: 1
+    enchantEffect1: 2
     enchantEffectValue1: 0.2
     maxCnt: 99
     icon: SPUM/0_Flat/Icon_Flat__43
@@ -32,7 +32,7 @@ MonoBehaviour:
   - index: 14002
     name: "\uC800\uACA9\uC218"
     description: "{0}\uC758 \uC0AC\uAC70\uB9AC\uAC00 {1}% \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    enchantEffect1: 2
+    enchantEffect1: 11
     enchantEffectValue1: 0.2
     maxCnt: 99
     icon: SPUM/0_Flat/Icon_Flat__4
@@ -40,7 +40,7 @@ MonoBehaviour:
   - index: 14003
     name: "\uC18C\uB2C9"
     description: "{0}\uC758 \uD22C\uC0AC\uCCB4 \uC18D\uB3C4\uAC00 {1}% \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    enchantEffect1: 3
+    enchantEffect1: 12
     enchantEffectValue1: 0.2
     maxCnt: 99
     icon: SPUM/0_Flat/Icon_Flat__42
@@ -49,7 +49,7 @@ MonoBehaviour:
     name: "\uC0AC\uC120\uD0C0\uACA9"
     description: "{0}\uC758 \uC0AC\uC120 \uD22C\uC0AC\uCCB4\uAC00 {1}\uAC1C \uCD94\uAC00
       \uB429\uB2C8\uB2E4."
-    enchantEffect1: 4
+    enchantEffect1: 13
     enchantEffectValue1: 2
     maxCnt: 1
     icon: SPUM/0_Flat/Icon_Flat__39
@@ -58,7 +58,7 @@ MonoBehaviour:
     name: "\uC9D1\uC911\uD3EC\uD654"
     description: "{0}\uC758 \uC9C1\uC120 \uD22C\uC0AC\uCCB4\uAC00 {1}\uAC1C \uCD94\uAC00
       \uB429\uB2C8\uB2E4."
-    enchantEffect1: 5
+    enchantEffect1: 14
     enchantEffectValue1: 1
     maxCnt: 1
     icon: SPUM/0_Flat/Icon_Flat__17
@@ -75,7 +75,7 @@ MonoBehaviour:
   - index: 14007
     name: "\uAE30\uC0AC\uB3C4"
     description: "{0}\uC758 \uCD5C\uB300\uCCB4\uB825\uC774 {1}% \uAC15\uD654\uD569\uB2C8\uB2E4"
-    enchantEffect1: 7
+    enchantEffect1: 8
     enchantEffectValue1: 0.2
     maxCnt: 99
     icon: SPUM/0_Flat/Icon_Flat__47

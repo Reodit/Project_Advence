@@ -23,11 +23,11 @@ public class SkillManager : MonoBehaviour
         if (playerSkills.ContainsKey(skill.index))
             return;
 
-        bool isCreature = skill.type is Enums.SkillType.MeleeFamiliar or Enums.SkillType.RangeFamiliar;
+        bool isFamiliar = skill.type is Enums.SkillType.MeleeFamiliar or Enums.SkillType.RangeFamiliar;
 
         playerSkills.Add(skill.index, new CharacterSkill(skill, new List<SkillEnchantTable>()));
 
-        if (isCreature)
+        if (isFamiliar)
         {
             OnAddSkillFamiliar.Invoke(skill);
         }
@@ -55,12 +55,12 @@ public class SkillManager : MonoBehaviour
 
         characterSkill.skillEnchantTables[enchantIndex].currentCount++;
         
-        bool isCreature = 
+        bool isFamiliar = 
             playerSkills[skillIndex].skillTable.type is 
                 Enums.SkillType.MeleeFamiliar or Enums.SkillType.RangeFamiliar;
 
         
-        if (isCreature)
+        if (isFamiliar)
         {
             OnAddEnchantFamiliar.Invoke(skillIndex, skillEnchant);
         }

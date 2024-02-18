@@ -15,60 +15,60 @@ MonoBehaviour:
   SelectStatTableList:
   - index: 16000
     name: "\uC11C\uD074\uC5F0\uB9C8"
-    selectStatName: 0
-    selectStatRateValue: 0.5
-    description: "\uBAA8\uB4E0 \uC2A4\uD0AC\uC758 \uD53C\uD574\uB7C9\uC744 \uAC15\uD654
+    selectStatName: 7
+    selectStatRateValue: 0.05
+    description: "\uBAA8\uB4E0 \uC2A4\uD0AC\uC758 \uD53C\uD574\uB7C9\uC744 {0}% \uAC15\uD654
       \uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__35
     maxCount: 5
     currentUpgradeCount: 0
   - index: 16001
     name: "\uCE90\uC2A4\uD305\uC5F0\uB9C8"
-    selectStatName: 1
-    selectStatRateValue: 1
+    selectStatName: 2
+    selectStatRateValue: 0.1
     description: "\uBAA8\uB4E0 \uC2A4\uD0AC\uC758 \uACF5\uACA9\uC18D\uB3C4\uB97C
-      \uAC15\uD654 \uD569\uB2C8\uB2E4"
+      {0}% \uAC15\uD654 \uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__37
     maxCount: 5
     currentUpgradeCount: 0
   - index: 16002
     name: "\uD5E4\uC774\uC2A4\uD2B8"
-    selectStatName: 2
-    selectStatRateValue: 1
-    description: "\uC774\uB3D9\uC18D\uB3C4\uB97C \uAC15\uD654 \uD569\uB2C8\uB2E4"
+    selectStatName: 3
+    selectStatRateValue: 0.1
+    description: "\uC774\uB3D9\uC18D\uB3C4\uB97C {0}% \uAC15\uD654 \uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__46
     maxCount: 5
     currentUpgradeCount: 0
   - index: 16003
     name: "\uB9E4\uC9C1\uBC30\uB9AC\uC5B4"
-    selectStatName: 3
-    selectStatRateValue: 1
-    description: "\uBC29\uC5B4\uB825\uC744 \uAC15\uD654 \uD569\uB2C8\uB2E4"
+    selectStatName: 4
+    selectStatRateValue: 0.1
+    description: "\uBC29\uC5B4\uB825\uC744 {0}% \uAC15\uD654 \uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__40
     maxCount: 5
     currentUpgradeCount: 0
   - index: 16004
     name: "\uC57D\uC810\uD3EC\uCC29"
-    selectStatName: 4
+    selectStatName: 6
     selectStatRateValue: 0.5
     description: "\uBAA8\uB4E0 \uC2A4\uD0AC\uC758 \uD06C\uB9AC\uD2F0\uCEEC \uB370\uBBF8\uC9C0\uB97C
-      \uAC15\uD654 \uD569\uB2C8\uB2E4"
+      {0}% \uAC15\uD654 \uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__31
     maxCount: 5
     currentUpgradeCount: 0
   - index: 16005
     name: "\uCE58\uC720\uC758\uAC00\uD638"
-    selectStatName: 5
+    selectStatName: 10
     selectStatRateValue: 0.001
-    description: "\uC9C0\uC18D\uC801\uC73C\uB85C \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+    description: "\uCD08\uB2F9 \uCCB4\uB825\uC744 {0}% \uD68C\uBCF5\uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__8
     maxCount: 3
     currentUpgradeCount: 0
   - index: 16006
     name: "\uC21C\uAC04\uD68C\uBCF5"
-    selectStatName: 6
+    selectStatName: 9
     selectStatRateValue: 0.7
-    description: "\uCCB4\uB825\uC744 \uC989\uC2DC \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+    description: "\uCCB4\uB825\uC744 \uC989\uC2DC {0}% \uD68C\uBCF5\uD569\uB2C8\uB2E4"
     iconPath: Icon/Icon_Flat__33
     maxCount: 99
     currentUpgradeCount: 0

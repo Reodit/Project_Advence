@@ -4,18 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public enum FamiliarType
-{
-    melee,
-    range
-}
-
 public class Familiar : MonoBehaviour
 {
     public SkillTable familiarSkillData;
     public FamiliarData familiarData;
-    public FamiliarType familiarType;
-    public float spawnCoolTime;
     public float currentHp;
     public BulletController bulletController;
     [SerializeField] private Vector3 scale;
