@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum FamiliarType
 {
@@ -13,7 +14,7 @@ public class Familiar : MonoBehaviour
 {
     public SkillTable familiarSkillData;
     public FamiliarData familiarData;
-    public FamiliarType FamiliarType;
+    public FamiliarType familiarType;
     public float spawnCoolTime;
     public float currentHp;
     public BulletController bulletController;

@@ -132,7 +132,7 @@ public class FamiliarController : MonoBehaviour
                         case EnchantEffect1.SkillDamageControl:
                             foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.Item1.FamiliarType == FamiliarType.melee)
+                                if (familiar.Item1.familiarType == FamiliarType.melee)
                                 {
                                     familiar.Item1.familiarData.maxHp = (int)(familiarData.maxHp + e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
                                     familiar.Item1.currentHp = (int)(e.currentCount * (e.enchantEffectValue1 * familiarData.maxHp));
@@ -143,7 +143,7 @@ public class FamiliarController : MonoBehaviour
                         case EnchantEffect1.AttackSpeedControl:
                             foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.Item1.FamiliarType == FamiliarType.melee)
+                                if (familiar.Item1.familiarType == FamiliarType.melee)
                                 {
                                     familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
                                     TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
@@ -168,7 +168,7 @@ public class FamiliarController : MonoBehaviour
                         case EnchantEffect1.AttackSpeedControl:
                             foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.Item1.FamiliarType == FamiliarType.range)
+                                if (familiar.Item1.familiarType == FamiliarType.range)
                                 {
                                     familiar.Item1.spawnCoolTime = Datas.GameData.DTCharacterData[1].attackSpeed + e.currentCount * (e.enchantEffectValue1 * Datas.GameData.DTCharacterData[1].attackSpeed);
                                     TimeManager.Instance.RegisterCoolTime(familiar.Item1.familiarData.index.ToString(), familiar.Item1.spawnCoolTime);
@@ -180,7 +180,7 @@ public class FamiliarController : MonoBehaviour
                         default:
                             foreach (var familiar in _familiarAndFamiliarPrefabs)
                             {
-                                if (familiar.Item1.FamiliarType == FamiliarType.range)
+                                if (familiar.Item1.familiarType == FamiliarType.range)
                                 {
                                     familiar.Item1.bulletController.AddEnchantCallback(Datas.GameData.DTSkillData[familiarData.skillId].index, enchant);
                                 }
