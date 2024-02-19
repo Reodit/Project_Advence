@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     protected Vector3 initPosition;
 
     private Action<Bullet> OnDestroyed;
-    [field: SerializeField] public BulletInfo BulletInfo { get; private set; }
+    [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
 
     public int SkillIndex { get; private set; }
 
@@ -33,12 +33,12 @@ public class Bullet : MonoBehaviour
         pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         OnDestroyed?.Invoke(this);
     }
 
-    public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback, int skillIndex)
+    public virtual void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback, int skillIndex)
     {
         this.SkillIndex = skillIndex;
         BulletInfo = bulletInfo;

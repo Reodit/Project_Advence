@@ -14,6 +14,8 @@ public class Waterballoon : Bullet
 
     private bool _isMovable = false;
 
+    [field: SerializeField] public Vector2 Scale { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -70,9 +72,14 @@ public class Waterballoon : Bullet
     {
         EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
 
-        // TODO 몬스터 데미지 계산 통일필요
-        monster.CurrentHp -= (int)BulletInfo.Damage;
+        monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
         monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
         TriggerDestruction();
+    }
+
+    public void SetScale(Vector2 scale)
+    {
+        Scale = scale;
+        myTrans.localScale = scale;
     }
 }

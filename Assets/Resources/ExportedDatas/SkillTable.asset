@@ -55,6 +55,33 @@ MonoBehaviour:
     allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
     criticalDamageRate: 1.5
   - index: 10004
+    name: "\uC5B4\uBE44\uC15C\uC1FC\uD06C"
+    description: "\uC5B4\uB450\uC6B4\uAD6C\uCCB4\uAC00 \uC9C1\uC120\uC73C\uB85C \uB0A0\uC544\uAC11\uB2C8\uB2E4."
+    icon: SPUM/0_Flat/Icon_Flat__17
+    skillDamageRate: 1
+    skillSpeedRate: 1
+    range: 7
+    projectileSpeed: 10
+    projectileSize: 1
+    prefabPath: Skills/AbyssalShockOBJ
+    type: 0
+    allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
+    criticalDamageRate: 1.5
+  - index: 10005
+    name: "\uD2B8\uC708\uB9AC\uD504"
+    description: "\uBC14\uB78C\uCE7C\uB0A0\uC774 \uC9C1\uC120\uC73C\uB85C 2\uAC1C\uC529
+      \uB0A0\uC544\uAC11\uB2C8\uB2E4."
+    icon: SPUM/0_Flat/Icon_Flat__13
+    skillDamageRate: 1
+    skillSpeedRate: 1
+    range: 7
+    projectileSpeed: 10
+    projectileSize: 1
+    prefabPath: Skills/TwinLeaf
+    type: 0
+    allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
+    criticalDamageRate: 1.5
+  - index: 10006
     name: "\uC6CC\uD130\uBC8C\uB8EC"
     description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
       \uAC00\uD569\uB2C8\uB2E4."
@@ -68,7 +95,7 @@ MonoBehaviour:
     type: 1
     allowSkillEnchantKey: b0360000b1360000b3360000b6360000
     criticalDamageRate: 1.5
-  - index: 10005
+  - index: 10007
     name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
     description: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8 \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
@@ -81,7 +108,7 @@ MonoBehaviour:
     type: 3
     allowSkillEnchantKey: b1360000b6360000b7360000
     criticalDamageRate: 1.5
-  - index: 10006
+  - index: 10008
     name: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC"
     description: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
