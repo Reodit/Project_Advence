@@ -99,10 +99,10 @@ public class BulletController : MonoBehaviour
         switch (enchant.enchantEffect1)
         {
             case Status.SkillDamageRate:
-                IncreaseSkillDamage(skillIndex, enchant.index);
+                IncreaseSkillDamage(skillIndex);
                 break;
-            case Status.AttackSpeed:
-                IncreaseSkillRate(skillIndex, enchant.index);
+            case Status.AttackSpeedRate:
+                IncreaseSkillRate(skillIndex);
                 break;
             case Status.ProjectileRange:
                 IncreaseSkillRange(skillIndex, enchant.index);
@@ -119,16 +119,10 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void IncreaseSkillDamage(int skillIndex, int enchantIndex)
+    private void IncreaseSkillDamage(int skillIndex)
     {
-        string description = GetDescrition(enchantIndex);
-        float percent = ExcelUtility.GetPercentValue(description);
-
-        float damage = _bulletPrefabDict[skillIndex].BulletInfo.Damage;
-        float afterDamage = _bulletInfoDict[skillIndex].Damage + (damage * percent * Consts.PERCENT_DIVISION);
-
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
-        bulletInfo.SetDamage(afterDamage);
+        bulletInfo.SetDamage(SkillManager.instance.PlayerResultSkillDamage(skillIndex));
 
         _bulletInfoDict[skillIndex] = bulletInfo;
 
@@ -137,18 +131,10 @@ public class BulletController : MonoBehaviour
 
     
 
-    private void IncreaseSkillRate(int skillIndex, int enchantIndex)
+    private void IncreaseSkillRate(int skillIndex)
     {
-        string description = GetDescrition(enchantIndex);
-        float percent = ExcelUtility.GetPercentValue(description);
-
-        float skillRate = _bulletPrefabDict[skillIndex].BulletInfo.SkillSpeedRate;
-        float afterRate = _bulletInfoDict[skillIndex].SkillSpeedRate - (skillRate * percent * Consts.PERCENT_DIVISION);
-
-        // TODO : 제한 걸 필요성
-
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
-        bulletInfo.SetSkillSpeedRate(afterRate);
+        bulletInfo.SetSkillSpeedRate(SkillManager.instance.PlayerAttackSpeed(skillIndex));
 
         _bulletInfoDict[skillIndex] = bulletInfo;
 
