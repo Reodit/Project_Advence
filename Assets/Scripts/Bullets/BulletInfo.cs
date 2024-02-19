@@ -8,7 +8,7 @@ public struct BulletInfo
     [field: SerializeField] public float SkillSpeedRate;
     [field: SerializeField] public float MaxDistance;
     [field: SerializeField] public float Speed; // 총알의 속도
-
+    
     public BulletInfo(float damage, float skillSpeedRate, float maxDistance, float speed)
     {
         Damage = damage;

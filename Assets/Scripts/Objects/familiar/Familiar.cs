@@ -40,7 +40,7 @@ public class Familiar : MonoBehaviour
         
     }
 
-    public virtual void ApplyEnchant()
+    public virtual void ApplyEnchant(SkillEnchantTable skillEnchant)
     {
         
     }

@@ -154,8 +154,32 @@ public class S1P1BossMonsterIdle : IState<Monster>
         
         float randomValue = Random.Range(0f, 1f) * 100;
         var s1P1BossMonster = owner as S1P1BossMonster;
-        s1P1BossMonster?.stateSwitchValue.FirstOrDefault(value =>
-            value.bossState == S1P1BossMonsterState.ChasePlayer);
+        if (s1P1BossMonster == null)
+        {
+            return;
+        }
+        
+        float accumulatedProbability = 0;
+
+        foreach (var stateSwitch in s1P1BossMonster.stateSwitchValue)
+        {
+            accumulatedProbability += stateSwitch.value;
+            
+            if (randomValue <= accumulatedProbability)
+            {
+                switch (stateSwitch.bossState)
+                {
+                    case S1P1BossMonsterState.ChasePlayer:
+                        //owner.StateMachine.SetBool();
+                        break;
+                    
+                    case S1P1BossMonsterState.MoveAndRangeAttack:
+                        
+                        break;
+                }
+                break;
+            }
+        }
         
         /*if (randomValue <= )
         {

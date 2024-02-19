@@ -180,7 +180,6 @@ public class SkillManager : MonoBehaviour
 
     public float PlayerAttackSpeed(int skillID)
     {
-        // 소환수쪽 처리
         var characterSkill = PlayerData.GetCharacterSkills()[skillID];
         var characterBaseData = GameManager.Instance.PlayerMove.characterData;        
         

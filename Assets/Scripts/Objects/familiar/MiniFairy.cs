@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Datas;
 using UnityEngine;
 
 public class MiniFairy : Familiar
@@ -49,9 +50,19 @@ public class MiniFairy : Familiar
         animator = GetComponent<Animator>();
         bulletController = GetComponent<BulletController>();
         bulletController.OnFire += PlayFireAnimation;
+        bulletController.isFamiliarBullet = true;
         bulletController.AddSkillCallback(Datas.GameData.DTSkillData[familiarData.familiarSkillId]);
+        foreach (var e in PlayerData.GetCharacterSkills()[familiarData.skillId].skillEnchantTables)
+        {
+            bulletController.AddEnchantCallback(familiarData.familiarSkillId, e);            
+        }
+
     }
 
+    public override void ApplyEnchant(SkillEnchantTable skillEnchant)
+    {
+    }
+    
     private void PlayFireAnimation()
     {
         animator.Play("MagicAttack");

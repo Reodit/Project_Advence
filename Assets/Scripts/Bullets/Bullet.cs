@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Enums;
 
@@ -10,7 +11,7 @@ public class Bullet : MonoBehaviour
     private bool _isTriggered;
     private float destroyDelay;
     protected Vector3 initPosition;
-
+    public bool isFamiliarBullet;
     private Action<Bullet> OnDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
 
@@ -98,7 +99,10 @@ public class Bullet : MonoBehaviour
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             
             // TODO 몬스터 데미지 계산 통일필요
-            monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
+            monster.CurrentHp -= isFamiliarBullet?
+                SkillManager.instance.PlayerResultSkillDamage(Datas.GameData.DTFamiliarData.FirstOrDefault(x => 
+                    x.Value.familiarSkillId == SkillIndex).Value.skillId) : 
+                SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
             monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
             TriggerDestruction();
         }

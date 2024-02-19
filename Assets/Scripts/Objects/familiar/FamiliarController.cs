@@ -58,13 +58,6 @@ public class FamiliarController : MonoBehaviour
 
         TimeManager.Instance.RegisterCoolTime(familiar.familiarData?.index.ToString(), 
             1 / SkillManager.instance.PlayerAttackSpeed(skill.index));
-        
-        if (skill.type == SkillType.RangeFamiliar)
-        {
-            if (familiarData != null)
-                familiar.bulletController.AddSkillCallback(
-                    Datas.GameData.DTSkillData[familiarData.familiarSkillId]);
-        }
     }
 
     public void AddEnchantCallback(int skillIndex, SkillEnchantTable enchant)
@@ -104,12 +97,6 @@ public class FamiliarController : MonoBehaviour
                 break;
             
             default:
-                if (familiar.bulletController != null)
-                {
-                    familiar.bulletController.AddEnchantCallback(
-                        Datas.GameData.DTSkillData[familiar.familiarData.familiarSkillId].index, enchant);
-                }
-                
                 break;
         }
     }

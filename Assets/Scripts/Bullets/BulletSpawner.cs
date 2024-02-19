@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BulletSpawner
@@ -135,7 +136,12 @@ public class BulletSpawner
 
     private bool CheckSpawnable(Bullet bullet)
     {
-        bool isSpawnable = IsSpawnable(bullet, SkillManager.instance.PlayerAttackSpeed(bullet.SkillIndex));
+        bool isSpawnable = IsSpawnable(bullet, 
+            bullet.isFamiliarBullet == true ? 
+                SkillManager.instance.PlayerAttackSpeed(
+                    Datas.GameData.DTFamiliarData.FirstOrDefault(x => 
+                        x.Value.familiarSkillId == bullet.SkillIndex).Value.skillId) : 
+                SkillManager.instance.PlayerAttackSpeed(bullet.SkillIndex));
 
         if (isSpawnable)
             _spawnableBullets.Add(bullet);

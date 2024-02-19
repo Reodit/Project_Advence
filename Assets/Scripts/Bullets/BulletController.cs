@@ -2,6 +2,7 @@ using System;
 using Enums;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utility;
 
@@ -18,7 +19,8 @@ public class BulletController : MonoBehaviour
     [field: SerializeField] public float Angle { get; private set; } = 60f;
     
     private int _bulletSpawnAreaCount;
-
+    public bool isFamiliarBullet;
+    
     private Dictionary<int, Bullet> _bulletPrefabDict = new Dictionary<int, Bullet>();
     
     private List<Bullet> _activeBullets = new List<Bullet>();
@@ -62,12 +64,11 @@ public class BulletController : MonoBehaviour
         {
             return;
         }
-        
+
         bullet.SetSkillIndex(skill.index);
-        
         BulletInfo bulletInfo = new BulletInfo(skill.skillDamageRate, skill.skillSpeedRate, skill.range, skill.projectileSpeed);
         bullet.SetBulletInfo(bulletInfo);
-
+        bullet.isFamiliarBullet = isFamiliarBullet;
         _bulletInfoDict.Add(skill.index, bulletInfo);
 
         _bulletPrefabDict.Add(skill.index, bullet);
@@ -102,13 +103,13 @@ public class BulletController : MonoBehaviour
                 IncreaseSkillDamage(skillIndex);
                 break;
             case Status.AttackSpeedRate:
-                IncreaseSkillRate(skillIndex);
+                //IncreaseSkillRate(skillIndex, enchant.index);
                 break;
             case Status.ProjectileRange:
-                IncreaseSkillRange(skillIndex, enchant.index);
+                //IncreaseSkillRange(skillIndex, enchant.index);
                 break;
             case Status.ProjectileSpeed:
-                IncreaseBulletSpeed(skillIndex, enchant.index);
+                //IncreaseBulletSpeed(skillIndex, enchant.index);
                 break;
             case Status.AddFrontProjectile:
                 IncreaseFrontBullet(skillIndex);
