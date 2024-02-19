@@ -48,10 +48,10 @@ public class S1P1BossMonster : Monster
         var moveAndRangeAttack = StateMachine.CreateState(new S1P1BossMonsterMoveAndRangeAttack("S1P1BossMonsterMoveAndRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
-        var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, rangeAttack);
+        var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, moveAndRangeAttack);
         var idleToDieTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
-        var rangeAttackToIdleTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", rangeAttack, idle);
-        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", rangeAttack, die);
+        var rangeAttackToIdleTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", moveAndRangeAttack, idle);
+        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
 
         StateMachine.CurrentState = idle;
 
