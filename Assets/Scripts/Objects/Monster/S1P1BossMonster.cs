@@ -1,11 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FSM;
 using Managers;
 using UnityEngine;
 
+[Serializable]
+public struct S1P1BossMonsterStateChangePercentValue
+{
+    public float value;
+    public S1P1BossMonsterState bossState;
+}
+
+public enum S1P1BossMonsterState
+{
+    ChasePlayer,
+    MoveAndRangeAttack
+}
+
 public class S1P1BossMonster : Monster
 {
+    [Header("Pattern Values")] 
+    public List<S1P1BossMonsterStateChangePercentValue> stateSwitchValue;
+    public float chaseMoveSpeed;
+    public float chaseDurationTime;
+    public int stateSwitchRangeAttackCount;
+    
     [SerializeField] private float triggerCooldown = 0.5f;
     private string _monsterMeleeAttackCoolTimeID;
 
@@ -14,6 +34,7 @@ public class S1P1BossMonster : Monster
         base.Start();
         _monsterMeleeAttackCoolTimeID = "MonsterMeleeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
+        stateSwitchValue = new List<S1P1BossMonsterStateChangePercentValue>();
     }
 
     protected override void InitializeFsm()
@@ -21,8 +42,10 @@ public class S1P1BossMonster : Monster
         base.InitializeFsm();
         StateMachine = new StateMachine<Monster>(this);
         StateMachine.Init();
-        var idle = StateMachine.CreateState(new MonsterIdle("MonsterIdle", true));
-        var rangeAttack = StateMachine.CreateState(new MonsterRangeAttack("MonsterRangeAttack", true));
+        var idle = StateMachine.CreateState(new S1P1BossMonsterIdle("S1P1BossMonsterIdle", true));
+        var move = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterPlayerChase", true));
+        var meleeAttack = StateMachine.CreateState(new MonsterMeleeAttack("MonsterMeleeAttack", true));
+        var moveAndRangeAttack = StateMachine.CreateState(new S1P1BossMonsterMoveAndRangeAttack("S1P1BossMonsterMoveAndRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
         var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, rangeAttack);

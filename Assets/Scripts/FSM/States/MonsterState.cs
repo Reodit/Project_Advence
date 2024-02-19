@@ -1,3 +1,4 @@
+using System.Linq;
 using FSM;
 using FSM.States;
 using UnityEngine;
@@ -135,14 +136,14 @@ public class MonsterDie : IState<Monster>
     }
 }
 
-public class BossMonsterIdle : IState<S1P1BossMonster>
+public class S1P1BossMonsterIdle : IState<Monster>
 {
     public string StateName { get; set; }
-    public void Enter(S1P1BossMonster owner)
+    public void Enter(Monster owner)
     {
     }
 
-    public void Execute(S1P1BossMonster owner)
+    public void Execute(Monster owner)
     {
         if (owner.CurrentHp <= 0)
         {
@@ -151,9 +152,12 @@ public class BossMonsterIdle : IState<S1P1BossMonster>
             owner.GetComponent<Collider2D>().isTrigger = false;
         }
         
-        float randomValue = Random.Range(0f, 1f);
-
-        if (randomValue <= 0.3f)
+        float randomValue = Random.Range(0f, 1f) * 100;
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        s1P1BossMonster?.stateSwitchValue.FirstOrDefault(value =>
+            value.bossState == S1P1BossMonsterState.ChasePlayer);
+        
+        /*if (randomValue <= )
         {
             // 캐릭터 추적
         }
@@ -161,31 +165,31 @@ public class BossMonsterIdle : IState<S1P1BossMonster>
         else
         {
             // 위로 1칸 이동
-        }
+        }*/
     }
 
-    public void Exit(S1P1BossMonster owner)
+    public void Exit(Monster owner)
     {
         // Debug.Log("MonsterIdle.Exit");
     }
 
     public bool RequiresUpdate { get; set; }
 
-    public BossMonsterIdle(string stateName, bool requiresUpdate)
+    public S1P1BossMonsterIdle(string stateName, bool requiresUpdate)
     {
         this.StateName = stateName;
         this.RequiresUpdate = requiresUpdate;
     }
 }
 
-public class BossMonsterMove : IState<S1P1BossMonster>
+public class S1P1BossMonsterPlayerChase : IState<Monster>
 {
     public string StateName { get; set; }
-    public void Enter(S1P1BossMonster owner)
+    public void Enter(Monster owner)
     {
     }
 
-    public void Execute(S1P1BossMonster owner)
+    public void Execute(Monster owner)
     {
         if (owner.CurrentHp <= 0)
         {
@@ -194,27 +198,48 @@ public class BossMonsterMove : IState<S1P1BossMonster>
             owner.GetComponent<Collider2D>().isTrigger = false;
         }
         
-        float randomValue = Random.Range(0f, 1f);
-
-        if (randomValue <= 0.3f)
-        {
-            // 캐릭터 추적
-        }
-        
-        else
-        {
-            // 위로 1칸 이동
-        }
     }
 
-    public void Exit(S1P1BossMonster owner)
+    public void Exit(Monster owner)
     {
         // Debug.Log("MonsterIdle.Exit");
     }
 
     public bool RequiresUpdate { get; set; }
 
-    public BossMonsterMove(string stateName, bool requiresUpdate)
+    public S1P1BossMonsterPlayerChase(string stateName, bool requiresUpdate)
+    {
+        this.StateName = stateName;
+        this.RequiresUpdate = requiresUpdate;
+    }
+}
+
+public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
+{
+    public string StateName { get; set; }
+    public void Enter(Monster owner)
+    {
+    }
+
+    public void Execute(Monster owner)
+    {
+        if (owner.CurrentHp <= 0)
+        {
+            owner.StateMachine.SetBool("isDie", true);
+            owner.Animator.SetBool("isDie", true);
+            owner.GetComponent<Collider2D>().isTrigger = false;
+        }
+        
+    }
+
+    public void Exit(Monster owner)
+    {
+        // Debug.Log("MonsterIdle.Exit");
+    }
+
+    public bool RequiresUpdate { get; set; }
+
+    public S1P1BossMonsterMoveAndRangeAttack(string stateName, bool requiresUpdate)
     {
         this.StateName = stateName;
         this.RequiresUpdate = requiresUpdate;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FSM;
 using Managers;
@@ -62,27 +63,43 @@ public class Monster : MonoBehaviour
     {
     }
 
-    // TODO Animation 관리 어떻게 ?
-
-    private bool MoveTowardsAndCheckArrival(Vector3 currentPosition, Vector3 targetPosition, float moveSpeed, float threshold = 0.1f)
+    public bool MoveToward(Vector3 targetPosition, float arrivalThreshold, float moveSpeed)
     {
-        // Move towards the target position
-        float step = moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(currentPosition, targetPosition, step);
-
-        // Check if the object is within the threshold distance of the target position
-        bool hasArrived = Vector3.Distance(transform.position, targetPosition) <= threshold;
-
-        return hasArrived;
-    }
-
-    private int GetNextWaypointIndex(int currentIndex, int waypointsCount, bool loop = true)
-    {
-        int nextIndex = currentIndex + 1;
-        if (nextIndex >= waypointsCount)
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        if (distance <= arrivalThreshold)
         {
-            nextIndex = loop ? 0 : waypointsCount - 1;
+            return true;
         }
-        return nextIndex;
+
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+
+        return false;
+    }
+    
+    public bool MoveToward(Vector3 targetPosition, float arrivalThreshold, 
+        float moveSpeed, float timeLimit, string moveTimerId)
+    {
+        if (!TimeManager.Instance.IsCoolTimeFinished(moveTimerId))
+        {
+            TimeManager.Instance.Use(moveTimerId);
+            TimeManager.Instance.UpdateCoolTime(moveTimerId, timeLimit);
+        }
+
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        if (distance <= arrivalThreshold)
+        {
+            return true; 
+        }
+
+        if (TimeManager.Instance.IsCoolTimeFinished(moveTimerId))
+        {
+            return false; 
+        }
+
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+
+        return false; 
     }
 }

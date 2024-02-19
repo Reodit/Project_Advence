@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Enums;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -156,7 +157,16 @@ public class UpgradeOptionPicker : MonoBehaviour
         upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(skillEnchantData.icon);
         upgradePrefab.upgradeTitleText.text = skillEnchantData.name;
 
-        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(skillEnchantData.description, skillData.name, skillEnchantData.enchantEffectValue1);
+        switch (skillEnchantData.enchantEffect1)
+        {
+            case Status.AddFrontProjectile or Status.AddSlashProjectile:
+                upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(skillEnchantData.description, skillData.name, skillEnchantData.enchantEffectValue1);
+                break;
+            
+            default:
+                upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(skillEnchantData.description, skillData.name, skillEnchantData.enchantEffectValue1 * 100);
+                break;
+        }
         upgradePrefab.upgradeButton.onClick.AddListener(() =>
         {
             onClickAction.Invoke();
@@ -170,7 +180,8 @@ public class UpgradeOptionPicker : MonoBehaviour
         upgradePrefab.upgradeIcon.sprite = Resources.Load<Sprite>(selectStatData.iconPath);
         upgradePrefab.upgradeTitleText.text = selectStatData.name;
 
-        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(selectStatData.description);
+        upgradePrefab.upgradeDescriptionText.text = ExcelUtility.FormatStringWithVariables(selectStatData.description, 
+            selectStatData.selectStatRateValue * 100);
         upgradePrefab.upgradeButton.onClick.AddListener(() =>
         {
             onClickAction.Invoke();
