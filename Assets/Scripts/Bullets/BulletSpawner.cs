@@ -41,7 +41,7 @@ public class BulletSpawner
             for (int i = 0; i < frontBulletCount; i++)
             {
                 bullet = frontBullets[i];
-                CheckSpawnable(bulletInfoDict, bullet);
+                CheckSpawnable(bullet);
 
                 if (!_spawnableBullets.Contains(bullet))
                     continue;
@@ -57,7 +57,7 @@ public class BulletSpawner
             for (int i = 0; i < frontBulletCount; i++)
             {
                 bullet = frontBullets[i];
-                CheckSpawnable(bulletInfoDict, bullet);
+                CheckSpawnable(bullet);
 
                 if (!_spawnableBullets.Contains(bullet))
                     continue;
@@ -84,7 +84,7 @@ public class BulletSpawner
         {
             Bullet bullet = slashBullets[i];
 
-            CheckSpawnable(bulletInfoDict, bullet);
+            CheckSpawnable(bullet);
 
             if (!_spawnableBullets.Contains(bullet))
                 continue;
@@ -121,7 +121,7 @@ public class BulletSpawner
         {
             Bullet bullet = specialBullets[i];
 
-            CheckSpawnable(bulletInfoDict, bullet);
+            CheckSpawnable(bullet);
 
             if (!_spawnableBullets.Contains(bullet))
                 continue;
@@ -133,7 +133,7 @@ public class BulletSpawner
             _spawnableBullets.Clear();
     }
 
-    private bool CheckSpawnable(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet)
+    private bool CheckSpawnable(Bullet bullet)
     {
         bool isSpawnable = IsSpawnable(bullet, SkillManager.instance.PlayerAttackSpeed(bullet.SkillIndex));
 
