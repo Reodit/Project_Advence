@@ -56,7 +56,7 @@ public class FamiliarController : MonoBehaviour
         familiar.familiarData = familiarData;
         familiar.familiarSkillData = skill;
 
-        TimeManager.Instance.RegisterCoolTime(familiar.familiarData?.index.ToString(), 
+        TimeManager.Instance.RegisterCoolTime(familiar.familiarData.index.ToString(), 
             1 / SkillManager.instance.PlayerAttackSpeed(skill.index));
     }
 

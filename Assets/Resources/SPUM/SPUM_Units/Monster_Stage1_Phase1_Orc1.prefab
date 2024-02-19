@@ -1371,7 +1371,6 @@ MonoBehaviour:
     EXP: 0
     Gold: 0
     Score: 0
-    Skill: 0
     PrefabPath: 
   Animator: {fileID: 1245768538626340243}
   hpBar: {fileID: 6001819273727552199}

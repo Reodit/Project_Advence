@@ -458,8 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6660ba6b52eb844bf3fa0f5839ab7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUpgradeHistory:
-    SelectStatTable: []
 --- !u!4 &918826736
 Transform:
   m_ObjectHideFlags: 0
@@ -653,6 +651,8 @@ MonoBehaviour:
   testBossMonster: {fileID: 847348784378203380, guid: 4206ae9bab53244d98551671fa62164d,
     type: 3}
   isGamePause: 0
+  bossPrefab: {fileID: 5320058650395285373, guid: a5c633584a8acbe46834b43c3a5f167a,
+    type: 3}
 --- !u!4 &1248753119
 Transform:
   m_ObjectHideFlags: 0

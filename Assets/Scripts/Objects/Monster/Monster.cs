@@ -63,21 +63,21 @@ public class Monster : MonoBehaviour
     {
     }
 
-    public bool MoveToward(Vector3 targetPosition, float arrivalThreshold, float moveSpeed)
+    public bool MoveToward(Vector2 targetPosition, float arrivalThreshold, float moveSpeed)
     {
-        float distance = Vector3.Distance(transform.position, targetPosition);
+        float distance = Vector2.Distance(transform.position, targetPosition);
         if (distance <= arrivalThreshold)
         {
             return true;
         }
 
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
 
         return false;
     }
     
-    public bool MoveToward(Vector3 targetPosition, float arrivalThreshold, 
+    public bool MoveToward(Vector2 targetPosition, float arrivalThreshold, 
         float moveSpeed, float timeLimit, string moveTimerId)
     {
         if (!TimeManager.Instance.IsCoolTimeFinished(moveTimerId))
@@ -86,7 +86,7 @@ public class Monster : MonoBehaviour
             TimeManager.Instance.UpdateCoolTime(moveTimerId, timeLimit);
         }
 
-        float distance = Vector3.Distance(transform.position, targetPosition);
+        float distance = Vector2.Distance(transform.position, targetPosition);
         if (distance <= arrivalThreshold)
         {
             return true; 
@@ -97,8 +97,28 @@ public class Monster : MonoBehaviour
             return false; 
         }
 
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
+
+        return false; 
+    }
+    
+    public bool MoveToward(Vector2 targetPosition, 
+        float moveSpeed, float timeLimit, string moveTimerId)
+    {
+        if (!TimeManager.Instance.IsCoolTimeFinished(moveTimerId))
+        {
+            TimeManager.Instance.Use(moveTimerId);
+            TimeManager.Instance.UpdateCoolTime(moveTimerId, timeLimit);
+        }
+        
+        if (TimeManager.Instance.IsCoolTimeFinished(moveTimerId))
+        {
+            return true; 
+        }
+
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
 
         return false; 
     }

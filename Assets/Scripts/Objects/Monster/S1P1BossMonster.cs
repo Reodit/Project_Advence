@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FSM;
 using Managers;
@@ -23,6 +24,7 @@ public class S1P1BossMonster : Monster
     public List<S1P1BossMonsterStateChangePercentValue> stateSwitchValue;
     public float chaseMoveSpeed;
     public float chaseDurationTime;
+    public float meleeAttackThreshold;
     public int stateSwitchRangeAttackCount;
     
     [SerializeField] private float triggerCooldown = 0.5f;
@@ -42,31 +44,33 @@ public class S1P1BossMonster : Monster
         StateMachine = new StateMachine<Monster>(this);
         StateMachine.Init();
         var idle = StateMachine.CreateState(new S1P1BossMonsterIdle("S1P1BossMonsterIdle", true));
-        var chaseAndMeleeAttack = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterPlayerChase", true));
+        var chaseAndMeleeAttack = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterChaseAndMeleeAttack", true));
         var moveAndRangeAttack = StateMachine.CreateState(new S1P1BossMonsterMoveAndRangeAttack("S1P1BossMonsterMoveAndRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
-        var idleToChaseAndMeleeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, moveAndRangeAttack);
-        var idleToMoveAndRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
-        var idleToDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", moveAndRangeAttack, idle);
-        
-        /*var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
-        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
-        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
-
         StateMachine.CurrentState = idle;
-
-        TransitionParameter dieParam = new TransitionParameter("isDie", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToMoveAndRangeAttackTransition,
-            dieParam, targetValue => (bool)targetValue);
-        StateMachine.AddTransitionCondition(rangeAttackToIDieTransition,
-            dieParam, targetValue => (bool)targetValue);
-
-        TransitionParameter rangeAttackParam = new TransitionParameter("isRangeAttack", ParameterType.Bool);
+        
+        // Die
+        StateMachine.AddGlobalCondition(() => this.CurrentHp <= 0, () => {StateMachine.ChangeState(die);});
+        
+        var idleToChaseAndMeleeAttackTransition = StateMachine.CreateTransition("IdleToChaseAndMeleeAttackTransition", idle, chaseAndMeleeAttack);
+        var idleToMoveAndRangeAttackTransition = StateMachine.CreateTransition("IdleToMoveAndRangeAttackTransition", idle, moveAndRangeAttack);
+        var chaseAndMeleeAttackToIdleTransition = StateMachine.CreateTransition("ChaseAndMeleeAttackToIdleTransition", chaseAndMeleeAttack, idle);
+        var moveAndRangeAttackTransitionToIdleTransition = StateMachine.CreateTransition("MoveAndRangeAttackTransitionToIdleTransition", moveAndRangeAttack, idle);
+        
+        TransitionParameter chaseAndMeleeAttackParam = new TransitionParameter(
+            "ChaseAndMeleeAttackParam", ParameterType.Bool);
         StateMachine.AddTransitionCondition(idleToChaseAndMeleeAttackTransition,
-            rangeAttackParam, targetValue => (bool)targetValue);
-        StateMachine.AddTransitionCondition(rangeAttackToIdleTransition,
-            rangeAttackParam, targetValue => !(bool)targetValue);*/
+            chaseAndMeleeAttackParam, targetValue => (bool)targetValue);
+        StateMachine.AddTransitionCondition(chaseAndMeleeAttackToIdleTransition,
+            chaseAndMeleeAttackParam, targetValue => (bool)targetValue);
+
+        TransitionParameter moveAndRangeAttackParam = new TransitionParameter(
+            "MoveAndRangeAttackParam", ParameterType.Bool);
+        StateMachine.AddTransitionCondition(idleToMoveAndRangeAttackTransition,
+            moveAndRangeAttackParam, targetValue => (bool)targetValue);
+        StateMachine.AddTransitionCondition(moveAndRangeAttackTransitionToIdleTransition,
+            moveAndRangeAttackParam, targetValue => !(bool)targetValue);
 
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }
@@ -84,5 +88,26 @@ public class S1P1BossMonster : Monster
     {
         base.OnDestroy();
         StateMachineManager.Instance.Unregister(gameObject.GetInstanceID());
+    }
+
+    public void StartActionCoroutine(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
+    }
+    public IEnumerator MeleeAttack()
+    {
+        Animator.Play("AttackMagic");
+
+        yield return new WaitUntil(() =>
+            Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+    }
+
+    public IEnumerator MoveToCenter(Vector2 targetPosition, float threshold)
+    {
+        // 중앙으로 이동하는 로직 구현
+        float distance = Vector2.Distance(transform.position, targetPosition);
+
+
+        yield return new WaitUntil(() => distance < threshold); // 예시로 1초 대기
     }
 }

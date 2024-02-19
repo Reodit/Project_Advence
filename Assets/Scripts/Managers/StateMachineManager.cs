@@ -30,13 +30,16 @@ namespace Managers
             
             foreach (var stateMachine in _stateMachines)
             {
-                try
+                if (stateMachine.Value != null)
                 {
-                    stateMachine.Value.Update();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Exception occurred in state machine {stateMachine.Key}: {e}");
+                    try
+                    {
+                        stateMachine.Value.Update();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Exception occurred in state machine {stateMachine.Key}: {e}");
+                    }
                 }
             }
         }

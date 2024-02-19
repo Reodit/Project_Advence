@@ -99,9 +99,20 @@ public class GameManager : MonoBehaviour
 
         GameManager.Instance.currentStage++;
     }
+
+    [ContextMenu("BOSSTEST")]
+
+    public void BossTest()
+    {
+        Instantiate(bossPrefab);
+    }
+
+    public GameObject bossPrefab;
     
     private void OnApplicationQuit()
     {
         Datas.PlayerData.SaveCharacterStatData();
     }
+    
+    
 }

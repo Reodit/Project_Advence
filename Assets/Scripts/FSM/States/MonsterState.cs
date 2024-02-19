@@ -52,13 +52,7 @@ public class MonsterMeleeAttack : IState<Monster>
 
     public void Execute(Monster owner)
     {
-        if (owner.CurrentHp <= 0)
-        {
-            owner.StateMachine.SetBool("isDie", true);
-            owner.Animator.SetBool("isDie", true);
-            owner.GetComponent<Collider2D>().isTrigger = false;
-        }
-        
+
         
     }
 
@@ -108,6 +102,8 @@ public class MonsterDie : IState<Monster>
     public string StateName { get; set; }
     public void Enter(Monster owner)
     {
+        owner.GetComponent<Collider2D>().isTrigger = false;
+        owner.Animator.SetBool("isDie", true);
         // Debug.Log("MonsterDie.Enter");
     }
 
@@ -170,11 +166,11 @@ public class S1P1BossMonsterIdle : IState<Monster>
                 switch (stateSwitch.bossState)
                 {
                     case S1P1BossMonsterState.ChasePlayer:
-                        owner.StateMachine.SetBool("",true);
+                        owner.StateMachine.SetBool("chaseAndMeleeAttackParam",true);
                         break;
                     
                     case S1P1BossMonsterState.MoveAndRangeAttack:
-                        owner.StateMachine.SetBool("", true);
+                        owner.StateMachine.SetBool("moveAndRangeAttackParam", true);
                         break;
                 }
                 break;
@@ -199,19 +195,50 @@ public class S1P1BossMonsterIdle : IState<Monster>
 public class S1P1BossMonsterPlayerChase : IState<Monster>
 {
     public string StateName { get; set; }
-    public void Enter(Monster owner)
+    public async void Enter(Monster owner)
     {
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        if (s1P1BossMonster != null)
+        {
+            TimeManager.Instance.RegisterCoolTime(
+                s1P1BossMonster.gameObject.GetInstanceID() + StateName,
+                s1P1BossMonster.chaseDurationTime);
+            
+        }
     }
 
     public void Execute(Monster owner)
     {
-        if (owner.CurrentHp <= 0)
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        if (s1P1BossMonster == null)
         {
-            owner.StateMachine.SetBool("isDie", true);
-            owner.Animator.SetBool("isDie", true);
-            owner.GetComponent<Collider2D>().isTrigger = false;
+            return;
         }
         
+        var playerMove = GameManager.Instance.PlayerMove;
+
+        if (owner.MoveToward(playerMove.transform.position,
+                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed))
+        {
+            // 공격 하기 코루틴 처리
+            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MeleeAttack());
+            // 이후
+            owner.StateMachine.SetBool(
+                "chaseAndMeleeAttackParam", false);
+
+        }
+
+        if (TimeManager.Instance.IsCoolTimeFinished(
+                s1P1BossMonster.gameObject.GetInstanceID() + StateName))
+        {
+            // 중앙으로 이동 코루틴 처리
+            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveToCenter(
+                new Vector2(4.8f, 0.8f), 0.1f));
+
+            // 이후
+            owner.StateMachine.SetBool(
+                "chaseAndMeleeAttackParam", false);
+        }
     }
 
     public void Exit(Monster owner)
@@ -237,12 +264,7 @@ public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
 
     public void Execute(Monster owner)
     {
-        if (owner.CurrentHp <= 0)
-        {
-            owner.StateMachine.SetBool("isDie", true);
-            owner.Animator.SetBool("isDie", true);
-            owner.GetComponent<Collider2D>().isTrigger = false;
-        }
+        
         
     }
 

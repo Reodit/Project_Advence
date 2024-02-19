@@ -100,10 +100,10 @@ public class BulletController : MonoBehaviour
         switch (enchant.enchantEffect1)
         {
             case Status.SkillDamageRate:
-                IncreaseSkillDamage(skillIndex);
+                //IncreaseSkillDamage(skillIndex);
                 break;
             case Status.AttackSpeedRate:
-                IncreaseSkillRate(skillIndex);
+                //IncreaseSkillRate(skillIndex);
                 break;
             case Status.ProjectileRange:
                 //IncreaseSkillRange(skillIndex, enchant.index);
