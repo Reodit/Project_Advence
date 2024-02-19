@@ -57,7 +57,7 @@ public class FamiliarController : MonoBehaviour
         familiar.familiarSkillData = skill;
 
         TimeManager.Instance.RegisterCoolTime(familiar.familiarData?.index.ToString(), 
-            1 / DamageCalculator.PlayerAttackSpeed(skill.index));
+            1 / SkillManager.instance.PlayerAttackSpeed(skill.index));
         
         if (skill.type == SkillType.RangeFamiliar)
         {
@@ -100,7 +100,7 @@ public class FamiliarController : MonoBehaviour
             
             case Status.AttackSpeed:
                 TimeManager.Instance.RegisterCoolTime(familiar.familiarData.index.ToString(),
-                    1 / DamageCalculator.PlayerAttackSpeed(skillIndex));
+                    1 / SkillManager.instance.PlayerAttackSpeed(skillIndex));
                 break;
             
             default:

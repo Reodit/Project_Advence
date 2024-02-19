@@ -38,8 +38,9 @@ public class Bullet : MonoBehaviour
         OnDestroyed?.Invoke(this);
     }
 
-    public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback)
+    public void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback, int skillIndex)
     {
+        this.SkillIndex = skillIndex;
         BulletInfo = bulletInfo;
         OnDestroyed = destroyCallback;
     }
@@ -97,7 +98,7 @@ public class Bullet : MonoBehaviour
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             
             // TODO 몬스터 데미지 계산 통일필요
-            monster.CurrentHp -= (int)BulletInfo.Damage;
+            monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
             monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
             TriggerDestruction();
         }

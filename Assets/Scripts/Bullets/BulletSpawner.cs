@@ -135,7 +135,7 @@ public class BulletSpawner
 
     private bool CheckSpawnable(Dictionary<int, BulletInfo> bulletInfoDict, Bullet bullet)
     {
-        bool isSpawnable = IsSpawnable(bullet, bulletInfoDict[bullet.SkillIndex].SkillSpeedRate);
+        bool isSpawnable = IsSpawnable(bullet, SkillManager.instance.PlayerAttackSpeed(bullet.SkillIndex));
 
         if (isSpawnable)
             _spawnableBullets.Add(bullet);
@@ -153,7 +153,7 @@ public class BulletSpawner
         float currentTime = Time.time;
         float lastSpawnTime = _spawnTimerDict[bullet];
 
-        bool isSpawnable = currentTime - lastSpawnTime >= bulletSpeedRate;
+        bool isSpawnable = currentTime - lastSpawnTime >= 1 / bulletSpeedRate;
 
         if (isSpawnable)
             _spawnTimerDict[bullet] = currentTime;
@@ -179,7 +179,7 @@ public class BulletSpawner
         if (bulletPrefab != null)
         {
             Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, Quaternion.identity);
-            bullet.Init(bulletInfo, RemoveBullet);
+            bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);
         }
     }
@@ -190,7 +190,7 @@ public class BulletSpawner
         if (bulletPrefab != null)
         {
             Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, quaternion);
-            bullet.Init(bulletInfo, RemoveBullet);
+            bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);
         }
     }

@@ -55,10 +55,10 @@ public class GhostKnight : Familiar
         if (monster)
         {
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
-            monster.CurrentHp -= DamageCalculator.PlayerResultSkillDamage(familiarData.skillId);
+            monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(familiarData.skillId);
             currentHp -= monster.CurrentHp;
-            hpBar.fillAmount = (float)currentHp / familiarData.maxHp;
-            monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
+            hpBar.fillAmount = currentHp / familiarData.maxHp;
+            monster.hpBar.fillAmount = monster.CurrentHp / monster.monsterData.MaxHP;
         }
     }
 

@@ -37,7 +37,7 @@ public class MiniFairy : Familiar
         if (monster)
         {
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
-            monster.CurrentHp -= DamageCalculator.PlayerResultSkillDamage(familiarData.skillId);
+            monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(familiarData.skillId);
             monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
         }
     }
