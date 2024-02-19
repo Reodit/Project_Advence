@@ -6,6 +6,18 @@ using UnityEngine;
 
 namespace FSM
 {
+    public class GlobalCondition
+    {
+        public Func<bool> Condition { get; private set; }
+        public Action Action { get; private set; }
+
+        public GlobalCondition(Func<bool> condition, Action action)
+        {
+            Condition = condition;
+            Action = action;
+        }
+    }
+    
     public class StateMachine<T> : IStateMachine
     {
         public IState<T> CurrentState { get; set; }
@@ -16,6 +28,7 @@ namespace FSM
         private HashSet<string> _triggers;
         private Dictionary<string, IState<T>> _states;
         private HashSet<TransitionParameter> _transitionParameters;
+        private List<GlobalCondition> _globalConditions;
 
         public StateMachine(T owner)
         {
@@ -84,8 +97,14 @@ namespace FSM
             ChangeState(_previousState);
         }
 
+        public void AddGlobalCondition(Func<bool> condition, Action action)
+        {
+            _globalConditions.Add(new GlobalCondition(condition, action));
+        }
+        
         public void Init()
         {
+            _globalConditions = new List<GlobalCondition>();
             _transitions = new Dictionary<string, Transition<T>>();
             _triggers = new HashSet<string>();
             _states = new Dictionary<string, IState<T>>();
@@ -100,6 +119,14 @@ namespace FSM
         // warning : 유니티 Update주기와 Co-Routine 주기가 맞지 않아서, 여전히 딜레이가 존재한다.
         public void Update()
         {
+            foreach (var globalCondition in _globalConditions)
+            {
+                if (globalCondition.Condition())
+                {
+                    globalCondition.Action();
+                }
+            }
+            
             Transition<T> transition = CheckTransitionConditions();
             
             if (transition != null)

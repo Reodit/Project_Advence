@@ -42,29 +42,31 @@ public class S1P1BossMonster : Monster
         StateMachine = new StateMachine<Monster>(this);
         StateMachine.Init();
         var idle = StateMachine.CreateState(new S1P1BossMonsterIdle("S1P1BossMonsterIdle", true));
-        var move = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterPlayerChase", true));
-        var meleeAttack = StateMachine.CreateState(new MonsterMeleeAttack("MonsterMeleeAttack", true));
+        var chaseAndMeleeAttack = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterPlayerChase", true));
         var moveAndRangeAttack = StateMachine.CreateState(new S1P1BossMonsterMoveAndRangeAttack("S1P1BossMonsterMoveAndRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
 
-        var idleToRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, moveAndRangeAttack);
-        var idleToDieTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
-        var rangeAttackToIdleTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", moveAndRangeAttack, idle);
+        var idleToChaseAndMeleeAttackTransition = StateMachine.CreateTransition("MonsterIdleToRangeAttack", idle, moveAndRangeAttack);
+        var idleToMoveAndRangeAttackTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
+        var idleToDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToIdle", moveAndRangeAttack, idle);
+        
+        /*var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
+        var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
         var rangeAttackToIDieTransition = StateMachine.CreateTransition("MonsterRangeAttackToDie", moveAndRangeAttack, die);
 
         StateMachine.CurrentState = idle;
 
         TransitionParameter dieParam = new TransitionParameter("isDie", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToDieTransition,
+        StateMachine.AddTransitionCondition(idleToMoveAndRangeAttackTransition,
             dieParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(rangeAttackToIDieTransition,
             dieParam, targetValue => (bool)targetValue);
 
         TransitionParameter rangeAttackParam = new TransitionParameter("isRangeAttack", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToRangeAttackTransition,
+        StateMachine.AddTransitionCondition(idleToChaseAndMeleeAttackTransition,
             rangeAttackParam, targetValue => (bool)targetValue);
         StateMachine.AddTransitionCondition(rangeAttackToIdleTransition,
-            rangeAttackParam, targetValue => !(bool)targetValue);
+            rangeAttackParam, targetValue => !(bool)targetValue);*/
 
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }

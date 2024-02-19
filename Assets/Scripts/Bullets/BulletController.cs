@@ -103,7 +103,7 @@ public class BulletController : MonoBehaviour
                 IncreaseSkillDamage(skillIndex);
                 break;
             case Status.AttackSpeedRate:
-                //IncreaseSkillRate(skillIndex, enchant.index);
+                IncreaseSkillRate(skillIndex);
                 break;
             case Status.ProjectileRange:
                 //IncreaseSkillRange(skillIndex, enchant.index);

@@ -170,26 +170,16 @@ public class S1P1BossMonsterIdle : IState<Monster>
                 switch (stateSwitch.bossState)
                 {
                     case S1P1BossMonsterState.ChasePlayer:
-                        //owner.StateMachine.SetBool();
+                        owner.StateMachine.SetBool("",true);
                         break;
                     
                     case S1P1BossMonsterState.MoveAndRangeAttack:
-                        
+                        owner.StateMachine.SetBool("", true);
                         break;
                 }
                 break;
             }
         }
-        
-        /*if (randomValue <= )
-        {
-            // 캐릭터 추적
-        }
-        
-        else
-        {
-            // 위로 1칸 이동
-        }*/
     }
 
     public void Exit(Monster owner)
