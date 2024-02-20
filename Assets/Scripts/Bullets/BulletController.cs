@@ -123,8 +123,13 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillDamage(int skillIndex)
     {
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
-        bulletInfo.SetDamage(SkillManager.instance.PlayerResultSkillDamage(skillIndex));
-
+        bulletInfo.SetDamage(
+            isFamiliarBullet? 
+                SkillManager.instance.PlayerAttackSpeed(
+                    Datas.GameData.DTFamiliarData.FirstOrDefault(x => 
+                        x.Value.familiarSkillId == skillIndex).Value.skillId) : 
+                SkillManager.instance.PlayerAttackSpeed(skillIndex));
+            
         _bulletInfoDict[skillIndex] = bulletInfo;
 
         ApplyActiveBullets(bulletInfo);
@@ -135,7 +140,12 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillRate(int skillIndex)
     {
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
-        bulletInfo.SetSkillSpeedRate(SkillManager.instance.PlayerAttackSpeed(skillIndex));
+        bulletInfo.SetSkillSpeedRate(
+            isFamiliarBullet? 
+                SkillManager.instance.PlayerAttackSpeed(
+                    Datas.GameData.DTFamiliarData.FirstOrDefault(x => 
+                        x.Value.familiarSkillId == skillIndex).Value.skillId) : 
+                SkillManager.instance.PlayerAttackSpeed(skillIndex));
 
         _bulletInfoDict[skillIndex] = bulletInfo;
 
