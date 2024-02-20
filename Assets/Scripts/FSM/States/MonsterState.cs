@@ -143,8 +143,6 @@ public class S1P1BossMonsterIdle : IState<Monster>
 
     public void Execute(Monster owner)
     {
-        Debug.Log("S1P1BossMonsterIdle.Execute");
-
         float randomValue = Random.Range(0f, 1f) * 100;
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
@@ -219,11 +217,9 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
         }
         
         var playerMove = GameManager.Instance.PlayerMove;
-        Debug.Log("S1P1BossMonsterPlayerChase.Execute");
         if (owner.MoveToward(playerMove.transform.position,
                 s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed))
         {
-            Debug.Log("MoveTowardCo");
             s1P1BossMonster.StartCoroutine(s1P1BossMonster.MeleeAttack());
             s1P1BossMonster.IsRunCoroutine = true;
         }
@@ -271,8 +267,6 @@ public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
 
     public void Execute(Monster owner)
     {
-        Debug.Log("S1P1BossMonsterMoveAndRangeAttack.Execute");
-        
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
         {
