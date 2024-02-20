@@ -100,16 +100,16 @@ public class BulletController : MonoBehaviour
         switch (enchant.enchantEffect1)
         {
             case Status.SkillDamageRate:
-                //IncreaseSkillDamage(skillIndex);
+                IncreaseSkillDamage(skillIndex);
                 break;
             case Status.AttackSpeedRate:
-                //IncreaseSkillRate(skillIndex);
+                IncreaseSkillRate(skillIndex);
                 break;
             case Status.ProjectileRange:
-                //IncreaseSkillRange(skillIndex, enchant.index);
+                IncreaseSkillRange(skillIndex, enchant.index);
                 break;
             case Status.ProjectileSpeed:
-                //IncreaseBulletSpeed(skillIndex, enchant.index);
+                IncreaseBulletSpeed(skillIndex, enchant.index);
                 break;
             case Status.AddFrontProjectile:
                 IncreaseFrontBullet(skillIndex);
@@ -145,10 +145,9 @@ public class BulletController : MonoBehaviour
 
     private void IncreaseSkillRange(int skillIndex, int enchantIndex)
     {
-        string description = GetDescrition(enchantIndex);
-        int amount = ExcelUtility.GetPercentValue(description);
+        float amount = Datas.GameData.DTSkillEnchantData[enchantIndex].enchantEffectValue1;
         float distance = _bulletPrefabDict[skillIndex].BulletInfo.MaxDistance;
-        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount * Consts.PERCENT_DIVISION);
+        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -160,10 +159,9 @@ public class BulletController : MonoBehaviour
 
     private void IncreaseBulletSpeed(int skillIndex, int enchantIndex)
     {
-        string description = GetDescrition(enchantIndex);
-        int amount = ExcelUtility.GetPercentValue(description);
+        float amount = Datas.GameData.DTSkillEnchantData[enchantIndex].enchantEffectValue1;
         float speed = _bulletPrefabDict[skillIndex].BulletInfo.Speed;
-        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount * Consts.PERCENT_DIVISION);
+        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetSpeed(afterSpeed);
