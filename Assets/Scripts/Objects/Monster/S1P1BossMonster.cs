@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FSM;
 using Managers;
+using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
@@ -20,22 +21,32 @@ public enum S1P1BossMonsterState
 
 public class S1P1BossMonster : Monster
 {
+    [Header("BossMonster Values")] 
+    public float baseMoveSpeed;
+
     [Header("Pattern Values")] 
     public List<S1P1BossMonsterStateChangePercentValue> stateSwitchValue;
     public float chaseMoveSpeed;
     public float chaseDurationTime;
-    public float meleeAttackThreshold;
+    [HideInInspector] public float meleeAttackThreshold = 0.3f;
     public int stateSwitchRangeAttackCount;
-    
-    [SerializeField] private float triggerCooldown = 0.5f;
+    public List<Vector2> wayPoint;
+    public bool IsRunCoroutine { get; set; }
     private string _monsterMeleeAttackCoolTimeID;
+    private string _monsterRangeAttackCoolTimeID;
 
+    private int _currentRangeAttackCount;
+    [Header("Attack Pattern Values")]
+    [SerializeField] private float triggerCooldown = 0.5f;
+    [SerializeField] private Transform bulletStartPoint;
+    [SerializeField] private Bullet monsterBullet;
     protected override void Start()
     {
         base.Start();
         _monsterMeleeAttackCoolTimeID = "MonsterMeleeAttack_" + gameObject.GetInstanceID();
+        _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
-        stateSwitchValue = new List<S1P1BossMonsterStateChangePercentValue>();
+        _currentRangeAttackCount = 0;
     }
 
     protected override void InitializeFsm()
@@ -52,25 +63,6 @@ public class S1P1BossMonster : Monster
         
         // Die
         StateMachine.AddGlobalCondition(() => this.CurrentHp <= 0, () => {StateMachine.ChangeState(die);});
-        
-        var idleToChaseAndMeleeAttackTransition = StateMachine.CreateTransition("IdleToChaseAndMeleeAttackTransition", idle, chaseAndMeleeAttack);
-        var idleToMoveAndRangeAttackTransition = StateMachine.CreateTransition("IdleToMoveAndRangeAttackTransition", idle, moveAndRangeAttack);
-        var chaseAndMeleeAttackToIdleTransition = StateMachine.CreateTransition("ChaseAndMeleeAttackToIdleTransition", chaseAndMeleeAttack, idle);
-        var moveAndRangeAttackTransitionToIdleTransition = StateMachine.CreateTransition("MoveAndRangeAttackTransitionToIdleTransition", moveAndRangeAttack, idle);
-        
-        TransitionParameter chaseAndMeleeAttackParam = new TransitionParameter(
-            "ChaseAndMeleeAttackParam", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToChaseAndMeleeAttackTransition,
-            chaseAndMeleeAttackParam, targetValue => (bool)targetValue);
-        StateMachine.AddTransitionCondition(chaseAndMeleeAttackToIdleTransition,
-            chaseAndMeleeAttackParam, targetValue => (bool)targetValue);
-
-        TransitionParameter moveAndRangeAttackParam = new TransitionParameter(
-            "MoveAndRangeAttackParam", ParameterType.Bool);
-        StateMachine.AddTransitionCondition(idleToMoveAndRangeAttackTransition,
-            moveAndRangeAttackParam, targetValue => (bool)targetValue);
-        StateMachine.AddTransitionCondition(moveAndRangeAttackTransitionToIdleTransition,
-            moveAndRangeAttackParam, targetValue => !(bool)targetValue);
 
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }
@@ -100,6 +92,11 @@ public class S1P1BossMonster : Monster
 
         yield return new WaitUntil(() =>
             Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+
+        yield return StartCoroutine(MoveTowardCo(
+            new Vector2(4.8f, 0.8f), 0.05f, baseMoveSpeed));
+        
+        StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
     }
 
     public IEnumerator MoveTowardCo(Vector2 targetPosition, float threshold, float moveSpeed)
@@ -107,10 +104,61 @@ public class S1P1BossMonster : Monster
         float distance = Vector2.Distance(transform.position, targetPosition);
         while (distance > threshold) 
         {
-            base.MoveToward(targetPosition, threshold, moveSpeed);
+            MoveToward(targetPosition, threshold, moveSpeed);
+            distance = Vector2.Distance(transform.position, targetPosition);
+            yield return null;
+        }
+        StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
+    }
+    
+    public IEnumerator MoveThroughWaypoints(float threshold, float moveSpeed)
+    {
+        
+        for (int i = 0; i < wayPoint.Count; i++)
+        {
+            yield return StartCoroutine(MoveOneTapCo(wayPoint[i], threshold, moveSpeed));
+            if (stateSwitchRangeAttackCount < _currentRangeAttackCount)
+            {
+                StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
+                _currentRangeAttackCount = 0;
+                yield break;
+            }
+
+            yield return StartCoroutine(RangeAttackCo());
         }
 
+        for (int i = wayPoint.Count - 2; i >= 0; i--)
+        {
+            yield return StartCoroutine(MoveOneTapCo(wayPoint[i], threshold, moveSpeed));
+            if (stateSwitchRangeAttackCount < _currentRangeAttackCount)
+            {
+                StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
+                _currentRangeAttackCount = 0;
+                yield break;
+            }
+            
+            yield return StartCoroutine(RangeAttackCo());
+        }
+    }
+    
+    public IEnumerator MoveOneTapCo(Vector2 targetPosition, float threshold, float moveSpeed)
+    {
+        float distance = Vector2.Distance(transform.position, targetPosition);
+        while (distance > threshold)
+        {
+            MoveToward(targetPosition, threshold, moveSpeed);
+            distance = Vector2.Distance(transform.position, targetPosition);
+            yield return null;
+        }
+    }
 
-        yield return new WaitUntil(() => distance < threshold);
+    public IEnumerator RangeAttackCo()
+    {
+        Animator.Play("AttackBow");
+        Instantiate(monsterBullet, bulletStartPoint.position, quaternion.identity);
+        _currentRangeAttackCount++;
+        
+        yield return new WaitUntil(() =>
+            Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
     }
 }

@@ -36,8 +36,11 @@ public class TimeManager : MonoBehaviour
             Debug.Log($"Cool time item with id '{id}' is already registered.\nCooltime will be update");
         }
 
-        coolTimes.Add(id, coolTime);
-        lastUsedTimes.Add(id, 0f);
+        else
+        {
+            coolTimes.Add(id, coolTime);
+            lastUsedTimes.Add(id, 0f);
+        }
     }
     
     public void UpdateCoolTime(string id, float newCoolTime)

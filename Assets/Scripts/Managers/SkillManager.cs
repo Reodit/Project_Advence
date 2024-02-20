@@ -198,11 +198,7 @@ public class SkillManager : MonoBehaviour
                                   (skillAttackSpeedEnchant?.currentCount ?? 0);
         
         var shopAttackSpeed = shopAttackSpeedStats.Sum(stats => stats.addStatValue);
-    
-        Debug.Log($"baseAttackSpeed : {(characterBaseData.attackSpeed + shopAttackSpeed) + ((characterBaseData.attackSpeed + shopAttackSpeed) * (characterSkill.skillTable.skillSpeedRate + upgradeAttackSpeedRate + skillAttackSpeedRate))}     " +
-                  $"skillId : {skillID}");
 
-        
         return (characterBaseData.attackSpeed + shopAttackSpeed) +
                ((characterBaseData.attackSpeed + shopAttackSpeed) * (characterSkill.skillTable.skillSpeedRate + upgradeAttackSpeedRate + skillAttackSpeedRate));
     }

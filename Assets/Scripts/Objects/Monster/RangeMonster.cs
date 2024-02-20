@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using FSM;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RangeMonster : Monster
 {

@@ -137,17 +137,14 @@ public class S1P1BossMonsterIdle : IState<Monster>
     public string StateName { get; set; }
     public void Enter(Monster owner)
     {
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        s1P1BossMonster!.IsRunCoroutine = false;
     }
 
     public void Execute(Monster owner)
     {
-        if (owner.CurrentHp <= 0)
-        {
-            owner.StateMachine.SetBool("isDie", true);
-            owner.Animator.SetBool("isDie", true);
-            owner.GetComponent<Collider2D>().isTrigger = false;
-        }
-        
+        Debug.Log("S1P1BossMonsterIdle.Execute");
+
         float randomValue = Random.Range(0f, 1f) * 100;
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
@@ -160,17 +157,18 @@ public class S1P1BossMonsterIdle : IState<Monster>
         foreach (var stateSwitch in s1P1BossMonster.stateSwitchValue)
         {
             accumulatedProbability += stateSwitch.value;
-            
             if (randomValue <= accumulatedProbability)
             {
                 switch (stateSwitch.bossState)
                 {
                     case S1P1BossMonsterState.ChasePlayer:
-                        owner.StateMachine.SetBool("chaseAndMeleeAttackParam",true);
+                        owner.StateMachine.ChangeState(owner.StateMachine.GetState(
+                            "S1P1BossMonsterChaseAndMeleeAttack"));
                         break;
                     
                     case S1P1BossMonsterState.MoveAndRangeAttack:
-                        owner.StateMachine.SetBool("moveAndRangeAttackParam", true);
+                        owner.StateMachine.ChangeState(owner.StateMachine.GetState(
+                            "S1P1BossMonsterMoveAndRangeAttack"));
                         break;
                 }
                 break;
@@ -205,12 +203,6 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
                 s1P1BossMonster.chaseDurationTime);
             
         }
-
-        var playerMove = GameManager.Instance.PlayerMove;
-
-        s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveTowardCo(playerMove.transform.position,
-                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed));
-
     }
 
     public void Execute(Monster owner)
@@ -220,28 +212,42 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
         {
             return;
         }
-        
 
-        /*if (owner.MoveToward)
+        if (s1P1BossMonster.IsRunCoroutine)
         {
+            return;
+        }
+        
+        var playerMove = GameManager.Instance.PlayerMove;
+        Debug.Log("S1P1BossMonsterPlayerChase.Execute");
+        if (owner.MoveToward(playerMove.transform.position,
+                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed))
+        {
+            Debug.Log("MoveTowardCo");
             s1P1BossMonster.StartCoroutine(s1P1BossMonster.MeleeAttack());
-            owner.StateMachine.SetBool(
-                "chaseAndMeleeAttackParam", false);
+            s1P1BossMonster.IsRunCoroutine = true;
+        }
 
-        }*/
-
-        /*if (TimeManager.Instance.IsCoolTimeFinished(
+        if (s1P1BossMonster.IsRunCoroutine)
+        {
+            return;
+        }
+        
+        if (TimeManager.Instance.IsCoolTimeFinished(
                 s1P1BossMonster.gameObject.GetInstanceID() + StateName))
         {
-                new Vector2(4.8f, 0.8f), 0.05f, s1P1BossMonster.chaseMoveSpeed));
-            owner.StateMachine.SetBool(
-                "chaseAndMeleeAttackParam", false);
-        }*/
+            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveTowardCo(
+                new Vector2(4.8f, 0.8f), 0.05f, s1P1BossMonster.baseMoveSpeed));
+            s1P1BossMonster.IsRunCoroutine = true;
+            TimeManager.Instance.Use(s1P1BossMonster.gameObject.GetInstanceID() + StateName);
+        }
     }
 
     public void Exit(Monster owner)
     {
         // Debug.Log("MonsterIdle.Exit");
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        s1P1BossMonster!.IsRunCoroutine = false;
     }
 
     public bool RequiresUpdate { get; set; }
@@ -258,17 +264,33 @@ public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
     public string StateName { get; set; }
     public void Enter(Monster owner)
     {
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        s1P1BossMonster!.IsRunCoroutine = false;
+        
     }
 
     public void Execute(Monster owner)
     {
+        Debug.Log("S1P1BossMonsterMoveAndRangeAttack.Execute");
         
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        if (s1P1BossMonster == null)
+        {
+            return;
+        }
         
+        if (!s1P1BossMonster.IsRunCoroutine)
+        {
+            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveThroughWaypoints(
+            0.01f, s1P1BossMonster.baseMoveSpeed));
+            s1P1BossMonster.IsRunCoroutine = true;   
+        }
     }
 
     public void Exit(Monster owner)
-    {
-        // Debug.Log("MonsterIdle.Exit");
+    {        
+        var s1P1BossMonster = owner as S1P1BossMonster;
+        s1P1BossMonster!.IsRunCoroutine = false;
     }
 
     public bool RequiresUpdate { get; set; }

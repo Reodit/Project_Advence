@@ -149,20 +149,15 @@ public class MonsterSpawner : MonoBehaviour
     IEnumerator MoveBossPhase()
     {
         isbossing = true;
-        // 보스 인스턴싱
-        var bossMonster = Instantiate(GameManager.Instance.testBossMonster);
+        var bossMonster = Instantiate(GameManager.Instance.bossPrefab);
         bossMonster.transform.position = new Vector3(7f, 2f, 0f);
 
-        var boss = bossMonster.GetComponent<Monster>();
-
-        // 보스 처리
+        var boss = bossMonster.GetComponent<Monster>() as S1P1BossMonster;
         yield return new WaitUntil(() => boss.CurrentHp <= 0);
         
-        // 다음 페이즈 이동
         MoveNextPhase();
     }
     
-    // Update is called once per frame
     void Update()
     {
         if (isbossing)
