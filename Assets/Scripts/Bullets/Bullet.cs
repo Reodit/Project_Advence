@@ -97,15 +97,20 @@ public class Bullet : MonoBehaviour
         {
             pixelArsenalProjectileScript.OnCol();
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
-            
+
             // TODO 몬스터 데미지 계산 통일필요
-            monster.CurrentHp -= isFamiliarBullet?
-                SkillManager.instance.PlayerResultSkillDamage(Datas.GameData.DTFamiliarData.FirstOrDefault(x => 
-                    x.Value.familiarSkillId == SkillIndex).Value.skillId) : 
-                SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
-            monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
+            ApplyDamage(monster);
             TriggerDestruction();
         }
+    }
+
+    protected void ApplyDamage(Monster monster)
+    {
+        monster.CurrentHp -= isFamiliarBullet ?
+                        SkillManager.instance.PlayerResultSkillDamage(Datas.GameData.DTFamiliarData.FirstOrDefault(x =>
+                            x.Value.familiarSkillId == SkillIndex).Value.skillId) :
+                        SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
+        monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
     }
 
     public virtual void HitPlayer(Monster monster, PlayerMove player)
