@@ -195,7 +195,7 @@ public class S1P1BossMonsterIdle : IState<Monster>
 public class S1P1BossMonsterPlayerChase : IState<Monster>
 {
     public string StateName { get; set; }
-    public async void Enter(Monster owner)
+    public void Enter(Monster owner)
     {
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster != null)
@@ -205,6 +205,12 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
                 s1P1BossMonster.chaseDurationTime);
             
         }
+
+        var playerMove = GameManager.Instance.PlayerMove;
+
+        s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveTowardCo(playerMove.transform.position,
+                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed));
+
     }
 
     public void Execute(Monster owner)
@@ -215,30 +221,22 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
             return;
         }
         
-        var playerMove = GameManager.Instance.PlayerMove;
 
-        if (owner.MoveToward(playerMove.transform.position,
-                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed))
+        /*if (owner.MoveToward)
         {
-            // 공격 하기 코루틴 처리
             s1P1BossMonster.StartCoroutine(s1P1BossMonster.MeleeAttack());
-            // 이후
             owner.StateMachine.SetBool(
                 "chaseAndMeleeAttackParam", false);
 
-        }
+        }*/
 
-        if (TimeManager.Instance.IsCoolTimeFinished(
+        /*if (TimeManager.Instance.IsCoolTimeFinished(
                 s1P1BossMonster.gameObject.GetInstanceID() + StateName))
         {
-            // 중앙으로 이동 코루틴 처리
-            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveToCenter(
-                new Vector2(4.8f, 0.8f), 0.1f));
-
-            // 이후
+                new Vector2(4.8f, 0.8f), 0.05f, s1P1BossMonster.chaseMoveSpeed));
             owner.StateMachine.SetBool(
                 "chaseAndMeleeAttackParam", false);
-        }
+        }*/
     }
 
     public void Exit(Monster owner)

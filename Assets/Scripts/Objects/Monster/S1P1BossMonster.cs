@@ -102,12 +102,15 @@ public class S1P1BossMonster : Monster
             Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
     }
 
-    public IEnumerator MoveToCenter(Vector2 targetPosition, float threshold)
+    public IEnumerator MoveTowardCo(Vector2 targetPosition, float threshold, float moveSpeed)
     {
-        // 중앙으로 이동하는 로직 구현
         float distance = Vector2.Distance(transform.position, targetPosition);
+        while (distance > threshold) 
+        {
+            base.MoveToward(targetPosition, threshold, moveSpeed);
+        }
 
 
-        yield return new WaitUntil(() => distance < threshold); // 예시로 1초 대기
+        yield return new WaitUntil(() => distance < threshold);
     }
 }
