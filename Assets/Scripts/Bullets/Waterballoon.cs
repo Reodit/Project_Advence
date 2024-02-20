@@ -61,7 +61,7 @@ public class Waterballoon : Bullet
         if (!_isMovable)
         {
             pixelArsenalProjectileScript.projectileParticle.SetActive(false);
-            CollisionManager.Instance.ExplodeFromCapsule2D(this, _rangeParticle.GetComponent<ExplosionTrigger>().Colliders);
+            CollisionManager.Instance.ExplodeFromCollider(this, _rangeParticle.GetComponent<ExplosionTrigger>().Colliders);
             Destroy(_rangeParticle);
             // range에 Trigger 붙이기
             pixelArsenalProjectileScript.OnCol();
@@ -72,14 +72,15 @@ public class Waterballoon : Bullet
     {
         EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
 
-        monster.CurrentHp -= SkillManager.instance.PlayerResultSkillDamage(SkillIndex);
-        monster.hpBar.fillAmount = (float)monster.CurrentHp / monster.monsterData.MaxHP;
+        ApplyDamage(monster);
         TriggerDestruction();
     }
 
     public void SetScale(Vector2 scale)
     {
         Scale = scale;
+        float scaleRatio = scale.x / Scale.x;
         myTrans.localScale = scale;
+        rangeParticlePrefab.transform.localScale *= scaleRatio;
     }
 }

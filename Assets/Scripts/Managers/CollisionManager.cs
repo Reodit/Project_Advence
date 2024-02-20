@@ -1,3 +1,4 @@
+using MathNet.Numerics.Statistics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ public class CollisionManager : MonoBehaviour
         }*/
     }
 
-    public void ExplodeFromCapsule2D(Bullet bullet, List<Collider2D> colliders, float angle = 0f)
+    public void ExplodeFromCollider(Bullet bullet, List<Collider2D> colliders)
     {
         foreach (var col in colliders)
         {

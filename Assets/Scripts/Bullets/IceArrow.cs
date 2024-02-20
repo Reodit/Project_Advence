@@ -8,6 +8,9 @@ public class IceArrow : Bullet
 
     public override void HitMonster(Monster monster)
     {
+        EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
+        ApplyDamage(monster);
+
         if (penetrateCount > 0)
         {
             penetrateCount--;
@@ -18,7 +21,6 @@ public class IceArrow : Bullet
             TriggerDestruction();
         }
 
-        EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
-        ApplyDamage(monster);
+        
     }
 }
