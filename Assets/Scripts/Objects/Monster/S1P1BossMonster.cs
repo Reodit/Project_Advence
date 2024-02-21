@@ -33,7 +33,6 @@ public class S1P1BossMonster : Monster
     public List<Vector2> wayPoint;
     public bool IsRunCoroutine { get; set; }
     private string _monsterMeleeAttackCoolTimeID;
-    private string _monsterRangeAttackCoolTimeID;
 
     private int _currentRangeAttackCount;
     [Header("Attack Pattern Values")]
@@ -44,7 +43,6 @@ public class S1P1BossMonster : Monster
     {
         base.Start();
         _monsterMeleeAttackCoolTimeID = "MonsterMeleeAttack_" + gameObject.GetInstanceID();
-        _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
         _currentRangeAttackCount = 0;
     }
@@ -88,17 +86,23 @@ public class S1P1BossMonster : Monster
     }
     public IEnumerator MeleeAttack()
     {
-        Animator.Play("AttackMagic");
-
-        yield return new WaitUntil(() =>
-            Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
-
         yield return StartCoroutine(MoveTowardCo(
-            new Vector2(4.8f, 0.8f), 0.05f, baseMoveSpeed));
+            new Vector2(4.8f, 0.8f), 0.1f, baseMoveSpeed));
         
         StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
     }
-
+    
+    public override void HitPlayer(PlayerMove playerMove)
+    {
+        base.HitPlayer(playerMove);
+        Animator.Play("AttackMagic");
+        if (!IsRunCoroutine)
+        {
+            IsRunCoroutine = true;
+            StartCoroutine(MeleeAttack());
+        }
+    }
+    
     public IEnumerator MoveTowardCo(Vector2 targetPosition, float threshold, float moveSpeed)
     {
         float distance = Vector2.Distance(transform.position, targetPosition);
@@ -111,36 +115,29 @@ public class S1P1BossMonster : Monster
         StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
     }
     
+    private int _waypointIndex = 0;
+
     public IEnumerator MoveThroughWaypoints(float threshold, float moveSpeed)
     {
+        Debug.Log("Enter");
         
-        for (int i = 0; i < wayPoint.Count; i++)
+        
+        while (true)
         {
-            yield return StartCoroutine(MoveOneTapCo(wayPoint[i], threshold, moveSpeed));
-            if (stateSwitchRangeAttackCount < _currentRangeAttackCount)
-            {
-                StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
-                _currentRangeAttackCount = 0;
-                yield break;
-            }
-
+            yield return StartCoroutine(MoveOneTapCo(wayPoint[_waypointIndex], threshold, moveSpeed));
             yield return StartCoroutine(RangeAttackCo());
-        }
-
-        for (int i = wayPoint.Count - 2; i >= 0; i--)
-        {
-            yield return StartCoroutine(MoveOneTapCo(wayPoint[i], threshold, moveSpeed));
-            if (stateSwitchRangeAttackCount < _currentRangeAttackCount)
-            {
-                StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
-                _currentRangeAttackCount = 0;
-                yield break;
-            }
             
-            yield return StartCoroutine(RangeAttackCo());
+            _waypointIndex = (_waypointIndex + 1) % wayPoint.Count;
+            
+            if (stateSwitchRangeAttackCount <= _currentRangeAttackCount)
+            {
+                _currentRangeAttackCount = 0;
+                StateMachine.ChangeState(StateMachine.GetState("S1P1BossMonsterIdle"));
+                yield break;
+            }
         }
     }
-    
+
     public IEnumerator MoveOneTapCo(Vector2 targetPosition, float threshold, float moveSpeed)
     {
         float distance = Vector2.Distance(transform.position, targetPosition);
@@ -152,13 +149,15 @@ public class S1P1BossMonster : Monster
         }
     }
 
+    public void InstantiateProjectile()
+    {
+        Instantiate(monsterBullet, bulletStartPoint.position, quaternion.identity);
+        _currentRangeAttackCount++;
+    }
+    
     public IEnumerator RangeAttackCo()
     {
         Animator.Play("AttackBow");
-        Instantiate(monsterBullet, bulletStartPoint.position, quaternion.identity);
-        _currentRangeAttackCount++;
-        
-        yield return new WaitUntil(() =>
-            Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+        yield return new WaitForSeconds(1f);
     }
 }

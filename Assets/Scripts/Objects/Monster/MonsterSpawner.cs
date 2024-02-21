@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
  
 
@@ -15,11 +14,7 @@ public class Phase
     public List<PatternTable> patternList;
     public float remainTime;
     public float phaseTime;
-    /// <summary>
-    /// 커스텀 패턴 추가가 필요할 때
-    /// </summary>
-    /// <param name="phaseData"></param>
-    /// <param name="patternList"></param>
+
     public Phase(PhaseTable phaseData, List<PatternTable> patternList, float phaseTime)
     {
         this.phaseData = phaseData;
@@ -27,11 +22,7 @@ public class Phase
         this.phaseTime = phaseTime;
         remainTime = phaseTime;
     }
-
-    /// <summary>
-    /// 데이터 테이블에 있는 패턴을 사용
-    /// </summary>
-    /// <param name="phaseData"></param>
+    
     public Phase(PhaseTable phaseData, float phaseTime)
     {
         this.phaseData = phaseData;
@@ -56,8 +47,7 @@ public class Phase
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [FormerlySerializedAs("SpawnPoints")] public List<Transform> spawnPoints;
-    // TODO 이거 정리
+    public List<Transform> spawnPoints;
     public float outOfScreenXPos = -20f;
     public float scrollSpeed;
     public float initialXPos;
@@ -109,7 +99,6 @@ public class MonsterSpawner : MonoBehaviour
             // 마지막 스테이지에 대한 처리
             // TODO 다음 스테이지 이동
             Debug.Log("Stage Clear");
-            // 다른거 개발될때 까지 일단 멈춥시다. (태훈)
             GameManager.Instance.PauseGame();
         }
     }
@@ -202,10 +191,10 @@ public class MonsterSpawner : MonoBehaviour
                 var filteredPatterns = phase.patternList.Where(pattern => 
                     pattern.monsterCnt >= 3).ToList();
                 
-                if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
+                if (filteredPatterns.Count > 0)
                 {
-                    int randomIndex = Random.Range(0, filteredPatterns.Count); // 랜덤 인덱스 생성
-                    return filteredPatterns[randomIndex]; // 랜덤 요소 선택
+                    int randomIndex = Random.Range(0, filteredPatterns.Count);
+                    return filteredPatterns[randomIndex];
                 }
 
                 return null;
@@ -215,10 +204,10 @@ public class MonsterSpawner : MonoBehaviour
             {
                 var filteredPatterns = phase.patternList.Where(pattern => pattern.monsterCnt < 3).ToList();
                 
-                if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
+                if (filteredPatterns.Count > 0)
                 {
-                    int randomIndex = Random.Range(0, filteredPatterns.Count); // 랜덤 인덱스 생성
-                    return filteredPatterns[randomIndex]; // 랜덤 요소 선택
+                    int randomIndex = Random.Range(0, filteredPatterns.Count);
+                    return filteredPatterns[randomIndex];
                 }
 
                 return null;
@@ -229,10 +218,10 @@ public class MonsterSpawner : MonoBehaviour
         {
             var filteredPatterns = phase.patternList.Where(pattern => pattern.monsterCnt == 0).ToList();
 
-            if (filteredPatterns.Count > 0) // 필터링된 리스트에 요소가 존재하는 경우
+            if (filteredPatterns.Count > 0)
             {
-                int randomIndex = Random.Range(0, filteredPatterns.Count); // 랜덤 인덱스 생성
-                return filteredPatterns[randomIndex]; // 랜덤 요소 선택
+                int randomIndex = Random.Range(0, filteredPatterns.Count);
+                return filteredPatterns[randomIndex];
             }
 
             return null;

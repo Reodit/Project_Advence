@@ -19,7 +19,9 @@ public class SkillUpgradeDebugger : MonoBehaviour
     private void Start()
     {
         _player = FindObjectOfType<PlayerMove>();
+#if UNITY_EDITOR
         _player.isLevelUpOn = isLevelUpOn;
+#endif
     }
 
     public void Spawn(int skillIndex)

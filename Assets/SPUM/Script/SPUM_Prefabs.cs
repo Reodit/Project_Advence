@@ -44,7 +44,7 @@ public class SPUM_Prefabs : MonoBehaviour
     private void Start() {
         UnitTypeChanged.AddListener(InitAnimPair);
         animationStatesNames = new List<string>() { "RunState", "AttackState", "MagicAttack", "RangedAttack", "Idle" };
-        transform.GetChild(0).gameObject.AddComponent<AnimationFunction>();
+        transform.GetChild(0).gameObject.AddComponent<AnimationFunction>().monster = this.gameObject.GetComponent<Monster>();
     }
     
     [ContextMenu("TestScript")]

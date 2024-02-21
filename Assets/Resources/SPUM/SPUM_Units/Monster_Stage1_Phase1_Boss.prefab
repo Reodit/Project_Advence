@@ -1744,6 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60eb64b72bff4515b26fc4bb81a87b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monster: {fileID: 3274929862729956245}
 --- !u!1 &3459068322722663075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,6 +2831,7 @@ MonoBehaviour:
   - {x: 7.4, y: 0}
   - {x: 7.4, y: -1.5}
   - {x: 7.4, y: -3}
+  - {x: 7.4, y: -1.5}
   triggerCooldown: 0.5
   bulletStartPoint: {fileID: 9123104905675626447}
   monsterBullet: {fileID: 7997688019381865445, guid: 35841c0912f82de4db1bcdaeb6956f67,

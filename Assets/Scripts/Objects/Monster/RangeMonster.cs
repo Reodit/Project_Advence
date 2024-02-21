@@ -64,13 +64,17 @@ public class RangeMonster : Monster
         if (TimeManager.Instance.IsCoolTimeFinished(_monsterRangeAttackCoolTimeID))
         {
             Animator.SetBool("isRangeAttack", true);
-            Instantiate(monsterBullet, bulletStartPoint);
-            TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
         }
         else
         {
             Animator.SetBool("isRangeAttack", false);
         }
+    }
+    
+    public void InstantiateProjectile()
+    {
+        Instantiate(monsterBullet, bulletStartPoint);
+        TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
 
     protected override void OnDestroy()
