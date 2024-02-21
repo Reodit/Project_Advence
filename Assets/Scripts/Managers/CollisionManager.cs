@@ -83,4 +83,18 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
+    public void ExplodeFromCollider(Bullet bullet, Collider2D[] colliders)
+    {
+        foreach (var col in colliders)
+        {
+            if (bullet.tag == "PlayerProjectile")
+            {
+                if (col.TryGetComponent(out Monster monster))
+                {
+                    bullet.HitMonster(monster);
+                }
+            }
+        }
+    }
+
 }

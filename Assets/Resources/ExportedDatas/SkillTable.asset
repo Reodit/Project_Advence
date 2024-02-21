@@ -109,6 +109,20 @@ MonoBehaviour:
     allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
     criticalDamageRate: 2
   - index: 10008
+    name: "\uD3EC\uC774\uC98C\uBBF8\uC2A4\uD2B8"
+    description: "\uBC94\uC704 \uD53C\uD574\uB97C \uAC00\uD558\uB294 \uC720\uB3C5\uC131
+      \uD0C4\uD658\uC744 \uB0A0\uB9BD\uB2C8\uB2E4."
+    icon: SPUM/0_Flat/Icon_Flat__2
+    skillDamageRate: 1.7
+    skillSpeedRate: 0.5
+    range: 15
+    projectileSpeed: 18
+    projectileSize: 1
+    prefabPath: Skills/PoisonMist
+    type: 0
+    allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
+    criticalDamageRate: 2
+  - index: 10009
     name: "\uC6CC\uD130\uBC8C\uB8EC"
     description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
       \uAC00\uD569\uB2C8\uB2E4."
@@ -122,7 +136,7 @@ MonoBehaviour:
     type: 1
     allowSkillEnchantKey: b0360000b1360000b3360000b6360000
     criticalDamageRate: 1.5
-  - index: 10009
+  - index: 10010
     name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
     description: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8 \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
@@ -135,7 +149,7 @@ MonoBehaviour:
     type: 3
     allowSkillEnchantKey: b1360000b6360000b7360000
     criticalDamageRate: 1.5
-  - index: 10010
+  - index: 10011
     name: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC"
     description: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC \uC124\uBA85"
     icon: SPUM/0_Flat/Icon_Flat__14
