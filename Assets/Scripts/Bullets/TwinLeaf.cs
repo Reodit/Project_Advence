@@ -5,7 +5,7 @@ using UnityEngine;
 public class TwinLeaf : Bullet
 {
     [SerializeField] private float secondBulletSpawnDelay = 0.1f;
-    [SerializeField] private GameObject secondBullet;
+    [SerializeField] private Bullet secondBullet;
     [field: SerializeField] private bool damagable = true;
 
 
@@ -25,7 +25,7 @@ public class TwinLeaf : Bullet
 
         yield return new WaitForSeconds(secondBulletSpawnDelay);
 
-        TwinLeafSub bullet = Instantiate(secondBullet, initPosition, Quaternion.identity).GetComponent<TwinLeafSub>();
+        TwinLeafSub bullet = ObjectPooler.Instance.Bullet.Instantiate(secondBullet, initPosition, Quaternion.identity).GetComponent<TwinLeafSub>();
         bullet.Init(BulletInfo);
     }
 

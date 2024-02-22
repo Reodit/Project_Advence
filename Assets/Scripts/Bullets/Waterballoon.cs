@@ -5,9 +5,9 @@ using Utility;
 
 public class Waterballoon : Bullet
 {
-    [SerializeField] private GameObject rangeParticlePrefab;
+    [SerializeField] private ExplosionTrigger rangeParticlePrefab;
 
-    private GameObject _rangeParticle;
+    private ExplosionTrigger _rangeParticleTrigger;
 
     private float _distanceY;
     private float _startPosY;
@@ -32,7 +32,7 @@ public class Waterballoon : Bullet
         Vector2 startPos = myTrans.position;
         _startPosY = startPos.y;
         startPos.x += BulletInfo.MaxDistance;
-        _rangeParticle = Instantiate(rangeParticlePrefab, startPos, Quaternion.identity);
+        _rangeParticleTrigger = Instantiate(rangeParticlePrefab, startPos, Quaternion.identity);
 
         _distanceY = Screen.width * Consts.PERCENT_DIVISION;
         startPos.y += _distanceY;
@@ -61,8 +61,8 @@ public class Waterballoon : Bullet
         if (!_isMovable)
         {
             pixelArsenalProjectileScript.projectileParticle.SetActive(false);
-            CollisionManager.Instance.ExplodeFromCollider(this, _rangeParticle.GetComponent<ExplosionTrigger>().Colliders);
-            Destroy(_rangeParticle);
+            CollisionManager.Instance.ExplodeFromCollider(this, _rangeParticleTrigger.Colliders);
+            Destroy(_rangeParticleTrigger);
             // range에 Trigger 붙이기
             pixelArsenalProjectileScript.OnCol();
         }

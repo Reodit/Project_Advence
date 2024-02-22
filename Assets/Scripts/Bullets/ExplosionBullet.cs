@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExplosionBullet : Bullet
 {
-    [SerializeField] private ParticleSystem rangeParticle;
+    [SerializeField] private ParticlePoolObject rangeParticle;
     [SerializeField] private float subParticleDestroyTime = 1f;
     private bool _isFirstTime = true;
     private int _collisionCount = 0;
@@ -15,7 +15,8 @@ public class ExplosionBullet : Bullet
     protected override void Start()
     {
         base.Start();
-        _impactParticle = Instantiate(rangeParticle, transform.position, Quaternion.identity);
+        _impactParticle = ObjectPooler.Instance.Particle.Instantiate(rangeParticle, transform.position, Quaternion.identity)
+            .GetComponent<ParticleSystem>();
     }
 
     protected override void OnDestroy()
@@ -65,7 +66,7 @@ public class ExplosionBullet : Bullet
 
     private void DestroySubParticle()
     {
-        if (_impactParticle != null)
-            Destroy(_impactParticle.gameObject, subParticleDestroyTime);
+        //if (_impactParticle != null)
+        //    //ObjectPooler.Instance.Particle.return Destroy(_impactParticle.gameObject, subParticleDestroyTime);
     }
 }
