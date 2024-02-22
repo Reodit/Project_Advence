@@ -26,6 +26,12 @@ public class MonsterIdle : IState<Monster>
         {
             owner.RangeAttack();
         }
+
+        if (owner.gameObject.transform.position.x < -20f)
+        {
+            owner.CurrentHp = -1f;
+        }
+        
     }
 
     public void Exit(Monster owner)
@@ -155,6 +161,8 @@ public class S1P1BossMonsterIdle : IState<Monster>
         foreach (var stateSwitch in s1P1BossMonster.stateSwitchValue)
         {
             accumulatedProbability += stateSwitch.value;
+
+            Debug.Log($"{accumulatedProbability},, {randomValue}");
             if (randomValue <= accumulatedProbability)
             {
                 switch (stateSwitch.bossState)
@@ -217,32 +225,22 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
         }
         
         var playerMove = GameManager.Instance.PlayerMove;
-        if (owner.MoveToward(playerMove.transform.position,
-                s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed))
-        {
-            s1P1BossMonster.StartCoroutine(s1P1BossMonster.MeleeAttack());
-            s1P1BossMonster.IsRunCoroutine = true;
-        }
-
-        if (s1P1BossMonster.IsRunCoroutine)
-        {
-            return;
-        }
+        owner.MoveToward(playerMove.transform.position,
+            s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed);
         
         if (TimeManager.Instance.IsCoolTimeFinished(
                 s1P1BossMonster.gameObject.GetInstanceID() + StateName))
         {
             s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveTowardCo(
-                new Vector2(4.8f, 0.8f), 0.05f, s1P1BossMonster.baseMoveSpeed));
+                new Vector2(4.8f, 0.8f), 0.1f, s1P1BossMonster.chaseMoveSpeed));
             s1P1BossMonster.IsRunCoroutine = true;
-            TimeManager.Instance.Use(s1P1BossMonster.gameObject.GetInstanceID() + StateName);
         }
     }
 
     public void Exit(Monster owner)
     {
-        // Debug.Log("MonsterIdle.Exit");
         var s1P1BossMonster = owner as S1P1BossMonster;
+        TimeManager.Instance.Use(s1P1BossMonster!.gameObject.GetInstanceID() + StateName);
         s1P1BossMonster!.IsRunCoroutine = false;
     }
 
@@ -276,7 +274,7 @@ public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
         if (!s1P1BossMonster.IsRunCoroutine)
         {
             s1P1BossMonster.StartCoroutine(s1P1BossMonster.MoveThroughWaypoints(
-            0.01f, s1P1BossMonster.baseMoveSpeed));
+            0.1f, s1P1BossMonster.baseMoveSpeed));
             s1P1BossMonster.IsRunCoroutine = true;   
         }
     }

@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     public Color hitColor = Color.red;
     public float hitDuration = 0.2f;
     public List<SpriteRenderer> spriteRenderers;
-
+    public FixedJoystick FixedJoystick { get; set; } 
 #if UNITY_EDITOR
     public bool isLevelUpOn = true;
 #endif
@@ -56,16 +56,23 @@ public class PlayerMove : MonoBehaviour
         currentLvl = 0;
         currentExp = 0;
         currentHp = characterData.maxHp;
+        FixedJoystick = GameManager.Instance.fixedoystick;
     }
     
     void Move()
     {
+        if (FixedJoystick == null)
+        {
+            return;
+        }
+        
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        Vector3 newPosition = transform.position + new Vector3(moveX, moveY, 0f) * (characterData.moveSpeed * Time.deltaTime);
+        Vector3 newPosition = transform.position + new Vector3(
+            FixedJoystick.Horizontal + moveX, FixedJoystick.Vertical + moveY, 0f) * 
+            (characterData.moveSpeed * Time.deltaTime);
 
-        // MoveArea 컴포넌트를 사용하여 새 위치가 이동 영역 내에 있는지 확인
         newPosition = GameManager.Instance.MoveArea.ConstrainPosition(newPosition);
 
         transform.position = newPosition;

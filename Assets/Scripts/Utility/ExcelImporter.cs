@@ -13,6 +13,7 @@ using UnityEngine;
 
 namespace Utility
 {
+#if UNITY_EDITOR
     public static class ExcelImporter
     {
         public static void ReadAllExcelFiles()
@@ -322,7 +323,6 @@ namespace Utility
 
                 string assetPath = $"{dataPath}/{table.TableName}.asset";
                 ScriptableObject soInstance = AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath) ?? ScriptableObject.CreateInstance(scriptableObjectDataType);
-
                 // 실 데이터를 생성할 Instance data type 
                 Type instanceDataType = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes())
@@ -382,6 +382,7 @@ namespace Utility
             AssetDatabase.Refresh();
         }
     }
+#endif
 }
 
 

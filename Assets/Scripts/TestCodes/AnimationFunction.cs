@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimationFunction : MonoBehaviour
 {
+    public Monster monster;
     public void TurnOffAttack()
     {
         
@@ -16,6 +17,13 @@ public class AnimationFunction : MonoBehaviour
 
     public void RangedAttack()
     {
-        
+        if (monster is RangeMonster range)
+        {
+            range.InstantiateProjectile();
+        }
+        else if (monster is S1P1BossMonster boss)
+        {
+            boss.InstantiateProjectile();
+        }
     }
 }

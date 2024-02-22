@@ -28,7 +28,9 @@ public class BulletSpawnDebugger : MonoBehaviour
             }
             else
             {
+#if UNITY_EDITOR
                _bulletSpawner.SetLowerBulletRotation(value);
+#endif
             }
         }
     }

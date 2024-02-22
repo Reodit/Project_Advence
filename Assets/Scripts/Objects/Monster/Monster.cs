@@ -37,7 +37,14 @@ public class Monster : MonoBehaviour
     {
     }
 
-    public void HitPlayer(PlayerMove currentPlayer)
+    public virtual void HitPlayer(PlayerMove currentPlayer)
+    {
+        EffectUtility.Instance.FlashHitColor(currentPlayer.spriteRenderers, currentPlayer.hitColor, currentPlayer.hitDuration);
+        currentPlayer.currentHp -= monsterData.Attack;
+        currentPlayer.Hpbar.fillAmount = (float)currentPlayer.currentHp / currentPlayer.characterData.maxHp;
+    }
+    
+    public virtual void ProjectileHitPlayer(PlayerMove currentPlayer)
     {
         EffectUtility.Instance.FlashHitColor(currentPlayer.spriteRenderers, currentPlayer.hitColor, currentPlayer.hitDuration);
         currentPlayer.currentHp -= monsterData.Attack;

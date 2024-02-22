@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     public int phaseCountInCurrentStage;
     public int currentPhaseNumber;
 
-    public GameObject testBossMonster;
+    [Header("Input")] 
+    public FixedJoystick fixedoystick;
     
     private void Awake()
     {
