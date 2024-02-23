@@ -60,7 +60,7 @@ public class Waterballoon : Bullet
 
         if (!_isMovable)
         {
-            pixelArsenalProjectileScript.projectileParticle.SetActive(false);
+            pixelArsenalProjectileScript.projectileParticle.gameObject.SetActive(false);
             CollisionManager.Instance.ExplodeFromCollider(this, _rangeParticleTrigger.Colliders);
             Destroy(_rangeParticleTrigger);
             // range에 Trigger 붙이기

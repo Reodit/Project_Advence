@@ -4758,6 +4758,7 @@ GameObject:
   - component: {fileID: 7708566202477245494}
   - component: {fileID: 1548852290770711303}
   - component: {fileID: 8111779677631812547}
+  - component: {fileID: -5796773120827840716}
   m_Layer: 0
   m_Name: SpikyBlastRed
   m_TagString: Untagged
@@ -9523,6 +9524,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-5796773120827840716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699599453250591241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b78a41287bedb943ae9910089bbd76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7305756308442070279
 GameObject:
   m_ObjectHideFlags: 0

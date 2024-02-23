@@ -64,14 +64,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39409810732bfb5419a94c63ef0899a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
     Damage: 1
     SkillSpeedRate: 1
     MaxDistance: 7
     Speed: 10
   secondBulletSpawnDelay: 0.1
-  secondBullet: {fileID: 9040835647784452216, guid: aa1d66fe8a9ebbd418ecc5bdc61f3e61,
+  secondBullet: {fileID: 2756796596715665520, guid: aa1d66fe8a9ebbd418ecc5bdc61f3e61,
     type: 3}
   damagable: 1
 --- !u!58 &544301195610403061

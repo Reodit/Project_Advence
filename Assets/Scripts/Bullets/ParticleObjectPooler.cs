@@ -5,26 +5,23 @@ using UnityEngine;
 
 public class ParticleObjectPooler : GenericObjectPooler<ParticlePoolObject>
 {
-    private Dictionary<string, ParticleObjectPool> poolDict = new Dictionary<string, ParticleObjectPool>();
+    private Dictionary<string, ParticleObjectPool> _poolDict = new Dictionary<string, ParticleObjectPool>();
 
-    public override ParticlePoolObject Instantiate(ParticlePoolObject particle, Vector3 pos, Quaternion quat)
+    public ParticleObjectPooler(Transform parent) : base(parent)
     {
-        if (particle == null)
-            return null;
+    }
 
-        string particleName = particle.name;
+    public override ParticlePoolObject GetFromPool(ParticlePoolObject particlePrefab)
+    {
+        string prefabName = particlePrefab.name;
+        if (!_poolDict.ContainsKey(prefabName))
+            _poolDict.Add(prefabName, new ParticleObjectPool(particlePrefab, parent));
 
-        if (!poolDict.ContainsKey(particleName))
-            poolDict.Add(particleName, new ParticleObjectPool(particle));
-
-        ParticlePoolObject newParticle = poolDict[particleName].Get();
-        newParticle.transform.SetPositionAndRotation(pos, quat);
-
-        return newParticle;
+        return _poolDict[prefabName].Get();
     }
 
     public override void ReturnToPool(ParticlePoolObject particle)
     {
-        poolDict[particle.name].Release(particle);
+        _poolDict[particle.name].Return(particle);
     }
 }

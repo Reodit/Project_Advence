@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    public static ObjectPooler Instance { get; private set; }    
-    
-    public BulletObjectPooler Bullet { get; private set; } = new BulletObjectPooler();
-    public ParticleSystemPooler Particle { get; private set; } = new ParticleSystemPooler();
+    public static ObjectPooler Instance { get; private set; }
+
+    public BulletObjectPooler Bullet { get; private set; }
+    public ParticleSystemPooler Particle { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        Bullet = new BulletObjectPooler(transform);
+        Particle = new ParticleSystemPooler(transform);
     }
 }

@@ -25,7 +25,7 @@ public class TwinLeaf : Bullet
 
         yield return new WaitForSeconds(secondBulletSpawnDelay);
 
-        TwinLeafSub bullet = ObjectPooler.Instance.Bullet.Instantiate(secondBullet, initPosition, Quaternion.identity).GetComponent<TwinLeafSub>();
+        TwinLeafSub bullet = ObjectPooler.Instance.Bullet.GetFromPool(secondBullet).GetComponent<TwinLeafSub>();
         bullet.Init(BulletInfo);
     }
 

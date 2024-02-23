@@ -4,28 +4,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletObjectPooler : GenericObjectPooler<Bullet>
+public class BulletObjectPooler
 {
     private Dictionary<int, BulletObjectPool> _poolDict = new Dictionary<int, BulletObjectPool>();
+    protected Transform parent;
 
-    public override Bullet Instantiate(Bullet bullet, Vector3 pos, Quaternion quat)
+    public BulletObjectPooler(Transform parent)
     {
-        if (bullet == null)
-            return null;
-
-        int bulletIndex = bullet.SkillIndex;
-
-        if (!_poolDict.ContainsKey(bulletIndex))
-            _poolDict.Add(bulletIndex, new BulletObjectPool(bullet));
-
-        Bullet newBullet = _poolDict[bulletIndex].Get();
-        newBullet.transform.SetPositionAndRotation(pos, quat);
-
-        return newBullet;
+        this.parent = parent;
     }
 
-    public override void ReturnToPool(Bullet bullet)
+    public Bullet GetFromPool(Bullet bulletPrefab)
     {
-        _poolDict[bullet.SkillIndex].Release(bullet);
+        int index = bulletPrefab.SkillIndex;
+        if (!_poolDict.ContainsKey(bulletPrefab.SkillIndex))
+            _poolDict.Add(index, new BulletObjectPool(bulletPrefab, parent));
+
+        return _poolDict[index].Get();
+    }
+
+    public void ReturnToPool(Bullet bullet)
+    {
+        _poolDict[bullet.SkillIndex].Return(bullet);
     }
 }

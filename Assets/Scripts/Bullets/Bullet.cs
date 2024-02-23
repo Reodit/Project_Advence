@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour, IPooledObject
     private Action<Bullet> OnDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
 
-    public int SkillIndex { get; private set; }
+    [field: SerializeField] public int SkillIndex { get; private set; }
 
     public SkillType SkillType { get; private set; } = SkillType.Normal;
 
@@ -61,16 +61,8 @@ public class Bullet : MonoBehaviour, IPooledObject
         if (!_isTriggered)
         {
             _isTriggered = true;
-            StartCoroutine(DestroyAfterDelayCoroutine());
+            ObjectPooler.Instance.Bullet.ReturnToPool(this);
         }
-    }
-
-    protected virtual IEnumerator DestroyAfterDelayCoroutine()
-    {
-        // destroyDelay 만큼 대기
-        yield return new WaitForSeconds(destroyDelay);
-
-        ObjectPooler.Instance.Bullet.ReturnToPool(this);
     }
     
     protected virtual void Update()

@@ -30,7 +30,7 @@ public class SOSBullet : Bullet
     {
         Vector2 afterPos = initPosition;
         afterPos.y += interval;
-        Bullet bullet = ObjectPooler.Instance.Bullet.Instantiate(subBullet, afterPos, Quaternion.identity);
+        Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(subBullet);
         bullet.Init(BulletInfo, null, SkillIndex);
     }
 }

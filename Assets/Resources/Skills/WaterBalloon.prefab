@@ -62,10 +62,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2d5c91b28b9414f9c1b99859cd6313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
     Damage: 2
     SkillSpeedRate: 0.5
     MaxDistance: 12
     Speed: 1
-  rangeParticlePrefab: {fileID: 174076, guid: cda1dafbd8a5c4b459b1fbac5d769f5f, type: 3}
+  rangeParticlePrefab: {fileID: -3401690477255675539, guid: cda1dafbd8a5c4b459b1fbac5d769f5f,
+    type: 3}
+  <Scale>k__BackingField: {x: 0, y: 0}

@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3cc8b7b878ebb4ab887d9e05be4b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactParticle: {fileID: 2349810086667535636, guid: d5fca81af779e5e4d868c0dd74122e05,
+  impactParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
     type: 3}
   projectileParticle: {fileID: 144006, guid: 761c740b02ca298419b0a405f3ee050d, type: 3}
   muzzleParticle: {fileID: 0}
@@ -127,13 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba120e1b0b78b34cb3049ce2541b11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
   isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
-    Damage: 0
-    SkillSpeedRate: 0
-    MaxDistance: 0
-    Speed: 0
-  rangeParticle: {fileID: 557549183989575553, guid: d5fca81af779e5e4d868c0dd74122e05,
+    Damage: 1.7
+    SkillSpeedRate: 0.5
+    MaxDistance: 15
+    Speed: 18
+  <SkillIndex>k__BackingField: 0
+  rangeParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
     type: 3}
   subParticleDestroyTime: 1

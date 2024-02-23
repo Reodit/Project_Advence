@@ -16,7 +16,7 @@ public class RangeMonster : Monster
         _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
         TimeManager.Instance.RegisterCoolTime(_monsterRangeAttackCoolTimeID, 2f);
-        monsterBullet.SetBulletInfo(new BulletInfo(10f, 3f, 15f, -5f));
+        monsterBullet.Init(new BulletInfo(10f, 3f, 15f, -5f), null, monsterBullet.GetInstanceID());
     }
     protected override void InitializeFsm()
     {
@@ -73,7 +73,8 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        Instantiate(monsterBullet, bulletStartPoint);
+        Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(monsterBullet);
+        bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
 
