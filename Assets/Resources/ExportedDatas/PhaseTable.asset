@@ -18,7 +18,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage1_Phase1
     scrollSpeed: 2
     firstPrintMonster: 10
-    targetMonsterValue: 200
+    targetMonsterValue: 600
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 1
@@ -27,7 +27,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage2_Phase1
     scrollSpeed: 2
     firstPrintMonster: 10
-    targetMonsterValue: 250
+    targetMonsterValue: 650
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage2_Phase2
     scrollSpeed: 3
     firstPrintMonster: 10
-    targetMonsterValue: 300
+    targetMonsterValue: 700
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 2
@@ -45,7 +45,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage3_Phase1
     scrollSpeed: 2
     firstPrintMonster: 10
-    targetMonsterValue: 350
+    targetMonsterValue: 750
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 1
@@ -54,7 +54,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage3_Phase2
     scrollSpeed: 3
     firstPrintMonster: 10
-    targetMonsterValue: 400
+    targetMonsterValue: 800
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 2
@@ -63,7 +63,7 @@ MonoBehaviour:
     backgroundLocal: Background/Stage3_Phase3
     scrollSpeed: 4
     firstPrintMonster: 10
-    targetMonsterValue: 450
+    targetMonsterValue: 850
     phaseValue1: 0.8
     phaseValue2: 1.2
     phaseNumber: 3
