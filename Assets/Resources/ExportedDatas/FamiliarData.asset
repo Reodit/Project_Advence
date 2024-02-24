@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarList:
   - index: 11001
+<<<<<<< HEAD
     skillId: 10011
     maxHp: 20
+=======
+    skillId: 10010
+    maxHp: 400
+>>>>>>> 55edbc737ff21b6560d2dd431625c81ff511da97
     moveSpeed: 5
     familiarSkillId: 0
   - index: 11002
