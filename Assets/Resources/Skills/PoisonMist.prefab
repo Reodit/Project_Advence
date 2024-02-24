@@ -111,7 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
     type: 3}
-  projectileParticle: {fileID: 144006, guid: 761c740b02ca298419b0a405f3ee050d, type: 3}
+  projectileParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
+    type: 3}
   muzzleParticle: {fileID: 0}
   trailParticles: []
   impactNormal: {x: 0, y: 0, z: 0}

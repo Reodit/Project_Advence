@@ -20,6 +20,11 @@ public class ParticleObjectPooler : GenericObjectPooler<ParticlePoolObject>
         return _poolDict[prefabName].Get();
     }
 
+    public override ParticlePoolObject GetFromPool(ParticlePoolObject particlePrefab, Vector2 pos, Quaternion quat, Transform parent)
+    {
+        return null;
+    }
+
     public override void ReturnToPool(ParticlePoolObject particle)
     {
         _poolDict[particle.name].Return(particle);

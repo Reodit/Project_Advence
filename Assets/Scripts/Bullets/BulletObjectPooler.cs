@@ -1,20 +1,19 @@
 using MathNet.Numerics.Statistics;
+using NPOI.POIFS.Properties;
 using NPOI.SS.Formula.Functions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletObjectPooler
+public class BulletObjectPooler : GenericObjectPooler<Bullet>
 {
     private Dictionary<int, BulletObjectPool> _poolDict = new Dictionary<int, BulletObjectPool>();
-    protected Transform parent;
 
-    public BulletObjectPooler(Transform parent)
+    public BulletObjectPooler(Transform parent) : base(parent)
     {
-        this.parent = parent;
     }
 
-    public Bullet GetFromPool(Bullet bulletPrefab)
+    public override Bullet GetFromPool(Bullet bulletPrefab)
     {
         int index = bulletPrefab.SkillIndex;
         if (!_poolDict.ContainsKey(bulletPrefab.SkillIndex))
@@ -23,7 +22,20 @@ public class BulletObjectPooler
         return _poolDict[index].Get();
     }
 
-    public void ReturnToPool(Bullet bullet)
+    public override Bullet GetFromPool(Bullet bulletPrefab, Vector2 pos, Quaternion quat, Transform parent)
+    {
+        int index = bulletPrefab.SkillIndex;
+        if (!_poolDict.ContainsKey(index))
+            _poolDict.Add(index, new BulletObjectPool(bulletPrefab, parent));
+
+        Bullet bullet = _poolDict[index].Get();
+        bullet.transform.SetParent(parent);
+        bullet.transform.SetPositionAndRotation(pos, quat);
+
+        return bullet;
+    }
+
+    public override void ReturnToPool(Bullet bullet)
     {
         _poolDict[bullet.SkillIndex].Return(bullet);
     }

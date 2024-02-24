@@ -5,7 +5,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IPooledObject
 {
     // TODO need refactor this 
     [SerializeField] private int dataKey;
@@ -128,5 +128,25 @@ public class Monster : MonoBehaviour
         transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
 
         return false; 
+    }
+
+    public void OnObjectInstantiate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnObjectSpawn()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnObjectReturn()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnObjectDestroy()
+    {
+        throw new NotImplementedException();
     }
 }

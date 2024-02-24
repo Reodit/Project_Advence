@@ -56,5 +56,6 @@ public abstract class CustomObjectPool<T> where T : Component, IPooledObject
     {
         t.gameObject.SetActive(false);
         pool.Enqueue(t);
+        t.OnObjectReturn();
     }
 }

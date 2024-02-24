@@ -48,11 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3cc8b7b878ebb4ab887d9e05be4b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactParticle: {fileID: 149228, guid: 395a7db52e95e864f83b14fae83d775d, type: 3}
-  projectileParticle: {fileID: 145312, guid: 256b62dca2371ed4a906008c330ecb9a, type: 3}
-  muzzleParticle: {fileID: 177104, guid: 916f703137954bd45bbd4306c2bc05e3, type: 3}
-  trailParticles:
-  - {fileID: 113904, guid: 256b62dca2371ed4a906008c330ecb9a, type: 3}
+  impactParticle: {fileID: -3719288623454432199, guid: 9f527a395abd96c40955e01dfd4b2a3f,
+    type: 3}
+  projectileParticle: {fileID: 5537183997696255914, guid: 00bbc6c18367f1748b9e7ecabfed5a04,
+    type: 3}
+  muzzleParticle: {fileID: -4304932360135424005, guid: 891c2dca1c1c34a4fa71ff3dcc540b4b,
+    type: 3}
+  trailParticles: []
   impactNormal: {x: 0, y: 0, z: 0}
 --- !u!33 &3382448
 MeshFilter:
@@ -74,11 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56ffe20caa8b45228acfd994a475e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
     Damage: 4
+    SkillSpeedRate: 0
     MaxDistance: 15
     Speed: 5
+  <SkillIndex>k__BackingField: 0
 --- !u!58 &1128879278765334928
 CircleCollider2D:
   m_ObjectHideFlags: 0

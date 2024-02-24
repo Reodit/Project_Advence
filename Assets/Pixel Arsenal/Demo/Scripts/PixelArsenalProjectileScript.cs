@@ -18,7 +18,7 @@ public class PixelArsenalProjectileScript : MonoBehaviour
         if (muzzleParticle)
 		{
 			muzzleParticle = ObjectPooler.Instance.Particle.GetFromPool(muzzleParticle, transform.position, Quaternion.identity, transform);
-			WaitForDestroy(muzzleParticle, 1.5f); // Lifetime of muzzle effect.
+            ObjectPooler.Instance.WaitForDestroy(muzzleParticle, 1.5f); // Lifetime of muzzle effect.
 		}
     }
     
@@ -27,9 +27,7 @@ public class PixelArsenalProjectileScript : MonoBehaviour
 	    try
 	    {
 		    impactParticle = ObjectPooler.Instance.Particle.GetFromPool(impactParticle, transform.position, Quaternion.FromToRotation(Vector3.up, impactNormal));
-
-		    WaitForDestroy(projectileParticle, 3f);
-            WaitForDestroy(impactParticle, 5f);
+            ObjectPooler.Instance.WaitForDestroy(impactParticle, 3f);
 
             ParticlePoolObject[] trails = GetComponentsInChildren<ParticlePoolObject>();
 		    //Component at [0] is that of the parent i.e. this object (if there is any)
@@ -40,7 +38,7 @@ public class PixelArsenalProjectileScript : MonoBehaviour
 			    if (trail.gameObject.name.Contains("Trail"))
 			    {
 				    trail.transform.SetParent(null);
-				    WaitForDestroy(trail, 2f);
+                    ObjectPooler.Instance.WaitForDestroy(trail, 2f);
 			    }
 		    }
 	    }
@@ -48,17 +46,4 @@ public class PixelArsenalProjectileScript : MonoBehaviour
 	    {
 	    }
     }
-
-	private void WaitForDestroy(ParticlePoolObject particle, float waitTime)
-	{
-		StartCoroutine(CoWaitForDestroy(particle, waitTime));
-	}
-
-	private IEnumerator CoWaitForDestroy(ParticlePoolObject particle, float waitTime)
-	{
-		yield return new WaitForSeconds(waitTime);
-		ObjectPooler.Instance.Particle.ReturnToPool(particle);
-	}
-
-	
 }

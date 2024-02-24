@@ -130,6 +130,7 @@ public class Bullet : MonoBehaviour, IPooledObject
 
     public void OnObjectReturn()
     {
+        _isTriggered = false;
         OnDestroyed?.Invoke(this);
     }
 
