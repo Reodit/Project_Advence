@@ -15,7 +15,7 @@ MonoBehaviour:
   familiarList:
   - index: 11001
     skillId: 10010
-    maxHp: 20
+    maxHp: 400
     moveSpeed: 5
     familiarSkillId: 0
   - index: 11002
