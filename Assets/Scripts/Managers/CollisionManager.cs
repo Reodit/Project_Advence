@@ -40,9 +40,9 @@ public class CollisionManager : MonoBehaviour
             if (collider.TryGetComponent(out Bullet bullet) && 
                 collidee.TryGetComponent(out PlayerMove player))
             {
-                // TODO 수정필요
-                bullet.transform.parent.
-                    transform.parent.GetComponent<Monster>().ProjectileHitPlayer(player);
+                //// TODO 수정필요
+                //bullet.transform.parent.
+                //    transform.parent.GetComponent<Monster>().ProjectileHitPlayer(player);
             }
         }
 

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class ExplosionBullet : Bullet
 {
-    [SerializeField] private ParticleSystem rangeParticle;
+    [SerializeField] private ParticlePoolObject rangeParticle;
     [SerializeField] private float subParticleDestroyTime = 1f;
     private bool _isFirstTime = true;
     private int _collisionCount = 0;
 
-    private ParticleSystem _impactParticle;
+    private ParticlePoolObject _impactParticle;
 
 
     protected override void Start()
     {
         base.Start();
-        _impactParticle = Instantiate(rangeParticle, transform.position, Quaternion.identity);
+        _impactParticle = ObjectPooler.Instance.Particle.GetFromPool(rangeParticle);
     }
 
-    protected override void OnDestroy()
+    private void OnDisable()
     {
         DestroySubParticle();
     }
@@ -33,7 +33,7 @@ public class ExplosionBullet : Bullet
         if (_isFirstTime)
         {
             _isFirstTime = false;
-            _impactParticle.Play();
+            _impactParticle.Particle.Play();
             _impactParticle.GetComponent<AudioSource>().Play();
             Vector2 explosionPos = CalculateExplosionPos(monster);
             Collider2D[] colliders = GetCollidersFromCircle(explosionPos);
@@ -66,6 +66,6 @@ public class ExplosionBullet : Bullet
     private void DestroySubParticle()
     {
         if (_impactParticle != null)
-            Destroy(_impactParticle.gameObject, subParticleDestroyTime);
+            ObjectPooler.Instance.Particle.ReturnToPool(_impactParticle);
     }
 }

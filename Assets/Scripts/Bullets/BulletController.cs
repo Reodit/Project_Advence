@@ -82,6 +82,7 @@ public class BulletController : MonoBehaviour
                 AddSpecialBullet(bullet);
                 break;
             case SkillType.Outside:
+                AddSpecialBullet(bullet);
                 break;
             case SkillType.MeleeFamiliar:
                 break;

@@ -48,9 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3cc8b7b878ebb4ab887d9e05be4b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactParticle: {fileID: 199982, guid: 9d7b9cd8cd165034a9fc35ad6772a09e, type: 3}
-  projectileParticle: {fileID: 166186, guid: c696d52aa63ab1d4fb866d7d0e3e77cb, type: 3}
-  muzzleParticle: {fileID: 177002, guid: 4ad52f67aea68fe4badf1ccf038610fe, type: 3}
+  impactParticle: {fileID: -8863360889241556161, guid: 321727f24c6d7ae448cfa3f1e12736dc,
+    type: 3}
+  projectileParticle: {fileID: 72133959962972357, guid: 9588e6140a8fb284db0ef7fc03ce8660,
+    type: 3}
+  muzzleParticle: {fileID: -8694007897393029121, guid: 67d66d950ab1a7f4fa3e20b65ca51c9e,
+    type: 3}
   trailParticles: []
   impactNormal: {x: 0, y: 0, z: 0}
 --- !u!33 &3382448
@@ -135,8 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56ffe20caa8b45228acfd994a475e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
     Damage: 10
-    MaxDistance: 10
+    SkillSpeedRate: 3
+    MaxDistance: 15
     Speed: -5
+  <SkillIndex>k__BackingField: 35148

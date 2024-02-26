@@ -2796,7 +2796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78754ef9c0a54deaae383a662306926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataKey: 1015
+  <DataKey>k__BackingField: 1015
   monsterData:
     ID: 0
     Name: 

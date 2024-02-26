@@ -121,9 +121,9 @@ public class MonsterSpawner : MonoBehaviour
                         continue;
                     }
                     
-                    var monster = Instantiate(
-                        Resources.Load<GameObject>(Datas.GameData.DTMonsterData[monsterID].PrefabPath), 
-                        spawnPoints[i-1]);
+                    var monster = ObjectPooler.Instance.Monster.GetFromPool(
+                        Resources.Load<Monster>(Datas.GameData.DTMonsterData[monsterID].PrefabPath), 
+                        transform.position, Quaternion.identity, spawnPoints[i - 1]);
                     monster.transform.position += new Vector3(currentSpace, 0f, 0f);
                     totalMonsterCount++;
                 }

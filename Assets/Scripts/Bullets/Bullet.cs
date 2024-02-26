@@ -4,9 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Enums;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPooledObject
 {
-    public Transform spawnPoint;
     public PixelArsenalProjectileScript pixelArsenalProjectileScript { get; private set; }
     private bool _isTriggered;
     private float destroyDelay;
@@ -15,7 +14,7 @@ public class Bullet : MonoBehaviour
     private Action<Bullet> OnDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
 
-    public int SkillIndex { get; private set; }
+    [field: SerializeField] public int SkillIndex { get; private set; }
 
     public SkillType SkillType { get; private set; } = SkillType.Normal;
 
@@ -36,7 +35,7 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        OnDestroyed?.Invoke(this);
+        
     }
 
     public virtual void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback, int skillIndex)
@@ -62,17 +61,8 @@ public class Bullet : MonoBehaviour
         if (!_isTriggered)
         {
             _isTriggered = true;
-            StartCoroutine(DestroyAfterDelayCoroutine());
+            ObjectPooler.Instance.Bullet.ReturnToPool(this);
         }
-    }
-
-    protected virtual IEnumerator DestroyAfterDelayCoroutine()
-    {
-        // destroyDelay 만큼 대기
-        yield return new WaitForSeconds(destroyDelay);
-
-        // 오브젝트 삭제
-        Destroy(gameObject);
     }
     
     protected virtual void Update()
@@ -82,7 +72,7 @@ public class Bullet : MonoBehaviour
         
         if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.MaxDistance)
         {
-            Destroy(gameObject);
+            TriggerDestruction();
         }
     }
 
@@ -128,5 +118,23 @@ public class Bullet : MonoBehaviour
     public void SetSkillType(SkillType skillType)
     {
         SkillType = SkillType;
+    }
+
+    public void OnObjectInstantiate()
+    {
+    }
+
+    public void OnObjectSpawn()
+    {
+    }
+
+    public void OnObjectReturn()
+    {
+        _isTriggered = false;
+        OnDestroyed?.Invoke(this);
+    }
+
+    public void OnObjectDestroy()
+    {
     }
 }

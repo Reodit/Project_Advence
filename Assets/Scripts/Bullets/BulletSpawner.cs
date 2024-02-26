@@ -184,7 +184,8 @@ public class BulletSpawner
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
-            Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, Quaternion.identity);
+            Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(bulletPrefab);
+            bullet.transform.position = pos;
             bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);
         }
@@ -195,7 +196,8 @@ public class BulletSpawner
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
-            Bullet bullet = UnityEngine.Object.Instantiate(bulletPrefab, pos, quaternion);
+            Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(bulletPrefab);
+            bullet.transform.SetPositionAndRotation(pos, quaternion);
             bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);
         }

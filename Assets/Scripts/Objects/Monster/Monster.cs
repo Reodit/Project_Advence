@@ -5,10 +5,10 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IPooledObject
 {
     // TODO need refactor this 
-    [SerializeField] private int dataKey;
+    [field: SerializeField] public int DataKey { get; private set; }
     public List<SpriteRenderer> spriteRenderers { get; private set; }
     public float CurrentHp { get; set; }
     [HideInInspector] public MonsterTable monsterData;
@@ -26,7 +26,7 @@ public class Monster : MonoBehaviour
 
     protected virtual void Start()
     {
-        monsterData = Datas.GameData.DTMonsterData[dataKey];
+        monsterData = Datas.GameData.DTMonsterData[DataKey];
         CurrentHp = monsterData.MaxHP;
         spriteRenderers = new List<SpriteRenderer>();
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
@@ -53,7 +53,7 @@ public class Monster : MonoBehaviour
     
     public void Die(float delay = 0f)
     {
-        Destroy(this.gameObject, delay);
+        ObjectPooler.Instance.WaitForDestroy(this, delay);
     }
 
     protected virtual void OnDestroy()
@@ -128,5 +128,21 @@ public class Monster : MonoBehaviour
         transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
 
         return false; 
+    }
+
+    public void OnObjectInstantiate()
+    {
+    }
+
+    public void OnObjectSpawn()
+    {
+    }
+
+    public void OnObjectReturn()
+    {
+    }
+
+    public void OnObjectDestroy()
+    {
     }
 }

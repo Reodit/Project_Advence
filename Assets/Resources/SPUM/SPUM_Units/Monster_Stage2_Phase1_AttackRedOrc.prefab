@@ -770,7 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d066c79e49d594374bb78c0ee87efbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataKey: 1012
+  <DataKey>k__BackingField: 1012
   monsterData:
     ID: 0
     Name: 
@@ -781,7 +781,6 @@ MonoBehaviour:
     EXP: 0
     Gold: 0
     Score: 0
-    Skill: 0
     PrefabPath: 
   Animator: {fileID: 4176352677148841275}
   hpBar: {fileID: 6345093564737053190}

@@ -140,6 +140,20 @@ MonoBehaviour:
     allowSkillEnchantKey: b0360000b1360000b3360000b6360000
     criticalDamageRate: 1.5
   - index: 10010
+    name: SOS
+    description: "3\uAC1C\uC758 \uD22C\uC0AC\uCCB4\uAC00 \uC77C\uC815 \uC2DC\uAC04\uB9C8\uB2E4
+      \uB0A0\uC544\uAC11\uB2C8\uB2E4."
+    icon: SPUM/0_Flat/Icon_Flat__18
+    skillDamageRate: 1
+    skillSpeedRate: 1
+    range: 20
+    projectileSpeed: 12
+    projectileSize: 1
+    prefabPath: Skills/SOSBullet
+    type: 2
+    allowSkillEnchantKey: b0360000b1360000b3360000b6360000
+    criticalDamageRate: 1.5
+  - index: 10011
     name: "\uACE0\uC2A4\uD2B8\uB098\uC774\uD2B8"
     description: "\uCCB4\uB825\uC744 \uD76C\uC0DD\uD558\uBA70 \uACF5\uACA9\uD558\uB294
       \uAE30\uC0AC\uB97C \uC18C\uD658\uD558\uC5EC \uB3CC\uC9C4\uC2DC\uD0B5\uB2C8\uB2E4."
@@ -153,7 +167,7 @@ MonoBehaviour:
     type: 3
     allowSkillEnchantKey: b1360000b6360000b7360000
     criticalDamageRate: 1.5
-  - index: 10011
+  - index: 10012
     name: "\uBBF8\uB2C8\uD398\uC5B4\uB9AC"
     description: "\uC77C\uC815 \uC2DC\uAC04 \uB9F5\uC5D0 \uBA38\uBB34\uB974\uBA70
       \uACF5\uACA9\uD558\uB294 \uBD80\uD558\uB97C \uC18C\uD658\uD569\uB2C8\uB2E4."
