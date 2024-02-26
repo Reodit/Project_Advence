@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
     type: 3}
-  projectileParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
+  projectileParticle: {fileID: -6824456942321523949, guid: dc8d56747fe65014a8ab4bd0ba0d2e5d,
     type: 3}
   muzzleParticle: {fileID: 0}
   trailParticles: []
@@ -130,11 +130,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFamiliarBullet: 0
   <BulletInfo>k__BackingField:
-    Damage: 1.7
+    Damage: 1.3
     SkillSpeedRate: 0.5
-    MaxDistance: 15
-    Speed: 18
-  <SkillIndex>k__BackingField: 0
+    MaxDistance: 8
+    Speed: 10
+  <SkillIndex>k__BackingField: 10008
   rangeParticle: {fileID: 7555284231665565879, guid: d5fca81af779e5e4d868c0dd74122e05,
     type: 3}
   subParticleDestroyTime: 1

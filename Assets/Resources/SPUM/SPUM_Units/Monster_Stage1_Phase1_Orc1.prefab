@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94dffc8a24de4c5f8d779af83c09099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataKey: 1010
+  <DataKey>k__BackingField: 1010
   monsterData:
     ID: 0
     Name: 
@@ -3795,6 +3795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60eb64b72bff4515b26fc4bb81a87b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monster: {fileID: 0}
 --- !u!1 &8490789572319449949
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-using MathNet.Numerics.Statistics;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleObjectPooler : GenericObjectPooler<ParticlePoolObject>
@@ -20,9 +18,29 @@ public class ParticleObjectPooler : GenericObjectPooler<ParticlePoolObject>
         return _poolDict[prefabName].Get();
     }
 
+    public ParticlePoolObject GetFromPool(ParticlePoolObject particlePrefab, Vector2 pos, Quaternion quat)
+    {
+        string prefabName = particlePrefab.name;
+        if (!_poolDict.ContainsKey(prefabName))
+            _poolDict.Add(prefabName, new ParticleObjectPool(particlePrefab, parent));
+
+        ParticlePoolObject particle = _poolDict[prefabName].Get();
+        particle.transform.SetPositionAndRotation(pos, quat);
+
+        return particle;
+    }
+
     public override ParticlePoolObject GetFromPool(ParticlePoolObject particlePrefab, Vector2 pos, Quaternion quat, Transform parent)
     {
-        return null;
+        string prefabName = particlePrefab.name;
+        if (!_poolDict.ContainsKey(prefabName))
+            _poolDict.Add(prefabName, new ParticleObjectPool(particlePrefab, parent));
+
+        ParticlePoolObject particle = _poolDict[prefabName].Get();
+        particle.transform.SetParent(parent);
+        particle.transform.SetPositionAndRotation(pos, quat);
+
+        return particle;
     }
 
     public override void ReturnToPool(ParticlePoolObject particle)

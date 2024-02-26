@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Monster : MonoBehaviour, IPooledObject
 {
     // TODO need refactor this 
-    [SerializeField] private int dataKey;
+    [field: SerializeField] public int DataKey { get; private set; }
     public List<SpriteRenderer> spriteRenderers { get; private set; }
     public float CurrentHp { get; set; }
     [HideInInspector] public MonsterTable monsterData;
@@ -26,7 +26,7 @@ public class Monster : MonoBehaviour, IPooledObject
 
     protected virtual void Start()
     {
-        monsterData = Datas.GameData.DTMonsterData[dataKey];
+        monsterData = Datas.GameData.DTMonsterData[DataKey];
         CurrentHp = monsterData.MaxHP;
         spriteRenderers = new List<SpriteRenderer>();
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
@@ -53,7 +53,7 @@ public class Monster : MonoBehaviour, IPooledObject
     
     public void Die(float delay = 0f)
     {
-        Destroy(this.gameObject, delay);
+        ObjectPooler.Instance.WaitForDestroy(this, delay);
     }
 
     protected virtual void OnDestroy()
@@ -132,21 +132,17 @@ public class Monster : MonoBehaviour, IPooledObject
 
     public void OnObjectInstantiate()
     {
-        throw new NotImplementedException();
     }
 
     public void OnObjectSpawn()
     {
-        throw new NotImplementedException();
     }
 
     public void OnObjectReturn()
     {
-        throw new NotImplementedException();
     }
 
     public void OnObjectDestroy()
     {
-        throw new NotImplementedException();
     }
 }
