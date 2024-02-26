@@ -24,85 +24,85 @@ MonoBehaviour:
     reqExp: 20
   - index: 13
     level: 3
-    reqExp: 50
+    reqExp: 30
   - index: 14
     level: 4
-    reqExp: 200
+    reqExp: 60
   - index: 15
     level: 5
-    reqExp: 350
+    reqExp: 120
   - index: 16
     level: 6
-    reqExp: 508
+    reqExp: 240
   - index: 17
     level: 7
-    reqExp: 626
+    reqExp: 360
   - index: 18
     level: 8
-    reqExp: 744
+    reqExp: 480
   - index: 19
     level: 9
-    reqExp: 862
+    reqExp: 600
   - index: 20
     level: 10
-    reqExp: 980
+    reqExp: 720
   - index: 21
     level: 11
-    reqExp: 1098
+    reqExp: 840
   - index: 22
     level: 12
-    reqExp: 1216
+    reqExp: 960
   - index: 23
     level: 13
-    reqExp: 1334
+    reqExp: 1080
   - index: 24
     level: 14
-    reqExp: 1452
+    reqExp: 1200
   - index: 25
     level: 15
-    reqExp: 1570
+    reqExp: 1320
   - index: 26
     level: 16
-    reqExp: 1688
+    reqExp: 1480
   - index: 27
     level: 17
-    reqExp: 1806
+    reqExp: 1600
   - index: 28
     level: 18
-    reqExp: 1924
+    reqExp: 1720
   - index: 29
     level: 19
-    reqExp: 2042
+    reqExp: 1840
   - index: 30
     level: 20
-    reqExp: 2160
+    reqExp: 1960
   - index: 31
     level: 21
-    reqExp: 2278
+    reqExp: 2080
   - index: 32
     level: 22
-    reqExp: 2396
+    reqExp: 2200
   - index: 33
     level: 23
-    reqExp: 2514
+    reqExp: 2320
   - index: 34
     level: 24
-    reqExp: 2632
+    reqExp: 2480
   - index: 35
     level: 25
-    reqExp: 2750
+    reqExp: 2600
   - index: 36
     level: 26
-    reqExp: 2868
+    reqExp: 2720
   - index: 37
     level: 27
-    reqExp: 2986
+    reqExp: 2840
   - index: 38
     level: 28
-    reqExp: 3104
+    reqExp: 2960
   - index: 39
     level: 29
-    reqExp: 3222
+    reqExp: 3080
   - index: 40
     level: 30
-    reqExp: 3340
+    reqExp: 3200

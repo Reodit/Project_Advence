@@ -60,7 +60,7 @@ MonoBehaviour:
     description: "\uB290\uB9AC\uACE0 \uC0AC\uAC70\uB9AC\uAC00 \uC9E7\uC9C0\uB9CC
       \uAC15\uB825\uD55C \uC5B4\uB460 \uAD6C\uCCB4\uB97C \uB0A0\uB9BD\uB2C8\uB2E4."
     icon: SPUM/0_Flat/Icon_Flat__17
-    skillDamageRate: 5
+    skillDamageRate: 3
     skillSpeedRate: 0.1
     range: 5
     projectileSpeed: 4
@@ -102,7 +102,7 @@ MonoBehaviour:
     description: "\uB290\uB9AC\uACE0 \uC9E7\uC9C0\uB9CC \uAC15\uB825\uD55C \uBC94\uC704
       \uD53C\uD574\uB97C \uAC00\uD558\uB294 \uAD6C\uCCB4\uB97C \uB0A0\uB9BD\uB2C8\uB2E4."
     icon: SPUM/0_Flat/Icon_Flat__35
-    skillDamageRate: 3
+    skillDamageRate: 2.5
     skillSpeedRate: 0.05
     range: 5
     projectileSpeed: 4

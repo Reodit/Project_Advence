@@ -933,11 +933,3 @@ MonoBehaviour:
     vertical5: 1012
     patternInterval: 6
     monsterCnt: 4
-  - index: 2115
-    vertical1: 1012
-    vertical2: 1012
-    vertical3: 1012
-    vertical4: 1012
-    vertical5: 1012
-    patternInterval: 6
-    monsterCnt: 5
