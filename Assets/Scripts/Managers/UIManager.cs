@@ -3,57 +3,58 @@ using UnityEngine;
  
 namespace Managers
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : Singleton<UIManager>
     {
-        // Singleton 인스턴스
-        public static UIManager Instance { get; private set; }
-
-        // 모든 UI 요소를 저장하는 딕셔너리
         private Dictionary<string, UIBase> uiElements = new Dictionary<string, UIBase>();
-
-        private void Awake()
+        
+        public T GetUI<T>(string id) where T : UIBase
         {
-            if (Instance == null)
+            string key = GetKey<T>(id);
+            if (uiElements.TryGetValue(key, out UIBase instance))
             {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
+                return instance as T;
             }
-            else
+            return null;
+        }
+
+        public T ShowUI<T>(T prefab, string id) where T : UIBase
+        {
+            string key = GetKey<T>(id);
+            if (uiElements.TryGetValue(key, out UIBase instance))
             {
-                Destroy(gameObject);
+                instance.Show();
+                return instance as T;
+            }
+
+            T uiInstance = Instantiate(prefab, transform);
+            uiElements[key] = uiInstance;
+            uiInstance.Show();
+            return uiInstance;
+        }
+
+        public void HideUI<T>(string id) where T : UIBase
+        {
+            string key = GetKey<T>(id);
+            if (uiElements.TryGetValue(key, out UIBase instance))
+            {
+                instance.Hide();
+                uiElements.Remove(key);
             }
         }
 
-        public void RegisterUIElement(string key, UIBase uiElement)
+        public void HideAll()
         {
-            if (!uiElements.ContainsKey(key))
+            foreach (var instance in uiElements.Values)
             {
-                uiElements[key] = uiElement;
+                instance.Hide();
+                Destroy(instance.gameObject);
             }
+            uiElements.Clear();
         }
 
-        public void ShowUIElement(string key)
+        private string GetKey<T>(string id) where T : UIBase
         {
-            if (uiElements.TryGetValue(key, out UIBase uiElement))
-            {
-                uiElement.Show();
-            }
-        }
-
-        public void HideUIElement(string key)
-        {
-            if (uiElements.TryGetValue(key, out UIBase uiElement))
-            {
-                uiElement.Hide();
-            }
-        }
-
-        public void HideAllUIElements()
-        {
-            foreach (var uiElement in uiElements.Values)
-            {
-                uiElement.Hide();
-            }
+            return $"{typeof(T).Name}_{id}";
         }
     }
 }

@@ -9,13 +9,21 @@ namespace Datas
     public static class GameData
     {
         public static Dictionary<int, CharacterTable> DTCharacterData = new Dictionary<int, CharacterTable>();
-
+        public static Dictionary<int, StatLevelTable> DTStatLevelData = new Dictionary<int, StatLevelTable>();
+        public static Dictionary<int, SelectStatTable> DTSelectStatData = new Dictionary<int, SelectStatTable>();
+        public static Dictionary<int, SkillTable> DTSkillData = new Dictionary<int, SkillTable>();
+        public static Dictionary<int, SkillEnchantTable> DTSkillEnchantData = new Dictionary<int, SkillEnchantTable>();
+        public static Dictionary<int, CharacterLevelTable> DTCharacterLevelData = new Dictionary<int, CharacterLevelTable>();
+        public static Dictionary<int, PatternTable> DTPatternData = new Dictionary<int, PatternTable>();
+        public static Dictionary<int, PhaseTable> DTPhaseData = new Dictionary<int, PhaseTable>();
+        public static Dictionary<int, MonsterTable> DTMonsterData = new Dictionary<int, MonsterTable>();
+        public static Dictionary<int, FamiliarData> DTFamiliarData = new Dictionary<int, FamiliarData>();
+        
         public static void LoadCharacterDataToGameData(string fileName)
         {
             string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
             var characterTableData = Resources.Load<ScriptableObject>(path) as CharacterTableScriptableObject;
 
-            // DTCharacterData 딕셔너리에 데이터 저장
             if (characterTableData != null)
             {
                 foreach (var e in characterTableData.characterTableList)
@@ -30,7 +38,6 @@ namespace Datas
             }
         }
         
-        public static Dictionary<int, CharacterLevelTable> DTCharacterLevelData = new Dictionary<int, CharacterLevelTable>();
 
         public static void LoadCharacterLevelDataToGameData(string fileName)
         {
@@ -48,14 +55,9 @@ namespace Datas
             
             else
             {
-                Debug.LogError("Failed to load CharacterTableData from ScriptableObject.");
+                Debug.LogError("Failed to load CharacterLevelTableData from ScriptableObject.");
             }
         }
-        
-        public static Dictionary<int, StatLevelTable> DTStatLevelData = new Dictionary<int, StatLevelTable>();
-        public static Dictionary<int, SelectStatTable> DTSelectStatData = new Dictionary<int, SelectStatTable>();
-        public static Dictionary<int, SkillTable> DTSkillData = new Dictionary<int, SkillTable>();
-        public static Dictionary<int, SkillEnchantTable> DTSkillEnchantData = new Dictionary<int, SkillEnchantTable>();
         
         public static void LoadStatLevelDataToGameData(string fileName)
         {
@@ -137,9 +139,6 @@ namespace Datas
             }
         }
 
-        public static Dictionary<int, PatternTable> DTPatternData = new Dictionary<int, PatternTable>();
-        public static Dictionary<int, PhaseTable> DTPhaseData = new Dictionary<int, PhaseTable>();
-
         public static void LoadPatternDataToGameData(string fileName)
         {
             string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
@@ -182,8 +181,6 @@ namespace Datas
             }
         }
 
-        public static Dictionary<int, MonsterTable> DTMonsterData = new Dictionary<int, MonsterTable>();
-
         public static void LoadMonsterDataToGameData(string fileName)
         {
             string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;
@@ -204,8 +201,6 @@ namespace Datas
             }
         }
         
-        public static Dictionary<int, FamiliarData> DTFamiliarData = new Dictionary<int, FamiliarData>();
-
         public static void LoadFamiliarDataToGameData(string fileName)
         {
             string path = Consts.SCRIPTABLEOBJECT_LOAD_PATH + fileName;

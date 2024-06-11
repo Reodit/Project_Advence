@@ -19,7 +19,7 @@ public class ImageScrolling : MonoBehaviour
     
     void Update()
     {
-        if (!GameManager.Instance.isGamePause)
+        if (!GameManager.Instance.IsGamePaused)
         {
             foreach (var e in scrollingImages[GameManager.Instance.currentStage - 1])
             {
@@ -27,7 +27,7 @@ public class ImageScrolling : MonoBehaviour
                 {
                     e.gameObject.SetActive(true);
                 }
-                e.uvRect = new Rect(e.uvRect.position + Vector2.right * scrollSpeed * Time.deltaTime, e.uvRect.size);
+                e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
             }
         }
     }

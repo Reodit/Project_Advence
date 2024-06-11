@@ -2,25 +2,10 @@ using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
-public class PopupManager : MonoBehaviour
+public class PopupManager : Singleton<PopupManager>
 {
-    public static PopupManager Instance;
     [SerializeField] private Camera uiCamera;
     private Stack<GameObject> popupStack = new Stack<GameObject>();
-    
-    void Awake()
-    {
-        // 싱글톤 패턴 구현
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     
     public void InstantiatePopUp(string path)
     {

@@ -1,51 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Random = UnityEngine.Random;
- 
 
-[Serializable]
-public class Phase
-{
-    public PhaseTable phaseData;
-    public List<PatternTable> patternList;
-    public float remainTime;
-    public float phaseTime;
-
-    public Phase(PhaseTable phaseData, List<PatternTable> patternList, float phaseTime)
-    {
-        this.phaseData = phaseData;
-        this.patternList = patternList;
-        this.phaseTime = phaseTime;
-        remainTime = phaseTime;
-    }
-    
-    public Phase(PhaseTable phaseData, float phaseTime)
-    {
-        this.phaseData = phaseData;
-        this.patternList = AddPattern();
-        this.phaseTime = phaseTime;
-
-        remainTime = phaseTime;
-    }
-
-    private List<PatternTable> AddPattern()
-    {
-        var patterns = new List<PatternTable>();
-        
-        foreach (var e in Datas.GameData.DTPatternData)
-        {
-            patterns.Add(e.Value);    
-        }
-
-        return patterns;
-    }
-}
-
-public class MonsterSpawner : MonoBehaviour
+public class MonsterSpawner : Singleton<MonsterSpawner>
 {
     public List<Transform> spawnPoints;
     public float outOfScreenXPos = -20f;
@@ -137,14 +97,16 @@ public class MonsterSpawner : MonoBehaviour
     
     IEnumerator MoveBossPhase()
     {
-        isbossing = true;
+        /*isbossing = true;
         var bossMonster = Instantiate(GameManager.Instance.bossPrefab);
         bossMonster.transform.position = new Vector3(7f, 2f, 0f);
 
         var boss = bossMonster.GetComponent<Monster>() as S1P1BossMonster;
         yield return new WaitUntil(() => boss.CurrentHp <= 0);
         
-        MoveNextPhase();
+        MoveNextPhase();*/
+        
+        yield return null;
     }
     
     void Update()

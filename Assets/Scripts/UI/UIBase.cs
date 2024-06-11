@@ -6,13 +6,13 @@ using UnityEngine;
 public abstract class UIBase : MonoBehaviour
 {
     public bool IsVisible { get; private set; }
-
     public delegate void DataBindingHandler();
     public event DataBindingHandler OnDataBind;
     
     protected virtual void Start()
     {
         Initialize();
+        BindData();
     }
     
     protected virtual void Initialize()
@@ -65,5 +65,15 @@ public abstract class UIBase : MonoBehaviour
 
     protected virtual void UnsubscribeEvents()
     {
+    }
+    
+    protected void Subscribe<T>(ref Action<T> eventHandler, Action<T> callback)
+    {
+        eventHandler += callback;
+    }
+
+    protected void Unsubscribe<T>(ref Action<T> eventHandler, Action<T> callback)
+    {
+        eventHandler -= callback;
     }
 }

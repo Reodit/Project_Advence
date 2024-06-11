@@ -1,21 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-
-public class GameManager : MonoBehaviour
+/// <summary>
+/// 모든 매니저 코드 초기화 & 일반적인 기능 담담
+/// </summary>
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
-
     public Camera mainCamera;
     public Transform characterSpawnPoint;
     public MoveArea MoveArea;
     
-    public IngameUI IngameUI;
     public PlayerMove PlayerMove { get; private set; }
     public MonsterSpawner MonsterSpawner;
 
@@ -25,19 +20,18 @@ public class GameManager : MonoBehaviour
     public int currentPhaseNumber;
 
     [Header("Input")] 
-    public FixedJoystick fixedoystick;
-    
-    private void Awake()
-    {
-        mainCamera = Camera.main;
-        Instance = this;
-        DontDestroyOnLoad(this);
-        isGamePause = false;
-        GameDataLoad();
-        PlayerInstantiate(1);
+    public FixedJoystick fixedJoystick;
+    public bool IsGamePaused { get; private set; }
 
-        MonsterSpawner.Init();
-        IngameUI.Instance.Init();
+    protected override void Awake()
+    {
+        base.Awake();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        // Preload -- Preload는 최초 한번 이외에는 갈일 없음
+        mainCamera = Camera.main;
+        GameDataLoad();
+        IsGamePaused = false;
     }
 
     private void GameDataLoad()
@@ -55,65 +49,57 @@ public class GameManager : MonoBehaviour
         Datas.GameData.LoadFamiliarDataToGameData("FamiliarData");
     }
     
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "OutGame")
+        {
+        }
+        
+        if (scene.name == "InGame")
+        {            
+            PlayerInstantiate(1);
 
-    // 게임 시작 시 플레이어 스폰
+            // TODO Move Stage Manager
+            MonsterSpawner.Init();
+        }
+    }
+    
+    // TODO Move Stage Manager 
     private void PlayerInstantiate(int id)
     {
-        // 캐릭터 부모 하위에 인스턴싱
         var player = Instantiate(Resources.Load<GameObject>(Datas.GameData.DTCharacterData[id].prefabPath), characterSpawnPoint);
         
-        // 컴포넌트 찾아서 넣어주기
         PlayerMove = player.GetComponent<PlayerMove>();
         PlayerMove.characterData = Datas.GameData.DTCharacterData[id];
         PlayerMove.Init();
     }
-    public void Update()
-    {
-        
-    }
 
-    public bool isGamePause;
     public void PauseGame()
     {
-        Time.timeScale = 0; // 게임 일시정지
-        isGamePause = true;
-    }
-    
-    public void ResumeGame()
-    {
-        Time.timeScale = 1; // 게임 재개
-        isGamePause = false;
+        if (!IsGamePaused)
+        {
+            Time.timeScale = 0f;
+            IsGamePaused = true;
+        }
     }
 
+    public void ResumeGame()
+    {
+        if (IsGamePaused)
+        {
+            Time.timeScale = 1f;
+            IsGamePaused = false;
+        }
+    }
+    
+    // TODO Move Stage Manager
     public void StageInitialize()
     {
         
     }
-
-    [ContextMenu("test")]
-    public void BgTest()
-    {
-        foreach (var e in ImageScrolling.Instace.scrollingImages[GameManager.Instance.currentStage - 1])
-        {
-            e.gameObject.SetActive(false);   
-        }
-
-        GameManager.Instance.currentStage++;
-    }
-
-    [ContextMenu("BOSSTEST")]
-
-    public void BossTest()
-    {
-        Instantiate(bossPrefab);
-    }
-
-    public GameObject bossPrefab;
     
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
-        Datas.PlayerData.SaveCharacterStatData();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    
-    
 }

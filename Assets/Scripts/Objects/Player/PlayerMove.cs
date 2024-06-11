@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
         currentLvl = 0;
         currentExp = 0;
         currentHp = characterData.maxHp;
-        FixedJoystick = GameManager.Instance.fixedoystick;
+        FixedJoystick = GameManager.Instance.fixedJoystick;
     }
     
     void Move()
