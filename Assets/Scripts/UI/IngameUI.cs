@@ -43,20 +43,23 @@ public class InGameUI : UIBase
         playerIcon.anchoredPosition = new Vector2(xValue, playerIcon.anchoredPosition.y);
         
         // 페이즈 진척도 개선
-        phaseBgsList[GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber].fillAmount =
+        phaseBgList[GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber].fillAmount =
             progress;
     }
 
-    private List<Image> phaseBgsList = new List<Image>();
-    
-    public void Init()
+    private List<Image> phaseBgList = new List<Image>();
+
+    protected override void Initialize()
     {
-        phaseBgsList.Clear();
+        base.Initialize();
+
+        uiType = UIType.HUD;
+        phaseBgList.Clear();
         int phaseCountInCurrentStage = GameManager.Instance.phaseCountInCurrentStage;
         for (int i = 1; i <= phaseCountInCurrentStage; i++)
         {
             var phaseBg = Instantiate(phaseBgPrefab, phaseBgParent.transform);
-            phaseBgsList.Add(phaseBg.GetComponent<Image>());    
+            phaseBgList.Add(phaseBg.GetComponent<Image>());    
             float newPositionX = phaseBgParent.GetComponent<RectTransform>().rect.width / 
                 phaseCountInCurrentStage * i;
             phaseBg.GetComponent<RectTransform>().anchoredPosition = new Vector2(newPositionX, phaseBg.GetComponent<RectTransform>().anchoredPosition.y);

@@ -3,8 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UIType
+{
+    PopUp,
+    FullScreenPopUp,
+    HUD
+}
+
 public abstract class UIBase : MonoBehaviour
 {
+    public UIType uiType;
     public bool IsVisible { get; private set; }
     public delegate void DataBindingHandler();
     public event DataBindingHandler OnDataBind;
