@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
- 
+using UnityEngine.SceneManagement;
+
 [Serializable]
 public class BackgroundSets
 {
@@ -12,23 +13,41 @@ public class BackgroundSets
 
 public class ImageScrolling : MonoBehaviour
 {
-    public static ImageScrolling Instace;
+    public static ImageScrolling Instance;
     public float scrollSpeed = 0.5f;
     public GameObject bgPrefab;
     public List<BackgroundSets> bgSprites;
     
+    // TODO 업데이트가 아니라 스테이지를 파라미터로 던지는 함수 필요
     void Update()
     {
-        if (!GameManager.Instance.IsGamePaused)
+        if (!GameManager.instance.IsGamePaused)
         {
-            foreach (var e in scrollingImages[GameManager.Instance.currentStage - 1])
+            if (SceneManager.GetActiveScene().name == "OutgameScene")
             {
-                if (!e.gameObject.activeSelf)
+                foreach (var e in scrollingImages[0])
                 {
-                    e.gameObject.SetActive(true);
+                    if (!e.gameObject.activeSelf)
+                    {
+                        e.gameObject.SetActive(true);
+                    }
+                    e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
                 }
-                e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
             }
+
+            else
+            {
+                foreach (var e in scrollingImages[GameManager.instance.currentStage - 1])
+                {
+                    if (!e.gameObject.activeSelf)
+                    {
+                        e.gameObject.SetActive(true);
+                    }
+                    e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
+                }
+            }
+            
+
         }
     }
 
@@ -36,7 +55,7 @@ public class ImageScrolling : MonoBehaviour
 
     private void Awake()
     {
-        Instace = this;
+        Instance = this;
         scrollingImages = new Dictionary<int, List<RawImage>>();
         
         for (int i = 0; i < bgSprites.Count; i++)

@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -19,18 +20,20 @@ public class GameManager : Singleton<GameManager>
     public int phaseCountInCurrentStage;
     public int currentPhaseNumber;
 
+    // TODO : move to input manager
     [Header("Input")] 
     public FixedJoystick fixedJoystick;
     public bool IsGamePaused { get; private set; }
 
     protected override void Awake()
     {
-        base.Awake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         
         // Preload -- Preload는 최초 한번 이외에는 갈일 없음
         mainCamera = Camera.main;
         GameDataLoad();
+        
+        // Game delta time
         IsGamePaused = false;
     }
 
@@ -51,21 +54,34 @@ public class GameManager : Singleton<GameManager>
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "OutGame")
+        if (scene.name == "PreLoadScene")
         {
+            // Move Lobby Scene (OutGame Scene)
+            SceneManager.LoadScene("OutgameScene");
         }
         
-        if (scene.name == "InGame")
-        {            
+        else if (scene.name == "OutgameScene")
+        {
+            
+        }
+        
+        else if (scene.name == "IngameScene")
+        {
+            // In-game Initialize
             PlayerInstantiate(1);
 
             // TODO Move Stage Manager
             MonsterSpawner.Init();
         }
+
+        else
+        {
+            Debug.LogError($"This scene is not registered. SceneName = {SceneManager.GetActiveScene().name}");
+        }
     }
     
     // TODO Move Stage Manager 
-    private void PlayerInstantiate(int id)
+    public void PlayerInstantiate(int id)
     {
         var player = Instantiate(Resources.Load<GameObject>(Datas.GameData.DTCharacterData[id].prefabPath), characterSpawnPoint);
         

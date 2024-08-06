@@ -32,11 +32,11 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         currentSpace = 0;
         currentPhase = phases.FirstOrDefault();
         targetXPos = this.transform.position.x + currentPhase.phaseData.firstPrintMonster;
-        GameManager.Instance.currentStage = currentPhase.phaseData.stage;
-        ImageScrolling.Instace.scrollSpeed = currentPhase.phaseData.scrollSpeed;
-        GameManager.Instance.phaseCountInCurrentStage = phases.Count(phase =>
-            phase.phaseData.stage == GameManager.Instance.currentStage);
-        GameManager.Instance.currentPhaseNumber = phases[GameManager.Instance.currentStage].phaseData.phaseNumber;
+        GameManager.instance.currentStage = currentPhase.phaseData.stage;
+        ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
+        GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
+            phase.phaseData.stage == GameManager.instance.currentStage);
+        GameManager.instance.currentPhaseNumber = phases[GameManager.instance.currentStage].phaseData.phaseNumber;
     }
 
     public void MoveNextPhase()
@@ -47,11 +47,11 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         {
             phases.Remove(currentPhase);
             currentPhase = phases[0];
-            GameManager.Instance.currentStage = currentPhase.phaseData.stage;
-            ImageScrolling.Instace.scrollSpeed = currentPhase.phaseData.scrollSpeed;
-            GameManager.Instance.phaseCountInCurrentStage = phases.Count(phase =>
-                phase.phaseData.stage == GameManager.Instance.currentStage);
-            GameManager.Instance.currentPhaseNumber = phases[GameManager.Instance.currentStage].phaseData.phaseNumber;
+            GameManager.instance.currentStage = currentPhase.phaseData.stage;
+            ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
+            GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
+                phase.phaseData.stage == GameManager.instance.currentStage);
+            GameManager.instance.currentPhaseNumber = phases[GameManager.instance.currentStage].phaseData.phaseNumber;
         }
 
         else
@@ -59,7 +59,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             // 마지막 스테이지에 대한 처리
             // TODO 다음 스테이지 이동
             Debug.Log("Stage Clear");
-            GameManager.Instance.PauseGame();
+            GameManager.instance.PauseGame();
         }
     }
     

@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
         {
             currentExp -= Datas.GameData.DTCharacterLevelData[currentLvl].reqExp;
             currentLvl++;
-            PopupManager.Instance.InstantiatePopUp("UIPrefabs/LevelUpPopUp");
+            PopupManager.instance.InstantiatePopUp("UIPrefabs/LevelUpPopUp");
         }
     }
 
@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
         currentLvl = 0;
         currentExp = 0;
         currentHp = characterData.maxHp;
-        FixedJoystick = GameManager.Instance.fixedJoystick;
+        FixedJoystick = GameManager.instance.fixedJoystick;
     }
     
     void Move()
@@ -73,7 +73,7 @@ public class PlayerMove : MonoBehaviour
             FixedJoystick.Horizontal + moveX, FixedJoystick.Vertical + moveY, 0f) * 
             (characterData.moveSpeed * Time.deltaTime);
 
-        newPosition = GameManager.Instance.MoveArea.ConstrainPosition(newPosition);
+        newPosition = GameManager.instance.MoveArea.ConstrainPosition(newPosition);
 
         transform.position = newPosition;
     }

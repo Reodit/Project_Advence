@@ -35,7 +35,7 @@ public class GhostKnight : Familiar
     protected override bool CheckDestroyCondition()
     {
         bool needDestroy = base.CheckDestroyCondition() || 
-                           !CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
+                           !CameraUtility.IsTargetInCameraView(GameManager.instance.mainCamera,
                                this.transform.position);
         if (currentHp <= 0)
         {

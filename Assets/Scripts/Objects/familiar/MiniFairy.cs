@@ -28,7 +28,7 @@ public class MiniFairy : Familiar
     protected override bool CheckDestroyCondition()
     {
         bool needDestroy = base.CheckDestroyCondition() ||
-                           !CameraUtility.IsTargetInCameraView(GameManager.Instance.mainCamera,
+                           !CameraUtility.IsTargetInCameraView(GameManager.instance.mainCamera,
                                this.transform.position);
         return needDestroy;
     }

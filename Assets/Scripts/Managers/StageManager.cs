@@ -9,7 +9,6 @@ public class StageManager : Singleton<StageManager>
 
     protected override void Awake()
     {
-        base.Awake();
         Initialize();
     }
 

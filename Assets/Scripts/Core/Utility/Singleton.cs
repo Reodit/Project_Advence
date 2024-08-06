@@ -2,24 +2,38 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    // DontDestroy는 컴포넌트화 해서 따로 사용하도록
     private static T _instance;
+    private static readonly object Lock = new object();
+    private static bool _applicationIsQuitting = false;
 
-    public static T Instance
+    public static T instance
     {
         get
         {
-            if (_instance == null)
+            if (_applicationIsQuitting)
             {
-                _instance = FindObjectOfType<T>();
+                Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
+                                 "' already destroyed on application quit." +
+                                 " Won't create again - returning null.");
+                return null;
+            }
 
+            lock (Lock)
+            {
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject(typeof(T).Name);
-                    _instance = singletonObject.AddComponent<T>();
+                    _instance = FindObjectOfType<T>();
+
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject(typeof(T).Name);
+                        _instance = singletonObject.AddComponent<T>();
+                        DontDestroyOnLoad(singletonObject);
+                    }
                 }
+
+                return _instance;
             }
-            return _instance;
         }
     }
 
@@ -28,10 +42,16 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_instance == null)
         {
             _instance = this as T;
+            DontDestroyOnLoad(gameObject);
         }
         else if (_instance != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _applicationIsQuitting = true;
     }
 }

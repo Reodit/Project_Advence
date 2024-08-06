@@ -135,12 +135,14 @@
     <Compile Include="Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs" />
     <Compile Include="Assets/Pixel Arsenal/Scripts/PixelArsenalLightFlicker.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_SpriteList.cs" />
+    <Compile Include="Assets/Scripts/Managers/CameraManager.cs" />
     <Compile Include="Assets/Scripts/FSM/StateMachine.cs" />
     <Compile Include="Assets/SPUM/Sprite_Editor(Beta)/Script/SpriteEyeSync.cs" />
     <Compile Include="Assets/SPUM/Sample/Script/PlayerManager.cs" />
     <Compile Include="Assets/Scripts/UI/IngameUI.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets/Scripts/Bullets/Bullet.cs" />
+    <Compile Include="Assets/Scripts/UI/LobbyUI.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_AnimationController.cs" />
     <Compile Include="Assets/Scripts/Bullets/BulletController.cs" />
     <Compile Include="Assets/Scripts/Objects/Player/MoveArea.cs" />

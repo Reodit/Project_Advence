@@ -29,13 +29,13 @@ public class InGameUI : UIBase
 
     public void UpdateUIs()
     {
-        levelText.text = GameManager.Instance.PlayerMove.currentLvl == GameManager.Instance.PlayerMove.characterData.maxLv ? 
-            "Max Lv" : $"Lv.{GameManager.Instance.PlayerMove.currentLvl}";
-        expText.text = $"{GameManager.Instance.PlayerMove.currentExp} / " +
-                       $"{Datas.GameData.DTCharacterLevelData[GameManager.Instance.PlayerMove.currentLvl].reqExp}";
+        levelText.text = GameManager.instance.PlayerMove.currentLvl == GameManager.instance.PlayerMove.characterData.maxLv ? 
+            "Max Lv" : $"Lv.{GameManager.instance.PlayerMove.currentLvl}";
+        expText.text = $"{GameManager.instance.PlayerMove.currentExp} / " +
+                       $"{Datas.GameData.DTCharacterLevelData[GameManager.instance.PlayerMove.currentLvl].reqExp}";
         // 진척도 = 진행 초 / 360
-        var progress= 1 - GameManager.Instance.MonsterSpawner.currentPhase.remainTime /
-                      GameManager.Instance.MonsterSpawner.currentPhase.phaseTime;
+        var progress= 1 - GameManager.instance.MonsterSpawner.currentPhase.remainTime /
+                      GameManager.instance.MonsterSpawner.currentPhase.phaseTime;
         // playerIcon
         //playerIcon.anchoredPosition 
         //float xValue = (GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber) * 300 + (progress * 300);
@@ -43,7 +43,7 @@ public class InGameUI : UIBase
         playerIcon.anchoredPosition = new Vector2(xValue, playerIcon.anchoredPosition.y);
         
         // 페이즈 진척도 개선
-        phaseBgList[GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber].fillAmount =
+        phaseBgList[GameManager.instance.phaseCountInCurrentStage - GameManager.instance.currentPhaseNumber].fillAmount =
             progress;
     }
 
@@ -55,7 +55,7 @@ public class InGameUI : UIBase
 
         uiType = UIType.HUD;
         phaseBgList.Clear();
-        int phaseCountInCurrentStage = GameManager.Instance.phaseCountInCurrentStage;
+        int phaseCountInCurrentStage = GameManager.instance.phaseCountInCurrentStage;
         for (int i = 1; i <= phaseCountInCurrentStage; i++)
         {
             var phaseBg = Instantiate(phaseBgPrefab, phaseBgParent.transform);

@@ -58,7 +58,7 @@ public class Monster : MonoBehaviour, IPooledObject
 
     protected virtual void OnDestroy()
     {
-        GameManager.Instance.PlayerMove.currentExp += monsterData.EXP;
+        GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
     }
 
     public virtual void RangeAttack()

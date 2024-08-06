@@ -18,12 +18,12 @@ public class LevelUpPopUp : UIBase
     protected override void Start()
     {
         upgradeOptionPicker.PickUpgradeOptions();
-        GameManager.Instance.PauseGame();
+        GameManager.instance.PauseGame();
     }
 
     private void OnDestroy()
     {
         base.OnDisable();
-        GameManager.Instance.ResumeGame();
+        GameManager.instance.ResumeGame();
     }
 }

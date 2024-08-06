@@ -21,7 +21,7 @@ public class MonsterIdle : IState<Monster>
         
         // TODO 수정 필요 (임시처리)
         if (CameraUtility.IsTargetInCameraView(
-                GameManager.Instance.mainCamera, owner.gameObject.transform.position
+                GameManager.instance.mainCamera, owner.gameObject.transform.position
             ))
         {
             owner.RangeAttack();
@@ -224,7 +224,7 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
             return;
         }
         
-        var playerMove = GameManager.Instance.PlayerMove;
+        var playerMove = GameManager.instance.PlayerMove;
         owner.MoveToward(playerMove.transform.position,
             s1P1BossMonster.meleeAttackThreshold, s1P1BossMonster.chaseMoveSpeed);
         

@@ -76,7 +76,7 @@ public class SkillManager : MonoBehaviour
     public float PlayerResultSkillDamage(int skillID, bool isCriticalApply = true)
     {
         var characterSkill = PlayerData.GetCharacterSkills()[skillID];
-        var characterBaseData = GameManager.Instance.PlayerMove.characterData;
+        var characterBaseData = GameManager.instance.PlayerMove.characterData;
         float baseDamage = 0f;
         
         switch (characterSkill.skillTable.type)
@@ -181,7 +181,7 @@ public class SkillManager : MonoBehaviour
     public float PlayerAttackSpeed(int skillID)
     {
         var characterSkill = PlayerData.GetCharacterSkills()[skillID];
-        var characterBaseData = GameManager.Instance.PlayerMove.characterData;        
+        var characterBaseData = GameManager.instance.PlayerMove.characterData;        
         
         var upgradeAttackSpeedStat = PlayerData.GetUpgradeHistory().selectStatTable.FirstOrDefault(status =>
             status.selectStatName == Status.AttackSpeedRate);
