@@ -10,11 +10,11 @@ public class GameManager : Singleton<GameManager>
 {
     public Camera mainCamera;
     public Transform characterSpawnPoint;
-    public MoveArea MoveArea;
+    // public MoveArea MoveArea;
     
     public PlayerMove PlayerMove { get; private set; }
-    public MonsterSpawner MonsterSpawner;
-
+    public MonsterSpawner MonsterSpawner { get; private set; }
+        
     [Header("Stage & Phase")]
     public int currentStage;
     public int phaseCountInCurrentStage;
@@ -68,10 +68,12 @@ public class GameManager : Singleton<GameManager>
         else if (scene.name == "IngameScene")
         {
             // In-game Initialize
+            fixedJoystick = FindObjectOfType<FixedJoystick>();
             PlayerInstantiate(1);
-
+            
             // TODO Move Stage Manager
-            MonsterSpawner.Init();
+            MonsterSpawner = FindObjectOfType<MonsterSpawner>();
+            MonsterSpawner.Initialize();
         }
 
         else

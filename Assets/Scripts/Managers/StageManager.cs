@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
+
+public class Stage
+{
+    public int StageNumber;
+    public Image[] StageBackgroundImages; 
+    public bool UserUnlock;
+    public Phase[] PhaseArray;
+}
+
 public class StageManager : Singleton<StageManager>
 {
     // Stage Logic 
     public int currentMonsterCount;
+    public int[] stages { get; private set; }
 
+    
     protected override void Awake()
     {
         Initialize();

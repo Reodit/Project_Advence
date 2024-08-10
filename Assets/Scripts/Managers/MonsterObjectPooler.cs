@@ -32,8 +32,7 @@ public class MonsterObjectPooler : GenericObjectPooler<Monster>
 
         Monster monster = _poolDict[index].Get();
         monster.transform.SetParent(parent);
-        monster.transform.SetPositionAndRotation(pos, quat);
-
+        monster.transform.localPosition = Vector3.zero;
         return monster;
     }
 }

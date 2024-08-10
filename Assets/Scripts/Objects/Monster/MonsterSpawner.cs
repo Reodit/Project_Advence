@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,11 +18,11 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     [SerializeField] private float phaseTime = 360f; 
     // TODO 풀링 대상
     public int totalMonsterCount;
-    public static float currentSpace;
+    public static float CurrentSpace;
 
     public List<Phase> phases;
 
-    public void Init()
+    public void Initialize()
     {
         phases = new List<Phase>();
         foreach (var e in Datas.GameData.DTPhaseData.Values)
@@ -29,9 +30,9 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             phases.Add(new Phase(e, phaseTime));
         }
         
-        currentSpace = 0;
+        CurrentSpace = 0;
         currentPhase = phases.FirstOrDefault();
-        targetXPos = this.transform.position.x + currentPhase.phaseData.firstPrintMonster;
+        targetXPos = this.transform.position.x + currentPhase!.phaseData.firstPrintMonster;
         GameManager.instance.currentStage = currentPhase.phaseData.stage;
         ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
         GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
@@ -84,27 +85,27 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
                     var monster = ObjectPooler.Instance.Monster.GetFromPool(
                         Resources.Load<Monster>(Datas.GameData.DTMonsterData[monsterID].PrefabPath), 
                         transform.position, Quaternion.identity, spawnPoints[i - 1]);
-                    monster.transform.position += new Vector3(currentSpace, 0f, 0f);
+                    monster.transform.position += new Vector3(CurrentSpace, 0f, 0f);
                     totalMonsterCount++;
                 }
             }
         }
         
-        currentSpace += pattern.patternInterval;
+        CurrentSpace += pattern.patternInterval;
     }
 
     private bool isbossing;
     
     IEnumerator MoveBossPhase()
-    {
-        /*isbossing = true;
-        var bossMonster = Instantiate(GameManager.Instance.bossPrefab);
-        bossMonster.transform.position = new Vector3(7f, 2f, 0f);
+     {
+         //isbossing = true;
+         //var bossMonster = Instantiate(GameManager.instance.bossPrefab);
+         //bossMonster.transform.position = new Vector3(7f, 2f, 0f);
 
-        var boss = bossMonster.GetComponent<Monster>() as S1P1BossMonster;
-        yield return new WaitUntil(() => boss.CurrentHp <= 0);
-        
-        MoveNextPhase();*/
+         //var boss = bossMonster.GetComponent<Monster>() as S1P1BossMonster;
+         //yield return new WaitUntil(() => boss.CurrentHp <= 0);
+         
+         //MoveNextPhase();
         
         yield return null;
     }

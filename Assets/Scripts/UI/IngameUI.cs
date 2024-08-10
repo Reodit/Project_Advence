@@ -52,7 +52,9 @@ public class InGameUI : UIBase
     protected override void Initialize()
     {
         base.Initialize();
-
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
         uiType = UIType.HUD;
         phaseBgList.Clear();
         int phaseCountInCurrentStage = GameManager.instance.phaseCountInCurrentStage;

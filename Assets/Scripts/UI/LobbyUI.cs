@@ -27,7 +27,7 @@ public class LobbyUI : MonoBehaviour
         });
         startButton.onClick.AddListener(() =>
         {
-            // Go Stage Select UI
+            Instantiate(Resources.Load<GameObject>("UIPrefabs/UI_StageSelect"));
         });
         settingButton.onClick.AddListener(() =>
         {

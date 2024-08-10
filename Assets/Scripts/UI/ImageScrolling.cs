@@ -37,7 +37,7 @@ public class ImageScrolling : MonoBehaviour
 
             else
             {
-                foreach (var e in scrollingImages[GameManager.instance.currentStage - 1])
+                foreach (var e in scrollingImages[GameManager.instance.currentStage])
                 {
                     if (!e.gameObject.activeSelf)
                     {
@@ -57,6 +57,10 @@ public class ImageScrolling : MonoBehaviour
     {
         Instance = this;
         scrollingImages = new Dictionary<int, List<RawImage>>();
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
+        
         
         for (int i = 0; i < bgSprites.Count; i++)
         {

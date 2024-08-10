@@ -73,7 +73,7 @@ public class PlayerMove : MonoBehaviour
             FixedJoystick.Horizontal + moveX, FixedJoystick.Vertical + moveY, 0f) * 
             (characterData.moveSpeed * Time.deltaTime);
 
-        newPosition = GameManager.instance.MoveArea.ConstrainPosition(newPosition);
+        // newPosition = GameManager.instance.MoveArea.ConstrainPosition(newPosition);
 
         transform.position = newPosition;
     }
