@@ -1,7 +1,5 @@
-using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// 모든 매니저 코드 초기화 & 일반적인 기능 담담
@@ -16,9 +14,7 @@ public class GameManager : Singleton<GameManager>
     public MonsterSpawner MonsterSpawner { get; private set; }
         
     [Header("Stage & Phase")]
-    public int currentStage;
-    public int phaseCountInCurrentStage;
-    public int currentPhaseNumber;
+
 
     // TODO : move to input manager
     [Header("Input")] 
@@ -62,7 +58,7 @@ public class GameManager : Singleton<GameManager>
         
         else if (scene.name == "OutgameScene")
         {
-            
+            StageManager.instance.CleanupStage();
         }
         
         else if (scene.name == "IngameScene")
@@ -70,10 +66,8 @@ public class GameManager : Singleton<GameManager>
             // In-game Initialize
             fixedJoystick = FindObjectOfType<FixedJoystick>();
             PlayerInstantiate(1);
-            
-            // TODO Move Stage Manager
-            MonsterSpawner = FindObjectOfType<MonsterSpawner>();
-            MonsterSpawner.Initialize();
+
+            StageManager.instance.Initialize();
         }
 
         else

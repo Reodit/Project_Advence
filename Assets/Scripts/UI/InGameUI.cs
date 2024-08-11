@@ -34,16 +34,15 @@ public class InGameUI : UIBase
         expText.text = $"{GameManager.instance.PlayerMove.currentExp} / " +
                        $"{Datas.GameData.DTCharacterLevelData[GameManager.instance.PlayerMove.currentLvl].reqExp}";
         // 진척도 = 진행 초 / 360
-        var progress= 1 - GameManager.instance.MonsterSpawner.currentPhase.remainTime /
-                      GameManager.instance.MonsterSpawner.currentPhase.phaseTime;
+        var progress= 1 - StageManager.instance.currentPhase.remainTime / StageManager.instance.currentPhase.phaseTime;
         // playerIcon
-        //playerIcon.anchoredPosition 
-        //float xValue = (GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber) * 300 + (progress * 300);
+        // playerIcon.anchoredPosition 
+        // float xValue = (GameManager.Instance.phaseCountInCurrentStage - GameManager.Instance.currentPhaseNumber) * 300 + (progress * 300);
         float xValue = progress * 900;
         playerIcon.anchoredPosition = new Vector2(xValue, playerIcon.anchoredPosition.y);
         
         // 페이즈 진척도 개선
-        phaseBgList[GameManager.instance.phaseCountInCurrentStage - GameManager.instance.currentPhaseNumber].fillAmount =
+        phaseBgList[StageManager.instance.phaseCountInCurrentStage - StageManager.instance.currentPhase.phaseData.phaseNumber].fillAmount =
             progress;
     }
 
@@ -57,7 +56,7 @@ public class InGameUI : UIBase
         canvas.worldCamera = Camera.main;
         uiType = UIType.HUD;
         phaseBgList.Clear();
-        int phaseCountInCurrentStage = GameManager.instance.phaseCountInCurrentStage;
+        int phaseCountInCurrentStage = StageManager.instance.phaseCountInCurrentStage;
         for (int i = 1; i <= phaseCountInCurrentStage; i++)
         {
             var phaseBg = Instantiate(phaseBgPrefab, phaseBgParent.transform);

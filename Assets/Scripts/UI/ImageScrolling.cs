@@ -6,76 +6,54 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 [Serializable]
-public class BackgroundSets
-{
-    public List<Sprite> backgrounds;
-}
 
 public class ImageScrolling : MonoBehaviour
 {
     public static ImageScrolling Instance;
-    public float scrollSpeed = 0.5f;
-    public GameObject bgPrefab;
-    public List<BackgroundSets> bgSprites;
+    public Dictionary<(int, int), RawImage[]> ScrollingImages;
     
-    // TODO 업데이트가 아니라 스테이지를 파라미터로 던지는 함수 필요
-    void Update()
-    {
-        if (!GameManager.instance.IsGamePaused)
-        {
-            if (SceneManager.GetActiveScene().name == "OutgameScene")
-            {
-                foreach (var e in scrollingImages[0])
-                {
-                    if (!e.gameObject.activeSelf)
-                    {
-                        e.gameObject.SetActive(true);
-                    }
-                    e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
-                }
-            }
-
-            else
-            {
-                foreach (var e in scrollingImages[GameManager.instance.currentStage])
-                {
-                    if (!e.gameObject.activeSelf)
-                    {
-                        e.gameObject.SetActive(true);
-                    }
-                    e.uvRect = new Rect(e.uvRect.position + Vector2.right * (scrollSpeed * Time.deltaTime), e.uvRect.size);
-                }
-            }
-            
-
-        }
-    }
-
-    public Dictionary<int, List<RawImage>> scrollingImages;
-
     private void Awake()
     {
         Instance = this;
-        scrollingImages = new Dictionary<int, List<RawImage>>();
+        ScrollingImages = new Dictionary<(int, int), RawImage[]>();
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
-        
-        
-        for (int i = 0; i < bgSprites.Count; i++)
+
+        if (StageManager.instance.StageDictionary != null)
         {
-            List<RawImage> backgrounds = new List<RawImage>();
-            
-            for (int j = 0; j < bgSprites[i].backgrounds.Count; j++)
+            foreach (var stage in StageManager.instance.StageDictionary)
             {
-                var rawImage = Instantiate(bgPrefab, this.transform).GetComponent<RawImage>();
-                rawImage.texture = bgSprites[i].backgrounds[j].texture;
-                rawImage.color = Color.white;
-                backgrounds.Add(rawImage);
-                rawImage.gameObject.SetActive(false);
+                foreach (var phase in stage.Value)
+                {
+                    var background = Resources.LoadAll<RawImage>(phase.phaseData.backgroundLocal);
+                    ScrollingImages[(stage.Key, phase.phaseData.phaseNumber)] = background;
+                }
+            }
+        }
+    }
+    
+    // TODO 업데이트가 아니라 스테이지를 파라미터로 던지는 함수 필요
+    private void Update()
+    {
+        if (!GameManager.instance.IsGamePaused)
+        {
+            UpdateBackgroundUV(StageManager.instance.currentPhase.phaseData.stage, StageManager.instance.currentPhase.phaseData.phaseNumber);
+        }
+    }
+
+    private void UpdateBackgroundUV(int stageNumber, int phaseNumber)
+    {
+        foreach (var e in ScrollingImages[(stageNumber, phaseNumber)])
+        {
+            if (!e.gameObject.activeSelf)
+            {
+                e.gameObject.SetActive(true);
             }
             
-            scrollingImages.Add(i, backgrounds);
+            e.uvRect = new Rect(
+                e.uvRect.position + 
+                Vector2.right * (StageManager.instance.StageDictionary[stageNumber][phaseNumber].phaseData.scrollSpeed * Time.deltaTime), e.uvRect.size);
         }
     }
 }

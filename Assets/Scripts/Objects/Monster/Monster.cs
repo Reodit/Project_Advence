@@ -53,11 +53,13 @@ public class Monster : MonoBehaviour, IPooledObject
     
     public void Die(float delay = 0f)
     {
-        ObjectPooler.Instance.WaitForDestroy(this, delay);
+        Destroy(this.gameObject, delay);
+        // ObjectPooler.Instance.WaitForDestroy(this, delay);
     }
 
     protected virtual void OnDestroy()
     {
+        ObjectPoolManager.instance.ReturnToPool("Monster", Resources.Load<GameObject>(monsterData.PrefabPath), this.gameObject);
         GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
     }
 

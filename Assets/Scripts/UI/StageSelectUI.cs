@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class StageSelectUI : MonoBehaviour
 {
-    [SerializeField] private List<Stage> stages = new List<Stage>();
     [SerializeField] private Button backButton;
     [SerializeField] private Button gameStartButton;
     private void Awake()
@@ -17,12 +16,10 @@ public class StageSelectUI : MonoBehaviour
 
     private void Initialize()
     {
-        foreach (var e in stages)
+        foreach (var stage in StageManager.instance.StageDictionary)
         {
-            if (e.UserUnlock)
-            {
-                // unlock image = true
-            }
+            // TODO 유저 언락 데이터에 stage 클리어 여부 (int) / (bool) 남기고 unlock 해주기
+            
         }   
         
         backButton.onClick.AddListener(() =>

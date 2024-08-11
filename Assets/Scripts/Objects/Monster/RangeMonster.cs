@@ -73,7 +73,7 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(monsterBullet, transform.position, Quaternion.identity, transform);
+        Bullet bullet = ObjectPoolManager.Instance.SpawnFromPool(monsterBullet, transform.position, Quaternion.identity, transform);
         bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
