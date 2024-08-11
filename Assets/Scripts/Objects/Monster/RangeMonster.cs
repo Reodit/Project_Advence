@@ -8,7 +8,7 @@ public class RangeMonster : Monster
     private string _monsterMeleeAttackCoolTimeID;
     private string _monsterRangeAttackCoolTimeID;
     [SerializeField] private Transform bulletStartPoint;
-    [SerializeField] private Bullet monsterBullet;
+    private Bullet monsterBullet;
     protected override void Start()
     {
         base.Start();
@@ -16,7 +16,9 @@ public class RangeMonster : Monster
         _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
         TimeManager.Instance.RegisterCoolTime(_monsterRangeAttackCoolTimeID, 2f);
-        monsterBullet.Init(new BulletInfo(10f, 3f, 15f, -5f), null, monsterBullet.GetInstanceID());
+        
+        // TODO Monster Bullet 처리 어떻게 할건지 고민해야함
+        monsterBullet.Init(new BulletInfo(10f, 3f, 15f, -5f), null, monsterData.SkillPrefabPath);
     }
     protected override void InitializeFsm()
     {
@@ -73,7 +75,7 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        Bullet bullet = ObjectPoolManager.Instance.SpawnFromPool(monsterBullet, transform.position, Quaternion.identity, transform);
+        Bullet bullet = ObjectPoolManager.Instance.SpawnFromPool(, monsterBullet, transform.position, Quaternion.identity, transform);
         bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
