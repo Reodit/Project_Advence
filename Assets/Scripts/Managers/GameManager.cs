@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     // public MoveArea MoveArea;
     
     public PlayerMove PlayerMove { get; private set; }
-    public MonsterSpawner MonsterSpawner { get; private set; }
+    // public MonsterSpawner MonsterSpawner { get; private set; }
         
     [Header("Stage & Phase")]
 

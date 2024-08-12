@@ -30,7 +30,8 @@ public class SOSBullet : Bullet
     {
         Vector2 afterPos = initPosition;
         afterPos.y += interval;
-        Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(subBullet);
+        Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", subBullet.gameObject, subBullet.transform.position,
+            subBullet.transform.rotation, subBullet.transform.localScale).GetComponent<Bullet>();
         bullet.Init(BulletInfo, null, SkillIndex);
     }
 }

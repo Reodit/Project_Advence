@@ -90,6 +90,7 @@
     <Compile Include="Assets/Scripts/Objects/Monster/RangeMonster.cs" />
     <Compile Include="Assets/Scripts/Managers/MonsterObjectPooler.cs" />
     <Compile Include="Assets/Scripts/UI/LevelUpPopUp.cs" />
+    <Compile Include="Assets/Scripts/UI/StoreUI.cs" />
     <Compile Include="Assets/Scripts/ScriptableObjects/SkillEnchantTableScriptableObject.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_Manager.cs" />
     <Compile Include="Assets/Scripts/Managers/GameManager.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets/SPUM/Retro UI Set/2_ExtraScript/IconLayout.cs" />
     <Compile Include="Assets/Joystick Pack/Scripts/Base/Joystick.cs" />
     <Compile Include="Assets/SPUM/Script/Plugin/Moments Recorder/Scripts/Gif/NeuQuant.cs" />
+    <Compile Include="Assets/Scripts/UI/StageSelectUI.cs" />
     <Compile Include="Assets/Scripts/Utility/EffectUtility.cs" />
     <Compile Include="Assets/Pixel Arsenal/Demo/Scripts/PixelArsenalButtonScript.cs" />
     <Compile Include="Assets/Scripts/UI/ImageScrolling.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="Assets/SPUM/Sprite_Editor(Beta)/Script/SpriteSync.cs" />
     <Compile Include="Assets/Scripts/Effects/GoldDropAnimation.cs" />
     <Compile Include="Assets/Scripts/Objects/familiar/Familiar.cs" />
+    <Compile Include="Assets/Scripts/UI/SettingUI.cs" />
     <Compile Include="Assets/Scripts/UI/UpgradeContentsUI.cs" />
     <Compile Include="Assets/Pixel Arsenal/Scripts/PixelArsenalRotation.cs" />
     <Compile Include="Assets/Scripts/TestCodes/AnimationFunction.cs" />
@@ -190,6 +193,7 @@
     <Compile Include="Assets/Scripts/FSM/States/MonsterState.cs" />
     <Compile Include="Assets/Scripts/Objects/familiar/FamiliarController.cs" />
     <Compile Include="Assets/SPUM/Script/Ect/SpritePos.cs" />
+    <Compile Include="Assets/Scripts/Managers/ObjectPoolManager.cs" />
     <Compile Include="Assets/Scripts/UI/UIBase.cs" />
     <Compile Include="Assets/Scripts/Datas/DataArray.cs" />
     <Compile Include="Assets/SPUM/Sprite_SheetExporter(Beta)/Script/SPUM_Exporter.cs" />

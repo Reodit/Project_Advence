@@ -184,7 +184,9 @@ public class BulletSpawner
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
-            Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(bulletPrefab);
+            Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", bulletPrefab.gameObject, pos,
+                Quaternion.identity, bulletPrefab.transform.localScale).GetComponent<Bullet>();
+            // Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(bulletPrefab);
             bullet.transform.position = pos;
             bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);
@@ -196,7 +198,8 @@ public class BulletSpawner
         // 프리팹이 제대로 불러와졌는지 확인합니다.
         if (bulletPrefab != null)
         {
-            Bullet bullet = ObjectPooler.Instance.Bullet.GetFromPool(bulletPrefab);
+            Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", bulletPrefab.gameObject, pos,
+                quaternion, bulletPrefab.transform.localScale).GetComponent<Bullet>();
             bullet.transform.SetPositionAndRotation(pos, quaternion);
             bullet.Init(bulletInfo, RemoveBullet, bulletPrefab.SkillIndex);
             _onAddBullet.Invoke(bullet);

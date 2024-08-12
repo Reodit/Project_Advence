@@ -12,25 +12,25 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         Instance = this;
     }
 
-    private Dictionary<string, Dictionary<GameObject, IObjectPool<GameObject>>> poolDictionary;
+    private Dictionary<string, Dictionary<string, IObjectPool<GameObject>>> _poolDictionary;
 
     private void Start()
     {
-        poolDictionary = new Dictionary<string, Dictionary<GameObject, IObjectPool<GameObject>>>();
+        _poolDictionary = new Dictionary<string, Dictionary<string, IObjectPool<GameObject>>>();
     }
 
     public void CreatePool(string poolName, List<GameObject> prefabs, int initialSize = 10, int maxSize = 100)
     {
-        if (!poolDictionary.ContainsKey(poolName))
+        if (!_poolDictionary.ContainsKey(poolName))
         {
-            poolDictionary[poolName] = new Dictionary<GameObject, IObjectPool<GameObject>>();
+            _poolDictionary[poolName] = new Dictionary<string, IObjectPool<GameObject>>();
         }
 
         foreach (var prefab in prefabs)
         {
-            if (!poolDictionary[poolName].ContainsKey(prefab))
+            if (!_poolDictionary[poolName].ContainsKey(prefab.name))
             {
-                poolDictionary[poolName][prefab] = new ObjectPool<GameObject>(
+                _poolDictionary[poolName][prefab.name] = new ObjectPool<GameObject>(
                     createFunc: () =>
                     {
                         GameObject obj = Instantiate(prefab);
@@ -46,7 +46,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public void ResetPools()
     {
-        foreach (var poolByPrefab in poolDictionary.Values)
+        foreach (var poolByPrefab in _poolDictionary.Values)
         {
             foreach (var pool in poolByPrefab.Values)
             {
@@ -54,18 +54,18 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             }
         }
 
-        poolDictionary.Clear();
+        _poolDictionary.Clear();
     }
     
-    public GameObject SpawnFromPool(string poolName, GameObject prefab, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent = null)
+    public GameObject SpawnFromPool(string poolName, string prefabName, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent = null)
     {
-        if (!poolDictionary.ContainsKey(poolName) || !poolDictionary[poolName].ContainsKey(prefab))
+        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabName))
         {
-            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefab.name} doesn't exist.");
+            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabName} doesn't exist.");
             return null;
         }
 
-        GameObject objectToSpawn = poolDictionary[poolName][prefab].Get();
+        GameObject objectToSpawn = _poolDictionary[poolName][prefabName].Get();
         
         if (parent == null)
         {
@@ -85,14 +85,14 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return objectToSpawn;
     }
 
-    public void ReturnToPool(string poolName, GameObject prefab, GameObject obj)
+    public void ReturnToPool(string poolName, string prefabName, GameObject obj)
     {
-        if (!poolDictionary.ContainsKey(poolName) || !poolDictionary[poolName].ContainsKey(prefab))
+        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabName))
         {
-            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefab.name} doesn't exist.");
+            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabName} doesn't exist.");
             return;
         }
 
-        poolDictionary[poolName][prefab].Release(obj);
+        _poolDictionary[poolName][prefabName].Release(obj);
     }
 }

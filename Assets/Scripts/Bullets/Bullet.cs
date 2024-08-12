@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Enums;
 
-public class Bullet : MonoBehaviour, IPooledObject
+public class Bullet : MonoBehaviour
 {
     public PixelArsenalProjectileScript pixelArsenalProjectileScript { get; private set; }
     private bool _isTriggered;
@@ -61,6 +61,8 @@ public class Bullet : MonoBehaviour, IPooledObject
         if (!_isTriggered)
         {
             _isTriggered = true;
+            ObjectPoolManager.instance.ReturnToPool("Bullet", this.gameObject, subBullet.transform.position,
+                subBullet.transform.rotation, subBullet.transform.localScale).GetComponent<Bullet>();
             ObjectPooler.Instance.Bullet.ReturnToPool(this);
         }
     }

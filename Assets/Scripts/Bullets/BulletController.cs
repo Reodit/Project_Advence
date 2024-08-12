@@ -190,7 +190,7 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private string GetDescrition(int index)
+    private string GetDescription(int index)
     {
         return Datas.GameData.DTSkillEnchantData[index].description;
     }

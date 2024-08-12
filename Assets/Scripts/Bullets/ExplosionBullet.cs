@@ -1,21 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ExplosionBullet : Bullet
 {
-    [SerializeField] private ParticlePoolObject rangeParticle;
     [SerializeField] private float subParticleDestroyTime = 1f;
     private bool _isFirstTime = true;
     private int _collisionCount = 0;
-
-    private ParticlePoolObject _impactParticle;
+    [SerializeField] private ParticleSystem impactParticle;
 
 
     protected override void Start()
     {
-        base.Start();
-        _impactParticle = ObjectPooler.Instance.Particle.GetFromPool(rangeParticle);
+        base.Start(); 
+        impactParticle.gameObject.SetActive(true);
     }
 
     private void OnDisable()
@@ -33,8 +32,8 @@ public class ExplosionBullet : Bullet
         if (_isFirstTime)
         {
             _isFirstTime = false;
-            _impactParticle.Particle.Play();
-            _impactParticle.GetComponent<AudioSource>().Play();
+            impactParticle.Play();
+            impactParticle.GetComponent<AudioSource>().Play();
             Vector2 explosionPos = CalculateExplosionPos(monster);
             Collider2D[] colliders = GetCollidersFromCircle(explosionPos);
             CollisionManager.Instance.ExplodeFromCollider(this, colliders);
@@ -49,7 +48,7 @@ public class ExplosionBullet : Bullet
 
     private Collider2D[] GetCollidersFromCircle(Vector2 explosionPos)
     {
-        float radius = _impactParticle.GetComponent<CircleCollider2D>().radius * _impactParticle.transform.localScale.x;
+        float radius = impactParticle.GetComponent<CircleCollider2D>().radius * impactParticle.transform.localScale.x;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionPos, radius);
         return colliders;
     }
@@ -59,13 +58,15 @@ public class ExplosionBullet : Bullet
         Vector2 explosionPos = transform.position;
         explosionPos.x += monster.transform.position.x;
         explosionPos.x *= 0.5f;
-        _impactParticle.transform.position = explosionPos;
+        impactParticle.transform.position = explosionPos;
         return explosionPos;
     }
 
     private void DestroySubParticle()
     {
-        if (_impactParticle != null)
-            ObjectPooler.Instance.Particle.ReturnToPool(_impactParticle);
+        if (impactParticle != null)
+        {
+            impactParticle.gameObject.SetActive(false);
+        }
     }
 }

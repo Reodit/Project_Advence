@@ -52,8 +52,9 @@ public class Monster : MonoBehaviour, IPooledObject
     }
     
     public void Die(float delay = 0f)
-    {
-        Destroy(this.gameObject, delay);
+    { 
+        // TODO add Delay logic
+        this.gameObject.SetActive(false);
         // ObjectPooler.Instance.WaitForDestroy(this, delay);
     }
 
