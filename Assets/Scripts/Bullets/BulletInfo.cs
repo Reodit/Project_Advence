@@ -1,39 +1,42 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public struct BulletInfo
 {
-    [field: SerializeField] public float Damage;
-    [field: SerializeField] public float SkillSpeedRate;
-    [field: SerializeField] public float MaxDistance;
-    [field: SerializeField] public float Speed; // 총알의 속도
+    [field: SerializeField] public string bulletPrefabPath;
+    [field: SerializeField] public float damage;
+    [field: SerializeField] public float skillSpeedRate;
+    [field: SerializeField] public float maxDistance;
+    [field: SerializeField] public float speed; // 총알의 속도
     
-    public BulletInfo(float damage, float skillSpeedRate, float maxDistance, float speed)
+    public BulletInfo(string bulletPrefabPath, float damage, float skillSpeedRate, float maxDistance, float speed)
     {
-        Damage = damage;
-        SkillSpeedRate = skillSpeedRate;
-        MaxDistance = maxDistance;
-        Speed = speed;
+        this.bulletPrefabPath = bulletPrefabPath;
+        this.damage = damage;
+        this.skillSpeedRate = skillSpeedRate;
+        this.maxDistance = maxDistance;
+        this.speed = speed;
     }
 
     public void SetDamage(float damage)
     {
-        Damage = damage;
+        this.damage = damage;
     }
 
     public void SetSkillSpeedRate(float skillSpeedRate)
     {
-        SkillSpeedRate = skillSpeedRate;
+        this.skillSpeedRate = skillSpeedRate;
     }
 
     public void SetMaxDistance(float maxDistance)
     {
-        MaxDistance = maxDistance;
+        this.maxDistance = maxDistance;
     }
 
     public void SetSpeed(float speed)
     {
-        Speed = speed;
+        this.speed = speed;
     }
 }

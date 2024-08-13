@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using Enums;
+using UnityEditor;
 
 public class Bullet : MonoBehaviour
 {
@@ -61,18 +62,17 @@ public class Bullet : MonoBehaviour
         if (!_isTriggered)
         {
             _isTriggered = true;
-            ObjectPoolManager.instance.ReturnToPool("Bullet", this.gameObject, subBullet.transform.position,
-                subBullet.transform.rotation, subBullet.transform.localScale).GetComponent<Bullet>();
-            ObjectPooler.Instance.Bullet.ReturnToPool(this);
+            ObjectPoolManager.instance.ReturnToPool("Bullet",
+                BulletInfo.bulletPrefabPath, this.gameObject);
         }
     }
     
     protected virtual void Update()
     {
-        Vector2 newPosition = transform.position + transform.right * (BulletInfo.Speed * Time.deltaTime);
+        Vector2 newPosition = transform.position + transform.right * (BulletInfo.speed * Time.deltaTime);
         transform.position = newPosition;
         
-        if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.MaxDistance)
+        if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.maxDistance)
         {
             TriggerDestruction();
         }

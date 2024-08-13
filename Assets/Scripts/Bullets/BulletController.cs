@@ -66,7 +66,7 @@ public class BulletController : MonoBehaviour
         }
 
         bullet.SetSkillIndex(skill.index);
-        BulletInfo bulletInfo = new BulletInfo(skill.skillDamageRate, skill.skillSpeedRate, skill.range, skill.projectileSpeed);
+        BulletInfo bulletInfo = new BulletInfo(skill.prefabPath, skill.skillDamageRate, skill.skillSpeedRate, skill.range, skill.projectileSpeed);
         bullet.SetBulletInfo(bulletInfo);
         bullet.isFamiliarBullet = isFamiliarBullet;
         _bulletInfoDict.Add(skill.index, bulletInfo);
@@ -157,8 +157,8 @@ public class BulletController : MonoBehaviour
     private void IncreaseSkillRange(int skillIndex, int enchantIndex)
     {
         float amount = Datas.GameData.DTSkillEnchantData[enchantIndex].enchantEffectValue1;
-        float distance = _bulletPrefabDict[skillIndex].BulletInfo.MaxDistance;
-        float afterDistance = _bulletInfoDict[skillIndex].MaxDistance + (distance * amount);
+        float distance = _bulletPrefabDict[skillIndex].BulletInfo.maxDistance;
+        float afterDistance = _bulletInfoDict[skillIndex].maxDistance + (distance * amount);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetMaxDistance(afterDistance);
@@ -171,8 +171,8 @@ public class BulletController : MonoBehaviour
     private void IncreaseBulletSpeed(int skillIndex, int enchantIndex)
     {
         float amount = Datas.GameData.DTSkillEnchantData[enchantIndex].enchantEffectValue1;
-        float speed = _bulletPrefabDict[skillIndex].BulletInfo.Speed;
-        float afterSpeed = _bulletInfoDict[skillIndex].Speed + (speed * amount);
+        float speed = _bulletPrefabDict[skillIndex].BulletInfo.speed;
+        float afterSpeed = _bulletInfoDict[skillIndex].speed + (speed * amount);
 
         BulletInfo bulletInfo = _bulletInfoDict[skillIndex];
         bulletInfo.SetSpeed(afterSpeed);

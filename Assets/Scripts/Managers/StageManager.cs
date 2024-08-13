@@ -199,7 +199,7 @@ public class StageManager : Singleton<StageManager>
                     }
                     var monsterPrefab = Resources.Load<GameObject>(Datas.GameData.DTMonsterData[monsterID].PrefabPath);
                     var monster = ObjectPoolManager.Instance.SpawnFromPool("Monster", 
-                            monsterPrefab, transform.position, Quaternion.identity, monsterPrefab.transform.localScale, spawnPoints[i - 1]);
+                            Datas.GameData.DTMonsterData[monsterID].PrefabPath, transform.position, Quaternion.identity, monsterPrefab.transform.localScale, spawnPoints[i - 1]);
                     
                     monster.transform.position += new Vector3(_currentSpace, 0f, 0f);
                     totalMonsterCount++;

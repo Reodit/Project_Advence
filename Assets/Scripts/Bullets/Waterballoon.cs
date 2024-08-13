@@ -31,7 +31,7 @@ public class Waterballoon : Bullet
     {
         Vector2 startPos = myTrans.position;
         _startPosY = startPos.y;
-        startPos.x += BulletInfo.MaxDistance;
+        startPos.x += BulletInfo.maxDistance;
         _rangeParticleTrigger = Instantiate(rangeParticlePrefab, startPos, Quaternion.identity);
 
         _distanceY = Screen.width * Consts.PERCENT_DIVISION;
@@ -50,7 +50,7 @@ public class Waterballoon : Bullet
         if (!_isMovable)
             return;
 
-        Vector2 nextPos = Vector2.down * _distanceY * Time.deltaTime * BulletInfo.Speed;
+        Vector2 nextPos = Vector2.down * _distanceY * Time.deltaTime * BulletInfo.speed;
         myTrans.position += new Vector3(nextPos.x, nextPos.y, 0f);
     }
 
@@ -63,7 +63,7 @@ public class Waterballoon : Bullet
             pixelArsenalProjectileScript.projectileParticle.gameObject.SetActive(false);
             CollisionManager.Instance.ExplodeFromCollider(this, _rangeParticleTrigger.Colliders);
             Destroy(_rangeParticleTrigger);
-            // range¿¡ Trigger ºÙÀÌ±â
+            // rangeï¿½ï¿½ Trigger ï¿½ï¿½ï¿½Ì±ï¿½
             pixelArsenalProjectileScript.OnCol();
         }
     }

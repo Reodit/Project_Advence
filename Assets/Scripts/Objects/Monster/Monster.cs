@@ -60,7 +60,7 @@ public class Monster : MonoBehaviour, IPooledObject
 
     protected virtual void OnDestroy()
     {
-        ObjectPoolManager.instance.ReturnToPool("Monster", Resources.Load<GameObject>(monsterData.PrefabPath), this.gameObject);
+        ObjectPoolManager.instance.ReturnToPool("Monster", monsterData.PrefabPath, this.gameObject);
         GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
     }
 

@@ -57,15 +57,15 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         _poolDictionary.Clear();
     }
     
-    public GameObject SpawnFromPool(string poolName, string prefabName, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent = null)
+    public GameObject SpawnFromPool(string poolName, string prefabPath, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent = null)
     {
-        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabName))
+        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabPath))
         {
-            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabName} doesn't exist.");
+            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabPath} doesn't exist.");
             return null;
         }
 
-        GameObject objectToSpawn = _poolDictionary[poolName][prefabName].Get();
+        GameObject objectToSpawn = _poolDictionary[poolName][prefabPath].Get();
         
         if (parent == null)
         {
@@ -85,14 +85,14 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return objectToSpawn;
     }
 
-    public void ReturnToPool(string poolName, string prefabName, GameObject obj)
+    public void ReturnToPool(string poolName, string prefabPath, GameObject obj)
     {
-        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabName))
+        if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabPath))
         {
-            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabName} doesn't exist.");
+            Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabPath} doesn't exist.");
             return;
         }
 
-        _poolDictionary[poolName][prefabName].Release(obj);
+        _poolDictionary[poolName][prefabPath].Release(obj);
     }
 }

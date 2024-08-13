@@ -18,7 +18,7 @@ public class RangeMonster : Monster
         TimeManager.Instance.RegisterCoolTime(_monsterRangeAttackCoolTimeID, 2f);
         
         // TODO Monster Bullet 처리 어떻게 할건지 고민해야함
-        monsterBullet.Init(new BulletInfo(10f, 3f, 15f, -5f), null, monsterData.SkillPrefabPath);
+        monsterBullet.Init(new BulletInfo("bb", 10f, 3f, 15f, -5f), null, 10);
     }
     protected override void InitializeFsm()
     {
@@ -75,7 +75,12 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        Bullet bullet = ObjectPoolManager.Instance.SpawnFromPool(, monsterBullet, transform.position, Quaternion.identity, transform);
+        Bullet bullet = ObjectPoolManager.Instance.SpawnFromPool("Bullet", 
+            monsterBullet.BulletInfo.bulletPrefabPath, 
+            transform.position, 
+            Quaternion.identity, 
+            transform.localScale).GetComponent<Bullet>();
+        // TODO Init이 늦게나옴
         bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
