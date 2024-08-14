@@ -2,38 +2,32 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System;
 using System.Collections.Generic;
+using UnityEditor.iOS;
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
-    public static ObjectPoolManager Instance;
-
     protected override void Awake()
-    {
-        Instance = this;
-    }
-
-    private Dictionary<string, Dictionary<string, IObjectPool<GameObject>>> _poolDictionary;
-
-    private void Start()
     {
         _poolDictionary = new Dictionary<string, Dictionary<string, IObjectPool<GameObject>>>();
     }
 
-    public void CreatePool(string poolName, List<GameObject> prefabs, int initialSize = 10, int maxSize = 100)
+    private Dictionary<string, Dictionary<string, IObjectPool<GameObject>>> _poolDictionary;
+
+    public void CreatePool(string poolName, List<string> prefabPaths, int initialSize = 10, int maxSize = 100)
     {
         if (!_poolDictionary.ContainsKey(poolName))
         {
             _poolDictionary[poolName] = new Dictionary<string, IObjectPool<GameObject>>();
         }
 
-        foreach (var prefab in prefabs)
+        foreach (var prefabPath in prefabPaths)
         {
-            if (!_poolDictionary[poolName].ContainsKey(prefab.name))
+            if (!_poolDictionary[poolName].ContainsKey(prefabPath))
             {
-                _poolDictionary[poolName][prefab.name] = new ObjectPool<GameObject>(
+                _poolDictionary[poolName][prefabPath] = new ObjectPool<GameObject>(
                     createFunc: () =>
                     {
-                        GameObject obj = Instantiate(prefab);
+                        GameObject obj = Instantiate(Resources.Load<GameObject>(prefabPath), this.transform);
                         obj.SetActive(false);
                         return obj;
                     },
@@ -46,9 +40,14 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public void ResetPools()
     {
-        foreach (var poolByPrefab in _poolDictionary.Values)
+        if (_poolDictionary == null)
         {
-            foreach (var pool in poolByPrefab.Values)
+            return;
+        }
+        
+        foreach (var poolByPrefab in _poolDictionary!.Values)
+        {
+            foreach (var pool in poolByPrefab!.Values)
             {
                 pool.Clear();
             }
@@ -82,6 +81,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             objectToSpawn.transform.localScale = scale;
         }
 
+        objectToSpawn.SetActive(true);
         return objectToSpawn;
     }
 
@@ -92,7 +92,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabPath} doesn't exist.");
             return;
         }
-
+        
+        obj.SetActive(false);
         _poolDictionary[poolName][prefabPath].Release(obj);
     }
 }

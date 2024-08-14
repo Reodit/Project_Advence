@@ -58,16 +58,16 @@ public class GameManager : Singleton<GameManager>
         
         else if (scene.name == "OutgameScene")
         {
+            StageManager.instance.Initialize();
             StageManager.instance.CleanupStage();
         }
         
         else if (scene.name == "IngameScene")
         {
             // In-game Initialize
+            StageManager.instance.Initialize();
             fixedJoystick = FindObjectOfType<FixedJoystick>();
             PlayerInstantiate(1);
-
-            StageManager.instance.Initialize();
         }
 
         else

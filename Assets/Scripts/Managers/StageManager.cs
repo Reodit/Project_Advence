@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // + Monster Spawn
@@ -14,9 +15,9 @@ public class StageManager : Singleton<StageManager>
     // Phases data
     public Dictionary<int, List<Phase>> StageDictionary { get; private set; }
     private static float _currentSpace;
-    public List<Transform> spawnPoints;
+    private GameObject _monsterSpawnObject;
+    private List<Transform> _spawnPoints;
     public float outOfScreenXPos = -20f;
-    public float scrollSpeed;
     public Phase currentPhase;
     [SerializeField] private float targetXPos;
     [SerializeField] private float phaseTime = 360f; 
@@ -33,15 +34,15 @@ public class StageManager : Singleton<StageManager>
         var monsterData = Datas.GameData.DTMonsterData;
         var bulletData = Datas.GameData.DTSkillData;
 
-        List<GameObject> monsterPrefabs =
-            monsterData.Select(e => Resources.Load<GameObject>(e.Value.PrefabPath)).ToList();
-        List<GameObject> bulletPrefabs =
-            bulletData.Select(e => Resources.Load<GameObject>(e.Value.prefabPath)).ToList();
+        List<string> monsterPrefabs =
+            monsterData.Select(e => e.Value.PrefabPath).ToList();
+        List<string> bulletPrefabs =
+            bulletData.Select(e => e.Value.prefabPath).ToList();
 
         // Reset-Create Pool
-        ObjectPoolManager.Instance.ResetPools();
-        ObjectPoolManager.Instance.CreatePool("Monster", monsterPrefabs, 64, 1024);
-        ObjectPoolManager.Instance.CreatePool("Bullet", bulletPrefabs, 64, 512);
+        ObjectPoolManager.instance.ResetPools();
+        ObjectPoolManager.instance.CreatePool("Monster", monsterPrefabs, 64, 1024);
+        ObjectPoolManager.instance.CreatePool("Bullet", bulletPrefabs, 64, 512);
         
         if (StageDictionary == null)
         {
@@ -58,13 +59,23 @@ public class StageManager : Singleton<StageManager>
                 StageDictionary[phase.phaseData.stage].Add(phase);
             }
         }
-        
+
+        if (currentPhase == null)
+        {
+            LoadStage(1);
+            _monsterSpawnObject = GameObject.Find("MonsterSpawnPoint");
+            _spawnPoints = new List<Transform>();
+            for (int i = 0; i < _monsterSpawnObject.transform.childCount; i++)
+            {
+                _spawnPoints.Add(_monsterSpawnObject.transform.GetChild(i));
+            }
+        }
         _currentSpace = 0;
     }
 
     public void CleanupStage()
     {
-        ObjectPoolManager.Instance.ResetPools();
+        ObjectPoolManager.instance.ResetPools();
     }
     
     private void LoadUserUnLockStage()
@@ -198,8 +209,8 @@ public class StageManager : Singleton<StageManager>
                         continue;
                     }
                     var monsterPrefab = Resources.Load<GameObject>(Datas.GameData.DTMonsterData[monsterID].PrefabPath);
-                    var monster = ObjectPoolManager.Instance.SpawnFromPool("Monster", 
-                            Datas.GameData.DTMonsterData[monsterID].PrefabPath, transform.position, Quaternion.identity, monsterPrefab.transform.localScale, spawnPoints[i - 1]);
+                    var monster = ObjectPoolManager.instance.SpawnFromPool("Monster", 
+                            Datas.GameData.DTMonsterData[monsterID].PrefabPath, transform.position, Quaternion.identity, monsterPrefab.transform.localScale, _spawnPoints[i - 1]);
                     
                     monster.transform.position += new Vector3(_currentSpace, 0f, 0f);
                     totalMonsterCount++;
@@ -228,6 +239,11 @@ public class StageManager : Singleton<StageManager>
     
     void Update()
     {
+        if (SceneManager.GetActiveScene().name != "IngameScene")
+        {
+            return;
+        }
+        
         if (isbossing)
         {
             currentPhase.remainTime = 0f;
@@ -246,11 +262,11 @@ public class StageManager : Singleton<StageManager>
 
         else
         {
-            Vector3 currentPosition = transform.position;
-            Vector3 newPosition = new Vector3(currentPosition.x - scrollSpeed * Time.deltaTime, currentPosition.y, 0f);
-            transform.position = newPosition;    
+            Vector3 currentPosition = _monsterSpawnObject.transform.position;
+            Vector3 newPosition = new Vector3(currentPosition.x - currentPhase.phaseData.scrollSpeed * Time.deltaTime, currentPosition.y, 0f);
+            _monsterSpawnObject.transform.position = newPosition;    
 
-            if (transform.position.x <= targetXPos)
+            if (_monsterSpawnObject.transform.position.x <= targetXPos)
             {
                 var pattern = SelectPattern(currentPhase);
                 targetXPos -= pattern.patternInterval;

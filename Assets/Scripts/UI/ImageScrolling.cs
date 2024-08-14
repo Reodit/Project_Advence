@@ -19,26 +19,40 @@ public class ImageScrolling : MonoBehaviour
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
-
-        if (StageManager.instance.StageDictionary != null)
-        {
-            foreach (var stage in StageManager.instance.StageDictionary)
-            {
-                foreach (var phase in stage.Value)
-                {
-                    var background = Resources.LoadAll<RawImage>(phase.phaseData.backgroundLocal);
-                    ScrollingImages[(stage.Key, phase.phaseData.phaseNumber)] = background;
-                }
-            }
-        }
     }
-    
+
     // TODO 업데이트가 아니라 스테이지를 파라미터로 던지는 함수 필요
     private void Update()
     {
         if (!GameManager.instance.IsGamePaused)
         {
             UpdateBackgroundUV(StageManager.instance.currentPhase.phaseData.stage, StageManager.instance.currentPhase.phaseData.phaseNumber);
+        }
+    }
+
+    private void Start()
+    {
+        if (StageManager.instance.StageDictionary != null)
+        {
+            foreach (var stage in StageManager.instance.StageDictionary)
+            {
+                foreach (var phase in stage.Value)
+                {
+                    var background = Resources.LoadAll<Texture2D>(phase.phaseData.backgroundLocal);
+                    RawImage[] rawImages = new RawImage[background.Length]; 
+                    for (int i = background.Length - 1; i >= 0; i--)
+                    {
+                        var backgroundPrefab = Resources.Load<GameObject>("UIPrefabs/ScrollingBackground");
+                        var rawImageInstance = Instantiate(backgroundPrefab, this.gameObject.transform).GetComponent<RawImage>();
+                        rawImageInstance.texture = background[i];
+                        rawImageInstance.color = Color.white;
+                        rawImageInstance.gameObject.SetActive(false);
+                        rawImages[i] = rawImageInstance;
+                    }
+
+                    ScrollingImages[(stage.Key, phase.phaseData.phaseNumber)] = rawImages;
+                }
+            }
         }
     }
 
@@ -53,7 +67,7 @@ public class ImageScrolling : MonoBehaviour
             
             e.uvRect = new Rect(
                 e.uvRect.position + 
-                Vector2.right * (StageManager.instance.StageDictionary[stageNumber][phaseNumber].phaseData.scrollSpeed * Time.deltaTime), e.uvRect.size);
+                Vector2.right * (Time.deltaTime), e.uvRect.size);
         }
     }
 }
