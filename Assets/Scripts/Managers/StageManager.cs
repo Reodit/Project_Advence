@@ -6,13 +6,10 @@ using System.Reflection;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// + Monster Spawn
 public class StageManager : Singleton<StageManager>
 {
-    // Stage Logic 
     public int currentMonsterCount;
 
-    // Phases data
     public Dictionary<int, List<Phase>> StageDictionary { get; private set; }
     private static float _currentSpace;
     private GameObject _monsterSpawnObject;
@@ -20,7 +17,7 @@ public class StageManager : Singleton<StageManager>
     public float outOfScreenXPos = -20f;
     public Phase currentPhase;
     [SerializeField] private float targetXPos;
-    [SerializeField] private float phaseTime = 360f; 
+    [SerializeField] private float phaseTime = 360; 
     public int totalMonsterCount;
     public int phaseCountInCurrentStage;
     
@@ -38,11 +35,11 @@ public class StageManager : Singleton<StageManager>
             monsterData.Select(e => e.Value.PrefabPath).ToList();
         List<string> bulletPrefabs =
             bulletData.Select(e => e.Value.prefabPath).ToList();
-
+        
         // Reset-Create Pool
         ObjectPoolManager.instance.ResetPools();
-        ObjectPoolManager.instance.CreatePool("Monster", monsterPrefabs, 64, 1024);
-        ObjectPoolManager.instance.CreatePool("Bullet", bulletPrefabs, 64, 512);
+        ObjectPoolManager.instance.CreatePool("Monster", monsterPrefabs, 100, 300);
+        ObjectPoolManager.instance.CreatePool("Bullet", bulletPrefabs, 100, 300);
         
         if (StageDictionary == null)
         {

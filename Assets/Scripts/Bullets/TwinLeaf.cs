@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TwinLeaf : Bullet
 {
     [SerializeField] private float secondBulletSpawnDelay = 0.1f;
-    [SerializeField] private Bullet secondBullet;
-    [field: SerializeField] private bool damagable = true;
+    [SerializeField] private GameObject secondBullet;
+    private bool damageAble = true;
 
 
     protected override void Start()
@@ -18,15 +19,15 @@ public class TwinLeaf : Bullet
 
     private IEnumerator SpawnSecondDelay()
     {
-        if (!damagable)
+        if (!damageAble)
         {
             yield break;
         }
 
         yield return new WaitForSeconds(secondBulletSpawnDelay);
-
-        TwinLeafSub bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", secondBullet.BulletInfo.bulletPrefabPath, secondBullet.transform.position,
-            secondBullet.transform.rotation, secondBullet.transform.localScale).GetComponent<TwinLeafSub>();
+        
+        secondBullet.gameObject.SetActive(true);
+        TwinLeafSub bullet = secondBullet.GetComponent<TwinLeafSub>();
         bullet.Init(BulletInfo);
     }
 

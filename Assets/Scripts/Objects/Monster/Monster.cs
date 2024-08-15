@@ -55,13 +55,14 @@ public class Monster : MonoBehaviour, IPooledObject
     { 
         // TODO add Delay logic
         this.gameObject.SetActive(false);
+        GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
         // ObjectPooler.Instance.WaitForDestroy(this, delay);
     }
 
     protected virtual void OnDestroy()
     {
         ObjectPoolManager.instance.ReturnToPool("Monster", monsterData.PrefabPath, this.gameObject);
-        GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
+        // GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
     }
 
     public virtual void RangeAttack()

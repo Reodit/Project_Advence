@@ -1,52 +1,42 @@
 using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 using Enums;
-using UnityEditor;
 
 public class Bullet : MonoBehaviour
 {
-    public PixelArsenalProjectileScript pixelArsenalProjectileScript { get; private set; }
-    private bool _isTriggered;
-    private float destroyDelay;
-    protected Vector3 initPosition;
+    public PixelArsenalProjectileScript PixelArsenalProjectileScript { get; private set; }
+    protected Vector3 InitPosition;
     public bool isFamiliarBullet;
-    private Action<Bullet> OnDestroyed;
+    private Action<Bullet> onDestroyed;
     [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
-
     [field: SerializeField] public int SkillIndex { get; private set; }
-
     public SkillType SkillType { get; private set; } = SkillType.Normal;
-
-    protected Transform myTrans;
-
-    protected virtual void Awake()
-    {
-        myTrans = transform;
-    }
 
     protected virtual void Start()
     {
-        initPosition = transform.position;
-        _isTriggered = false;
-        destroyDelay = 0.5f;
-        pixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
-    }
-
-    protected virtual void OnDestroy()
-    {
-        
+        InitPosition = transform.position;
+        PixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
 
     public virtual void Init(BulletInfo bulletInfo, Action<Bullet> destroyCallback, int skillIndex)
     {
         this.SkillIndex = skillIndex;
         BulletInfo = bulletInfo;
-        OnDestroyed = destroyCallback;
+        onDestroyed = destroyCallback;
     }
 
-
+    public void UpdateBulletPosition()
+    {
+        Vector2 newPosition = transform.position + transform.right * (BulletInfo.speed * Time.deltaTime);
+        transform.position = newPosition;
+        
+        if (Vector3.Distance(InitPosition, transform.position) >= BulletInfo.maxDistance)
+        {
+            RemoveBullet();
+        }
+    }
+    
     public void SetSkillIndex(int skillIndex)
     {
         SkillIndex = skillIndex;
@@ -57,25 +47,15 @@ public class Bullet : MonoBehaviour
         BulletInfo = bulletInfo;
     }
 
-    public void TriggerDestruction()
+    public void RemoveBullet()
     {
-        if (!_isTriggered)
-        {
-            _isTriggered = true;
-            ObjectPoolManager.instance.ReturnToPool("Bullet",
-                BulletInfo.bulletPrefabPath, this.gameObject);
-        }
+        ObjectPoolManager.instance.ReturnToPool("Bullet",
+            BulletInfo.bulletPrefabPath, this.gameObject);
     }
     
     protected virtual void Update()
     {
-        Vector2 newPosition = transform.position + transform.right * (BulletInfo.speed * Time.deltaTime);
-        transform.position = newPosition;
-        
-        if (Vector3.Distance(initPosition, transform.position) >= BulletInfo.maxDistance)
-        {
-            TriggerDestruction();
-        }
+        UpdateBulletPosition();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -87,12 +67,12 @@ public class Bullet : MonoBehaviour
     {
         if (monster)
         {
-            pixelArsenalProjectileScript.OnCol();
+            PixelArsenalProjectileScript.OnCol();
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
 
             // TODO 몬스터 데미지 계산 통일필요
             ApplyDamage(monster);
-            TriggerDestruction();
+            RemoveBullet();
         }
     }
 
@@ -108,35 +88,5 @@ public class Bullet : MonoBehaviour
     public virtual void HitPlayer(Monster monster, PlayerMove player)
     {
 
-    }
-    
-    public void Resize(float amount)
-    {
-        Vector3 scale = myTrans.localScale;
-        scale += scale * amount;
-        myTrans.localScale = scale;
-    }
-
-    public void SetSkillType(SkillType skillType)
-    {
-        SkillType = SkillType;
-    }
-
-    public void OnObjectInstantiate()
-    {
-    }
-
-    public void OnObjectSpawn()
-    {
-    }
-
-    public void OnObjectReturn()
-    {
-        _isTriggered = false;
-        OnDestroyed?.Invoke(this);
-    }
-
-    public void OnObjectDestroy()
-    {
     }
 }

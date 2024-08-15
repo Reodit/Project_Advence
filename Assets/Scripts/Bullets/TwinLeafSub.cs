@@ -7,11 +7,7 @@ public class TwinLeafSub : Bullet
 {
     protected override void Start()
     {
-        initPosition = transform.position;
-    }
-
-    protected override void OnDestroy()
-    {
+        InitPosition = transform.position;
     }
 
     public void Init(BulletInfo bulletInfo)

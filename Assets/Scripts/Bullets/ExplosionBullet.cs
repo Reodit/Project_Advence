@@ -42,13 +42,13 @@ public class ExplosionBullet : Bullet
         {
             EffectUtility.Instance.FlashHitColor(monster.spriteRenderers, monster.hitColor, monster.hitDuration);
             ApplyDamage(monster);
-            TriggerDestruction();
+            RemoveBullet();
         }
     }
 
     private Collider2D[] GetCollidersFromCircle(Vector2 explosionPos)
     {
-        float radius = impactParticle.GetComponent<CircleCollider2D>().radius * impactParticle.transform.localScale.x;
+        float radius = impactParticle.transform.parent.GetComponent<CircleCollider2D>().radius * impactParticle.transform.localScale.x;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionPos, radius);
         return colliders;
     }

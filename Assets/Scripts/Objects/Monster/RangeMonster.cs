@@ -8,7 +8,7 @@ public class RangeMonster : Monster
     private string _monsterMeleeAttackCoolTimeID;
     private string _monsterRangeAttackCoolTimeID;
     [SerializeField] private Transform bulletStartPoint;
-    private Bullet monsterBullet;
+    [SerializeField] private GameObject monsterBullet;
     protected override void Start()
     {
         base.Start();
@@ -75,13 +75,14 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        // Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", 
-        //     monsterBullet.BulletInfo.bulletPrefabPath, 
-        //     transform.position, 
-        //     Quaternion.identity, 
-        //     transform.localScale).GetComponent<Bullet>();
-        // // TODO Init이 늦게나옴
-        // bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
+        
+        Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("MonsterBullet", 
+            monsterBullet.BulletInfo.bulletPrefabPath, 
+            transform.position, 
+            Quaternion.identity, 
+            transform.localScale).GetComponent<Bullet>();
+        // TODO Init이 늦게나옴
+        bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
 

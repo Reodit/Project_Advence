@@ -72,11 +72,11 @@ public class CollisionManager : MonoBehaviour
 
     public void ExplodeFromCollider(Bullet bullet, List<Collider2D> colliders)
     {
-        foreach (var col in colliders)
+        for(int i = 0; i < colliders.Count; i++)
         {
             if (bullet.tag == "PlayerProjectile")
             {
-                if (col.TryGetComponent(out Monster monster))
+                if (colliders[i].TryGetComponent(out Monster monster))
                 {
                     bullet.HitMonster(monster);
                 }

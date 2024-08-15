@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SOSBullet : Bullet
 {
-    [SerializeField] private Bullet subBullet;
+    [SerializeField] private GameObject subBullet;
 
     [SerializeField] private float intervalPerBullet = 3f;
 
@@ -13,9 +13,9 @@ public class SOSBullet : Bullet
 
     protected override void Start()
     {
-        initPosition = transform.position;
-        initPosition.x = initPosX;
-        transform.position = initPosition;
+        InitPosition = transform.position;
+        InitPosition.x = initPosX;
+        transform.position = InitPosition;
         base.Start();
         SpawnSubBullets();
     }
@@ -28,10 +28,10 @@ public class SOSBullet : Bullet
 
     private void SpawnSubBullet(float interval)
     {
-        Vector2 afterPos = initPosition;
+        Vector2 afterPos = InitPosition;
+        subBullet.SetActive(true);
+        Bullet bullet = subBullet.GetComponent<Bullet>();
         afterPos.y += interval;
-        Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("Bullet", subBullet.BulletInfo.bulletPrefabPath, subBullet.transform.position,
-            subBullet.transform.rotation, subBullet.transform.localScale).GetComponent<Bullet>();
         bullet.Init(BulletInfo, null, SkillIndex);
     }
 }

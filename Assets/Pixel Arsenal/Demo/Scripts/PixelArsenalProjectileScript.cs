@@ -4,39 +4,60 @@ using System.Collections;
 
 public class PixelArsenalProjectileScript : MonoBehaviour
 {
-    public ParticleSystem impactParticle;
-    public ParticleSystem projectileParticle;
-    public ParticleSystem muzzleParticle;
-    public ParticleSystem[] trailParticles;
+    public GameObject impactParticle;
+    public GameObject projectileParticle;
+    public GameObject muzzleParticle;
+    public GameObject[] trailParticles;
     [HideInInspector]
     public Vector3 impactNormal; //Used to rotate impactparticle.
 
     void Start()
     {
-        projectileParticle.gameObject.SetActive(true);
+	    if (projectileParticle)
+	    {
+		    projectileParticle.SetActive(true);
+	    }
 		
         if (muzzleParticle)
 		{
-			muzzleParticle.gameObject.SetActive(true);
-			Destroy(muzzleParticle.gameObject, 1.5f); // Lifetime of muzzle effect.
+			muzzleParticle.SetActive(true);
+			if (gameObject.activeInHierarchy)
+			{
+				StartCoroutine(DisableAfterTime(muzzleParticle, 1.5f));  // Lifetime of muzzle effect.
+			}
 		}
     }
     
     public void OnCol()
     {
-        impactParticle.gameObject.SetActive(true);
-        Destroy(impactParticle, 3f);
+	    if (impactParticle)
+	    {
+		    impactParticle.SetActive(true);
+		    if (gameObject.activeInHierarchy)
+		    {
+			    StartCoroutine(DisableAfterTime(impactParticle, 3f));   
+		    }
+        }
 
 	    for (int i = 1; i < trailParticles.Length; i++)
 	    {
-		    ParticleSystem trail = trailParticles[i];
+		    ParticleSystem trail = trailParticles[i].GetComponent<ParticleSystem>();
 		
 		    if (trail.gameObject.name.Contains("Trail"))
 		    {
 			    // TODO What this code??
 			    trail.transform.SetParent(null);
-                Destroy(trail, 2f);
+			    if (gameObject.activeInHierarchy)
+			    {
+				    StartCoroutine(DisableAfterTime(trail.gameObject, 2f));
+			    }
 		    }
 	    }
+    }
+    
+    private IEnumerator DisableAfterTime(GameObject obj, float delay)
+    {
+	    yield return new WaitForSeconds(delay);
+	    obj.SetActive(false); // 오브젝트 비활성화
     }
 }

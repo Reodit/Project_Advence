@@ -266,7 +266,6 @@ public class MonsterTable : IBaseData
     public int Gold;
     public int Score;
     public string PrefabPath;
-    public string SkillPrefabPath;
 
     public void InitializeFromTableData(DataRow row)
     {
@@ -280,7 +279,6 @@ public class MonsterTable : IBaseData
         this.Gold = Convert.ToInt32(row["Gold"]);
         this.Score = Convert.ToInt32(row["Score"]);
         this.PrefabPath = row["PrefabPath"].ToString();
-        this.SkillPrefabPath = row["SkillPath"].ToString();
     }
 }
 

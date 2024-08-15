@@ -17,8 +17,8 @@ public class IceArrow : Bullet
         }
         else
         {
-            pixelArsenalProjectileScript.OnCol();
-            TriggerDestruction();
+            PixelArsenalProjectileScript.OnCol();
+            RemoveBullet();
         }
 
         

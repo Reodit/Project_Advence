@@ -5,9 +5,8 @@ using UnityEngine;
 using Datas;
 using Enums;
 
-public class SkillManager : MonoBehaviour
+public class SkillManager : Singleton<SkillManager>
 {
-    public static SkillManager instance;
     public event Action<SkillTable> OnAddSkill;
     public event Action<int, SkillEnchantTable> OnAddEnchant;
     
@@ -15,9 +14,14 @@ public class SkillManager : MonoBehaviour
     public event Action<SkillTable> OnAddSkillFamiliar;
     public event Action<int, SkillEnchantTable> OnAddEnchantFamiliar;
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        
     }
 
     public void AddPlayerSkill(SkillTable skill)
@@ -32,11 +36,11 @@ public class SkillManager : MonoBehaviour
 
         if (isFamiliar)
         {
-            OnAddSkillFamiliar.Invoke(skill);
+            OnAddSkillFamiliar!.Invoke(skill);
         }
         else
         {
-            OnAddSkill.Invoke(skill);   
+            OnAddSkill!.Invoke(skill);   
         } 
     }
 
@@ -65,11 +69,11 @@ public class SkillManager : MonoBehaviour
         
         if (isFamiliar)
         {
-            OnAddEnchantFamiliar.Invoke(skillIndex, skillEnchant);
+            OnAddEnchantFamiliar!.Invoke(skillIndex, skillEnchant);
         }
         else
         {
-            OnAddEnchant.Invoke(skillIndex, skillEnchant);
+            OnAddEnchant!.Invoke(skillIndex, skillEnchant);
         }
     }
     

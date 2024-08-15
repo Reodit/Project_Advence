@@ -122,20 +122,6 @@ MonoBehaviour:
     type: 0
     allowSkillEnchantKey: b0360000b1360000b2360000b3360000b4360000b5360000b6360000
     criticalDamageRate: 2
-  - index: 10009
-    name: "\uC6CC\uD130\uBC8C\uB8EC"
-    description: "\uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uBC94\uC704\uC5D0 \uACF5\uACA9\uC744
-      \uAC00\uD569\uB2C8\uB2E4."
-    icon: SPUM/0_Flat/Icon_Flat__31
-    skillDamageRate: 2
-    skillSpeedRate: 0.5
-    range: 12
-    projectileSpeed: 1
-    projectileSize: 1
-    prefabPath: Skills/WaterBalloon
-    type: 1
-    allowSkillEnchantKey: b0360000b1360000b3360000b6360000
-    criticalDamageRate: 1.5
   - index: 10010
     name: SOS
     description: "3\uAC1C\uC758 \uD22C\uC0AC\uCCB4\uAC00 \uC77C\uC815 \uC2DC\uAC04\uB9C8\uB2E4

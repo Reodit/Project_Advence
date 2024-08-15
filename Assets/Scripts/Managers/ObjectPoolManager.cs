@@ -2,22 +2,21 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System;
 using System.Collections.Generic;
-using UnityEditor.iOS;
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     protected override void Awake()
     {
-        _poolDictionary = new Dictionary<string, Dictionary<string, IObjectPool<GameObject>>>();
+        _poolDictionary = new Dictionary<string, Dictionary<string, ObjectPool<GameObject>>>();
     }
 
-    private Dictionary<string, Dictionary<string, IObjectPool<GameObject>>> _poolDictionary;
+    private Dictionary<string, Dictionary<string, ObjectPool<GameObject>>> _poolDictionary;
 
     public void CreatePool(string poolName, List<string> prefabPaths, int initialSize = 10, int maxSize = 100)
     {
         if (!_poolDictionary.ContainsKey(poolName))
         {
-            _poolDictionary[poolName] = new Dictionary<string, IObjectPool<GameObject>>();
+            _poolDictionary[poolName] = new Dictionary<string, ObjectPool<GameObject>>();
         }
 
         foreach (var prefabPath in prefabPaths)
@@ -28,7 +27,6 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
                     createFunc: () =>
                     {
                         GameObject obj = Instantiate(Resources.Load<GameObject>(prefabPath), this.transform);
-                        obj.SetActive(false);
                         return obj;
                     },
                     defaultCapacity: initialSize,
@@ -65,7 +63,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         }
 
         GameObject objectToSpawn = _poolDictionary[poolName][prefabPath].Get();
-        
+
         if (parent == null)
         {
             objectToSpawn.transform.position = position;
@@ -87,12 +85,18 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public void ReturnToPool(string poolName, string prefabPath, GameObject obj)
     {
+        if (!obj.activeInHierarchy)
+        {
+            Debug.LogWarning($"Object {obj.name} is already released to the pool.");
+            return;
+        }
+        
         if (!_poolDictionary.ContainsKey(poolName) || !_poolDictionary[poolName].ContainsKey(prefabPath))
         {
             Debug.LogWarning($"Pool with tag {poolName} and prefab {prefabPath} doesn't exist.");
             return;
         }
-        
+
         obj.SetActive(false);
         _poolDictionary[poolName][prefabPath].Release(obj);
     }
