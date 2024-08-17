@@ -8,13 +8,10 @@ public class GameManager : Singleton<GameManager>
 {
     public Camera mainCamera;
     public Transform characterSpawnPoint;
-    // public MoveArea MoveArea;
     
     public PlayerMove PlayerMove { get; private set; }
-    // public MonsterSpawner MonsterSpawner { get; private set; }
-        
-    [Header("Stage & Phase")]
-
+    [Header("Stage & Phase")] 
+    public GameObject[] BossPrefabs;
 
     // TODO : move to input manager
     [Header("Input")] 

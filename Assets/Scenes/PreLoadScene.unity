@@ -431,6 +431,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 936833026}
   characterSpawnPoint: {fileID: 0}
+  BossPrefabs:
+  - {fileID: 5320058650395285373, guid: a5c633584a8acbe46834b43c3a5f167a, type: 3}
+  - {fileID: 420212711405917514, guid: d6bcc7a7649a18548891463ad309d8b0, type: 3}
+  - {fileID: 217741251296580468, guid: 3da6f27b2c0cbc244afec32dec44b82b, type: 3}
   fixedJoystick: {fileID: 0}
 --- !u!4 &443474546
 Transform:

@@ -19,6 +19,7 @@ MonoBehaviour:
     MaxHP: 1200
     Attack: 100
     Defence: 10
+    RangeAttack: 100
     EXP: 10
     Gold: 10
     Score: 10
@@ -29,6 +30,7 @@ MonoBehaviour:
     MaxHP: 1200
     Attack: 100
     Defence: 10
+    RangeAttack: 100
     EXP: 10
     Gold: 10
     Score: 10
@@ -39,6 +41,7 @@ MonoBehaviour:
     MaxHP: 1200
     Attack: 100
     Defence: 10
+    RangeAttack: 100
     EXP: 10
     Gold: 10
     Score: 10
@@ -49,6 +52,7 @@ MonoBehaviour:
     MaxHP: 0
     Attack: 100
     Defence: 0
+    RangeAttack: 0
     EXP: 0
     Gold: 0
     Score: 0
@@ -59,6 +63,7 @@ MonoBehaviour:
     MaxHP: 0
     Attack: 100
     Defence: 0
+    RangeAttack: 0
     EXP: 0
     Gold: 0
     Score: 0
@@ -69,6 +74,7 @@ MonoBehaviour:
     MaxHP: 30000
     Attack: 200
     Defence: 50
+    RangeAttack: 200
     EXP: 100
     Gold: 100
     Score: 100

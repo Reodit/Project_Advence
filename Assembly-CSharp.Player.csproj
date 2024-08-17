@@ -83,6 +83,7 @@
     <Compile Include="Assets/Scripts/UI/UIAnimations.cs" />
     <Compile Include="Assets/Scripts/Managers/TimeManager.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_Button.cs" />
+    <Compile Include="Assets/Scripts/Bullets/MonsterBullet.cs" />
     <Compile Include="Assets/Scripts/Managers/MonsterObjectPool.cs" />
     <Compile Include="Assets/Scripts/UI/MainCanvas.cs" />
     <Compile Include="Assets/Scripts/Bullets/BulletObjectPooler.cs" />

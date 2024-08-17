@@ -1,3 +1,4 @@
+using System;
 using FSM;
 using Managers;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class RangeMonster : Monster
     private string _monsterMeleeAttackCoolTimeID;
     private string _monsterRangeAttackCoolTimeID;
     [SerializeField] private Transform bulletStartPoint;
-    [SerializeField] private GameObject monsterBullet;
+    [SerializeField] private GameObject monsterBulletPrefab;
     protected override void Start()
     {
         base.Start();
@@ -16,9 +17,6 @@ public class RangeMonster : Monster
         _monsterRangeAttackCoolTimeID = "MonsterRangeAttack_" + gameObject.GetInstanceID();
         TimeManager.Instance.RegisterCoolTime(_monsterMeleeAttackCoolTimeID, triggerCooldown);
         TimeManager.Instance.RegisterCoolTime(_monsterRangeAttackCoolTimeID, 2f);
-        
-        // TODO Monster Bullet 처리 어떻게 할건지 고민해야함
-        // monsterBullet.Init(new BulletInfo("bb", 10f, 3f, 15f, -5f), null, 10);
     }
     protected override void InitializeFsm()
     {
@@ -75,14 +73,8 @@ public class RangeMonster : Monster
     
     public void InstantiateProjectile()
     {
-        
-        Bullet bullet = ObjectPoolManager.instance.SpawnFromPool("MonsterBullet", 
-            monsterBullet.BulletInfo.bulletPrefabPath, 
-            transform.position, 
-            Quaternion.identity, 
-            transform.localScale).GetComponent<Bullet>();
-        // TODO Init이 늦게나옴
-        bullet.Init(monsterBullet.BulletInfo, null, monsterBullet.SkillIndex);
+        var monsterBullet = Instantiate(monsterBulletPrefab, this.transform);
+        monsterBullet.GetComponent<MonsterBullet>().Init(new BulletInfo(String.Empty, monsterData.RangeAttack, 3f, 15f, -5f), null, 0);
         TimeManager.Instance.Use(_monsterRangeAttackCoolTimeID);
     }
 

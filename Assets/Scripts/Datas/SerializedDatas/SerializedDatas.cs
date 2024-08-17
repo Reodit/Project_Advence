@@ -262,6 +262,7 @@ public class MonsterTable : IBaseData
     public float MaxHP;
     public float Attack;
     public float Defence;
+    public float RangeAttack;
     public int EXP;
     public int Gold;
     public int Score;
@@ -274,6 +275,7 @@ public class MonsterTable : IBaseData
         this.Type = (MonsterType)Enum.Parse(typeof(MonsterType), row["MonsterType"].ToString());
         this.MaxHP = Convert.ToInt32(row["MaxHP"]);
         this.Attack = Convert.ToInt32(row["Attack"]);
+        this.RangeAttack = Convert.ToInt32(row["RangeAttack"]);
         this.Defence = Convert.ToInt32(row["Defence"]);
         this.EXP = Convert.ToInt32(row["EXP"]);
         this.Gold = Convert.ToInt32(row["Gold"]);

@@ -17,7 +17,7 @@ public class StageManager : Singleton<StageManager>
     public float outOfScreenXPos = -20f;
     public Phase currentPhase;
     [SerializeField] private float targetXPos;
-    [SerializeField] private float phaseTime = 360; 
+    [SerializeField] private float phaseTime = 30; 
     public int totalMonsterCount;
     public int phaseCountInCurrentStage;
     
@@ -164,19 +164,18 @@ public class StageManager : Singleton<StageManager>
     }
 
 
-    /*public void MoveNextPhase()
+    public void MoveNextPhase()
     {
-        isbossing = false;
+        _isbossing = false;
         
-        if (phases.Count > 1)
+        if (currentPhase.phaseData.phaseNumber < 
+            StageDictionary[currentPhase.phaseData.stage].Max(phase => phase.phaseData.phaseNumber))
         {
-            phases.Remove(currentPhase);
-            currentPhase = phases[0];
-            GameManager.instance.currentStage = currentPhase.phaseData.stage;
-            ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
-            GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
-                phase.phaseData.stage == GameManager.instance.currentStage);
-            GameManager.instance.currentPhaseNumber = phases[GameManager.instance.currentStage].phaseData.phaseNumber;
+            currentPhase = StageDictionary[currentPhase.phaseData.stage][currentPhase.phaseData.phaseNumber + 1];
+            // ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
+            // GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
+            //     phase.phaseData.stage == GameManager.instance.currentStage);
+            // GameManager.instance.currentPhaseNumber = phases[GameManager.instance.currentStage].phaseData.phaseNumber;
         }
 
         else
@@ -185,8 +184,9 @@ public class StageManager : Singleton<StageManager>
             // TODO 다음 스테이지 이동
             Debug.Log("Stage Clear");
             GameManager.instance.PauseGame();
+            LoadStage(currentPhase.phaseData.stage + 1);
         }
-    }*/
+    }
     
     void MonsterSpawn(PatternTable pattern)
     {
@@ -198,7 +198,7 @@ public class StageManager : Singleton<StageManager>
             {
                 var value = fieldInfo.GetValue(pattern);
 
-                if (value != null && !isbossing)
+                if (value != null && !_isbossing)
                 {
                     int monsterID = (int)value;
                     if (monsterID == 0)
@@ -218,18 +218,19 @@ public class StageManager : Singleton<StageManager>
         _currentSpace += pattern.patternInterval;
     }
 
-    private bool isbossing;
+    private bool _isbossing;
     
-    IEnumerator MoveBossPhase()
+    IEnumerator MoveBossPhase(int bossNumber)
      {
-         //isbossing = true;
-         //var bossMonster = Instantiate(GameManager.instance.bossPrefab);
-         //bossMonster.transform.position = new Vector3(7f, 2f, 0f);
+         _isbossing = true;
+         var stage = currentPhase.phaseData.stage;
+         var bossMonster = Instantiate(GameManager.instance.BossPrefabs[bossNumber]);
+         bossMonster.transform.position = new Vector3(7f, 2f, 0f);
 
-         //var boss = bossMonster.GetComponent<Monster>() as S1P1BossMonster;
-         //yield return new WaitUntil(() => boss.CurrentHp <= 0);
-         
-         //MoveNextPhase();
+         var boss = bossMonster.GetComponent<Monster>();
+         yield return new WaitForSeconds(0.1f);
+         yield return new WaitUntil(() => boss.CurrentHp <= 0);
+         MoveNextPhase();
         
         yield return null;
     }
@@ -241,7 +242,7 @@ public class StageManager : Singleton<StageManager>
             return;
         }
         
-        if (isbossing)
+        if (_isbossing)
         {
             currentPhase.remainTime = 0f;
         }
@@ -251,9 +252,9 @@ public class StageManager : Singleton<StageManager>
             currentPhase.remainTime -= Time.deltaTime;
         }
         
-        if (currentPhase.remainTime <= 0 && !isbossing)
+        if (currentPhase.remainTime <= 0 && !_isbossing)
         {
-            StartCoroutine(MoveBossPhase());            
+            StartCoroutine(MoveBossPhase(currentPhase.phaseData.index-50));            
             totalMonsterCount = 0;
         }
 

@@ -778,6 +778,7 @@ MonoBehaviour:
     MaxHP: 0
     Attack: 0
     Defence: 0
+    RangeAttack: 0
     EXP: 0
     Gold: 0
     Score: 0
@@ -789,8 +790,7 @@ MonoBehaviour:
   dieDelay: 0.1
   triggerCooldown: 0.5
   bulletStartPoint: {fileID: 1911739127390409677}
-  monsterBullet: {fileID: 7997688019381865445, guid: 35841c0912f82de4db1bcdaeb6956f67,
-    type: 3}
+  monsterBulletPrefab: {fileID: 139214, guid: 5d7b26551d2af3544a833e458ba39b2e, type: 3}
 --- !u!1 &2356185236507630846
 GameObject:
   m_ObjectHideFlags: 0

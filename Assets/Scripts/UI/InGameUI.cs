@@ -42,6 +42,7 @@ public class InGameUI : UIBase
         playerIcon.anchoredPosition = new Vector2(xValue, playerIcon.anchoredPosition.y);
         
         // 페이즈 진척도 개선
+        // TODO LIST 
         phaseBgList[StageManager.instance.phaseCountInCurrentStage - StageManager.instance.currentPhase.phaseData.phaseNumber].fillAmount =
             progress;
     }

@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
         BulletInfo = bulletInfo;
     }
 
-    public void RemoveBullet()
+    public virtual void RemoveBullet()
     {
         ObjectPoolManager.instance.ReturnToPool("Bullet",
             BulletInfo.bulletPrefabPath, this.gameObject);
