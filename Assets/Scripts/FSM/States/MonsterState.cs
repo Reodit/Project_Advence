@@ -119,14 +119,16 @@ public class MonsterDie : IState<Monster>
         var currentAnimatorState = owner.Animator.GetCurrentAnimatorStateInfo(0);
         if (currentAnimatorState.IsName("Die") && currentAnimatorState.normalizedTime > 1)
         {
-            owner.StateMachine.ChangeState(new NullState<Monster>());
+            this.RequiresUpdate = false;
+            owner.Die();
         }
     }
 
     public void Exit(Monster owner)
     {
         // Debug.Log("MonsterDie.Exit");
-        owner.Die();
+        Debug.Log("MonsterDie");
+        // owner.Die();
     }
 
     public bool RequiresUpdate { get; set; }
@@ -149,6 +151,14 @@ public class S1P1BossMonsterIdle : IState<Monster>
 
     public void Execute(Monster owner)
     {
+        if (owner.CurrentHp <= 0)
+        {
+            owner.StateMachine.SetBool("isDie", true);
+            owner.Animator.SetBool("isDie", true);
+            owner.GetComponent<Collider2D>().isTrigger = false;
+        }
+        
+        
         float randomValue = Random.Range(0f, 1f) * 100;
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
@@ -161,8 +171,6 @@ public class S1P1BossMonsterIdle : IState<Monster>
         foreach (var stateSwitch in s1P1BossMonster.stateSwitchValue)
         {
             accumulatedProbability += stateSwitch.value;
-
-            Debug.Log($"{accumulatedProbability},, {randomValue}");
             if (randomValue <= accumulatedProbability)
             {
                 switch (stateSwitch.bossState)
@@ -213,6 +221,13 @@ public class S1P1BossMonsterPlayerChase : IState<Monster>
 
     public void Execute(Monster owner)
     {
+        if (owner.CurrentHp <= 0)
+        {
+            owner.StateMachine.SetBool("isDie", true);
+            owner.Animator.SetBool("isDie", true);
+            owner.GetComponent<Collider2D>().isTrigger = false;
+        }
+        
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
         {
@@ -265,6 +280,14 @@ public class S1P1BossMonsterMoveAndRangeAttack : IState<Monster>
 
     public void Execute(Monster owner)
     {
+        if (owner.CurrentHp <= 0)
+        {
+            owner.StateMachine.SetBool("isDie", true);
+            owner.Animator.SetBool("isDie", true);
+            owner.GetComponent<Collider2D>().isTrigger = false;
+        }
+        
+        
         var s1P1BossMonster = owner as S1P1BossMonster;
         if (s1P1BossMonster == null)
         {

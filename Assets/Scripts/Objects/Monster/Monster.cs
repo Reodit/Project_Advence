@@ -5,7 +5,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Monster : MonoBehaviour, IPooledObject
+public class Monster : MonoBehaviour
 {
     // TODO need refactor this 
     [field: SerializeField] public int DataKey { get; private set; }
@@ -24,12 +24,16 @@ public class Monster : MonoBehaviour, IPooledObject
     private string _monsterAttackCoolTimeID;
     public StateMachine<Monster> StateMachine { get; protected set; }
 
+    public delegate void MonsterKilledHandler(Monster monster);
+    public event MonsterKilledHandler OnDie;
+    
     protected virtual void Start()
     {
         monsterData = Datas.GameData.DTMonsterData[DataKey];
         CurrentHp = monsterData.MaxHP;
         spriteRenderers = new List<SpriteRenderer>();
         spriteRenderers.AddRange(GetComponentsInChildren<SpriteRenderer>());
+        OnDie += StageManager.instance.OnMonsterDie;
         InitializeFsm();
     }
     
@@ -53,16 +57,17 @@ public class Monster : MonoBehaviour, IPooledObject
     
     public void Die(float delay = 0f)
     { 
-        // TODO add Delay logic
+        // TODO add Delay logic 지연 사망 기능 필요한가;;?
+        // TODO 보스몬스터 클리어 시 무한 DIE 함수 불리는거 확인 필요
         this.gameObject.SetActive(false);
-        GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
-        // ObjectPooler.Instance.WaitForDestroy(this, delay);
+        OnDie?.Invoke(this);
+        Destroy(this.gameObject);
     }
 
+    // TODO 몬스터는 풀링하지 않는 걸로..
     protected virtual void OnDestroy()
     {
-        ObjectPoolManager.instance.ReturnToPool("Monster", monsterData.PrefabPath, this.gameObject);
-        // GameManager.instance.PlayerMove.currentExp += monsterData.EXP;
+        // ObjectPoolManager.instance.ReturnToPool("Monster", monsterData.PrefabPath, this.gameObject);
     }
 
     public virtual void RangeAttack()
@@ -132,21 +137,5 @@ public class Monster : MonoBehaviour, IPooledObject
         transform.position += (Vector3)(direction * (moveSpeed * Time.deltaTime));
 
         return false; 
-    }
-
-    public void OnObjectInstantiate()
-    {
-    }
-
-    public void OnObjectSpawn()
-    {
-    }
-
-    public void OnObjectReturn()
-    {
-    }
-
-    public void OnObjectDestroy()
-    {
     }
 }

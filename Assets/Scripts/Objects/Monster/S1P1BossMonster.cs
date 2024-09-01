@@ -38,7 +38,7 @@ public class S1P1BossMonster : Monster
     [Header("Attack Pattern Values")]
     [SerializeField] private float triggerCooldown = 0.5f;
     [SerializeField] private Transform bulletStartPoint;
-    [SerializeField] private Bullet monsterBullet;
+    [SerializeField] private GameObject monsterBullet;
     protected override void Start()
     {
         base.Start();
@@ -56,12 +56,20 @@ public class S1P1BossMonster : Monster
         var chaseAndMeleeAttack = StateMachine.CreateState(new S1P1BossMonsterPlayerChase("S1P1BossMonsterChaseAndMeleeAttack", true));
         var moveAndRangeAttack = StateMachine.CreateState(new S1P1BossMonsterMoveAndRangeAttack("S1P1BossMonsterMoveAndRangeAttack", true));
         var die = StateMachine.CreateState(new MonsterDie("MonsterDie", true));
-
+        
+        var idleToDieTransition = StateMachine.CreateTransition("MonsterIdleToDie", idle, die);
+        var dieToIdleTransition = StateMachine.CreateTransition("MonsterDieToIdle", die, idle);
+            
         StateMachine.CurrentState = idle;
         
+        TransitionParameter dieParam = new TransitionParameter("isDie", ParameterType.Bool);        
         // Die
-        StateMachine.AddGlobalCondition(() => this.CurrentHp <= 0, () => {StateMachine.ChangeState(die);});
-
+        // StateMachine.AddGlobalCondition(() => this.CurrentHp <= 0, () => {StateMachine.ChangeState(die);});
+        StateMachine.AddTransitionCondition(idleToDieTransition, 
+            dieParam, targetValue => (bool)targetValue);
+        StateMachine.AddTransitionCondition(dieToIdleTransition, 
+            dieParam, targetValue => !(bool)targetValue);
+        
         StateMachineManager.Instance.Register(gameObject.GetInstanceID(), StateMachine);
     }
     
@@ -151,7 +159,8 @@ public class S1P1BossMonster : Monster
 
     public void InstantiateProjectile()
     {
-        Instantiate(monsterBullet, bulletStartPoint.position, quaternion.identity);
+        var instance= Instantiate(monsterBullet, bulletStartPoint.position, quaternion.identity, this.transform);
+        instance.GetComponent<MonsterBullet>().Init(new BulletInfo(String.Empty, monsterData.RangeAttack, 3f, 15f, -5f), null, 0);
         _currentRangeAttackCount++;
     }
     

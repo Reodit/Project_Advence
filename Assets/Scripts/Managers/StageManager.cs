@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using UnityEditor.iOS;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StageManager : Singleton<StageManager>
@@ -18,10 +20,14 @@ public class StageManager : Singleton<StageManager>
     public Phase currentPhase;
     [SerializeField] private float targetXPos;
     [SerializeField] private float phaseTime = 30; 
-    public int totalMonsterCount;
     public int phaseCountInCurrentStage;
     
-    
+    // Stage에서 저장해야 하는 변수들
+    // ex. 점수/획득 골드/총 몬스터 수?
+    public int totalMonsterCount;
+    public int goldCurrentStage { get; private set; }
+    public int scoreCurrentStage { get; private set; }
+
     public void Initialize()
     {
         // TODO 유저의 Unlock정보를 받아오기
@@ -77,12 +83,15 @@ public class StageManager : Singleton<StageManager>
     
     private void LoadUserUnLockStage()
     {
-        // Get Player Data and Get Current Stages;
-        GetPlayerData();
-        
-        // 
     }
 
+    public void OnMonsterDie(Monster monster)
+    {
+        goldCurrentStage += monster.monsterData.Gold;
+        scoreCurrentStage += monster.monsterData.Score;
+        GameManager.instance.PlayerMove.currentExp += monster.monsterData.EXP;
+    }
+    
     public void LoadStage(int stageNumber)
     {
         // TODO 유저가 선택한 페이즈의 1번으로 시작해야함. 그 전까지는 없어야함
@@ -90,31 +99,7 @@ public class StageManager : Singleton<StageManager>
         targetXPos = this.transform.position.x + currentPhase!.phaseData.firstPrintMonster;
         phaseCountInCurrentStage = StageDictionary[stageNumber].Count;
     }
-    
-    private void GetPlayerData()
-    {
-        
-    }
-    
-    // Stage start ==> normal ==> boss
 
-    private void MoveNextStage()
-    {
-        
-    }
-
-    
-    // GetStageDatas
-    private void GetCurrentStage()
-    {
-        
-    }
-    
-    private void GetCurrentPhase()
-    {
-        
-    }
-    
     PatternTable SelectPattern(Phase phase)
     {
         if (currentMonsterCount <= phase.phaseData.targetMonsterValue * 
@@ -164,14 +149,15 @@ public class StageManager : Singleton<StageManager>
     }
 
 
-    public void MoveNextPhase()
+    public IEnumerator MoveNextPhase()
     {
-        _isbossing = false;
+        _isBossPhase = false;
         
         if (currentPhase.phaseData.phaseNumber < 
             StageDictionary[currentPhase.phaseData.stage].Max(phase => phase.phaseData.phaseNumber))
         {
             currentPhase = StageDictionary[currentPhase.phaseData.stage][currentPhase.phaseData.phaseNumber + 1];
+            // image scrolling에서 업데이트 한번 쳐주기
             // ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
             // GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
             //     phase.phaseData.stage == GameManager.instance.currentStage);
@@ -180,13 +166,14 @@ public class StageManager : Singleton<StageManager>
 
         else
         {
-            // 마지막 스테이지에 대한 처리
             // TODO 다음 스테이지 이동
-            Debug.Log("Stage Clear");
-            GameManager.instance.PauseGame();
-            LoadStage(currentPhase.phaseData.stage + 1);
+            isStopSpawn = true;
+            PopupManager.instance.InstantiatePopUp("UIPrefabs/UI_Result_Clear");
+            yield return null;
         }
     }
+
+    public bool isStopSpawn;
     
     void MonsterSpawn(PatternTable pattern)
     {
@@ -198,7 +185,7 @@ public class StageManager : Singleton<StageManager>
             {
                 var value = fieldInfo.GetValue(pattern);
 
-                if (value != null && !_isbossing)
+                if (value != null && !_isBossPhase)
                 {
                     int monsterID = (int)value;
                     if (monsterID == 0)
@@ -218,19 +205,22 @@ public class StageManager : Singleton<StageManager>
         _currentSpace += pattern.patternInterval;
     }
 
-    private bool _isbossing;
+    private bool _isBossPhase;
     
+    // TODO 중간보스 일 경우 처리
     IEnumerator MoveBossPhase(int bossNumber)
      {
-         _isbossing = true;
+         _isBossPhase = true;
          var stage = currentPhase.phaseData.stage;
          var bossMonster = Instantiate(GameManager.instance.BossPrefabs[bossNumber]);
          bossMonster.transform.position = new Vector3(7f, 2f, 0f);
 
          var boss = bossMonster.GetComponent<Monster>();
+         // 비동기로 동작하면서 Start가 더 늦게 불리는 부분 하드코딩
          yield return new WaitForSeconds(0.1f);
          yield return new WaitUntil(() => boss.CurrentHp <= 0);
-         MoveNextPhase();
+         
+         yield return StartCoroutine(MoveNextPhase());
         
         yield return null;
     }
@@ -241,8 +231,13 @@ public class StageManager : Singleton<StageManager>
         {
             return;
         }
+
+        if (isStopSpawn)
+        {
+            return;
+        }
         
-        if (_isbossing)
+        if (_isBossPhase)
         {
             currentPhase.remainTime = 0f;
         }
@@ -252,7 +247,7 @@ public class StageManager : Singleton<StageManager>
             currentPhase.remainTime -= Time.deltaTime;
         }
         
-        if (currentPhase.remainTime <= 0 && !_isbossing)
+        if (currentPhase.remainTime <= 0 && !_isBossPhase)
         {
             StartCoroutine(MoveBossPhase(currentPhase.phaseData.index-50));            
             totalMonsterCount = 0;

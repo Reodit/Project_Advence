@@ -12,9 +12,11 @@ public class PopupManager : Singleton<PopupManager>
         GameObject popUpPrefab = Resources.Load<GameObject>(path);
         if (popUpPrefab != null)
         {
-            var popUpCanvas = Instantiate(popUpPrefab, this.transform).GetComponent<Canvas>();
+            var popUpInstance = Instantiate(popUpPrefab, this.transform);
+            var popUpCanvas = popUpInstance.GetComponent<Canvas>();
             popUpCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             popUpCanvas.worldCamera = uiCamera;
+            popupStack.Push(popUpInstance);
         }
         else
         {
@@ -48,6 +50,15 @@ public class PopupManager : Singleton<PopupManager>
         if (popupStack.Count > 0)
         {
             popupStack.Peek().SetActive(true);
+        }
+    }
+
+    public void ClearPopup()
+    {
+        for (int i = 0; i < popupStack.Count; i++)
+        {
+            var popup = popupStack.Pop();
+            Destroy(popup.gameObject);
         }
     }
 }

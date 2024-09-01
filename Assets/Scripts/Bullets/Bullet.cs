@@ -12,10 +12,9 @@ public class Bullet : MonoBehaviour
     [field: SerializeField] public BulletInfo BulletInfo { get; protected set; }
     [field: SerializeField] public int SkillIndex { get; private set; }
     public SkillType SkillType { get; private set; } = SkillType.Normal;
-
+    public Vector3 worldPosition;
     protected virtual void Start()
     {
-        InitPosition = transform.position;
         PixelArsenalProjectileScript = transform.GetComponent<PixelArsenalProjectileScript>();
     }
 
@@ -24,14 +23,16 @@ public class Bullet : MonoBehaviour
         this.SkillIndex = skillIndex;
         BulletInfo = bulletInfo;
         onDestroyed = destroyCallback;
+        InitPosition = transform.position;
+        worldPosition = transform.position;
     }
 
-    public void UpdateBulletPosition()
+    public virtual void UpdateBulletPosition()
     {
-        Vector2 newPosition = transform.position + transform.right * (BulletInfo.speed * Time.deltaTime);
-        transform.position = newPosition;
+        worldPosition += Vector3.right * (BulletInfo.speed * Time.deltaTime);
+        transform.position = worldPosition;
         
-        if (Vector3.Distance(InitPosition, transform.position) >= BulletInfo.maxDistance)
+        if (Vector3.Distance(InitPosition, worldPosition) >= BulletInfo.maxDistance)
         {
             RemoveBullet();
         }

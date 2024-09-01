@@ -31,7 +31,10 @@ public class PlayerMove : MonoBehaviour
         if (!isLevelUpOn)
             return;
 #endif
-        LevelUp();
+        if (!GameManager.instance.IsGamePaused)
+        {
+            LevelUp();
+        }
     }
 
     public void LevelUp()

@@ -15,7 +15,7 @@ MonoBehaviour:
   characterTableList:
   - characterName: "\uB8E8\uBE44"
     id: 1
-    attackDamage: 100
+    attackDamage: 1500
     attackSpeed: 1
     defence: 1
     moveSpeed: 4

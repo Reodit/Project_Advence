@@ -66,6 +66,7 @@
     <Compile Include="Assets/Scripts/Bullets/SOSBullet.cs" />
     <Compile Include="Assets/Scripts/FSM/TransitionCondition.cs" />
     <Compile Include="Assets/Scripts/UI/SafeArea.cs" />
+    <Compile Include="Assets/Scripts/UI/IngameResultUI.cs" />
     <Compile Include="Assets/Scripts/UI/DefaultDamageEffect.cs" />
     <Compile Include="Assets/SPUM/Script/SPUM_PreviewItem.cs" />
     <Compile Include="Assets/Scripts/Bullets/ParticlePoolObject.cs" />
