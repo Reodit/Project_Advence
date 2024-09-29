@@ -32,9 +32,9 @@ public class ImageScrolling : MonoBehaviour
 
     private void Start()
     {
-        if (StageManager.instance.StageDictionary != null)
+        if (StageManager.instance.stageDictionary != null)
         {
-            foreach (var stage in StageManager.instance.StageDictionary)
+            foreach (var stage in StageManager.instance.stageDictionary)
             {
                 foreach (var phase in stage.Value)
                 {

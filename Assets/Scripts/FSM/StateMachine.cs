@@ -63,7 +63,6 @@ namespace FSM
             throw new KeyNotFoundException($"No state matches the specified state name: {stateName}.");
         }
 
-        // state와 연결된 모든 transition도 함께 삭제합니다.. 
         public void RemoveState(string stateName)
         {
             if (!_states.TryGetValue(stateName, out var stateToRemove))
@@ -116,8 +115,6 @@ namespace FSM
             }
         }
         
-        // warning : 유니티 Update주기와 Co-Routine 주기가 맞지 않아서, 여전히 딜레이가 존재한다.
-        // ReSharper disable Unity.PerformanceAnalysis
         public void Update()
         {
             foreach (var globalCondition in _globalConditions)
@@ -141,11 +138,6 @@ namespace FSM
             }
         }
 
-        // 1. 모든 트랜지션을 순회한다.
-        // 2. CurrentState가 트랜지션의 startState 라면 해당 트랜지션을 검사한다.
-        // 3. 해당 트랜지션의 해당하는 파라미터를 모두 가져온다.
-        // 4. 파라미터들의 조건이 충족되었는지 검사한다.
-        // 5. 모두 충족되었다면 해당 트랜지션 리턴.
         private Transition<T> CheckTransitionConditions()
         {
             foreach (var transition in _transitions.Values)
@@ -315,13 +307,6 @@ namespace FSM
             return transitionCondition;
         }
         
-        /// <summary>
-        /// Transition for Trigger 
-        /// </summary>
-        /// <param name="transition"></param>
-        /// <param name="transitionParameter"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         public TransitionCondition AddTransitionCondition(Transition<T> transition, TransitionParameter transitionParameter)
         {
             if (transition == null)

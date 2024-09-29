@@ -16,7 +16,7 @@ public class StageSelectUI : MonoBehaviour
 
     private void Initialize()
     {
-        foreach (var stage in StageManager.instance.StageDictionary)
+        foreach (var stage in StageManager.instance.stageDictionary)
         {
             // TODO 유저 언락 데이터에 stage 클리어 여부 (int) / (bool) 남기고 unlock 해주기
             

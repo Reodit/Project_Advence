@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
-using UnityEditor.iOS;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
+
+// 스테이지 클리어 구현
+// Next stage load 구현
+// 로비로 왔을 떄 클리어 구현
 public class StageManager : Singleton<StageManager>
 {
     public int currentMonsterCount;
 
-    public Dictionary<int, List<Phase>> StageDictionary { get; private set; }
+    public Dictionary<int, List<Phase>> stageDictionary { get; private set; }
     private static float _currentSpace;
     private GameObject _monsterSpawnObject;
     private List<Transform> _spawnPoints;
@@ -47,19 +48,19 @@ public class StageManager : Singleton<StageManager>
         ObjectPoolManager.instance.CreatePool("Monster", monsterPrefabs, 100, 300);
         ObjectPoolManager.instance.CreatePool("Bullet", bulletPrefabs, 100, 300);
         
-        if (StageDictionary == null)
+        if (stageDictionary == null)
         {
-            StageDictionary = new Dictionary<int, List<Phase>>();
+            stageDictionary = new Dictionary<int, List<Phase>>();
             var phases = Datas.GameData.DTPhaseData.Values.Select(e => new Phase(e, phaseTime)).ToList();
 
             foreach (var phase in phases)
             {
-                if (!StageDictionary.ContainsKey(phase.phaseData.stage))
+                if (!stageDictionary.ContainsKey(phase.phaseData.stage))
                 {
-                    StageDictionary[phase.phaseData.stage] = new List<Phase>();
+                    stageDictionary[phase.phaseData.stage] = new List<Phase>();
                 }
 
-                StageDictionary[phase.phaseData.stage].Add(phase);
+                stageDictionary[phase.phaseData.stage].Add(phase);
             }
         }
 
@@ -81,6 +82,7 @@ public class StageManager : Singleton<StageManager>
         ObjectPoolManager.instance.ResetPools();
     }
     
+    
     private void LoadUserUnLockStage()
     {
     }
@@ -94,10 +96,10 @@ public class StageManager : Singleton<StageManager>
     
     public void LoadStage(int stageNumber)
     {
-        // TODO 유저가 선택한 페이즈의 1번으로 시작해야함. 그 전까지는 없어야함
-        currentPhase = StageDictionary[stageNumber][0];
+        currentPhase = stageDictionary[stageNumber][0];
         targetXPos = this.transform.position.x + currentPhase!.phaseData.firstPrintMonster;
-        phaseCountInCurrentStage = StageDictionary[stageNumber].Count;
+        phaseCountInCurrentStage = stageDictionary[stageNumber].Count;
+        
     }
 
     PatternTable SelectPattern(Phase phase)
@@ -154,9 +156,9 @@ public class StageManager : Singleton<StageManager>
         _isBossPhase = false;
         
         if (currentPhase.phaseData.phaseNumber < 
-            StageDictionary[currentPhase.phaseData.stage].Max(phase => phase.phaseData.phaseNumber))
+            stageDictionary[currentPhase.phaseData.stage].Max(phase => phase.phaseData.phaseNumber))
         {
-            currentPhase = StageDictionary[currentPhase.phaseData.stage][currentPhase.phaseData.phaseNumber + 1];
+            currentPhase = stageDictionary[currentPhase.phaseData.stage][currentPhase.phaseData.phaseNumber + 1];
             // image scrolling에서 업데이트 한번 쳐주기
             // ImageScrolling.Instance.scrollSpeed = currentPhase.phaseData.scrollSpeed;
             // GameManager.instance.phaseCountInCurrentStage = phases.Count(phase =>
